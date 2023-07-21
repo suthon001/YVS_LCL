@@ -1,0 +1,30 @@
+{
+  "id": "c80e25ac-8f80-4d65-85b9-211b292609b8",
+  "name": "Thai Localized",
+  "publisher": "Yokogawa Votiva Solutions Co., Ltd.",
+  "version": "22.0.0.0",
+  "brief": "",
+  "description": "Include ALL Localized",
+  "privacyStatement": "",
+  "EULA": "",
+  "help": "",
+  "url": "https://www.votivasoft.com/",
+  "logo": "./YVS-logo-01.jpg",
+  "dependencies": [],
+  "screenshots": [],
+  "platform": "1.0.0.0",
+  "application": "22.0.0.0",
+  "target": "Cloud",
+  "idRanges": [
+    {
+      "from": 80000,
+      "to": 81000
+    }
+  ],
+  "resourceExposurePolicy": {
+    "allowDebugging": true,
+    "allowDownloadingSource": false,
+    "includeSourceInSymbolFile": false
+  },
+  "runtime": "11.0"
+}
