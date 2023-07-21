@@ -1,0 +1,154 @@
+/// <summary>
+/// PageExtension Role Sales (ID 80093) extends Record Order Processor Role Center.
+/// </summary>
+pageextension 80093 "YVS Role Sales" extends "Order Processor Role Center"
+{
+    actions
+    {
+        addfirst(sections)
+        {
+            group("Localized")
+            {
+                Caption = 'Localized';
+                group("WHT Posting Group")
+                {
+                    Caption = 'VAT & WHT Posting Setup';
+                    action("WHT Business Posting Group")
+                    {
+                        Caption = 'WHT Business Posting Group';
+                        ApplicationArea = all;
+                        RunObject = page "YVS WHT Business Posting Group";
+                        ToolTip = 'Executes the WHT Business Posting Group action.';
+                    }
+                    action("WHT Product Posting Group")
+                    {
+                        Caption = 'WHT Product Posting Group';
+                        ApplicationArea = all;
+                        RunObject = page "YVS WHT Product Posting Group";
+                        ToolTip = 'Executes the WHT Product Posting Group action.';
+                    }
+                    action("WHT Posting Setup")
+                    {
+
+                        Caption = 'WHT Posting Setup';
+                        ApplicationArea = all;
+                        RunObject = page "YVS WHT Posting Setup";
+                        ToolTip = 'Executes the WHT Posting Setup action.';
+                    }
+                    action("VAT Bus. Posting Group")
+                    {
+                        Caption = 'VAT Business Posting Group';
+                        ApplicationArea = all;
+                        RunObject = page "VAT Business Posting Groups";
+                        ToolTip = 'Executes the VAT Business Posting Group action.';
+                    }
+                    action("VAT Prod. Posting Group")
+                    {
+                        Caption = 'VAT Product Posting Group';
+                        ApplicationArea = all;
+                        RunObject = page "VAT Product Posting Groups";
+                        ToolTip = 'Executes the VAT Product Posting Group action.';
+                    }
+                    action("VAT Posting Setup")
+                    {
+                        Caption = 'VAT Posting Setup';
+                        ApplicationArea = all;
+                        RunObject = page "VAT Posting Setup";
+                        ToolTip = 'Executes the VAT Posting Setup action.';
+                    }
+                }
+                group("Tax Report")
+                {
+                    Caption = 'Tax & WHT';
+                    action("Sale Vat")
+                    {
+                        Caption = 'Sale Vat';
+                        ApplicationArea = all;
+                        RunObject = page "YVS Sales Vat Lists";
+                        ToolTip = 'Executes the Sale Vat action.';
+                    }
+                    action("Purchase Vat")
+                    {
+                        Caption = 'Purchase Vat';
+                        ApplicationArea = all;
+                        RunObject = page "YVS Purchase Vat Lists";
+                        ToolTip = 'Executes the Purchase Vat action.';
+                    }
+                    action("WHT Certificate")
+                    {
+                        Caption = 'WHT Certificate';
+                        ApplicationArea = all;
+                        RunObject = page "YVS WHT Certificate List";
+                        ToolTip = 'Executes the WHT Certificate action.';
+                    }
+                    action("WHT03")
+                    {
+                        Caption = 'WHT03';
+                        ApplicationArea = all;
+                        RunObject = page "YVS WHT Lists";
+                        ToolTip = 'Executes the WHT03 action.';
+                    }
+                    action("WHT53")
+                    {
+                        Caption = 'WHT53';
+                        ApplicationArea = all;
+                        RunObject = page "YVS WHT53 Lists";
+                        ToolTip = 'Executes the WHT53 action.';
+                    }
+                }
+
+                group("LCL Report")
+                {
+                    Caption = 'LCL Report';
+                    group("LCL Stock")
+                    {
+                        Caption = 'Stock Report';
+                        action("Stock Card Cost")
+                        {
+                            Caption = 'Stock Card Cost';
+                            ApplicationArea = all;
+                            RunObject = report "YVS Report Stock Card Cost";
+                            ToolTip = 'Executes the Stock Card Cost action.';
+                        }
+                        action("Stock Movement")
+                        {
+                            Caption = 'Stock Movement';
+                            ApplicationArea = all;
+                            RunObject = report "YVS Stock Movement";
+                            ToolTip = 'Executes the Stock Movement action.';
+                        }
+                        action("Stock On Hand")
+                        {
+                            Caption = 'Stock On Hand';
+                            ApplicationArea = all;
+                            RunObject = report "YVS Stock Card Summary";
+                            ToolTip = 'Executes the Stock On Hand action.';
+                        }
+                    }
+
+                    action("GL Journal Report")
+                    {
+                        Caption = 'GL Journal Report';
+                        ApplicationArea = all;
+                        RunObject = report "YVS GL Journal Report";
+                        ToolTip = 'Executes the GL Journal Report action.';
+                    }
+
+
+                }
+            }
+
+
+        }
+        addafter("Purchase Orders")
+        {
+            action("Goods Receipt Note List")
+            {
+                Caption = 'Goods Receipt Note';
+                ApplicationArea = all;
+                RunObject = page "YVS Goods Receipt Note List";
+                ToolTip = 'Executes the Goods Receipt Note action.';
+            }
+        }
+    }
+}
