@@ -408,11 +408,6 @@ codeunit 80005 "YVS EventFunction"
         PostingPreviewEventHandler: Codeunit "Posting Preview Event Handler";
         ErrorMessageMgt: Codeunit "Error Message Management";
         ErrorMessageHandler: Codeunit "Error Message Handler";
-        BillingReceiptCatLbl: Label 'BILLINGRECEIPT';
-        WFMngt: Codeunit "Workflow Management";
-        WorkflowEventHandling: Codeunit "Workflow Event Handling";
-        SendBillingReceiptReqLbl: Label 'Approval Request for Billing Receipt is requested';
-        CancelReqBillingReceiptLbl: Label 'Approval of a Billing Receipt is canceled';
-        BillingReceiptConditionTxt: Label '<?xml version = "1.0" encoding="utf-8" standalone="yes"?><ReportParameters><DataItems><DataItem name="YVS Billing Receipt Header">%1</DataItem><DataItem name="YVS Billing Receipt Line">%2</DataItem></DataItems></ReportParameters>', Locked = true;
+
 
 }
