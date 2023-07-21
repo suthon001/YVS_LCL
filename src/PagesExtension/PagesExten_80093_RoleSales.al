@@ -117,12 +117,12 @@ pageextension 80093 "YVS Role Sales" extends "Order Processor Role Center"
                             RunObject = report "YVS Stock Movement";
                             ToolTip = 'Executes the Stock Movement action.';
                         }
-                        action("Stock On Hand")
+                        action("Stock On hand")
                         {
-                            Caption = 'Stock On Hand';
+                            Caption = 'Stock On hand';
                             ApplicationArea = all;
-                            RunObject = report "YVS Stock Card Summary";
-                            ToolTip = 'Executes the Stock On Hand action.';
+                            RunObject = report "YVS Stock On hand";
+                            ToolTip = 'Executes the Stock On hand action.';
                         }
                     }
 

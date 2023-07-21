@@ -89,7 +89,7 @@ permissionset 80000 "YVS LCL Permission"
         report "YVS WHT PND 53" = X,
         report "YVS Report Stock Card Cost" = X,
         report "YVS Stock Movement" = X,
-        report "YVS Stock Card Summary" = X,
+        report "YVS Stock On hand" = X,
         report "YVS Report Sales Quotes" = X,
         report "YVS Report Sales Order" = X,
         report "YVS Report Sales Invoice" = X,

@@ -1,15 +1,15 @@
 /// <summary>
-/// Report Stock Card Summary (ID 80017).
+/// Report Stock On hand (ID 80017).
 /// </summary>
-report 80017 "YVS Stock Card Summary"
+report 80017 "YVS Stock On hand"
 {
     Permissions = TableData "Item Ledger Entry" = rimd;
     DefaultLayout = RDLC;
-    RDLCLayout = './LayoutReport/LCLReport/Report_80017_StockCardSummary.rdl';
+    RDLCLayout = './LayoutReport/LCLReport/Report_80017_StockOnHand.rdl';
     PreviewMode = PrintLayout;
     ApplicationArea = all;
     UsageCategory = ReportsAndAnalysis;
-    Caption = 'Report Stock Card Summary';
+    Caption = 'Report Stock On Hand';
 
     dataset
     {

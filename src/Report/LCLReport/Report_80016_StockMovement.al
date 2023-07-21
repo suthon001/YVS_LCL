@@ -17,7 +17,7 @@ report 80016 "YVS Stock Movement"
         {
             DataItemTableView = SORTING("No.");
             PrintOnlyIfDetail = true;
-            RequestFilterFields = "No.", "Date Filter", "Location Filter";
+            RequestFilterFields = "No.", "Inventory Posting Group", "Date Filter", "Location Filter";
             column(Var_USERID; _USERID)
             {
             }
@@ -75,10 +75,10 @@ report 80016 "YVS Stock Movement"
             dataitem("Item Ledger Entry"; "Item Ledger Entry")
             {
                 DataItemLink = "Item No." = FIELD("No."),
-                               "Posting Date" = FIELD("Date Filter");
+                               "Posting Date" = FIELD("Date Filter"), "Location Code" = field("Location Filter");
                 DataItemTableView = SORTING("Item No.", "Posting Date")
                                     ORDER(Ascending);
-                RequestFilterFields = "Location Code", "Entry Type", "Document No.", "Lot No.";
+                RequestFilterFields = "Entry Type", "Document No.", "Lot No.";
                 column(GlobalDimension1Code_ItemLedgerEntry; "Item Ledger Entry"."Global Dimension 1 Code")
                 {
                 }

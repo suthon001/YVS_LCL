@@ -76,7 +76,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -111,7 +111,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -146,7 +146,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -181,7 +181,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -216,7 +216,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -251,7 +251,7 @@
                                   <Value>Stock In</Value>
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -290,7 +290,7 @@
                                   <Value>Stock Out</Value>
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -329,7 +329,7 @@
                                   <Value>Stock Balance</Value>
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -373,7 +373,7 @@
                                   <Value>Posting Date</Value>
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -419,7 +419,7 @@
                                   <Value>Type</Value>
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -465,7 +465,7 @@
                                   <Value>Document No.</Value>
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -511,7 +511,7 @@
                                   <Value>Invoice No. </Value>
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -557,7 +557,7 @@
                                   <Value>Ext. Document No.</Value>
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -603,7 +603,7 @@
                                   <Value>Quantity</Value>
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -649,7 +649,7 @@
                                   <Value>Unit Cost</Value>
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -695,7 +695,7 @@
                                   <Value>Cost Amount</Value>
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -741,7 +741,7 @@
                                   <Value>Quantity</Value>
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -787,7 +787,7 @@
                                   <Value>Unit Cost</Value>
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -833,7 +833,7 @@
                                   <Value>Cost Amount</Value>
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -879,7 +879,7 @@
                                   <Value>Quantity</Value>
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -925,7 +925,7 @@
                                   <Value>Unit cost</Value>
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -971,7 +971,7 @@
                                   <Value>Cost Amount</Value>
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -1023,7 +1023,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -1059,7 +1059,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -1095,7 +1095,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -1131,7 +1131,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -1167,7 +1167,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -1203,7 +1203,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -1239,7 +1239,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -1275,7 +1275,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -1311,7 +1311,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -1347,7 +1347,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -1383,7 +1383,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -1419,7 +1419,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -1455,7 +1455,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -1491,7 +1491,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -1531,15 +1531,31 @@
                                   <Value>=Fields!No_Item.Value</Value>
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value xml:space="preserve">                             </Value>
+                                  <Value> : </Value>
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                                <TextRun>
+                                  <Value>=Fields!var_Description.Value</Value>
+                                  <Style>
+                                    <FontFamily>Tahoma</FontFamily>
+                                    <FontSize>7pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                                <TextRun>
+                                  <Value xml:space="preserve">                         </Value>
+                                  <Style>
+                                    <FontFamily>Tahoma</FontFamily>
+                                    <FontSize>7pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -1554,37 +1570,7 @@
                             </Border>
                           </Style>
                         </Textbox>
-                        <ColSpan>2</ColSpan>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell />
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox8">
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>=Fields!var_Description.Value</Value>
-                                  <Style>
-                                    <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
-                                    <FontWeight>Bold</FontWeight>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox8</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Style>None</Style>
-                            </Border>
-                          </Style>
-                        </Textbox>
-                        <ColSpan>7</ColSpan>
+                        <ColSpan>11</ColSpan>
                       </CellContents>
                     </TablixCell>
                     <TablixCell />
@@ -1593,62 +1579,10 @@
                     <TablixCell />
                     <TablixCell />
                     <TablixCell />
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox78">
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                  <Style>
-                                    <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
-                                    <FontWeight>Bold</FontWeight>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox78</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Style>None</Style>
-                            </Border>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox84">
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                  <Style>
-                                    <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
-                                    <FontWeight>Bold</FontWeight>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox84</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Style>None</Style>
-                            </Border>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
+                    <TablixCell />
+                    <TablixCell />
+                    <TablixCell />
+                    <TablixCell />
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="var_OpeningBalance1">
@@ -1660,7 +1594,7 @@
                                   <Value>=First(Fields!var_OpeningBalance2.Value)</Value>
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                     <Format>#,0.00;-#,0.00;'0.00'</Format>
                                   </Style>
@@ -1692,7 +1626,7 @@
                                   <Value>=First(Fields!var_UnitCost2.Value)</Value>
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                     <Format>#,0.00;(#,0.00);'0.00'</Format>
                                   </Style>
@@ -1724,7 +1658,7 @@
                                   <Value>=First(Fields!var_Amount2.Value)</Value>
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                     <Format>#,0.00;-#,0.00;'0.00'</Format>
                                   </Style>
@@ -1761,7 +1695,7 @@
                                   <Value xml:space="preserve">   </Value>
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                   </Style>
                                 </TextRun>
                                 <TextRun>
@@ -1769,7 +1703,7 @@
                                   <Value>=Fields!PostingDate_ItemLedgerEntry.Value</Value>
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                     <Format>d/M/yy</Format>
                                   </Style>
                                 </TextRun>
@@ -1797,7 +1731,7 @@
                                   <Value>=Fields!EntryType_ItemLedgerEntry.Value</Value>
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1825,14 +1759,14 @@
                                   <Value>=Fields!DocumentNo_ItemLedgerEntry.Value</Value>
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                   </Style>
                                 </TextRun>
                                 <TextRun>
                                   <Value xml:space="preserve"> </Value>
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1862,7 +1796,7 @@
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1894,7 +1828,7 @@
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1924,7 +1858,7 @@
                                   <Value>=Fields!var_Pos.Value</Value>
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                     <Format>#,0.00</Format>
                                   </Style>
                                 </TextRun>
@@ -1955,7 +1889,7 @@
                                   <Value>=Fields!var_UnitCostPos.Value</Value>
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                     <Format>#,0.00;-#,0.00;'0.00'</Format>
                                   </Style>
                                 </TextRun>
@@ -1986,7 +1920,7 @@
                                   <Value>=Fields!var_AmountPos.Value</Value>
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                     <Format>#,0.00;-#,0.00;'0.00'</Format>
                                   </Style>
                                 </TextRun>
@@ -2017,7 +1951,7 @@
                                   <Value>=Code.ShowZero(Fields!var_Neg.Value)</Value>
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                     <Format>#,0.00;-#,0.00;'0.00'</Format>
                                   </Style>
                                 </TextRun>
@@ -2025,7 +1959,7 @@
                                   <Value xml:space="preserve"> </Value>
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                     <Format>#,0.00;-#,0.00;'0.00'</Format>
                                   </Style>
                                 </TextRun>
@@ -2056,7 +1990,7 @@
                                   <Value>=Fields!var_UnitCostNeg.Value</Value>
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                     <Format>#,0.00;-#,0.00;'0.00'</Format>
                                   </Style>
                                 </TextRun>
@@ -2087,7 +2021,7 @@
                                   <Value>=Fields!var_AmountNeg.Value</Value>
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                     <Format>#,0.00;-#,0.00;'0.00'</Format>
                                   </Style>
                                 </TextRun>
@@ -2118,7 +2052,7 @@
                                   <Value>=Fields!var_OpeningBalance.Value</Value>
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                     <Format>#,0.00</Format>
                                   </Style>
                                 </TextRun>
@@ -2149,7 +2083,7 @@
                                   <Value>=Fields!var_UnitCost.Value</Value>
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                     <Format>#,0.00;-#,0.00;'0.00'</Format>
                                   </Style>
                                 </TextRun>
@@ -2180,7 +2114,7 @@
                                   <Value>=Fields!var_Amount.Value</Value>
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                     <Format>#,0.00;-#,0.00;'0.00'</Format>
                                   </Style>
                                 </TextRun>
@@ -2216,7 +2150,7 @@
                                   <Value>Total </Value>
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                     <Format>#,0.00</Format>
                                   </Style>
@@ -2251,7 +2185,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -2284,7 +2218,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -2316,7 +2250,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -2347,7 +2281,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -2378,7 +2312,7 @@
                                   <Value>=Last(Fields!var_TotalPos.Value)</Value>
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                     <Format>#,0.00;(#,0.00)</Format>
                                   </Style>
@@ -2410,7 +2344,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -2440,7 +2374,7 @@
                                   <Value>=Sum(Fields!var_AmountPos.Value)</Value>
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                     <Format>#,0.00</Format>
                                   </Style>
@@ -2472,7 +2406,7 @@
                                   <Value>=Last(Fields!var_TotalNeg.Value)</Value>
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                     <Format>#,0.00;(#,0.00)</Format>
                                   </Style>
@@ -2504,7 +2438,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -2535,7 +2469,7 @@
                                   <Value>=Sum(Fields!var_AmountNeg.Value)</Value>
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                     <Format>#,0.00;-#,0.00;'0.00'</Format>
                                   </Style>
@@ -2567,7 +2501,7 @@
                                   <Value>=Last(Fields!var_OpeningBalance.Value)</Value>
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                     <Format>#,0.00</Format>
                                   </Style>
@@ -2599,7 +2533,7 @@
                                   <Value>=Last(Fields!var_UnitCost.Value)</Value>
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                     <Format>#,0.00;(#,0.00);'0.00'</Format>
                                   </Style>
@@ -2631,7 +2565,7 @@
                                   <Value>=Code.GrandTotalBalance(Last(Fields!var_Amount.Value))</Value>
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                     <Format>#,0.00;-#,0.00;'0.00'</Format>
                                   </Style>
@@ -2668,7 +2602,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -2701,7 +2635,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -2732,7 +2666,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -2763,7 +2697,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -2794,7 +2728,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -2825,7 +2759,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -2856,7 +2790,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -2887,7 +2821,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -2918,7 +2852,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -2949,7 +2883,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -2980,7 +2914,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -3011,7 +2945,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -3042,7 +2976,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -3073,7 +3007,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -3110,7 +3044,7 @@
                                   <Value>Grand Total </Value>
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                     <Format>#,0.00</Format>
                                   </Style>
@@ -3152,7 +3086,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -3192,7 +3126,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -3232,7 +3166,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -3272,7 +3206,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -3312,7 +3246,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -3352,7 +3286,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -3392,7 +3326,7 @@
                                   <Value>=Sum(Fields!var_AmountPos.Value)</Value>
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                     <Format>#,0.00</Format>
                                   </Style>
@@ -3434,7 +3368,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -3474,7 +3408,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -3514,7 +3448,7 @@
                                   <Value>=Sum(Fields!var_AmountNeg.Value)</Value>
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                     <Format>#,0.00;-#,0.00;'0.00'</Format>
                                   </Style>
@@ -3556,7 +3490,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -3596,7 +3530,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -3636,7 +3570,7 @@
                                   <Value>=Code.GetGrandTotalBalance()</Value>
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>7pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                     <Format>#,0.00;-#,0.00;'0.00'</Format>
                                   </Style>
