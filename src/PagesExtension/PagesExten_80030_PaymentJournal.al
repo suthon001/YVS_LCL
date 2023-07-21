@@ -168,41 +168,7 @@ pageextension 80030 "YVS Payment Journal" extends "Payment Journal"
             }
         }
 
-        addlast("F&unctions")
-        {
-            action("SetNetBalance")
-            {
-                ApplicationArea = All;
-                Caption = 'Set Net Balance';
-                Promoted = true;
-                PromotedCategory = Process;
-                PromotedIsBig = true;
-                Visible = false;
-                Image = NewSum;
-                ShortcutKey = 'Shift+Ctrl+S';
-                ToolTip = 'Executes the Set Net Balance action.';
-                trigger OnAction()
-                var
-                    GenJnlLine: Record "Gen. Journal Line";
-                    SummaryAmount: Decimal;
-                begin
-                    GenJnlLine.reset();
-                    GenJnlLine.SetRange("Journal Template Name", rec."Journal Template Name");
-                    GenJnlLine.SetRange("Journal Batch Name", rec."Journal Batch Name");
-                    GenJnlLine.SetRange("Document No.", rec."Document No.");
-                    GenJnlLine.SetFilter("Line No.", '<>%1', rec."Line No.");
-                    if GenJnlLine.findset() then begin
-                        GenJnlLine.CalcSums("Amount (LCY)");
-                        SummaryAmount := GenJnlLine."Amount (LCY)";
-                    end;
-                    if SummaryAmount <> 0 then
-                        rec.Validate("Amount (LCY)", SummaryAmount * -1)
-                    else
-                        rec.Validate("Amount (LCY)", 0);
-                    rec.Modify();
-                end;
-            }
-        }
+
         modify(PrintCheck)
         {
             Visible = false;
