@@ -7,12 +7,13 @@ report 80037 "YVS Receipt Tax Invoice (Post)"
     UsageCategory = None;
     dataset
     {
-        dataitem(CustLedgerEntry; "Cust. Ledger Entry")
+        dataitem("Detailed Cust. Ledg. Entry"; "Detailed Cust. Ledg. Entry")
         {
+            DataItemTableView = sorting("Entry No.") where("YVS Ref. Invoice_CN No." = filter(<> ''));
             column(LineNo; LineNo) { }
             column(CustLedg_DocumentNo; "Document No.") { }
-            column(CustLedg_Description; Description) { }
-            column(wCustLedg_AmounttoApply; "Amount to Apply") { }
+            column(CustLedg_Description; RecCustLedgEntry.Description) { }
+            column(wCustLedg_AmounttoApply; ABS(Amount)) { }
             column(SumTotalAmount; SumTotalAmount) { }
             column(SumTotalAmountText; SumTotalAmountText) { }
             column(SalesInvHeader_PostingDate; format(PostingDate, 0, '<Day,2>/<Month,2>/<Year4>')) { }
@@ -69,23 +70,28 @@ report 80037 "YVS Receipt Tax Invoice (Post)"
                 CLEAR(GrandTotalAmt);
                 companyInfor.get();
                 companyInfor.CalcFields(Picture);
-                Clear(RecCustLedgEntry);
-                RecCustLedgEntry.CopyFilters(CustLedgerEntry);
-                if RecCustLedgEntry.FindSet() then
+                DetailRecCustLedgEntry.reset();
+                DetailRecCustLedgEntry.CopyFilters("Detailed Cust. Ledg. Entry");
+                DetailRecCustLedgEntry.SetFilter("YVS Ref. Invoice_CN No.", '<>%1', '');
+                if DetailRecCustLedgEntry.FindSet() then
                     repeat
-                        InsertDetailReceipt(RecCustLedgEntry."Document No.");
-                    until RecCustLedgEntry.next() = 0;
+                        DetailRecCustLedgEntry.CalcFields("YVS Ref. Invoice_CN No.");
+                        InsertDetailReceipt(DetailRecCustLedgEntry."YVS Ref. Invoice_CN No.");
+                    until DetailRecCustLedgEntry.next() = 0;
             end;
 
             trigger OnAfterGetRecord()
             begin
+                CalcFields("YVS Ref. Invoice_CN No.");
+                if not RecCustLedgEntry.GET("Cust. Ledger Entry No.") then
+                    RecCustLedgEntry.Init();
                 Clear(ComText);
                 CUFunction."CusInfo"("Customer No.", CustText);
                 if RecSalesInvoiceHeader."VAT Bus. Posting Group" = '' then
                     CUFunction."CompanyInformation"(ComText, false)
                 else
                     CUFunction."CompanyinformationByVat"(ComText, RecSalesInvoiceHeader."VAT Bus. Posting Group", false);
-                IF RecSalesInvoiceHeader.GET(CustLedgerEntry."Document No.") then begin
+                IF RecSalesInvoiceHeader.GET("YVS Ref. Invoice_CN No.") then begin
                     SalesPersonCode := RecSalesInvoiceHeader."Salesperson Code";
                     DueDate := RecSalesInvoiceHeader."Due Date";
                     PaymentTerm := RecSalesInvoiceHeader."Payment Terms Code";
@@ -174,6 +180,7 @@ report 80037 "YVS Receipt Tax Invoice (Post)"
         CUFunction: Codeunit "YVS Function Center";
 
         RecCustLedgEntry: Record "Cust. Ledger Entry";
+        DetailRecCustLedgEntry: Record "Detailed Cust. Ledg. Entry";
         SumTotalAmount: Decimal;
         SumTotalAmountText: Text;
         PostingDate: Date;

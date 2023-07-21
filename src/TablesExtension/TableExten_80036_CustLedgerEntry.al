@@ -67,7 +67,5 @@ tableextension 80036 "YVS ExtenCustLedger Entry" extends "Cust. Ledger Entry"
             DataClassification = CustomerContent;
             Editable = false;
         }
-
-
     }
 }

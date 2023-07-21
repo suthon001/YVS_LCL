@@ -1,0 +1,230 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DataSource">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+      <rd:SecurityType>None</rd:SecurityType>
+    </DataSource>
+  </DataSources>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <Height>2in</Height>
+        <Style />
+      </Body>
+      <Width>6.5in</Width>
+      <Page>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <Code>Public Function BlankZero(ByVal Value As Decimal)
+    if Value = 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankPos(ByVal Value As Decimal)
+    if Value &gt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankZeroAndPos(ByVal Value As Decimal)
+    if Value &gt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNeg(ByVal Value As Decimal)
+    if Value &lt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNegAndZero(ByVal Value As Decimal)
+    if Value &lt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+</Code>
+  <Language>=User!Language</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="LineNo">
+          <DataField>LineNo</DataField>
+        </Field>
+        <Field Name="CustLedg_DocumentNo">
+          <DataField>CustLedg_DocumentNo</DataField>
+        </Field>
+        <Field Name="CustLedg_Description">
+          <DataField>CustLedg_Description</DataField>
+        </Field>
+        <Field Name="wCustLedg_AmounttoApply">
+          <DataField>wCustLedg_AmounttoApply</DataField>
+        </Field>
+        <Field Name="wCustLedg_AmounttoApplyFormat">
+          <DataField>wCustLedg_AmounttoApplyFormat</DataField>
+        </Field>
+        <Field Name="SumTotalAmount">
+          <DataField>SumTotalAmount</DataField>
+        </Field>
+        <Field Name="SumTotalAmountFormat">
+          <DataField>SumTotalAmountFormat</DataField>
+        </Field>
+        <Field Name="SumTotalAmountText">
+          <DataField>SumTotalAmountText</DataField>
+        </Field>
+        <Field Name="SalesInvHeader_PostingDate">
+          <DataField>SalesInvHeader_PostingDate</DataField>
+        </Field>
+        <Field Name="SalesInvoiceHeader_DueDate">
+          <DataField>SalesInvoiceHeader_DueDate</DataField>
+        </Field>
+        <Field Name="SalesInvoiceHeader_PaymentTerms">
+          <DataField>SalesInvoiceHeader_PaymentTerms</DataField>
+        </Field>
+        <Field Name="SalesPerson_Name">
+          <DataField>SalesPerson_Name</DataField>
+        </Field>
+        <Field Name="ComText_1">
+          <DataField>ComText_1</DataField>
+        </Field>
+        <Field Name="ComText_2">
+          <DataField>ComText_2</DataField>
+        </Field>
+        <Field Name="ComText_3">
+          <DataField>ComText_3</DataField>
+        </Field>
+        <Field Name="ComText_4">
+          <DataField>ComText_4</DataField>
+        </Field>
+        <Field Name="ComText_5">
+          <DataField>ComText_5</DataField>
+        </Field>
+        <Field Name="ComText_6">
+          <DataField>ComText_6</DataField>
+        </Field>
+        <Field Name="ComText_7">
+          <DataField>ComText_7</DataField>
+        </Field>
+        <Field Name="companyInfor_Picture">
+          <DataField>companyInfor_Picture</DataField>
+        </Field>
+        <Field Name="CustText_1">
+          <DataField>CustText_1</DataField>
+        </Field>
+        <Field Name="CustText_2">
+          <DataField>CustText_2</DataField>
+        </Field>
+        <Field Name="CustText_3">
+          <DataField>CustText_3</DataField>
+        </Field>
+        <Field Name="CustText_4">
+          <DataField>CustText_4</DataField>
+        </Field>
+        <Field Name="CustText_5">
+          <DataField>CustText_5</DataField>
+        </Field>
+        <Field Name="CustText_6">
+          <DataField>CustText_6</DataField>
+        </Field>
+        <Field Name="CustText_9">
+          <DataField>CustText_9</DataField>
+        </Field>
+        <Field Name="CustText_10">
+          <DataField>CustText_10</DataField>
+        </Field>
+        <Field Name="GrandTotalAmt1">
+          <DataField>GrandTotalAmt1</DataField>
+        </Field>
+        <Field Name="GrandTotalAmt1Format">
+          <DataField>GrandTotalAmt1Format</DataField>
+        </Field>
+        <Field Name="GrandTotalAmt2">
+          <DataField>GrandTotalAmt2</DataField>
+        </Field>
+        <Field Name="GrandTotalAmt2Format">
+          <DataField>GrandTotalAmt2Format</DataField>
+        </Field>
+        <Field Name="GrandTotalAmt3">
+          <DataField>GrandTotalAmt3</DataField>
+        </Field>
+        <Field Name="GrandTotalAmt3Format">
+          <DataField>GrandTotalAmt3Format</DataField>
+        </Field>
+        <Field Name="GrandTotalAmt4">
+          <DataField>GrandTotalAmt4</DataField>
+        </Field>
+        <Field Name="GrandTotalAmt4Format">
+          <DataField>GrandTotalAmt4Format</DataField>
+        </Field>
+        <Field Name="GrandTotalAmt5">
+          <DataField>GrandTotalAmt5</DataField>
+        </Field>
+        <Field Name="GrandTotalAmt5Format">
+          <DataField>GrandTotalAmt5Format</DataField>
+        </Field>
+        <Field Name="Line_No_">
+          <DataField>Line_No_</DataField>
+        </Field>
+        <Field Name="No_">
+          <DataField>No_</DataField>
+        </Field>
+        <Field Name="Document_No_">
+          <DataField>Document_No_</DataField>
+        </Field>
+        <Field Name="Description">
+          <DataField>Description</DataField>
+        </Field>
+        <Field Name="Quantity">
+          <DataField>Quantity</DataField>
+        </Field>
+        <Field Name="QuantityFormat">
+          <DataField>QuantityFormat</DataField>
+        </Field>
+        <Field Name="Unit_of_Measure_Code">
+          <DataField>Unit_of_Measure_Code</DataField>
+        </Field>
+        <Field Name="Line_Discount__">
+          <DataField>Line_Discount__</DataField>
+        </Field>
+        <Field Name="Line_Discount__Format">
+          <DataField>Line_Discount__Format</DataField>
+        </Field>
+        <Field Name="Location_Code">
+          <DataField>Location_Code</DataField>
+        </Field>
+        <Field Name="Line_Amount">
+          <DataField>Line_Amount</DataField>
+        </Field>
+        <Field Name="Line_AmountFormat">
+          <DataField>Line_AmountFormat</DataField>
+        </Field>
+        <Field Name="Unit_Price">
+          <DataField>Unit_Price</DataField>
+        </Field>
+        <Field Name="Unit_PriceFormat">
+          <DataField>Unit_PriceFormat</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
+</Report>
