@@ -79,35 +79,4 @@ pageextension 80016 "YVS Sales Quotes Lists" extends "Sales Quotes"
         }
 
     }
-    actions
-    {
-        modify(Print)
-        {
-            Visible = false;
-        }
-        addlast(Reporting)
-        {
-
-            action("Print_Sales_Quotes")
-            {
-                ApplicationArea = All;
-                Caption = 'Sales Quotes';
-                Image = PrintReport;
-                Promoted = true;
-                PromotedIsBig = true;
-                PromotedCategory = Category6;
-                ToolTip = 'Show Report';
-                trigger OnAction()
-                var
-                    RecSalesHeader: Record "Sales Header";
-                begin
-                    RecSalesHeader.RESET();
-                    RecSalesHeader.SetRange("Document Type", rec."Document Type");
-                    RecSalesHeader.SetRange("No.", rec."No.");
-                    Report.Run(Report::"YVS Report Sales Quotes", TRUE, TRUE, RecSalesHeader);
-                end;
-            }
-
-        }
-    }
 }

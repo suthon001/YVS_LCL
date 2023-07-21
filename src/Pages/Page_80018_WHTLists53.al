@@ -1,7 +1,7 @@
 /// <summary>
-/// Page WHT53 Lists (ID 80028).
+/// Page WHT53 Lists (ID 80018).
 /// </summary>
-page 80028 "YVS WHT53 Lists"
+page 80018 "YVS WHT53 Lists"
 {
     PageType = List;
     SourceTable = "YVS Tax & WHT Header";

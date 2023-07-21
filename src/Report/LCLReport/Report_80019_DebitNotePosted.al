@@ -1,11 +1,11 @@
 /// <summary>
-/// Report Report Sales Invoice (ID 80037).
+/// Report Debit Note (ID 80019).
 /// </summary>
-report 80037 "YVS Sales Invoice (Post)"
+report 80019 "YVS Debit Note (Post)"
 {
-    Caption = 'Sales Invoice';
+    Caption = 'Debit Note';
     DefaultLayout = RDLC;
-    RDLCLayout = './LayoutReport/LCLReport/Report_80037_SalesInvoicePosted.rdl';
+    RDLCLayout = './LayoutReport/LCLReport/Report_80019_DebitNotePosted.rdl';
     PreviewMode = PrintLayout;
     UsageCategory = None;
     dataset
@@ -38,6 +38,7 @@ report 80037 "YVS Sales Invoice (Post)"
             column(CommentText_2; CommentText[2]) { }
             column(CommentText_3; CommentText[3]) { }
             column(CommentText_4; CommentText[4]) { }
+            column(CommentText_5; CommentText[5]) { }
             column(Payment_Terms_Code; PaymentTerm.Description) { }
             column(CreateDocBy; "YVS Create By") { }
             column(SplitDate_1; SplitDate[1]) { }
@@ -49,17 +50,17 @@ report 80037 "YVS Sales Invoice (Post)"
             column(TotalAmt_3; TotalAmt[3]) { }
             column(TotalAmt_4; TotalAmt[4]) { }
             column(TotalAmt_5; TotalAmt[5]) { }
-            column(CustTextShipment_1; CustTextShipment[1]) { }
-            column(CustTextShipment_2; CustTextShipment[2]) { }
-            column(CustTextShipment_3; CustTextShipment[3]) { }
-            column(CustTextShipment_4; CustTextShipment[4]) { }
-            column(CustTextShipment_5; CustTextShipment[5]) { }
+            column(TotalAmt_99; TotalAmt[99]) { }
+            column(TotalAmt_100; TotalAmt[100]) { }
+            column(VatText; VatText) { }
             column(Quote_No_; "Quote No.") { }
             column(ShipMethod_Description; ShipMethod.Description) { }
-            column(External_Document_No_; "External Document No.") { }
             column(CaptionOptionThai; CaptionOptionThai) { }
             column(CaptionOptionEng; CaptionOptionEng) { }
-            column(VatText; VatText) { }
+            column(RefDocumentNo; RefDocumentNo) { }
+            column(var_RefDocumentNo; var_RefDocumentNo) { }
+            column(var_RefDocumentDate; format(var_RefDocumentDate, 0, '<Day,2>/<Month,2>/<Year4>')) { }
+            column(ReturnReasonDescFirstLine; ReturnReasonDescFirstLine) { }
             dataitem(SalesLine; "Sales Invoice Line")
             {
                 DataItemTableView = sorting("Document No.", "Line No.");
@@ -69,11 +70,10 @@ report 80037 "YVS Sales Invoice (Post)"
                 column(SalesLine_Description_2; "Description 2") { }
                 column(SalesLine_Unit_Price; "Unit Price") { }
                 column(Line_Discount__; "Line Discount %") { }
+                column(SalesLine_Line_Amount; "Line Amount") { }
                 column(SalesLine_LineNo; LineNo) { }
                 column(SalesLine_Quantity; Quantity) { }
                 column(SalesLine_Unit_of_Measure_Code; "Unit of Measure Code") { }
-                column(Line_Amount; "Line Amount") { }
-
 
                 trigger OnAfterGetRecord()
                 begin
@@ -85,7 +85,10 @@ report 80037 "YVS Sales Invoice (Post)"
             trigger OnAfterGetRecord()
             var
                 NewDate: Date;
-
+                RecCustLedgEntry: Record "Cust. Ledger Entry";
+                RecReturnReason: Record "Return Reason";
+                RecSaleLine: Record "Sales Invoice Line";
+                ltDocumentType: Enum "Sales Comment Document Type";
             begin
                 if "Currency Code" = '' then
                     FunctionCenter."CompanyinformationByVat"(ComText, "VAT Bus. Posting Group", false)
@@ -93,13 +96,10 @@ report 80037 "YVS Sales Invoice (Post)"
                     FunctionCenter."CompanyinformationByVat"(ComText, "VAT Bus. Posting Group", true);
 
                 FunctionCenter.PostedSalesInvoiceStatistics("No.", TotalAmt, VatText);
-                FunctionCenter.SalesPostedCustomerInformation(2, "No.", CustText, 0);
-                FunctionCenter.SalesPostedCustomerInformation(2, "No.", CustTextShipment, 2);
-                if "Currency Code" = '' then
-                    AmtText := '(' + FunctionCenter."NumberThaiToText"(TotalAmt[5]) + ')'
-                else
-                    AmtText := '(' + FunctionCenter."NumberEngToText"(TotalAmt[5], "Currency Code") + ')';
 
+                FunctionCenter.GetSalesComment(ltDocumentType::"Posted Invoice", "No.", 0, CommentText);
+                FunctionCenter.SalesPostedCustomerInformation(2, "No.", CustText, 0);
+                FunctionCenter."ConvExchRate"("Currency Code", "Currency Factor", ExchangeRate);
                 IF NOT PaymentTerm.GET(SalesHeader."Payment Terms Code") then
                     PaymentTerm.Init();
                 IF NOT ShipMethod.Get("Shipment Method Code") then
@@ -108,10 +108,60 @@ report 80037 "YVS Sales Invoice (Post)"
                 SplitDate[1] := Format(NewDate, 0, '<Day,2>');
                 SplitDate[2] := Format(NewDate, 0, '<Month,2>');
                 SplitDate[3] := Format(NewDate, 0, '<Year4>');
+                if "Currency Code" = '' then
+                    AmtText := '(' + FunctionCenter."NumberThaiToText"(TotalAmt[5]) + ')'
+                else
+                    AmtText := '(' + FunctionCenter."NumberEngToText"(TotalAmt[5], "Currency Code") + ')';
+
+
+                RecCustLedgEntry.RESET();
+                RecCustLedgEntry.SetRange("Document Type", RecCustLedgEntry."Document Type"::Invoice);
+                IF "Applies-to Doc. No." <> '' THEN
+                    RecCustLedgEntry.SetRange("Document No.", "Applies-to Doc. No.")
+                ELSE
+                    RecCustLedgEntry.SetRange("Document No.", "YVS Applies-to ID");
+
+                IF RecCustLedgEntry.FindFirst() THEN BEGIN
+                    RecCustLedgEntry.CALCFIELDS("Original Amt. (LCY)");
+
+                    TotalAmt[100] := RecCustLedgEntry."Sales (LCY)";
+                END ELSE
+                    TotalAmt[100] := "YVS Ref. Tax Invoice Amount";
+                TotalAmt[99] := TotalAmt[100] - TotalAmt[1];
+
+                IF "Applies-to Doc. No." <> '' THEN
+                    RefDocumentNo := "Applies-to Doc. No.";
+
+                IF "YVS Applies-to ID" <> '' THEN
+                    RefDocumentNo := "YVS Applies-to ID";
+
+                RecCustLedgEntry.RESET();
+                RecCustLedgEntry.SetRange("Document No.", RefDocumentNo);
+                RecCustLedgEntry.SetRange("Document Type", RecCustLedgEntry."Document Type"::Invoice);
+                IF RecCustLedgEntry.FindFirst() THEN BEGIN
+                    var_RefDocumentNo := RecCustLedgEntry."Document No.";
+                    var_RefDocumentDate := RecCustLedgEntry."Document Date";
+                END;
+
+                IF "YVS Ref. Tax Invoice No." <> '' then begin
+                    var_RefDocumentDate := "YVS Ref. Tax Invoice Date";
+                    var_RefDocumentNo := "YVS Ref. Tax Invoice No.";
+                end;
+
+                ReturnReasonDescFirstLine := '';
+                RecSaleLine.Reset();
+
+                RecSaleLine.SetRange("Document No.", SalesHeader."No.");
+                RecSaleLine.SetFilter("Return Reason Code", '<>%1', '');
+                if RecSaleLine.FindFirst() then begin
+
+                    if NOT RecReturnReason.Get(RecSaleLine."Return Reason Code") then
+                        RecReturnReason.init();
+                    ReturnReasonDescFirstLine := RecReturnReason.Description;
+
+                end;
             end;
         }
-
-
     }
     requestpage
     {
@@ -125,9 +175,9 @@ report 80037 "YVS Sales Invoice (Post)"
                     field(CaptionOptionThai; CaptionOptionThai)
                     {
                         ApplicationArea = all;
-                        OptionCaption = 'ใบแจ้งหนี้,ใบแจ้งหนี้/ใบกำกับภาษี';
                         Caption = 'Caption';
                         ToolTip = 'Specifies the value of the Caption field.';
+                        OptionCaption = 'ใบเพิ่มหนี้,ใบเพิ่มหนี้/ใบกำกับภาษี';
                         trigger OnValidate()
                         begin
                             CaptionOptionEng := CaptionOptionThai;
@@ -147,7 +197,6 @@ report 80037 "YVS Sales Invoice (Post)"
     end;
 
     var
-
         SplitDate: Array[3] of Text[20];
 
         companyInfor: Record "Company Information";
@@ -155,18 +204,20 @@ report 80037 "YVS Sales Invoice (Post)"
         PaymentTerm: Record "Payment Terms";
 
         ShipMethod: Record "Shipment Method";
+        var_RefDocumentDate: Date;
         ExchangeRate: Text[30];
         LineNo: Integer;
+        RefDocumentNo, var_RefDocumentNo : Code[50];
         CommentText: Array[99] of Text[250];
 
         FunctionCenter: Codeunit "YVS Function Center";
 
         TotalAmt: Array[100] of Decimal;
         VatText: Text[30];
-        AmtText: Text[250];
+        AmtText, ReturnReasonDescFirstLine : Text[250];
         ComText: Array[10] of Text[250];
-        CustText, CustTextShipment : Array[10] of Text[250];
-        CaptionOptionEng: Option INVOICE,"INVOICE/TAX INVOICE";
-        CaptionOptionThai: Option ใบแจ้งหนี้,"ใบแจ้งหนี้/ใบกำกับภาษี";
+        CustText: Array[10] of Text[250];
+        CaptionOptionEng: Option "DEBIT NOTE","DEBIT NOTE/TAX INVOICE";
+        CaptionOptionThai: Option ใบเพิ่มหนี้,"ใบเพิ่มหนี้/ใบกำกับภาษี";
 
 }

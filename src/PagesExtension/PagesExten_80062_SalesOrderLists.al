@@ -78,34 +78,4 @@ pageextension 80062 "YVS Sales Order Lists" extends "Sales Order List"
         }
 
     }
-
-
-    actions
-    {
-        addlast(Reporting)
-        {
-
-            action("Print_Sales_Order")
-            {
-                ApplicationArea = All;
-                Caption = 'Sales Order';
-                Image = PrintReport;
-                Promoted = true;
-                PromotedIsBig = true;
-                PromotedCategory = Report;
-                ToolTip = 'Show Report';
-                trigger OnAction()
-                var
-                    RecSalesHeader: Record "Sales Header";
-                begin
-                    RecSalesHeader.RESET();
-                    RecSalesHeader.SetRange("Document Type", rec."Document Type");
-                    RecSalesHeader.SetRange("No.", rec."No.");
-                    Report.Run(Report::"YVS Report Sales Order", TRUE, TRUE, RecSalesHeader);
-                end;
-            }
-
-
-        }
-    }
 }

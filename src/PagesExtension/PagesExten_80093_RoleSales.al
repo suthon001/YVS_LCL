@@ -140,15 +140,6 @@ pageextension 80093 "YVS Role Sales" extends "Order Processor Role Center"
 
 
         }
-        addafter("Purchase Orders")
-        {
-            action("Goods Receipt Note List")
-            {
-                Caption = 'Goods Receipt Note';
-                ApplicationArea = all;
-                RunObject = page "YVS Goods Receipt Note List";
-                ToolTip = 'Executes the Goods Receipt Note action.';
-            }
-        }
+
     }
 }

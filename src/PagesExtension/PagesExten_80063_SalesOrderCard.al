@@ -66,33 +66,4 @@ pageextension 80063 "YVS Sales Order Card" extends "Sales Order"
 
 
     }
-    actions
-    {
-
-        addlast(Reporting)
-        {
-
-            action("Print_Sales_Order")
-            {
-                ApplicationArea = All;
-                Caption = 'Sales Order';
-                Image = PrintReport;
-                Promoted = true;
-                PromotedIsBig = true;
-                PromotedCategory = Report;
-                ToolTip = 'Executes the Sales Order action.';
-                trigger OnAction()
-                var
-                    RecSalesHeader: Record "Sales Header";
-                begin
-                    RecSalesHeader.RESET();
-                    RecSalesHeader.SetRange("Document Type", rec."Document Type");
-                    RecSalesHeader.SetRange("No.", rec."No.");
-                    Report.Run(Report::"YVS Report Sales Order", TRUE, TRUE, RecSalesHeader);
-                end;
-            }
-
-
-        }
-    }
 }

@@ -16,41 +16,6 @@ codeunit 80002 "YVS Sales Function"
         SalesInvHeader."YVS Applies-to ID" := SalesHeader."Applies-to ID";
     end;
 
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Post (Yes/No)", 'OnBeforeConfirmSalesPost', '', false, false)]
-    local procedure "OnBeforConfirmSalesPost"(var DefaultOption: Integer; var HideDialog: Boolean; var SalesHeader: Record "Sales Header"; var IsHandled: Boolean)
-    var
-        Handle: Boolean;
-        ConfirmMsg: Label 'Do you want to Post %1 ?', Locked = true;
-    begin
-        Handle := true;
-        HandleMessagebeforPostSales(Handle);
-        if Handle then begin
-            if not Confirm(strsubstno(ConfirmMsg, format(SalesHeader."Document Type"))) then
-                IsHandled := true;
-
-            if not IsHandled then begin
-                DefaultOption := 1;
-                HideDialog := true;
-
-                if SalesHeader."Document Type" = SalesHeader."Document Type"::Order then begin
-                    SalesHeader.Ship := true;
-                    SalesHeader.Invoice := false;
-                    DefaultOption := 1;
-                end;
-                if SalesHeader."Document Type" = SalesHeader."Document Type"::Invoice then begin
-                    SalesHeader.Ship := false;
-                    SalesHeader.Invoice := true;
-                    DefaultOption := 2;
-                end;
-                if SalesHeader."Document Type" = SalesHeader."Document Type"::"Return Order" then begin
-                    SalesHeader.Receive := True;
-                    SalesHeader.Invoice := false;
-                    DefaultOption := 1;
-                end;
-            end else
-                HideDialog := false;
-        end;
-    end;
 
     [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnBeforeValidateSellToCustomerName', '', false, false)]
     local procedure OnBeforeValidateSellToCustomerName(var IsHandled: Boolean)

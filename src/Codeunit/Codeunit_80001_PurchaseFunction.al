@@ -112,48 +112,6 @@ codeunit 80001 "YVS Purchase Function"
         PurchOrderLine."YVS Original Quantity" := PurchOrderLine.Quantity;
     end;
 
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post (Yes/No)", 'OnBeforeConfirmPost', '', false, false)]
-    /// <summary> 
-    /// Description for OnBeforConfirmPurchasePost.
-    /// </summary>
-    /// <param name="DefaultOption">Parameter of type Integer.</param>
-    /// <param name="HideDialog">Parameter of type Boolean.</param>
-    /// <param name="PurchaseHeader">Parameter of type Record "Purchase Header".</param>
-    local procedure "OnBeforConfirmPurchasePost"(var DefaultOption: Integer; var HideDialog: Boolean; var PurchaseHeader: Record "Purchase Header"; var IsHandled: Boolean)
-    var
-        Handle: Boolean;
-        ConfirmMsg: Label 'Do you want to Post %1 ?', Locked = true;
-    begin
-        Handle := true;
-        HandleMessagebeforPostPurchase(Handle);
-        if Handle then begin
-            if not Confirm(strsubstno(ConfirmMsg, format(PurchaseHeader."Document Type"))) then
-                IsHandled := true;
-
-
-            if not IsHandled then begin
-                HideDialog := true;
-                if PurchaseHeader."Document Type" = PurchaseHeader."Document Type"::Order then begin
-                    PurchaseHeader.Receive := true;
-                    PurchaseHeader.Invoice := false;
-                    DefaultOption := 1;
-                end;
-                if PurchaseHeader."Document Type" = PurchaseHeader."Document Type"::Invoice then begin
-                    PurchaseHeader.Receive := false;
-                    PurchaseHeader.Invoice := true;
-                    DefaultOption := 2;
-                end;
-                if PurchaseHeader."Document Type" = PurchaseHeader."Document Type"::"Return Order" then begin
-                    PurchaseHeader.Ship := true;
-                    PurchaseHeader.Invoice := false;
-                    DefaultOption := 1;
-                end;
-            end else
-                HideDialog := false;
-        end;
-    end;
-
-
 
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Get Receipt", 'OnAfterInsertLines', '', true, true)]

@@ -1,7 +1,7 @@
 /// <summary>
-/// Page YVS Clear Transaction Entry (ID 80031).
+/// Page YVS Clear Transaction Entry (ID 80021).
 /// </summary>
-page 80031 "YVS Clear Transaction Entry"
+page 80021 "YVS Clear Transaction Entry"
 {
     InsertAllowed = True;
     PageType = List;

@@ -38,25 +38,6 @@ pageextension 80068 "YVS Purchase Order Lists" extends "Purchase Order List"
     }
     actions
     {
-        modify(Print)
-        {
-            Visible = false;
-        }
-        modify(Post)
-        {
-            Visible = false;
-        }
-        modify(PostAndPrint)
-        {
-            Visible = false;
-        }
-        modify(PostBatch)
-        {
-            Visible = false;
-        }
-
-
-
         addlast(Reporting)
         {
             action("Purchase Order")

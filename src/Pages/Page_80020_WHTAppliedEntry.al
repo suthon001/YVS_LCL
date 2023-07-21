@@ -1,8 +1,8 @@
 
 /// <summary>
-/// Page YVS WHT Applied Entry (ID 80030).
+/// Page YVS WHT Applied Entry (ID 80020).
 /// </summary>
-page 80030 "YVS WHT Applied Entry"
+page 80020 "YVS WHT Applied Entry"
 {
 
     Caption = 'WHT Applied Entry';

@@ -138,15 +138,6 @@ pageextension 80095 "YVS Role Finan" extends "Accountant Role Center"
             }
 
         }
-        addafter("Purchase Orders")
-        {
-            action("Goods Receipt Note List")
-            {
-                Caption = 'Goods Receipt Note';
-                ApplicationArea = all;
-                RunObject = page "YVS Goods Receipt Note List";
-                ToolTip = 'Executes the Goods Receipt Note action.';
-            }
-        }
+
     }
 }

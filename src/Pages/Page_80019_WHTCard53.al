@@ -1,7 +1,7 @@
 /// <summary>
-/// Page YVS WHT53 Card (ID 80029).
+/// Page YVS WHT53 Card (ID 80019).
 /// </summary>
-page 80029 "YVS WHT53 Card"
+page 80019 "YVS WHT53 Card"
 {
     PageType = Document;
     SourceTable = "YVS Tax & WHT Header";

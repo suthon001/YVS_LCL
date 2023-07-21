@@ -199,33 +199,6 @@ page 80023 "YVS WHT Subpage"
                     end;
 
                 }
-                action("Move Month")
-                {
-                    Caption = 'Move Month';
-                    Image = MoveToNextPeriod;
-                    ApplicationArea = all;
-                    Visible = false;
-                    ToolTip = 'Executes the Move Month action.';
-                    trigger OnAction()
-                    var
-                        MoveMonthPage: Page "YVS Tax Move Month";
-                        TaxReportHeader: Record "YVS Tax & WHT Header";
-                        TaxReportLine: Record "YVS Tax & WHT Line";
-
-                    begin
-                        TaxReportHeader.get(Rec."Tax Type", Rec."Document No.");
-                        TaxReportLine.reset();
-                        TaxReportLine.Copy(Rec);
-                        CurrPage.SetSelectionFilter(TaxReportLine);
-                        Clear(MoveMonthPage);
-                        MoveMonthPage.Editable := false;
-                        MoveMonthPage.LookupMode := true;
-                        MoveMonthPage."SetData"(Rec."Tax Type", TaxReportHeader."End date of Month", TaxReportLine);
-                        MoveMonthPage.RunModal();
-                        CurrPage.Update();
-                        Clear(MoveMonthPage);
-                    end;
-                }
             }
         }
     }

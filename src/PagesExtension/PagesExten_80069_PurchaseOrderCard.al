@@ -105,22 +105,6 @@ pageextension 80069 "YVS Purchase Order Card" extends "Purchase Order"
     actions
     {
 
-        modify(Post)
-        {
-            Visible = false;
-        }
-        modify("Post and &Print")
-        {
-            Visible = false;
-        }
-        modify("Post &Batch")
-        {
-            Visible = false;
-        }
-        modify("&Print")
-        {
-            Visible = false;
-        }
         addlast(Reporting)
         {
             action("Purchase Order")

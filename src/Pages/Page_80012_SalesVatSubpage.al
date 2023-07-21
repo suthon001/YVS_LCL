@@ -145,32 +145,6 @@ page 80012 "YVS Sales Vat Subpage"
                     end;
 
                 }
-
-                action("Move Month")
-                {
-                    Caption = 'Move Month';
-                    Image = MoveToNextPeriod;
-                    ApplicationArea = all;
-                    ToolTip = 'Executes the Move Month action.';
-                    trigger OnAction()
-                    var
-                        MoveMonthPage: Page "YVS Tax Move Month";
-                        TaxReportHeader: Record "YVS Tax & WHT Header";
-                        TaxReportLine: Record "YVS Tax & WHT Line";
-
-                    begin
-                        TaxReportHeader.get(Rec."Tax Type", Rec."Document No.");
-                        TaxReportLine.reset();
-                        TaxReportLine.Copy(Rec);
-                        CurrPage.SetSelectionFilter(TaxReportLine);
-                        Clear(MoveMonthPage);
-                        MoveMonthPage.Editable := false;
-                        MoveMonthPage.LookupMode := true;
-                        MoveMonthPage."SetData"(Rec."Tax Type", TaxReportHeader."End date of Month", TaxReportLine);
-                        MoveMonthPage.RunModal();
-                        Clear(MoveMonthPage);
-                    end;
-                }
             }
         }
     }

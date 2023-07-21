@@ -1,16 +1,16 @@
 /// <summary>
-/// Report Debit Note (ID 80038).
+/// Report Report Sales Credit Memo (ID 80018).
 /// </summary>
-report 80038 "YVS Debit Note (Post)"
+report 80018 "YVS Sales Credit Memo (Post)"
 {
-    Caption = 'Debit Note';
+    Caption = 'Sales Credit Memo';
     DefaultLayout = RDLC;
-    RDLCLayout = './LayoutReport/LCLReport/Report_80038_DebitNotePosted.rdl';
+    RDLCLayout = './LayoutReport/LCLReport/Report_80018_SalesCreditMemoPosted.rdl';
     PreviewMode = PrintLayout;
     UsageCategory = None;
     dataset
     {
-        dataitem(SalesHeader; "Sales Invoice Header")
+        dataitem(SalesHeader; "Sales Cr.Memo Header")
         {
             DataItemTableView = sorting("No.");
             RequestFilterFields = "No.";
@@ -53,7 +53,7 @@ report 80038 "YVS Debit Note (Post)"
             column(TotalAmt_99; TotalAmt[99]) { }
             column(TotalAmt_100; TotalAmt[100]) { }
             column(VatText; VatText) { }
-            column(Quote_No_; "Quote No.") { }
+            column(Quote_No_; '') { }
             column(ShipMethod_Description; ShipMethod.Description) { }
             column(CaptionOptionThai; CaptionOptionThai) { }
             column(CaptionOptionEng; CaptionOptionEng) { }
@@ -61,7 +61,7 @@ report 80038 "YVS Debit Note (Post)"
             column(var_RefDocumentNo; var_RefDocumentNo) { }
             column(var_RefDocumentDate; format(var_RefDocumentDate, 0, '<Day,2>/<Month,2>/<Year4>')) { }
             column(ReturnReasonDescFirstLine; ReturnReasonDescFirstLine) { }
-            dataitem(SalesLine; "Sales Invoice Line")
+            dataitem(SalesLine; "Sales Cr.Memo Line")
             {
                 DataItemTableView = sorting("Document No.", "Line No.");
                 DataItemLink = "Document No." = FIELD("No.");
@@ -87,18 +87,16 @@ report 80038 "YVS Debit Note (Post)"
                 NewDate: Date;
                 RecCustLedgEntry: Record "Cust. Ledger Entry";
                 RecReturnReason: Record "Return Reason";
-                RecSaleLine: Record "Sales Invoice Line";
+                RecSaleLine: Record "Sales Cr.Memo Line";
                 ltDocumentType: Enum "Sales Comment Document Type";
             begin
                 if "Currency Code" = '' then
                     FunctionCenter."CompanyinformationByVat"(ComText, "VAT Bus. Posting Group", false)
                 else
                     FunctionCenter."CompanyinformationByVat"(ComText, "VAT Bus. Posting Group", true);
-
-                FunctionCenter.PostedSalesInvoiceStatistics("No.", TotalAmt, VatText);
-
-                FunctionCenter.GetSalesComment(ltDocumentType::"Posted Invoice", "No.", 0, CommentText);
-                FunctionCenter.SalesPostedCustomerInformation(2, "No.", CustText, 0);
+                FunctionCenter.PostedSalesCrMemoStatistics("No.", TotalAmt, VatText);
+                FunctionCenter.GetSalesComment(ltDocumentType::"Posted Credit Memo", "No.", 0, CommentText);
+                FunctionCenter.SalesPostedCustomerInformation(3, "No.", CustText, 0);
                 FunctionCenter."ConvExchRate"("Currency Code", "Currency Factor", ExchangeRate);
                 IF NOT PaymentTerm.GET(SalesHeader."Payment Terms Code") then
                     PaymentTerm.Init();
@@ -150,7 +148,6 @@ report 80038 "YVS Debit Note (Post)"
 
                 ReturnReasonDescFirstLine := '';
                 RecSaleLine.Reset();
-
                 RecSaleLine.SetRange("Document No.", SalesHeader."No.");
                 RecSaleLine.SetFilter("Return Reason Code", '<>%1', '');
                 if RecSaleLine.FindFirst() then begin
@@ -175,9 +172,9 @@ report 80038 "YVS Debit Note (Post)"
                     field(CaptionOptionThai; CaptionOptionThai)
                     {
                         ApplicationArea = all;
+                        OptionCaption = 'ใบลดหนี้,ใบลดหนี้/ใบกำกับภาษี';
                         Caption = 'Caption';
                         ToolTip = 'Specifies the value of the Caption field.';
-                        OptionCaption = 'ใบเพิ่มหนี้,ใบเพิ่มหนี้/ใบกำกับภาษี';
                         trigger OnValidate()
                         begin
                             CaptionOptionEng := CaptionOptionThai;
@@ -197,6 +194,8 @@ report 80038 "YVS Debit Note (Post)"
     end;
 
     var
+        LotSeriesCaption: Text[50];
+        LineLotSeries: Integer;
         SplitDate: Array[3] of Text[20];
 
         companyInfor: Record "Company Information";
@@ -206,8 +205,9 @@ report 80038 "YVS Debit Note (Post)"
         ShipMethod: Record "Shipment Method";
         var_RefDocumentDate: Date;
         ExchangeRate: Text[30];
+
         LineNo: Integer;
-        RefDocumentNo, var_RefDocumentNo : Code[50];
+        LotSeriesNo, RefDocumentNo, var_RefDocumentNo : Code[50];
         CommentText: Array[99] of Text[250];
 
         FunctionCenter: Codeunit "YVS Function Center";
@@ -217,7 +217,7 @@ report 80038 "YVS Debit Note (Post)"
         AmtText, ReturnReasonDescFirstLine : Text[250];
         ComText: Array[10] of Text[250];
         CustText: Array[10] of Text[250];
-        CaptionOptionEng: Option "DEBIT NOTE","DEBIT NOTE/TAX INVOICE";
-        CaptionOptionThai: Option ใบเพิ่มหนี้,"ใบเพิ่มหนี้/ใบกำกับภาษี";
+        CaptionOptionEng: Option "CREDIT NOTE","CREDIT NOTE/TAX INVOICE";
+        CaptionOptionThai: Option ใบลดหนี้,"ใบลดหนี้/ใบกำกับภาษี";
 
 }

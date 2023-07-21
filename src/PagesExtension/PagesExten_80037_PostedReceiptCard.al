@@ -20,29 +20,4 @@ pageextension 80037 "YVS PostedReceiptCard" extends "Posted Purchase Receipt"
         }
 
     }
-    actions
-    {
-        addlast(Reporting)
-        {
-            action("Purchase Receipt")
-            {
-                Caption = 'Purchase Receipt';
-                Image = PrintReport;
-                ApplicationArea = all;
-                PromotedCategory = Category5;
-                Promoted = true;
-                PromotedIsBig = true;
-                ToolTip = 'Executes the Purchase Receipt action.';
-                trigger OnAction()
-                var
-                    PurchaseRecripet: Record "Purch. Rcpt. Header";
-                begin
-                    PurchaseRecripet.reset();
-                    PurchaseRecripet.SetRange("No.", rec."No.");
-                    REPORT.RunModal(REPORT::"YVS Good Receipt Note", true, true, PurchaseRecripet);
-                end;
-            }
-        }
-    }
-
 }

@@ -140,15 +140,6 @@ pageextension 80094 "YVS Role Purchase" extends "Purchasing Agent Role Center"
 
 
         }
-        addafter("Purchase &Order")
-        {
-            action("Goods Receipt Note List")
-            {
-                Caption = 'Goods Receipt Note';
-                ApplicationArea = all;
-                RunObject = page "YVS Goods Receipt Note List";
-                ToolTip = 'Executes the Goods Receipt Note action.';
-            }
-        }
+
     }
 }
