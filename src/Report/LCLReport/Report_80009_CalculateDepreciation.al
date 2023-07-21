@@ -1,4 +1,4 @@
-report 80088 "YVS Calculate Depreciation"
+report 80009 "YVS Calculate Depreciation"
 {
     ApplicationArea = all;
     Caption = 'Calculate Depreciation';

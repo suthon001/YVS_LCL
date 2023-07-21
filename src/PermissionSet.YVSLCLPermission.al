@@ -134,5 +134,6 @@ permissionset 80000 "YVS LCL Permission"
         report "YVS Report Sales Credit Memo" = X,
         report "YVS Receipt Tax Invoice" = X,
         report "YVS Payment Cheque" = X,
+        report "YVS Receipt Tax Invoice (Post)" = X,
         report "YVS GL Journal Report" = X;
 }
