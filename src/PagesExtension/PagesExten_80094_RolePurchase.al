@@ -96,7 +96,18 @@ pageextension 80094 "YVS Role Purchase" extends "Purchasing Agent Role Center"
                         ToolTip = 'Executes the WHT53 action.';
                     }
                 }
+                group("Sales Receipt")
+                {
+                    Caption = 'Sales Receipt';
+                    action("Sales Receipt List")
+                    {
+                        Caption = 'Sales Receipt';
+                        ApplicationArea = all;
+                        RunObject = page "YVS Sales Receipt List";
+                        ToolTip = 'Executes the Sales Receipt action.';
+                    }
 
+                }
                 group("LCL Report")
                 {
                     Caption = 'LCL Report';

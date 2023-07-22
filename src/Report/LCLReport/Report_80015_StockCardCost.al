@@ -202,14 +202,18 @@ report 80015 "YVS Report Stock Card Cost"
                     var_TotalQuantity := var_TotalQuantity + "Item Ledger Entry".Quantity;
 
 
-                    ExternalDoc := '';
+                    ExternalDoc := "Item Ledger Entry"."External Document No.";
                     "Item Ledger Entry".CalcFields("YVS Document Invoice No.");
-                    ltValueEntry.reset();
-                    ltValueEntry.SetRange("Item Ledger Entry No.", "Entry No.");
-                    ltValueEntry.SetFilter("Document No.", "Item Ledger Entry"."YVS Document Invoice No.");
-                    ltValueEntry.SetFilter("External Document No.", '<>%1', '');
-                    if ltValueEntry.FindFirst() then
-                        ExternalDoc := ltValueEntry."External Document No.";
+                    if "Item Ledger Entry"."Entry Type" = "Item Ledger Entry"."Entry Type"::Sale then
+                        ExternalDoc := "Item Ledger Entry"."YVS Document Invoice No.";
+                    if "Item Ledger Entry"."Entry Type" = "Item Ledger Entry"."Entry Type"::Purchase then begin
+                        ltValueEntry.reset();
+                        ltValueEntry.SetRange("Item Ledger Entry No.", "Entry No.");
+                        ltValueEntry.SetFilter("Document No.", "Item Ledger Entry"."YVS Document Invoice No.");
+                        ltValueEntry.SetFilter("External Document No.", '<>%1', '');
+                        if ltValueEntry.FindFirst() then
+                            ExternalDoc := ltValueEntry."External Document No.";
+                    end;
                 end;
 
                 trigger OnPreDataItem()

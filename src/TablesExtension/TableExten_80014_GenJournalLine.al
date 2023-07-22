@@ -450,7 +450,7 @@ tableextension 80014 "YVS GenJournal Lines" extends "Gen. Journal Line"
             CalcFormula = lookup("Gen. Journal Template".Type where(Name = field("Journal Template Name")));
             Caption = 'Template Source Type';
         }
-        field(80053; "Ref. Billing & Receipt No."; code[30])
+        field(80053; "YVS Ref. Billing & Receipt No."; code[30])
         {
             Editable = false;
             DataClassification = CustomerContent;

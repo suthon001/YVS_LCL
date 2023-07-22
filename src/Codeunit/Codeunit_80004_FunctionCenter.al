@@ -1592,7 +1592,78 @@ codeunit 80004 "YVS Function Center"
         end;
     end;
 
+    /// <summary> 
+    /// Description for SalesBillingReceiptInformation.
+    /// </summary>
+    /// <param name="MyText">Parameter of type array[10] of text[250].</param>
+    /// <param name="DocumentType">Parameter of type Option "Sales Billing","Sales Receipt","Purchase Billing".</param>
+    /// <param name="DocumentNo">Parameter of type Code[20].</param>
+    procedure SalesBillingReceiptInformation(var MyText: array[10] of text[250]; DocumentType: Enum "YVS Billing Document Type"; DocumentNo: Code[20])
+    var
+        BillingReceiptHeader: Record "YVS Billing Receipt Header";
+        Cust: Record Customer;
+        vendor: Record Vendor;
+        Tel: Text[250];
+        VatRegis: Text[250];
 
+    begin
+        CLEAR(MyText);
+        if not BillingReceiptHeader.GET(DocumentType, DocumentNo) then
+            exit;
+        if DocumentType = DocumentType::"Purchase Billing" then begin
+            vendor.get(BillingReceiptHeader."Bill/Pay-to Cust/Vend No.");
+            Tel := vendor."Phone No." + ' ';
+            if Vendor."Currency Code" = '' then begin
+                if vendor."Fax No." <> '' then
+                    tel += 'แฟกซ์ : ' + vendor."Fax No.";
+                VatRegis := BillingReceiptHeader."VAT Registration No.";
+                if BillingReceiptHeader."Head Office" then
+                    VatRegis += ' (สำนักงานใหญ่)'
+                else
+                    VatRegis += ' (' + BillingReceiptHeader."VAT Branch Code" + ')';
+            end else begin
+                if vendor."Fax No." <> '' then
+                    tel += 'Fax : ' + vendor."Fax No.";
+                VatRegis := BillingReceiptHeader."VAT Registration No.";
+                if BillingReceiptHeader."Head Office" then
+                    VatRegis += ' (Head Office)'
+                else
+                    VatRegis += ' (' + BillingReceiptHeader."VAT Branch Code" + ')';
+            end;
+        end else begin
+            Cust.get(BillingReceiptHeader."Bill/Pay-to Cust/Vend No.");
+            Tel := Cust."Phone No." + ' ';
+            if Cust."Currency Code" = '' then begin
+                if Cust."Fax No." <> '' then
+                    tel += 'แฟกซ์ : ' + Cust."Fax No.";
+                VatRegis := BillingReceiptHeader."VAT Registration No.";
+                if BillingReceiptHeader."Head Office" then
+                    VatRegis += ' (สำนักงานใหญ่)'
+                else
+                    VatRegis += ' (' + BillingReceiptHeader."VAT Branch Code" + ')';
+            end else begin
+                if Cust."Fax No." <> '' then
+                    tel += 'Fax : ' + Cust."Fax No.";
+                VatRegis := BillingReceiptHeader."Vat Registration No.";
+                if BillingReceiptHeader."Head Office" then
+                    VatRegis += ' (Head Office)'
+                else
+                    VatRegis += ' (' + BillingReceiptHeader."VAT Branch Code" + ')';
+            end;
+        end;
+
+
+        MyText[1] := BillingReceiptHeader."Bill/Pay-to Cust/Vend Name" + ' ' + BillingReceiptHeader."Bill/Pay-to Cus/Vend Name 2";
+        MyText[2] := BillingReceiptHeader."Bill/Pay-to Address" + ' ';
+        MyText[3] := BillingReceiptHeader."Bill/Pay-to Address 2" + ' ';
+        MyText[3] += BillingReceiptHeader."Bill/Pay-to City" + ' ' + BillingReceiptHeader."Bill/Pay-to Post Code";
+        MyText[4] := Tel;
+        MyText[5] := BillingReceiptHeader."Bill/Pay-to Contact";
+        MyText[9] := BillingReceiptHeader."Bill/Pay-to Cust/Vend No.";
+        MyText[10] := VatRegis;
+
+
+    end;
     /// <summary>
     /// PurchStatistic.
     /// </summary>
@@ -2643,7 +2714,40 @@ codeunit 80004 "YVS Function Center"
 
 
 
+    /// <summary>
+    /// RereleaseBilling.
+    /// </summary>
+    /// <param name="BillingHeader">Record "YVS Billing Receipt Header".</param>
+    procedure RereleaseBilling(BillingHeader: Record "YVS Billing Receipt Header")
 
+    begin
+        IF BillingHeader."Status" = BillingHeader."Status"::Released THEN
+            EXIT;
+        BillingHeader.CheckBeforRelease();
+        BillingHeader.TESTFIELD("Bill/Pay-to Cust/Vend No.");
+        BillingLine.RESET();
+        BillingLine.SETRANGE("Document Type", BillingHeader."Document Type");
+        BillingLine.SETRANGE("Document No.", BillingHeader."No.");
+        IF NOT BillingLine.FindFirst() THEN
+            ERROR(Text001Msg, BillingHeader."Document Type", BillingHeader."No.");
+
+        BillingHeader."Status" := BillingHeader."Status"::Released;
+        BillingHeader.MODIFY();
+    end;
+    /// <summary>
+    /// ReopenBilling.
+    /// </summary>
+    /// <param name="BillingHeader">Record "YVS Billing Receipt Header".</param>
+    procedure "ReopenBilling"(BillingHeader: Record "YVS Billing Receipt Header")
+    begin
+        //  WITH BillingHeader DO BEGIN
+        IF BillingHeader."Status" = BillingHeader."Status"::Open THEN
+            EXIT;
+        BillingHeader.CheckbeforReOpen();
+        BillingHeader."Status" := BillingHeader."Status"::Open;
+        BillingHeader.MODIFY();
+        //   END;
+    end;
     /// <summary>
     /// YVS IsNOTFilterCostGL.
     /// </summary>
@@ -2686,7 +2790,7 @@ codeunit 80004 "YVS Function Center"
 
 
     var
-
+        BillingLine: Record "YVS Billing Receipt Line";
         Text001Msg: Label 'There is nothing to release for %1 %2.', Locked = true;
 
         Text002Msg: Label 'VAT %1%', MaxLength = 1024, Locked = true;

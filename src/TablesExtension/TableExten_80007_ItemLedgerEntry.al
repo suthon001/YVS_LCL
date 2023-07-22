@@ -56,9 +56,8 @@ tableextension 80007 "YVS ExtenItem Ledger Entry" extends "Item Ledger Entry"
         {
             Caption = 'Document Invoice No.';
             FieldClass = FlowField;
-            CalcFormula = lookup("Value Entry"."Document No." WHERE("Item Ledger Entry No." = field("Entry No."), "Document Type" = filter("Sales Invoice" | "Purchase Invoice")));
+            CalcFormula = lookup("Value Entry"."Document No." WHERE("Item Ledger Entry No." = field("Entry No."), "Document Type" = filter("Purchase Credit Memo" | "Purchase Invoice" | "Sales Credit Memo" | "Sales Invoice")));
             Editable = false;
         }
-
     }
 }

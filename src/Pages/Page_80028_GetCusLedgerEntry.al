@@ -62,11 +62,11 @@ page 80028 "YVS Get Cus. Ledger Entry"
                     ToolTip = 'Specifies the value of the Original Amount field.';
                     Caption = 'Original Amount';
                 }
-                field("YVS Billing Amount"; Rec."YVS Billing Amount")
+                field("YVS Receipt Amount"; Rec."YVS Receipt Amount")
                 {
                     ApplicationArea = all;
-                    ToolTip = 'Specifies the value of the YVS Billing Amount field.';
-                    Caption = 'Billing Amount ';
+                    ToolTip = 'Specifies the value of the YVS Receipt Amount field.';
+                    Caption = 'Receipt Amount ';
                 }
                 field("YVS Remaining Amt."; Rec."YVS Remaining Amt.")
                 {
@@ -81,7 +81,7 @@ page 80028 "YVS Get Cus. Ledger Entry"
 
     trigger OnAfterGetRecord()
     begin
-        Rec.CalcFields("Remaining Amount", "Original Amount", Amount);
+        Rec.CalcFields("Remaining Amount", "Original Amount", Amount, "YVS Receipt Amount");
     end;
 
     trigger OnQueryClosePage(CloseAction: Action): Boolean

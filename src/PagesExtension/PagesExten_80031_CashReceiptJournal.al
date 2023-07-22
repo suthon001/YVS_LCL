@@ -198,6 +198,17 @@ pageextension 80031 "YVS Receipt Journal" extends "Cash Receipt Journal"
             rec.SetRange("Document No.", gvDocument);
     end;
 
+    trigger OnDeleteRecord(): Boolean
+    var
+        PurchaseBilling: Record "YVS Billing Receipt Header";
+    begin
+        if PurchaseBilling.GET(PurchaseBilling."Document Type"::"Sales Receipt", rec."YVS Ref. Billing & Receipt No.") then begin
+            PurchaseBilling."Status" := PurchaseBilling."Status"::Released;
+            PurchaseBilling."Create to Journal" := false;
+            PurchaseBilling.Modify();
+        end;
+    end;
+
     procedure SetDocumnet(pDocument: code[20])
     begin
         gvDocument := pDocument;

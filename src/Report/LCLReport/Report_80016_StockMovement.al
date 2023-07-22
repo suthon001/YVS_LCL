@@ -88,7 +88,7 @@ report 80016 "YVS Stock Movement"
                 column(DocumentNo_ItemLedgerEntry; "Item Ledger Entry"."Document No.")
                 {
                 }
-                column(ExtDocumentNo_ItemLedgerEntry; "Item Ledger Entry"."External Document No.")
+                column(ExtDocumentNo_ItemLedgerEntry; ExternalDoc)
                 {
                 }
                 column(LocationCode_ItemLedgerEntry; "Item Ledger Entry"."Location Code")
@@ -126,6 +126,8 @@ report 80016 "YVS Stock Movement"
                 }
 
                 trigger OnAfterGetRecord()
+                var
+                    ltValueEntry: Record "Value Entry";
                 begin
                     var_Pos := 0;
                     var_Neg := 0;
@@ -141,7 +143,18 @@ report 80016 "YVS Stock Movement"
                     var_TotalNeg := var_TotalNeg + var_Neg;
                     var_TotalQuantity := var_TotalQuantity + "Item Ledger Entry".Quantity;
 
-
+                    ExternalDoc := "Item Ledger Entry"."External Document No.";
+                    "Item Ledger Entry".CalcFields("YVS Document Invoice No.");
+                    if "Item Ledger Entry"."Entry Type" = "Item Ledger Entry"."Entry Type"::Sale then
+                        ExternalDoc := "Item Ledger Entry"."YVS Document Invoice No.";
+                    if "Item Ledger Entry"."Entry Type" = "Item Ledger Entry"."Entry Type"::Purchase then begin
+                        ltValueEntry.reset();
+                        ltValueEntry.SetRange("Item Ledger Entry No.", "Entry No.");
+                        ltValueEntry.SetFilter("Document No.", "Item Ledger Entry"."YVS Document Invoice No.");
+                        ltValueEntry.SetFilter("External Document No.", '<>%1', '');
+                        if ltValueEntry.FindFirst() then
+                            ExternalDoc := ltValueEntry."External Document No.";
+                    end;
                 end;
 
                 trigger OnPreDataItem()
@@ -218,6 +231,6 @@ report 80016 "YVS Stock Movement"
         var_ItemLedLocationCode: text;
         var_ItemLedEntryType: Text;
         _USERID: Text[100];
-        ItemFilter: Text;
+        ItemFilter, ExternalDoc : Text;
 }
 
