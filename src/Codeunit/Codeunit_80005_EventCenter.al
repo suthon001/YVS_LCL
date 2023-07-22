@@ -18,6 +18,7 @@ codeunit 80005 "YVS EventFunction"
 
     [EventSubscriber(ObjectType::Page, Page::"Payment Journal", 'OnAfterValidateEvent', 'AppliesToDocNo', false, false)]
     local procedure AppliesToDocNo(var Rec: Record "Gen. Journal Line"; var xRec: Record "Gen. Journal Line")
+
     begin
 
         if rec."Applies-to Doc. No." <> xRec."Applies-to Doc. No." then
@@ -41,6 +42,7 @@ codeunit 80005 "YVS EventFunction"
             VendLdgEntry.SetRange("Applies-to ID", GenJournalLine."Document No.");
             if VendLdgEntry.FindSet() then begin
                 repeat
+
                     if StrPos(InvoiceNO, VendLdgEntry."Document No.") = 0 then begin
                         if InvoiceNO <> '' then
                             InvoiceNO := InvoiceNO + '|';
@@ -379,6 +381,348 @@ codeunit 80005 "YVS EventFunction"
             until RecRef2.next() = 0;
     end;
 
+    /// <summary>
+    /// RunWorkflowOnSendBillingReceiptHeaderApprovalCode.
+    /// </summary>
+    /// <returns>Return value of type Code[128].</returns>
+    procedure RunWorkflowOnSendBillingReceiptApprovalCode(): Code[128]
+    begin
+        exit(UpperCase('RunWorkflowOnSendBillingReceiptApproval'))
+    end;
+
+
+
+    /// <summary>
+    /// RunWorkflowOnSendBillingReceiptApproval.
+    /// </summary>
+    /// <param name="BillingReceiptHeader">VAR Record "YVS Billing Receipt Header".</param>
+    [EventSubscriber(ObjectType::Table, database::"YVS Billing Receipt Header", 'OnSendBillingReceiptforApproval', '', false, false)]
+    local procedure RunWorkflowOnSendBillingReceiptApproval(var BillingReceiptHeader: Record "YVS Billing Receipt Header")
+    begin
+        WFMngt.HandleEvent(RunWorkflowOnSendBillingReceiptApprovalCode(), BillingReceiptHeader);
+    end;
+
+    /// <summary>
+    /// RunWorkflowOnCancelBillingReceiptApprovalCode.
+    /// </summary>
+    /// <returns>Return value of type Code[128].</returns>
+    procedure RunWorkflowOnCancelBillingReceiptApprovalCode(): Code[128]
+    begin
+        exit(UpperCase('RunWorkflowOnCancelBillingReceiptApproval'));
+    end;
+
+    [EventSubscriber(ObjectType::Table, database::"YVS Billing Receipt Header", 'OnCancelBillingReceiptforApproval', '', false, false)]
+    local procedure OnCancelBillingReceiptforApproval(var BillingReceiptHeader: Record "YVS Billing Receipt Header")
+    begin
+        WFMngt.HandleEvent(RunWorkflowOnCancelBillingReceiptApprovalCode(), BillingReceiptHeader);
+    end;
+
+
+
+
+    /// <summary>
+    /// RunWorkflowOnApproveBillingReceiptApprovalCode.
+    /// </summary>
+    /// <returns>Return value of type Code[128].</returns>
+    procedure RunWorkflowOnApproveBillingReceiptApprovalCode(): Code[128]
+    begin
+        exit(UpperCase('RunWorkflowOnApproveBillingReceiptApproval'))
+    end;
+
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Approvals Mgmt.", 'OnApproveApprovalRequest', '', false, false)]
+    local procedure RunWorkflowOnApproveBillingReceiptApproval(var ApprovalEntry: Record "Approval Entry")
+    begin
+        if ApprovalEntry."Table ID" = Database::"YVS Billing Receipt Header" then
+            WFMngt.HandleEventOnKnownWorkflowInstance(RunWorkflowOnApproveBillingReceiptApprovalCode(), ApprovalEntry, ApprovalEntry."Workflow Step Instance ID");
+
+    end;
+
+
+
+
+    /// <summary>
+    /// RunWorkflowOnRejectBillingReceiptApprovalCode.
+    /// </summary>
+    /// <returns>Return value of type Code[128].</returns>
+    procedure RunWorkflowOnRejectBillingReceiptApprovalCode(): Code[128]
+    begin
+        exit(UpperCase('RunWorkflowOnRejectBillingReceiptApproval'))
+    end;
+
+
+
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Approvals Mgmt.", 'OnRejectApprovalRequest', '', false, false)]
+    local procedure RunWorkflowOnRejectApproval(var ApprovalEntry: Record "Approval Entry")
+    begin
+        if ApprovalEntry."Table ID" = Database::"YVS Billing Receipt Header" then
+            WFMngt.HandleEventOnKnownWorkflowInstance(RunWorkflowOnRejectBillingReceiptApprovalCode(), ApprovalEntry, ApprovalEntry."Workflow Step Instance ID");
+
+    end;
+
+    /// <summary>
+    /// RunWorkflowOnDelegateBillingReceiptApprovalCode.
+    /// </summary>
+    /// <returns>Return value of type Code[128].</returns>
+    procedure RunWorkflowOnDelegateBillingReceiptApprovalCode(): Code[128]
+    begin
+        exit(UpperCase('RunWorkflowOnDelegateBillingReceiptApproval'))
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Approvals Mgmt.", 'OnDelegateApprovalRequest', '', false, false)]
+    local procedure RunWorkflowOnDelegateApproval(var ApprovalEntry: Record "Approval Entry")
+    begin
+        if ApprovalEntry."Table ID" = Database::"YVS Billing Receipt Header" then
+            WFMngt.HandleEventOnKnownWorkflowInstance(RunWorkflowOnDelegateBillingReceiptApprovalCode(), ApprovalEntry, ApprovalEntry."Workflow Step Instance ID");
+
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Approvals Mgmt.", 'OnSetStatusToPendingApproval', '', false, false)]
+    local procedure "OnSetStatusToPendingApproval"(RecRef: RecordRef; var Variant: Variant; var IsHandled: Boolean);
+    var
+        BillingReceipts: Record "YVS Billing Receipt Header";
+    begin
+        case RecRef.Number of
+            DATABASE::"YVS Billing Receipt Header":
+                begin
+                    RecRef.SetTable(BillingReceipts);
+                    BillingReceipts.Status := BillingReceipts.Status::"Pending Approval";
+                    BillingReceipts.Modify();
+                    IsHandled := true;
+                end;
+
+        end;
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Workflow Response Handling", 'OnReleaseDocument', '', false, false)]
+    local procedure "OnReleaseDocument"(RecRef: RecordRef; var Handled: Boolean);
+    var
+        BillingReceipts: Record "YVS Billing Receipt Header";
+
+    begin
+        case RecRef.Number of
+            DATABASE::"YVS Billing Receipt Header":
+                begin
+                    RecRef.SetTable(BillingReceipts);
+                    BillingReceipts.Status := BillingReceipts.Status::Released;
+                    BillingReceipts.Modify();
+
+                end;
+        end;
+        Handled := true;
+    end;
+
+
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Workflow Response Handling", 'OnOpenDocument', '', false, false)]
+    local procedure OnOpenDocument(RecRef: RecordRef; var Handled: Boolean);
+    var
+        BillingReceipts: Record "YVS Billing Receipt Header";
+
+    begin
+        case RecRef.Number of
+            DATABASE::"YVS Billing Receipt Header":
+                begin
+                    RecRef.SetTable(BillingReceipts);
+                    BillingReceipts.Status := BillingReceipts.Status::Open;
+                    BillingReceipts.Modify();
+                    Handled := true;
+                END;
+        end;
+    END;
+
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Workflow Event Handling", 'OnAddWorkflowEventsToLibrary', '', false, false)]
+    local procedure "AddBillingReceiptEventToLibrary"()
+    begin
+        WorkflowEventHandling.AddEventToLibrary(RunWorkflowOnSendBillingReceiptApprovalCode(), Database::"YVS Billing Receipt Header", SendBillingReceiptReqLbl, 0, false);
+        WorkflowEventHandling.AddEventToLibrary(RunWorkflowOnCancelBillingReceiptApprovalCode(), Database::"YVS Billing Receipt Header", CancelReqBillingReceiptLbl, 0, false);
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Approvals Mgmt.", 'OnPopulateApprovalEntryArgument', '', false, false)]
+
+    local procedure "OnPopulateApprovalEntryArgument"(var RecRef: RecordRef; var ApprovalEntryArgument: Record "Approval Entry"; WorkflowStepInstance: Record "Workflow Step Instance");
+    var
+        BillingReceipt: Record "YVS Billing Receipt Header";
+    begin
+        case RecRef.Number OF
+            DATABASE::"YVS Billing Receipt Header":
+                begin
+                    RecRef.SetTable(BillingReceipt);
+                    BillingReceipt.CalcFields(Amount);
+
+                    ApprovalEntryArgument."Document Type" := ApprovalEntryArgument."Document Type"::"YVS Sales Receipt";
+
+                    ApprovalEntryArgument.Amount := BillingReceipt.Amount;
+                end;
+
+        end;
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Page Management", 'OnAfterGetPageID', '', false, false)]
+    local procedure "OnAfterGetPageID"(RecordRef: RecordRef; var PageID: Integer)
+    var
+        BillingReceipt: Record "YVS Billing Receipt Header";
+    begin
+        if (PageID = 0) and (RecordRef.Number = Database::"YVS Billing Receipt Header") then begin
+            RecordRef.SetTable(BillingReceipt);
+
+            if BillingReceipt."Document Type" = BillingReceipt."Document Type"::"Sales Receipt" then
+                PageID := Page::"YVS Sales Receipt List";
+
+
+        end;
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Notification Management", 'OnGetDocumentTypeAndNumber', '', false, false)]
+    local procedure "OnGetDocumentTypeAndNumber"(var RecRef: RecordRef; var IsHandled: Boolean; var DocumentNo: Text; var DocumentType: Text);
+    var
+        FieldRef: FieldRef;
+    begin
+        IF RecRef.Number = DATABASE::"YVS Billing Receipt Header" then begin
+            DocumentType := RecRef.Caption;
+            FieldRef := RecRef.FieldIndex(1);
+            DocumentNo := Format(FieldRef.Value);
+            FieldRef := RecRef.Field(2);
+            DocumentNo += ',' + Format(FieldRef.Value);
+            IsHandled := true;
+        end;
+    end;
+
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Workflow Setup", 'OnAddWorkflowCategoriesToLibrary', '', false, false)]
+    local procedure "OnAddWorkflowCategoriesToLibrary"();
+    var
+        workflowSetup: Codeunit "Workflow Setup";
+    begin
+        workflowSetup.InsertWorkflowCategory('BILLINGRECEIPT', 'Billing Receipt Workflow');
+
+    end;
+
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Workflow Setup", 'OnAfterInitWorkflowTemplates', '', false, false)]
+    local procedure "OnAfterInitWorkflowTemplates"()
+    var
+        Workflow: Record Workflow;
+        workflowSetup: Codeunit "Workflow Setup";
+        BillingReceiptHeader: Record "YVS Billing Receipt Header";
+        BillingReceiptLine: Record "YVS Billing Receipt Line";
+        ApprovalEntry: Record "Approval Entry";
+
+    begin
+        Workflow.reset();
+        Workflow.SetRange(Category, BillingReceiptCatLbl);
+        Workflow.SetRange(Template, true);
+        if Workflow.IsEmpty then begin
+            workflowSetup.InsertTableRelation(Database::"YVS Billing Receipt Header", 0, Database::"Approval Entry", ApprovalEntry.FieldNo("Record ID to Approve"));
+            workflowSetup.InsertTableRelation(Database::"YVS Billing Receipt Header", BillingReceiptHeader.FieldNo("Document Type"), DATABASE::"YVS Billing Receipt Line", BillingReceiptLine.FieldNo("Document Type"));
+            workflowSetup.InsertTableRelation(Database::"YVS Billing Receipt Header", BillingReceiptHeader.FieldNo("No."), DATABASE::"YVS Billing Receipt Line", BillingReceiptLine.FieldNo("Document No."));
+            InsertWorkflowBillingReceiptTemplateSalesReceipt();
+        end;
+
+    end;
+
+
+    local procedure InsertWorkflowBillingReceiptTemplateSalesReceipt()
+    var
+        Workflow: Record 1501;
+        workflowSetup: Codeunit "Workflow Setup";
+
+    begin
+        workflowSetup.InsertWorkflowTemplate(Workflow, 'SRECEIPT', 'Sales Receipt Workflow', BillingReceiptCatLbl);
+        InsertBillingReceiptDetailWOrkflowSalesReceipt(Workflow);
+        workflowSetup.MarkWorkflowAsTemplate(Workflow);
+    end;
+
+
+
+
+
+    local procedure InsertBillingReceiptDetailWOrkflowSalesReceipt(var workflow: Record 1501)
+    var
+
+        WorkflowSetpArgument: Record 1523;
+        blankDateFormula: DateFormula;
+        BillingReceipt: Record "YVS Billing Receipt Header";
+        WorkflowSetup: Codeunit "Workflow Setup";
+
+    begin
+
+        WorkflowSetup.InitWorkflowStepArgument(WorkflowSetpArgument,
+        WorkflowSetpArgument."Approver Type"::Approver, WorkflowSetpArgument."Approver Limit Type"::"Direct Approver",
+        0, '', blankDateFormula, TRUE);
+
+        WorkflowSetup.InsertDocApprovalWorkflowSteps(
+      workflow,
+      BuildBillingReceiptCondition(BillingReceipt."Status"::Open, BillingReceipt."Document Type"::"Sales Receipt"),
+      RunWorkflowOnSendBillingReceiptApprovalCode(),
+       BuildBillingReceiptCondition(BillingReceipt."Status"::"Pending Approval", BillingReceipt."Document Type"::"Sales Receipt"),
+       RunWorkflowOnCancelBillingReceiptApprovalCode(),
+        WorkflowSetpArgument,
+       TRUE
+       );
+    end;
+
+
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Workflow Event Handling", 'OnAddWorkflowEventPredecessorsToLibrary', '', false, false)]
+    local procedure "OnAddWorkflowEventPredecessorsToLibrary"(EventFunctionName: Code[128]);
+    var
+        WorkflowEventHadning: Codeunit "Workflow Event Handling";
+    begin
+        case EventFunctionName of
+            RunWorkflowOnCancelBillingReceiptApprovalCode():
+
+
+                WorkflowEventHadning.AddEventPredecessor(RunWorkflowOnCancelBillingReceiptApprovalCode(), RunWorkflowOnSendBillingReceiptApprovalCode());
+            WorkflowEventHadning.RunWorkflowOnApproveApprovalRequestCode():
+                WorkflowEventHadning.AddEventPredecessor(WorkflowEventHadning.RunWorkflowOnApproveApprovalRequestCode(), RunWorkflowOnSendBillingReceiptApprovalCode());
+
+        end;
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Workflow Response Handling", 'OnAddWorkflowResponsePredecessorsToLibrary', '', false, false)]
+    local procedure "OnAddWorkflowResponsePredecessorsToLibrary"(ResponseFunctionName: Code[128]);
+    var
+        WorkflowResponseHanding: Codeunit 1521;
+    begin
+        case ResponseFunctionName of
+
+            WorkflowResponseHanding.SetStatusToPendingApprovalCode():
+
+                WorkflowResponseHanding.AddResponsePredecessor(WorkflowResponseHanding.SetStatusToPendingApprovalCode(),
+                RunWorkflowOnSendBillingReceiptApprovalCode());
+            WorkflowResponseHanding.SendApprovalRequestForApprovalCode():
+
+                WorkflowResponseHanding.AddResponsePredecessor(WorkflowResponseHanding.SendApprovalRequestForApprovalCode(),
+                RunWorkflowOnSendBillingReceiptApprovalCode());
+            WorkflowResponseHanding.RejectAllApprovalRequestsCode():
+
+                WorkflowResponseHanding.AddResponsePredecessor(WorkflowResponseHanding.RejectAllApprovalRequestsCode(),
+                RunWorkflowOnRejectBillingReceiptApprovalCode());
+            WorkflowResponseHanding.CancelAllApprovalRequestsCode():
+
+                WorkflowResponseHanding.AddResponsePredecessor(WorkflowResponseHanding.CancelAllApprovalRequestsCode(),
+                RunWorkflowOnCancelBillingReceiptApprovalCode());
+            WorkflowResponseHanding.OpenDocumentCode():
+
+                WorkflowResponseHanding.AddResponsePredecessor(WorkflowResponseHanding.OpenDocumentCode(),
+                RunWorkflowOnCancelBillingReceiptApprovalCode());
+        end;
+
+    end;
+
+    local procedure BuildBillingReceiptCondition(Status: Enum "YVS Billing Receipt Status"; DocumentType: Enum "YVS Billing Document Type"): Text
+    var
+        BillingReceipt: Record "YVS Billing Receipt Header";
+        BillingReceiptLine: Record "YVS Billing Receipt Line";
+        workflowSetup: Codeunit "Workflow Setup";
+    begin
+        BillingReceipt.SetRange("Document Type", DocumentType);
+        BillingReceipt.SetRange("Status", Status);
+        exit(StrSubstNo(BillingReceiptConditionTxt, workflowSetup.Encode(BillingReceipt.GetView(false)), workflowSetup.Encode(BillingReceiptLine.GetView(false))));
+    end;
 
     [IntegrationEvent(true, false)]
     procedure OnbeforInsertWHTLine(WhtApplyLine: Record "YVS WHT Applied Entry"; WHTHeader: Record "YVS WHT Header"; GenLine: Record "Gen. Journal Line"; var WHTLine: Record "YVS WHT Line")
@@ -408,6 +752,11 @@ codeunit 80005 "YVS EventFunction"
         PostingPreviewEventHandler: Codeunit "Posting Preview Event Handler";
         ErrorMessageMgt: Codeunit "Error Message Management";
         ErrorMessageHandler: Codeunit "Error Message Handler";
-
+        BillingReceiptCatLbl: Label 'BILLINGRECEIPT';
+        WFMngt: Codeunit "Workflow Management";
+        WorkflowEventHandling: Codeunit "Workflow Event Handling";
+        SendBillingReceiptReqLbl: Label 'Approval Request for Billing Receipt is requested';
+        CancelReqBillingReceiptLbl: Label 'Approval of a Billing Receipt is canceled';
+        BillingReceiptConditionTxt: Label '<?xml version = "1.0" encoding="utf-8" standalone="yes"?><ReportParameters><DataItems><DataItem name="YVS Billing Receipt Header">%1</DataItem><DataItem name="YVS Billing Receipt Line">%2</DataItem></DataItems></ReportParameters>', Locked = true;
 
 }
