@@ -12,5 +12,11 @@ tableextension 80004 "YVS ExtenSales&ReceivableSetup" extends "Sales & Receivabl
             TableRelation = "No. Series";
             DataClassification = CustomerContent;
         }
+        field(80001; "YVS Sale Receipt Nos."; Code[20])
+        {
+            Caption = 'Sale Receipt Nos.';
+            TableRelation = "No. Series".Code;
+            DataClassification = CustomerContent;
+        }
     }
 }

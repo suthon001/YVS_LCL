@@ -6,6 +6,46 @@ codeunit 80000 "YVS Journal Function"
     EventSubscriberInstance = StaticAutomatic;
 
 
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Gen. Jnl.-Post Batch", 'OnBeforeUpdateAndDeleteLines', '', true, true)]
+    /// <summary> 
+    /// Description for InsertPostedGenLine.
+    /// </summary>
+    /// <param name="GenJournalLine">Parameter of type Record "Gen. Journal Line".</param>
+    local procedure "OnBeforeUpdateAndDeleteLines"(var GenJournalLine: Record "Gen. Journal Line")
+    var
+        WHTHeader: Record "YVS WHT Header";
+        BillingHeader: Record "YVS Billing Receipt Header";
+        GenJnlLine2, GenJnlLine3 : Record "Gen. Journal Line";
+    begin
+        GenJnlLine2.Copy(GenJournalLine);
+        GenJnlLine2.SetCurrentKey("Journal Template Name", "Journal Batch Name", "Line No.");
+        GenJnlLine2.SetFilter("Account No.", '<>%1', '');
+        GenJnlLine2.SetFilter("YVS WHT Document No.", '<>%1', '');
+        if GenJnlLine2.FindSet() then
+            repeat
+                WHTHeader.reset();
+                WHTHeader.setrange("WHT No.", GenJnlLine2."YVS WHT Document No.");
+                if WHTHeader.FindFirst() then begin
+                    WHTHeader."Posted" := true;
+                    WHTHeader.Modify();
+                end;
+            until GenJnlLine2.Next() = 0;
+
+        GenJnlLine3.Copy(GenJournalLine);
+        GenJnlLine3.SetCurrentKey("Journal Template Name", "Journal Batch Name", "Line No.");
+        GenJnlLine3.SetFilter("Account No.", '<>%1', '');
+        GenJnlLine3.SetFilter("Ref. Billing & Receipt No.", '<>%1', '');
+        if GenJnlLine3.FindSet() then
+            repeat
+                BillingHeader.reset();
+                BillingHeader.SetRange("No.", GenJnlLine3."Ref. Billing & Receipt No.");
+                if BillingHeader.FindFirst() then begin
+                    BillingHeader."Status" := BillingHeader."Status"::Posted;
+                    BillingHeader."Journal Document No." := GenJnlLine3."Document No.";
+                    BillingHeader.Modify();
+                end;
+            until GenJnlLine3.Next() = 0;
+    end;
 
 
 
@@ -305,7 +345,6 @@ codeunit 80000 "YVS Journal Function"
     var
         GenLine: Record "Gen. Journal Line";
     begin
-        // with CustLedgerEntry do begin
 
 
 
@@ -323,7 +362,7 @@ codeunit 80000 "YVS Journal Function"
             CustLedgerEntry."YVS Customer/Vendor No." := GenLine."YVS Customer/Vendor No.";
         end;
 
-        // end;
+
     end;
 
     [EventSubscriber(ObjectType::Table, Database::"Cust. Ledger Entry", 'OnAfterCopyCustLedgerEntryFromGenJnlLine', '', false, false)]
@@ -353,27 +392,13 @@ codeunit 80000 "YVS Journal Function"
 
 
 
-
     [EventSubscriber(ObjectType::Table, Database::"Item Journal Line", 'OnAfterSetupNewLine', '', True, true)]
     local procedure "AfterSetupNewLine"(var ItemJournalLine: Record "Item Journal Line"; var LastItemJournalLine: Record "Item Journal Line")
     begin
         ItemJournalLine."YVS Document No. Series" := LastItemJournalLine."YVS Document No. Series";
     end;
 
-    [EventSubscriber(ObjectType::Table, Database::"Item Journal Line", 'OnAfterValidateEvent', 'Item No.', TRUE, TRUE)]
-    local procedure "AfterValidateItemNo"(var Rec: Record "Item Journal Line")
-    var
-        Item: Record Item;
-        ItemJournalBatch: Record "Item Journal Batch";
-        ItemTemplateName: Record "Item Journal Template";
-    begin
 
-        if not Item.get(Rec."Item No.") then
-            Item.init();
-        Rec."YVS Description 2" := Item."Description 2";
-
-
-    end;
 
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Item Jnl.-Post Line", 'OnAfterInitItemLedgEntry', '', true, true)]

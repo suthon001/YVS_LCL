@@ -67,5 +67,32 @@ tableextension 80036 "YVS ExtenCustLedger Entry" extends "Cust. Ledger Entry"
             DataClassification = CustomerContent;
             Editable = false;
         }
+        field(80010; "YVS Completed Receipt"; Boolean)
+        {
+            Editable = false;
+            Caption = 'Completed Receipt';
+            DataClassification = CustomerContent;
+        }
+        field(80011; "YVS Receipt Amount"; Decimal)
+        {
+            FieldClass = FlowField;
+            Caption = 'Receipt Amount';
+            Editable = false;
+            CalcFormula = Sum("YVS Billing Receipt Line"."Amount" WHERE("Document Type" = filter('Sales Receipt'),
+             "Source Ledger Entry No." = FIELD("Entry No."), "Status" = filter(<> "Posted")));
+        }
+        field(80012; "YVS Remaining Amt."; Decimal)
+        {
+            Caption = 'Remaining Amt.';
+            Editable = false;
+            DataClassification = CustomerContent;
+
+        }
+        field(80013; "YVS Aging Due Date"; Date)
+        {
+            Editable = false;
+            Caption = 'Aging Due Date';
+            DataClassification = CustomerContent;
+        }
     }
 }

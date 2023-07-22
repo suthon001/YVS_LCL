@@ -55,5 +55,6 @@ tableextension 80039 "YVS ExtenCheck Ledger Entry" extends "Check Ledger Entry"
             Editable = false;
         }
 
+
     }
 }
