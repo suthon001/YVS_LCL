@@ -13,6 +13,11 @@ pageextension 80004 "YVS ExtenSales & ReceSetup" extends "Sales & Receivables Se
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the Sales VAT Nos. field.';
             }
+            field("YVS Sale Receipt Nos."; rec."YVS Sale Receipt Nos.")
+            {
+                ApplicationArea = all;
+                ToolTip = 'Specifies the value of the Sales Receipt Nos. field.';
+            }
 
         }
     }
