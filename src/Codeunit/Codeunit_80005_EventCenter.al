@@ -4,6 +4,17 @@
 codeunit 80005 "YVS EventFunction"
 {
     Permissions = TableData "G/L Entry" = rimd;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Financial Report Mgt.", 'OnBeforePrint', '', false, false)]
+    local procedure OnBeforePrintFinancial(var FinancialReport: Record "Financial Report"; var IsHandled: Boolean)
+    var
+        AccountSchedule: Report "YVS Account Schedule";
+    begin
+        AccountSchedule.SetFinancialReportName(FinancialReport.Name);
+        AccountSchedule.Run();
+        IsHandled := true;
+    end;
+
     [EventSubscriber(ObjectType::Table, Database::"FA Depreciation Book", 'OnBeforeValidateNoOfDepreYears', '', false, false)]
     local procedure OnBeforeValidateNoOfDepreYears(var IsHandled: Boolean)
     begin
@@ -290,6 +301,8 @@ codeunit 80005 "YVS EventFunction"
             NewReportId := REPORT::"YVS Calculate Depreciation";
         if ReportId = report::"Inventory - List" then
             NewReportId := REPORT::"YVS Inventory - List";
+        if ReportId = Report::"Account Schedule" then
+            NewReportId := report::"YVS Account Schedule";
 
 
     end;
