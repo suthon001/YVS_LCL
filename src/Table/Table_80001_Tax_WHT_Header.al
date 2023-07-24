@@ -17,6 +17,15 @@ table 80001 "YVS Tax & WHT Header"
         {
             Caption = 'Document No.';
             DataClassification = CustomerContent;
+            trigger OnValidate()
+            var
+                NoSeriesMgt: Codeunit NoSeriesManagement;
+            begin
+                if rec."Document No." <> xRec."Document No." then begin
+                    NoSeriesMgt.TestManual(GetNoSeriesCode());
+                    "No. Series" := '';
+                end;
+            end;
         }
         field(3; "End date of Month"; Date)
         {
@@ -184,6 +193,40 @@ table 80001 "YVS Tax & WHT Header"
     end;
 
 
+    /// <summary> 
+    /// Description for GetNoSeriesCode.
+    /// </summary>
+    /// <returns>Return variable "Code[20]".</returns>
+    local procedure "GetNoSeriesCode"(): Code[20]
+    var
+        SalesSetup: Record "Sales & Receivables Setup";
+        PurchSetup: Record "Purchases & Payables Setup";
+    begin
+        PurchSetup.get();
+        SalesSetup.get();
+        CASE "Tax Type" OF
+            "Tax Type"::Sale:
+                begin
+                    SalesSetup.TestField("YVS Sales VAT Nos.");
+                    EXIT(SalesSetup."YVS Sales VAT Nos.");
+                end;
+            "Tax Type"::Purchase:
+                begin
+                    PurchSetup.TestField("YVS Purchase VAT Nos.");
+                    EXIT(PurchSetup."YVS Purchase VAT Nos.");
+                end;
+            "Tax Type"::WHT03:
+                begin
+                    PurchSetup.TestField("YVS WHT03 Nos.");
+                    EXIT(PurchSetup."YVS WHT03 Nos.");
+                end;
+            "Tax Type"::WHT53:
+                begin
+                    PurchSetup.TestField("YVS WHT53 Nos.");
+                    EXIT(PurchSetup."YVS WHT53 Nos.");
+                end;
+        END;
+    end;
 
 
     /// <summary> 
