@@ -120,8 +120,10 @@ report 80021 "YVS Debit Note"
 
                 IF RecCustLedgEntry.FindFirst() THEN BEGIN
                     RecCustLedgEntry.CALCFIELDS("Original Amt. (LCY)");
-
-                    TotalAmt[100] := RecCustLedgEntry."Sales (LCY)";
+                    if "YVS Ref. Tax Invoice Amount" <> 0 then
+                        TotalAmt[100] := "YVS Ref. Tax Invoice Amount"
+                    else
+                        TotalAmt[100] := RecCustLedgEntry."Sales (LCY)";
                 END ELSE
                     TotalAmt[100] := "YVS Ref. Tax Invoice Amount";
                 TotalAmt[99] := TotalAmt[100] - TotalAmt[1];
