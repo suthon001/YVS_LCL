@@ -95,7 +95,11 @@ page 80030 "YVS Sales Receipt Card"
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Document Date field.';
                 }
-
+                field("Due Date"; Rec."Due Date")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Due Date field.';
+                }
                 field("Currency Code"; Rec."Currency Code")
                 {
                     ApplicationArea = All;
@@ -126,12 +130,12 @@ page 80030 "YVS Sales Receipt Card"
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Vat Registration No. field.';
                 }
-                field("Due Date"; Rec."Due Date")
+
+                field(Remark; rec.Remark)
                 {
                     ApplicationArea = All;
-                    ToolTip = 'Specifies the value of the Due Date field.';
+                    ToolTip = 'Specifies the value of the Remark field.';
                 }
-
                 field("Status"; Rec."Status")
                 {
                     ApplicationArea = all;

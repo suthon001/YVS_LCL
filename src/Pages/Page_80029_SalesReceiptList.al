@@ -91,15 +91,21 @@ page 80029 "YVS Sales Receipt List"
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Document Date field.';
                 }
-                field("Status"; Rec."Status")
-                {
-                    ApplicationArea = All;
-                    ToolTip = 'Specifies the value of the Status field.';
-                }
+
                 field("Currency Code"; Rec."Currency Code")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Currency Code field.';
+                }
+                field("VAT Bus. Posting Group"; rec."VAT Bus. Posting Group")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the VAT Bus. Posting Group field.';
+                }
+                field("WHT Business Posting Group"; rec."WHT Business Posting Group")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the WHT Business Posting Group field.';
                 }
                 field("Amount"; Rec."Amount")
                 {
@@ -130,6 +136,11 @@ page 80029 "YVS Sales Receipt List"
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Due Date field.';
+                }
+                field("Status"; Rec."Status")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Status field.';
                 }
             }
         }

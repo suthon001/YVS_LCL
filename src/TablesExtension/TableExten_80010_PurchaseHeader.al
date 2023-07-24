@@ -126,6 +126,7 @@ tableextension 80010 "YVS ExtenPurchase Header" extends "Purchase Header"
 
                 "YVS Head Office" := Vend."YVS Head Office";
                 "YVS VAT Branch Code" := Vend."YVS VAT Branch Code";
+                "YVS WHT Business Posting Group" := Vend."YVS WHT Business Posting Group";
                 if (NOT "YVS Head Office") AND ("YVS VAT Branch Code" = '') then
                     "YVS Head Office" := true;
             end;

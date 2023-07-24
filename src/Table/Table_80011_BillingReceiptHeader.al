@@ -78,6 +78,7 @@ Table 80011 "YVS Billing Receipt Header"
                             rec."Vat Registration No." := cust."VAT Registration No.";
                             rec."Head Office" := cust."YVS Head Office";
                             rec."VAT Branch Code" := Cust."YVS VAT Branch Code";
+                            rec."WHT Business Posting Group" := Cust."YVS WHT Business Posting Group";
                             if (NOT rec."Head Office") AND (rec."VAT Branch Code" = '') then
                                 rec."Head Office" := true;
                             if rec."Document Date" = 0D then
@@ -101,6 +102,7 @@ Table 80011 "YVS Billing Receipt Header"
                             rec."Bill/Pay-to Contact" := Vend.Contact;
                             rec."VAT Bus. Posting Group" := Vend."VAT Bus. Posting Group";
                             rec."Vat Registration No." := Vend."VAT Registration No.";
+                            rec."WHT Business Posting Group" := Vend."YVS WHT Business Posting Group";
                             rec."Head Office" := Vend."YVS Head Office";
                             rec."VAT Branch Code" := Vend."YVS VAT Branch Code";
                             if (NOT rec."Head Office") AND (rec."VAT Branch Code" = '') then
@@ -452,6 +454,11 @@ Table 80011 "YVS Billing Receipt Header"
             Caption = 'WHT Business Posting Group';
             TableRelation = "YVS WHT Business Posting Group"."Code";
             DataClassification = CustomerContent;
+        }
+        field(55; "Remark"; Text[250])
+        {
+            DataClassification = CustomerContent;
+            Caption = 'Remark';
         }
     }
     keys

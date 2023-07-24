@@ -22,6 +22,7 @@ pageextension 80000 "YVS ExtenCustomer Card" extends "Customer Card"
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the WHT Business Posting Group field.';
+                ShowMandatory = true;
             }
             field("Head Office"; rec."YVS Head Office")
             {

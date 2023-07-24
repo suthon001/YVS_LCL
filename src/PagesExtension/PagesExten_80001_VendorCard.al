@@ -23,6 +23,7 @@ pageextension 80001 "YVS ExtenVendor Card" extends "Vendor Card"
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the WHT Business Posting Group field.';
+                ShowMandatory = true;
             }
             field("Head Office"; rec."YVS Head Office")
             {
