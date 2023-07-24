@@ -1653,7 +1653,7 @@ codeunit 80004 "YVS Function Center"
         end;
 
 
-        MyText[1] := BillingReceiptHeader."Bill/Pay-to Cust/Vend Name" + ' ' + BillingReceiptHeader."Bill/Pay-to Cus/Vend Name 2";
+        MyText[1] := BillingReceiptHeader."Bill/Pay-to Cust/Vend Name" + ' ' + BillingReceiptHeader."Bill/Pay-to Cust/Vend Name 2";
         MyText[2] := BillingReceiptHeader."Bill/Pay-to Address" + ' ';
         MyText[3] := BillingReceiptHeader."Bill/Pay-to Address 2" + ' ';
         MyText[3] += BillingReceiptHeader."Bill/Pay-to City" + ' ' + BillingReceiptHeader."Bill/Pay-to Post Code";
