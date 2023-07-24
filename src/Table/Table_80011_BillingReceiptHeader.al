@@ -447,6 +447,12 @@ Table 80011 "YVS Billing Receipt Header"
             Caption = 'Create to Journal';
 
         }
+        field(54; "WHT Business Posting Group"; Code[10])
+        {
+            Caption = 'WHT Business Posting Group';
+            TableRelation = "YVS WHT Business Posting Group"."Code";
+            DataClassification = CustomerContent;
+        }
     }
     keys
     {
