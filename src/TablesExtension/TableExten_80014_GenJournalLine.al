@@ -510,6 +510,8 @@ tableextension 80014 "YVS GenJournal Lines" extends "Gen. Journal Line"
                     "VAT Registration No." := Vend."VAT Registration No.";
                 end;
 
+                rec."YVS Journal Description" := rec.Description;
+
             end;
         }
         modify("Account Type")

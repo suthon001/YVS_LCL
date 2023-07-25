@@ -1,1 +1,1 @@
-﻿{"Added":[],"Modified":[],"Removed":[]}
+﻿{"Added":[],"Modified":[{"Id":80020,"Kind":16,"Name":"YVS JounralBatch","PackagePath":"/src/src/PagesExtension/PagesExten_80020_FAJournalBatch.al"},{"Id":80014,"Kind":17,"Name":"YVS GenJournal Lines","PackagePath":"/src/src/TablesExtension/TableExten_80014_GenJournalLine.al"},{"Id":80059,"Kind":13,"Name":"YVS Fixed Asset - Book Value01","PackagePath":"/src/src/Report/StandardReport/Report_80059_FixedAssetBookValue01.al"}],"Removed":[]}

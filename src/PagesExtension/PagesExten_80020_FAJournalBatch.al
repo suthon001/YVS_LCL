@@ -13,6 +13,10 @@ pageextension 80020 "YVS JounralBatch" extends "FA Journal Batches"
                 ToolTip = 'Specifies the value of the Document No. Series field.';
             }
         }
+        modify("No. Series")
+        {
+            Visible = false;
+        }
 
     }
 }
