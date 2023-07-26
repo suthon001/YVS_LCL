@@ -207,6 +207,7 @@ pageextension 80030 "YVS Payment Journal" extends "Payment Journal"
         PageWHTCer: Page "YVS WHT Certificate";
         whtBusPostingGroup: Record "YVS WHT Business Posting Group";
         GenJnlLine3: Record "Gen. Journal Line";
+        GEnTemplate: Record "Gen. Journal Template";
     begin
         if Rec."YVS WHT Document No." = '' then begin
             GenJnlLine3.Reset();
@@ -223,13 +224,17 @@ pageextension 80030 "YVS Payment Journal" extends "Payment Journal"
         IF Rec."YVS WHT Document No." = '' THEN BEGIN
             IF NOT CONFIRM('Do you want to create wht certificated') THEN
                 EXIT;
-
+            GEnTemplate.GET(rec."Journal Template Name");
             GenJnlLine.RESET();
             GenJnlLine.SETRANGE("Journal Template Name", Rec."Journal Template Name");
             GenJnlLine.SETRANGE("Journal Batch Name", Rec."Journal Batch Name");
             GenJnlLine.SETRANGE("Document No.", Rec."Document No.");
-            GenJnlLine.SETRANGE("YVS Require Screen Detail", GenJnlLine."YVS Require Screen Detail"::WHT);
-            GenJnlLine.SETFILTER("Account Type", '%1|%2|%3', GenJnlLine."Account Type"::Vendor, GenJnlLine."Account Type"::Customer, GenJnlLine."Account Type"::"G/L Account");
+            if GEnTemplate.Type = GEnTemplate.Type::Payments then
+                GenJnlLine.SETFILTER("Account Type", '%1|%2', GenJnlLine."Account Type"::Vendor, GenJnlLine."Account Type"::"G/L Account");
+            if GEnTemplate.Type = GEnTemplate.Type::"Cash Receipts" then
+                GenJnlLine.SETFILTER("Account Type", '%1|%2', GenJnlLine."Account Type"::Customer, GenJnlLine."Account Type"::"G/L Account");
+            if GEnTemplate.Type = GEnTemplate.Type::General then
+                GenJnlLine.SETFILTER("Account Type", '%1|%2|%3', GenJnlLine."Account Type"::Vendor, GenJnlLine."Account Type"::Customer, GenJnlLine."Account Type"::"G/L Account");
             GenJnlLine.SETFILTER("Account No.", '<>%1', '');
             IF GenJnlLine.FindFirst() THEN BEGIN
                 WHTHeader.INIT();
