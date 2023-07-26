@@ -61,7 +61,8 @@ report 80039 "YVS Recript to CashReceipt"
                 GenJnlLine.VALIDATE("Amount (LCY)", -"Amount (LCY)");
                 GenJnlLine."Applies-to ID" := DocumentNo;
                 GenJnlLine."YVS Ref. Billing & Receipt No." := "No.";
-
+                GenJnlLine."YVS Create By" := COPYSTR(UserId(), 1, 50);
+                GenJnlLine."YVS Create DateTime" := CurrentDateTime();
                 GenJnlLine.MODIFY();
 
                 //Apply Document
@@ -93,6 +94,8 @@ report 80039 "YVS Recript to CashReceipt"
                     GenJnlLine.VALIDATE("External Document No.", "Prepaid WHT No.");
                     GenJnlLine.VALIDATE("Amount (LCY)", "Prepaid WHT Amount (LCY)");
                     GenJnlLine."YVS Ref. Billing & Receipt No." := "No.";
+                    GenJnlLine."YVS Create By" := COPYSTR(UserId(), 1, 50);
+                    GenJnlLine."YVS Create DateTime" := CurrentDateTime();
                     GenJnlLine.MODIFY();
                 END;
                 //Insert Bank Fee
@@ -113,6 +116,8 @@ report 80039 "YVS Recript to CashReceipt"
                     GenJnlLine.VALIDATE("Account No.", "Bank Fee Acc.");
                     GenJnlLine.VALIDATE("Amount (LCY)", "Bank Fee Amount (LCY)");
                     GenJnlLine."YVS Ref. Billing & Receipt No." := "No.";
+                    GenJnlLine."YVS Create By" := COPYSTR(UserId(), 1, 50);
+                    GenJnlLine."YVS Create DateTime" := CurrentDateTime();
                     GenJnlLine.MODIFY();
                 END;
                 //Insert Diff Amount
@@ -122,6 +127,8 @@ report 80039 "YVS Recript to CashReceipt"
                     GenJnlLine."Journal Batch Name" := GenBatch.Name;
                     GenJnlLine."Line No." := GetLastLine();
                     GenJnlLine."Source Code" := GenTemplate."Source Code";
+                    GenJnlLine."YVS Create By" := COPYSTR(UserId(), 1, 50);
+                    GenJnlLine."YVS Create DateTime" := CurrentDateTime();
                     GenJnlLine.INSERT();
 
 
@@ -160,6 +167,8 @@ report 80039 "YVS Recript to CashReceipt"
                 GenJnlLine.Description := COPYSTR('Receive From ' + BillingHeader."Bill/Pay-to Cust/Vend Name", 1, 100);
                 GenJnlLine.VALIDATE("Amount (LCY)", BillingHeader."Receive & Payment Amount");
                 GenJnlLine."YVS Ref. Billing & Receipt No." := "No.";
+                GenJnlLine."YVS Create By" := COPYSTR(UserId(), 1, 50);
+                GenJnlLine."YVS Create DateTime" := CurrentDateTime();
                 GenJnlLine.MODIFY();
                 BillingHeader."Journal Document No." := DocumentNo;
                 BillingHeader."Status" := BillingHeader."Status"::"Created to Journal";
