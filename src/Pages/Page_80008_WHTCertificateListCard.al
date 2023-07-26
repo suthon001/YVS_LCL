@@ -168,7 +168,7 @@ page 80008 "YVS WHT Certificate"
                     ApplicationArea = all;
                     ToolTip = 'Specifies the value of the ชั้น field.';
                 }
-                field("YVS WHT No."; rec."WHT No.")
+                field("YVS WHT of No."; rec."WHT of No.")
                 {
                     ApplicationArea = all;
                     ToolTip = 'Specifies the value of the เลขที่ field.';
