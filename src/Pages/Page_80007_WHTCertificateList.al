@@ -6,6 +6,7 @@ page 80007 "YVS WHT Certificate List"
     PageType = List;
     SourceTable = "YVS WHT Header";
     CardPageId = "YVS WHT Certificate";
+    SourceTableView = sorting("WHT No.") where(Posted = const(true));
     UsageCategory = Lists;
     ApplicationArea = all;
     Caption = 'WHT Certificate';
