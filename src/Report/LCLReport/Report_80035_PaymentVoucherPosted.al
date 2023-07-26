@@ -125,7 +125,7 @@ report 80035 "YVS Payment Voucher (Post)"
             dataitem(GenJournalLineWHT; "YVS WHT Header")
             {
 
-                DataItemTableView = sorting("WHT No.") where("posted" = const(FALSE));
+                DataItemTableView = sorting("WHT No.") where("posted" = const(true));
                 dataitem("WHT Lines"; "YVS WHT Line")
                 {
                     DataItemTableView = sorting("WHT No.", "WHT Line No.");

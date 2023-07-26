@@ -228,7 +228,8 @@ codeunit 80005 "YVS EventFunction"
             GenJnlLine."Document No." := pGenJournalLine."Document No.";
             GenJnlLine."External Document No." := WHTHeader."WHT Certificate No.";
             GenJnlLine."YVS WHT Document No." := WHTHeader."WHT No.";
-
+            GenJnlLine."YVS Create By" := COPYSTR(UserId(), 1, 50);
+            GenJnlLine."YVS Create DateTime" := CurrentDateTime();
             WHTEntry.RESET();
             WHTEntry.SETRANGE("WHT No.", WHTHeader."WHT No.");
             WHTEntry.CalcSums("WHT Amount");

@@ -301,6 +301,8 @@ page 80008 "YVS WHT Certificate"
                 GenJnlLine."External Document No." := Rec."WHT Certificate No.";
                 GenJnlLine."YVS WHT Document No." := Rec."WHT No.";
                 GenJnlLine."YVS Require Screen Detail" := GenJnlLine."YVS Require Screen Detail"::WHT;
+                GenJnlLine."YVS Create By" := COPYSTR(UserId(), 1, 50);
+                GenJnlLine."YVS Create DateTime" := CurrentDateTime();
                 SumAmt := 0;
                 WHTEntry.RESET();
                 WHTEntry.SETRANGE("WHT No.", Rec."WHT No.");
