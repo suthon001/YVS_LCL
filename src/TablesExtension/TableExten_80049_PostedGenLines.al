@@ -187,16 +187,7 @@ tableextension 80050 "YVS ExtenPostedGenLines" extends "Posted Gen. Journal Line
             Caption = 'Bank Code';
             DataClassification = CustomerContent;
             TableRelation = "Bank Account"."No.";
-            trigger OnValidate()
-            var
-                BankAcc: Record "Bank Account";
-            begin
-                IF NOT BankAcc.GET("YVS Bank Code") THEN
-                    BankAcc.INIT();
-                "YVS Bank Name" := BankAcc.Name;
-                "YVS Bank Account No." := COPYSTR(BankAcc."Bank Account No.", 1, 20);
-                "YVS Bank Branch No." := BankAcc."Bank Branch No.";
-            end;
+
 
         }
         field(80032; "YVS Bank Name"; Text[100])
