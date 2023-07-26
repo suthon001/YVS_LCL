@@ -284,12 +284,12 @@ pageextension 80030 "YVS Payment Journal" extends "Payment Journal"
         WHTEader: Record "YVS WHT Header";
     begin
 
-
         WHTEader.reset();
         WHTEader.SetRange("Gen. Journal Template Code", Rec."Journal Template Name");
         WHTEader.SetRange("Gen. Journal Batch Code", Rec."Journal Batch Name");
         WHTEader.SetRange("Gen. Journal Line No.", Rec."Line No.");
-        if WHTEader.Find() then
+        WHTEader.SetRange(Posted, false);
+        if WHTEader.FindFirst() then
             WHTEader.Delete(True);
     end;
 
