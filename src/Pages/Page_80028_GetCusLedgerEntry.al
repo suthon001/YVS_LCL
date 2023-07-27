@@ -56,7 +56,7 @@ page 80028 "YVS Get Cus. Ledger Entry"
                     ApplicationArea = all;
                     ToolTip = 'Specifies a description of the vendor entry.';
                 }
-                field("Original Amount"; -Rec."Original Amount")
+                field("Original Amount"; Rec."Original Amount")
                 {
                     ApplicationArea = all;
                     ToolTip = 'Specifies the value of the Original Amount field.';
@@ -126,13 +126,15 @@ page 80028 "YVS Get Cus. Ledger Entry"
                 BillRcptLine."Source Amount" := ABS(CUstLedger."Original Amount");
                 BillRcptLine."Source Description" := CUstLedger.Description;
                 BillRcptLine."Source Currency Code" := CUstLedger."Currency Code";
-                BillRcptLine."Source Document Type" := BillRcptLine."Source Document Type"::Invoice;
+
                 if CUstLedger."Document Type" = CUstLedger."Document Type"::Invoice then begin
-                    BillRcptLine."Amount" := ABS(CUstLedger."YVS Remaining Amt.") * -1;
+                    BillRcptLine."Source Document Type" := BillRcptLine."Source Document Type"::Invoice;
+                    BillRcptLine."Amount" := ABS(CUstLedger."YVS Remaining Amt.");
                     if ltPuchaseInvoiceHeader.GET(CUstLedger."Document No.") then
                         BillRcptLine."Source Ext. Document No." := ltPuchaseInvoiceHeader."Vendor Invoice No.";
                 end else begin
-                    BillRcptLine."Amount" := ABS(CUstLedger."YVS Remaining Amt.");
+                    BillRcptLine."Amount" := -ABS(CUstLedger."YVS Remaining Amt.");
+                    BillRcptLine."Source Document Type" := BillRcptLine."Source Document Type"::"Credit Memo";
                     if ltPurchaseCRHeader.GET(CUstLedger."Document No.") then
                         BillRcptLine."Source Ext. Document No." := ltPurchaseCRHeader."Vendor Cr. Memo No.";
 
@@ -181,9 +183,9 @@ page 80028 "YVS Get Cus. Ledger Entry"
                         rec.Init();
                         rec.TransferFields(CustLedger);
                         if CustLedger."Document Type" = CustLedger."Document Type"::Invoice then
-                            rec."YVS Remaining Amt." := -(ABS(CustLedger."Remaining Amount") - abs(CustLedger."YVS Receipt Amount"))
+                            rec."YVS Remaining Amt." := (ABS(CustLedger."Remaining Amount") - abs(CustLedger."YVS Receipt Amount"))
                         else
-                            rec."YVS Remaining Amt." := (ABS(CustLedger."Remaining Amount") - abs(CustLedger."YVS Receipt Amount"));
+                            rec."YVS Remaining Amt." := -(ABS(CustLedger."Remaining Amount") - abs(CustLedger."YVS Receipt Amount"));
                         rec.Insert();
                     end;
             until CustLedger.Next() = 0;
