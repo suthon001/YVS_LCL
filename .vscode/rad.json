@@ -1,1 +1,1 @@
-﻿{"Added":[],"Modified":[],"Removed":[]}
+﻿{"Added":[],"Modified":[{"Id":80030,"Kind":12,"Name":"YVS Sales Receipt Card","PackagePath":"/src/src/Pages/Page_80030_SalesReceiptCard.al"},{"Id":80039,"Kind":13,"Name":"YVS Recript to CashReceipt","PackagePath":"/src/src/Report/LCLReport/Report_80039_ReceiptToRv.al"}],"Removed":[]}
