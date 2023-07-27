@@ -148,6 +148,7 @@ page 80030 "YVS Sales Receipt Card"
             group(ReceiveInfor)
             {
                 Caption = 'Receipt Information';
+                Editable = rec.Status = rec.Status::Open;
                 field("Account Type"; Rec."Account Type")
                 {
                     ApplicationArea = all;
@@ -243,6 +244,7 @@ page 80030 "YVS Sales Receipt Card"
                         ToolTip = 'Specifies the value of the Prepaid WHT Amount (LCY) field.';
                     }
                 }
+
                 field("Receive & Payment Amount"; rec."Receive & Payment Amount")
                 {
                     ApplicationArea = all;
