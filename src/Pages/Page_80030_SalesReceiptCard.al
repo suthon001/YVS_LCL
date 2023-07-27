@@ -161,6 +161,16 @@ page 80030 "YVS Sales Receipt Card"
                     ToolTip = 'Specifies the value of the Receipt Account No. field.';
                     Caption = 'Receipt Account No.';
                 }
+                field("Receive & Payment Amount"; rec."Receive & Payment Amount")
+                {
+                    ApplicationArea = all;
+                    ToolTip = 'Specifies the value of the Receive Amount field.';
+                    Caption = 'Receive Amount';
+                    trigger OnValidate()
+                    begin
+                        CurrPage.Update();
+                    end;
+                }
                 field("Journal Date"; Rec."Journal Date")
                 {
                     ApplicationArea = all;
@@ -211,7 +221,7 @@ page 80030 "YVS Sales Receipt Card"
                 Editable = rec.Status = rec.Status::Open;
                 group("Bank")
                 {
-                    Caption = 'Bank';
+                    Caption = 'Bank Information';
 
                     field("Cheque Date"; Rec."Cheque Date")
                     {
@@ -226,7 +236,7 @@ page 80030 "YVS Sales Receipt Card"
                 }
                 group("Prepaid WHT")
                 {
-                    Caption = 'Prepaid WHT';
+                    Caption = 'Prepaid WHT Information';
                     Editable = rec.Status = rec.Status::Open;
                     field("Prepaid WHT Date"; Rec."Prepaid WHT Date")
                     {
@@ -242,34 +252,47 @@ page 80030 "YVS Sales Receipt Card"
                     {
                         ApplicationArea = all;
                         ToolTip = 'Specifies the value of the Prepaid WHT Amount (LCY) field.';
+                        trigger OnValidate()
+                        begin
+                            CurrPage.Update();
+                        end;
                     }
                 }
 
-                field("Receive & Payment Amount"; rec."Receive & Payment Amount")
+
+                group("Bank Fee")
                 {
-                    ApplicationArea = all;
-                    ToolTip = 'Specifies the value of the Receive Amount field.';
-                    Caption = 'Receive Amount';
+                    Caption = 'Bank Fee Information';
+                    Editable = rec.Status = rec.Status::Open;
+                    field("Bank Fee Acc."; rec."Bank Fee Acc.")
+                    {
+                        ApplicationArea = all;
+                        ToolTip = 'Specifies the value of the BBank Fee Acc. field.';
+                    }
+                    field("Bank Fee Amount (LCY)"; Rec."Bank Fee Amount (LCY)")
+                    {
+                        ApplicationArea = all;
+                        ToolTip = 'Specifies the value of the Bank Fee Amount (LCY) field.';
+                        trigger OnValidate()
+                        begin
+                            CurrPage.Update();
+                        end;
+                    }
+
                 }
-                field("Bank Fee Acc."; rec."Bank Fee Acc.")
+                group("Diff Infor")
                 {
-                    ApplicationArea = all;
-                    ToolTip = 'Specifies the value of the Bank Fee Acc. field.';
-                }
-                field("Bank Fee Amount (LCY)"; Rec."Bank Fee Amount (LCY)")
-                {
-                    ApplicationArea = all;
-                    ToolTip = 'Specifies the value of the Bank Fee Amount (LCY) field.';
-                }
-                field("Diff Amount Acc."; rec."Diff Amount Acc.")
-                {
-                    ApplicationArea = all;
-                    ToolTip = 'Specifies the value of the Diff Amount Acc. field.';
-                }
-                field("Diff Amount (LCY)"; Rec."Diff Amount (LCY)")
-                {
-                    ApplicationArea = all;
-                    ToolTip = 'Specifies the value of the Diff Amount (LCY) field.';
+                    Caption = 'Diff Amt. Information';
+                    field("Diff Amount Acc."; rec."Diff Amount Acc.")
+                    {
+                        ApplicationArea = all;
+                        ToolTip = 'Specifies the value of the Diff Amount Acc. field.';
+                    }
+                    field("Diff Amount (LCY)"; Rec."Diff Amount (LCY)")
+                    {
+                        ApplicationArea = all;
+                        ToolTip = 'Specifies the value of the Diff Amount (LCY) field.';
+                    }
                 }
             }
         }

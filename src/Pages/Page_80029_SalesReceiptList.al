@@ -24,7 +24,11 @@ page 80029 "YVS Sales Receipt List"
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the No. field.';
                 }
-
+                field("Status"; Rec."Status")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Status field.';
+                }
                 field("Bill/Pay-to Cust/Vend No."; Rec."Bill/Pay-to Cust/Vend No.")
                 {
                     ApplicationArea = All;
@@ -137,11 +141,7 @@ page 80029 "YVS Sales Receipt List"
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Due Date field.';
                 }
-                field("Status"; Rec."Status")
-                {
-                    ApplicationArea = All;
-                    ToolTip = 'Specifies the value of the Status field.';
-                }
+
             }
         }
 
