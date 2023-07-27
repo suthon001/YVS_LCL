@@ -90,22 +90,14 @@ page 80028 "YVS Get Cus. Ledger Entry"
             CreateLines();
     end;
 
-    /// <summary>
-    /// SetDocument.
-    /// </summary>
-    /// <param name="BillingRcptHeader">Record "Billing Receipt Header".</param>
-    procedure SetDocument(BillingRcptHeader: Record "YVS Billing Receipt Header")
-    begin
-        BillRcptHeader.GET(BillingRcptHeader."Document Type", BillingRcptHeader."No.");
-    end;
-
     local procedure CreateLines()
     var
         CUstLedger: Record "Cust. Ledger Entry" temporary;
         BillRcptLine: Record "YVS Billing Receipt Line";
-        ltPuchaseInvoiceHeader: Record "Purch. Inv. Header";
-        ltPurchaseCRHeader: Record "Purch. Cr. Memo Hdr.";
+        ltBillRcptLHeader: Record "YVS Billing Receipt Header";
+        TOtalReceipt: Decimal;
     begin
+        TOtalReceipt := 0;
         CUstLedger.COPY(Rec, true);
         CurrPage.SETSELECTIONFILTER(CUstLedger);
         IF CUstLedger.FindSet() THEN
@@ -126,21 +118,23 @@ page 80028 "YVS Get Cus. Ledger Entry"
                 BillRcptLine."Source Amount" := ABS(CUstLedger."Original Amount");
                 BillRcptLine."Source Description" := CUstLedger.Description;
                 BillRcptLine."Source Currency Code" := CUstLedger."Currency Code";
-
+                BillRcptLine."Source Ext. Document No." := CUstLedger."External Document No.";
                 if CUstLedger."Document Type" = CUstLedger."Document Type"::Invoice then begin
                     BillRcptLine."Source Document Type" := BillRcptLine."Source Document Type"::Invoice;
                     BillRcptLine."Amount" := ABS(CUstLedger."YVS Remaining Amt.");
-                    if ltPuchaseInvoiceHeader.GET(CUstLedger."Document No.") then
-                        BillRcptLine."Source Ext. Document No." := ltPuchaseInvoiceHeader."Vendor Invoice No.";
+
                 end else begin
                     BillRcptLine."Amount" := -ABS(CUstLedger."YVS Remaining Amt.");
                     BillRcptLine."Source Document Type" := BillRcptLine."Source Document Type"::"Credit Memo";
-                    if ltPurchaseCRHeader.GET(CUstLedger."Document No.") then
-                        BillRcptLine."Source Ext. Document No." := ltPurchaseCRHeader."Vendor Cr. Memo No.";
 
                 end;
                 BillRcptLine.Modify();
             UNTIL CUstLedger.NEXT() = 0;
+        if TOtalReceipt <> 0 then begin
+            ltBillRcptLHeader.GET(DocumentType, DocumentNo);
+            ltBillRcptLHeader."Receive & Payment Amount" := TotalReceipt;
+            ltBillRcptLHeader.Modify();
+        end;
 
     end;
 
@@ -194,7 +188,6 @@ page 80028 "YVS Get Cus. Ledger Entry"
 
 
     var
-        BillRcptHeader: Record "YVS Billing Receipt Header";
         DocumentNo: code[20];
         DocumentType: Enum "YVS Billing Document Type";
 }
