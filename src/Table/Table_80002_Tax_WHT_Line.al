@@ -378,7 +378,9 @@ table 80002 "YVS Tax & WHT Line"
                                 VendorDetail.SetRange("Document Type", VendorDetail."Document Type"::Payment);
                                 if not VendorDetail.IsEmpty then
                                     var_Skip := true;
-                            end;
+                            end else
+                                if (VatTransection."Remaining Unrealized Base" <> 0) OR (VatTransection."Remaining Unrealized Amt." <> 0) then
+                                    var_Skip := true;
                         end;
 
                 IF VATProdPostingGroup."YVS Direct VAT" THEN
