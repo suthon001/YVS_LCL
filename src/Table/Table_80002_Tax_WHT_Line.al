@@ -360,6 +360,8 @@ table 80002 "YVS Tax & WHT Line"
                 var_Skip := false;
                 if not VATProdPostingGroup.Get(VatTransection."VAT Prod. Posting Group") then
                     VATProdPostingGroup.init();
+                if not varPostingSsetup.GET(VatTransection."VAT Bus. Posting Group", VatTransection."VAT Prod. Posting Group") then
+                    varPostingSsetup.Init();
                 VatTransection.CalcFields("Unrealized VAT Type");
                 VatAmt := ABS(VatTransection."Amount");
                 VatBase := ABS(VatTransection.Base);
