@@ -168,6 +168,7 @@ table 80012 "YVS Billing Receipt Line"
                     PurchaseBillingHeader.Modify();
 
                 end;
+                rec.CalAmtExcludeVat();
 
             end;
         }
@@ -195,6 +196,18 @@ table 80012 "YVS Billing Receipt Line"
             CalcFormula = lookup("YVS Billing Receipt Header"."Status" where("Document Type" = field("Document Type"), "No." = field("Document No.")));
             Editable = false;
 
+        }
+        field(24; "Amount Exclude Vat"; Decimal)
+        {
+            Caption = 'Amount Exclude Vat';
+            DataClassification = CustomerContent;
+            Editable = false;
+        }
+        field(25; "Vat %"; Decimal)
+        {
+            Caption = 'Vat %';
+            DataClassification = CustomerContent;
+            Editable = false;
         }
 
 
@@ -226,7 +239,13 @@ table 80012 "YVS Billing Receipt Line"
     begin
         TestOpenStatus();
     end;
-
+    /// <summary>
+    /// Description for TestOpenStatus.
+    /// </summary>
+    procedure CalAmtExcludeVat()
+    begin
+        "Amount Exclude Vat" := Round(Amount / (1 + (1 / 100) * "VAT %" / 100), 0.01);
+    end;
 
     /// <summary> 
     /// Description for TestOpenStatus.

@@ -95,6 +95,8 @@ page 80028 "YVS Get Cus. Ledger Entry"
         CUstLedger: Record "Cust. Ledger Entry" temporary;
         BillRcptLine: Record "YVS Billing Receipt Line";
         ltBillRcptLHeader: Record "YVS Billing Receipt Header";
+        SalesInvoiceLine: Record "Sales Invoice Line";
+        SalesCrLine: Record "Sales Cr.Memo Line";
         TOtalReceipt: Decimal;
     begin
         TOtalReceipt := 0;
@@ -123,11 +125,21 @@ page 80028 "YVS Get Cus. Ledger Entry"
                     BillRcptLine."Source Document Type" := BillRcptLine."Source Document Type"::Invoice;
                     BillRcptLine."Amount" := ABS(CUstLedger."YVS Remaining Amt.");
 
+                    SalesInvoiceLine.reset();
+                    SalesInvoiceLine.SetRange("Document No.", BillRcptLine."Source Document No.");
+                    SalesInvoiceLine.SetFilter("VAT %", '<>%1', 0);
+                    if SalesInvoiceLine.FindFirst() then
+                        BillRcptLine."Vat %" := SalesInvoiceLine."VAT %";
                 end else begin
                     BillRcptLine."Amount" := -ABS(CUstLedger."YVS Remaining Amt.");
                     BillRcptLine."Source Document Type" := BillRcptLine."Source Document Type"::"Credit Memo";
-
+                    SalesCrLine.reset();
+                    SalesCrLine.SetRange("Document No.", BillRcptLine."Source Document No.");
+                    SalesCrLine.SetFilter("VAT %", '<>%1', 0);
+                    if SalesCrLine.FindFirst() then
+                        BillRcptLine."Vat %" := SalesCrLine."VAT %";
                 end;
+                BillRcptLine.CalAmtExcludeVat();
                 BillRcptLine.Modify();
             UNTIL CUstLedger.NEXT() = 0;
         if TOtalReceipt <> 0 then begin
