@@ -7,11 +7,6 @@ pageextension 80084 "YVS GenjournalTemplate" extends "General Journal Templates"
     {
         addafter(Description)
         {
-            field("Description Eng"; rec."YVS Description Eng")
-            {
-                ApplicationArea = all;
-                ToolTip = 'Specifies the value of the Description Eng field.';
-            }
             field("Description Thai"; rec."YVS Description Thai")
             {
                 ApplicationArea = all;

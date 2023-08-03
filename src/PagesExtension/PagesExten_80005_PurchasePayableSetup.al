@@ -13,16 +13,7 @@ pageextension 80005 "YVS ExtenPurchaPayablesSetup" extends "Purchases & Payables
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the Purchase VAT Nos. field.';
             }
-            field("WHT03 Nos."; rec."YVS WHT03 Nos.")
-            {
-                ApplicationArea = all;
-                ToolTip = 'Specifies the value of the WHT03 Nos. field.';
-            }
-            field("WHT53 Nos."; rec."YVS WHT53 Nos.")
-            {
-                ApplicationArea = all;
-                ToolTip = 'Specifies the value of the WHT53 Nos. field.';
-            }
+
         }
     }
 }

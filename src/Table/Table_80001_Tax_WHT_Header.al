@@ -201,9 +201,11 @@ table 80001 "YVS Tax & WHT Header"
     var
         SalesSetup: Record "Sales & Receivables Setup";
         PurchSetup: Record "Purchases & Payables Setup";
+        GeneralSetUp: Record "General Ledger Setup";
     begin
         PurchSetup.get();
         SalesSetup.get();
+        GeneralSetUp.GET();
         CASE "Tax Type" OF
             "Tax Type"::Sale:
                 begin
@@ -217,13 +219,13 @@ table 80001 "YVS Tax & WHT Header"
                 end;
             "Tax Type"::WHT03:
                 begin
-                    PurchSetup.TestField("YVS WHT03 Nos.");
-                    EXIT(PurchSetup."YVS WHT03 Nos.");
+                    GeneralSetUp.TestField("YVS WHT03 Nos.");
+                    EXIT(GeneralSetUp."YVS WHT03 Nos.");
                 end;
             "Tax Type"::WHT53:
                 begin
-                    PurchSetup.TestField("YVS WHT53 Nos.");
-                    EXIT(PurchSetup."YVS WHT53 Nos.");
+                    GeneralSetUp.TestField("YVS WHT53 Nos.");
+                    EXIT(GeneralSetUp."YVS WHT53 Nos.");
                 end;
         END;
     end;
@@ -238,48 +240,14 @@ table 80001 "YVS Tax & WHT Header"
     var
         VatHeader: Record "YVS Tax & WHT Header";
         NoSeriesMgt: Codeunit NoSeriesManagement;
-        purchaseSetup: Record "Purchases & Payables Setup";
-        SalesSetup: Record "Sales & Receivables Setup";
     begin
-        purchaseSetup.GET();
         VatHeader.COPY(Rec);
-        if VatHeader."Tax Type" = VatHeader."Tax Type"::Purchase then begin
-            purchaseSetup.TESTFIELD("YVS Purchase VAT Nos.");
-            IF NoSeriesMgt.SelectSeries(purchaseSetup."YVS Purchase VAT Nos.", OldVatHeader."No. Series",
-              VatHeader."No. Series") THEN BEGIN
-                NoSeriesMgt.SetSeries(VatHeader."Document No.");
-                Rec := VatHeader;
-                EXIT(TRUE);
-            END;
-        end;
-        if VatHeader."Tax Type" = VatHeader."Tax Type"::Sale then begin
-            SalesSetup.GET();
-            SalesSetup.TESTFIELD("YVS Sales VAT Nos.");
-            IF NoSeriesMgt.SelectSeries(SalesSetup."YVS Sales VAT Nos.", OldVatHeader."No. Series",
-              VatHeader."No. Series") THEN BEGIN
-                NoSeriesMgt.SetSeries(VatHeader."Document No.");
-                Rec := VatHeader;
-                EXIT(TRUE);
-            END;
-        end;
-        if VatHeader."Tax Type" = VatHeader."Tax Type"::WHT03 then begin
-            purchaseSetup.TESTFIELD("YVS WHT03 Nos.");
-            IF NoSeriesMgt.SelectSeries(purchaseSetup."YVS WHT03 Nos.", OldVatHeader."No. Series",
-              VatHeader."No. Series") THEN BEGIN
-                NoSeriesMgt.SetSeries(VatHeader."Document No.");
-                Rec := VatHeader;
-                EXIT(TRUE);
-            END;
-
-        end;
-        if VatHeader."Tax Type" = VatHeader."Tax Type"::WHT53 then begin
-            purchaseSetup.TESTFIELD("YVS WHT53 Nos.");
-            IF NoSeriesMgt.SelectSeries(purchaseSetup."YVS WHT53 Nos.", OldVatHeader."No. Series", VatHeader."No. Series") THEN BEGIN
-                NoSeriesMgt.SetSeries(VatHeader."Document No.");
-                Rec := VatHeader;
-                EXIT(TRUE);
-            END;
-        end;
+        IF NoSeriesMgt.SelectSeries(GetNoSeriesCode(), OldVatHeader."No. Series",
+          VatHeader."No. Series") THEN BEGIN
+            NoSeriesMgt.SetSeries(VatHeader."Document No.");
+            Rec := VatHeader;
+            EXIT(TRUE);
+        END;
     END;
 
     var

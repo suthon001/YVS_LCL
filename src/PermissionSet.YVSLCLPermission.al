@@ -75,6 +75,8 @@ permissionset 80000 "YVS LCL Permission"
         page "YVS Sales Receipt List" = X,
         page "YVS Sales Receipt Subform" = X,
         page "YVS Sales Receipt Card" = X,
+        page "YVS Vat Transaction Entries" = X,
+        page "YVS WHT Transaction Entries" = X,
         query "YVS Groupping WHT Transaction" = X,
         report "YVS AP CN Voucher" = X,
         report "YVS AP Voucher" = X,

@@ -39,7 +39,6 @@ codeunit 80001 "YVS Purchase Function"
         LastLineNo := 0;
 
         if PurchHeader."Document Type" in [PurchHeader."Document Type"::Invoice, PurchHeader."Document Type"::"Credit Memo"] then begin
-
             PurchaseLine.reset();
             PurchaseLine.SetRange("Document Type", PurchHeader."Document Type");
             PurchaseLine.SetRange("Document No.", PurchHeader."No.");
@@ -69,6 +68,10 @@ codeunit 80001 "YVS Purchase Function"
                     WHTAppEntry."VAT Branch Code" := PurchHeader."YVS VAT Branch Code";
                     WHTAppEntry."Head Office" := PurchHeader."YVS Head Office";
                     WHTAppEntry."WHT Post Code" := PurchHeader."Buy-from Post Code";
+                    if PurchaseLine."Document Type" = PurchaseLine."Document Type"::Invoice then
+                        WHTAppEntry."WHT Document Type" := WHTAppEntry."WHT Document Type"::Invoice;
+                    if PurchaseLine."Document Type" = PurchaseLine."Document Type"::"Credit Memo" then
+                        WHTAppEntry."WHT Document Type" := WHTAppEntry."WHT Document Type"::"Credit Memo";
                     WHTAppEntry.Insert(true);
                 until PurchaseLine.Next() = 0;
         end;

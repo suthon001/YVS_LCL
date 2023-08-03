@@ -37,5 +37,17 @@ tableextension 80003 "YVS ExtenGeneral Ledger Setup" extends "General Ledger Set
             TableRelation = "No. Series";
             DataClassification = CustomerContent;
         }
+        field(80007; "YVS WHT03 Nos."; Code[20])
+        {
+            Caption = 'WHT03 Nos.';
+            TableRelation = "No. Series";
+            DataClassification = CustomerContent;
+        }
+        field(80008; "YVS WHT53 Nos."; Code[20])
+        {
+            Caption = 'WHT53 Nos.';
+            TableRelation = "No. Series";
+            DataClassification = CustomerContent;
+        }
     }
 }

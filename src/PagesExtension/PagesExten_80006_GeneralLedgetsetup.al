@@ -21,6 +21,16 @@ pageextension 80006 "YVS ExtenGeneralSetup" extends "General Ledger Setup"
                     ApplicationArea = all;
                     ToolTip = 'Specifies the value of the WHT Document Nos. field.';
                 }
+                field("WHT03 Nos."; rec."YVS WHT03 Nos.")
+                {
+                    ApplicationArea = all;
+                    ToolTip = 'Specifies the value of the WHT03 Nos. field.';
+                }
+                field("WHT53 Nos."; rec."YVS WHT53 Nos.")
+                {
+                    ApplicationArea = all;
+                    ToolTip = 'Specifies the value of the WHT53 Nos. field.';
+                }
                 field("WHT Certificate 1"; Rec."YVS WHT Certificate Caption 1")
                 {
                     ApplicationArea = all;

@@ -14,20 +14,62 @@ codeunit 80000 "YVS Journal Function"
     local procedure "OnBeforeUpdateAndDeleteLines"(var GenJournalLine: Record "Gen. Journal Line")
     var
         WHTHeader: Record "YVS WHT Header";
+        WHTLines: Record "YVS WHT Line";
         BillingHeader: Record "YVS Billing Receipt Header";
         GenJnlLine2, GenJnlLine3 : Record "Gen. Journal Line";
+        WHTAppEntry: Record "YVS WHT Applied Entry";
+        GenJournalTemplate: Record "Gen. Journal Template";
+        LastLineNo: Integer;
     begin
+        if not GenJournalTemplate.GET(GenJournalLine."Journal Template Name") then
+            GenJournalLine.Init();
         GenJnlLine2.Copy(GenJournalLine);
         GenJnlLine2.SetCurrentKey("Journal Template Name", "Journal Batch Name", "Line No.");
         GenJnlLine2.SetFilter("Account No.", '<>%1', '');
         GenJnlLine2.SetFilter("YVS WHT Document No.", '<>%1', '');
         if GenJnlLine2.FindSet() then
             repeat
+
                 WHTHeader.reset();
                 WHTHeader.setrange("WHT No.", GenJnlLine2."YVS WHT Document No.");
                 if WHTHeader.FindFirst() then begin
                     WHTHeader."Posted" := true;
                     WHTHeader.Modify();
+
+                    LastLineNo := 0;
+                    WHTLines.reset();
+                    WHTLines.SetRange("WHT No.", WHTHeader."WHT No.");
+                    WHTLines.SetFilter("WHT Product Posting Group", '<>%1', '');
+                    if WHTLines.FindSet() then
+                        repeat
+                            LastLineNo := LastLineNo + 10000;
+                            WHTAppEntry.init();
+                            WHTAppEntry."Document No." := GenJnlLine2."Document No.";
+                            WHTAppEntry."Document Line No." := WHTLines."WHT Line No.";
+                            WHTAppEntry."Entry Type" := WHTAppEntry."Entry Type"::Applied;
+                            WHTAppEntry."Line No." := LastLineNo;
+                            WHTAppEntry."WHT Bus. Posting Group" := WHTLines."WHT Business Posting Group";
+                            WHTAppEntry."WHT Prod. Posting Group" := WHTLines."WHT Product Posting Group";
+                            WHTAppEntry.Description := copystr(WHTLines.Description, 1, 100);
+                            WHTAppEntry."WHT %" := WHTLines."WHT %";
+                            WHTAppEntry."WHT Base" := WHTLines."WHT Base";
+                            WHTAppEntry."WHT Amount" := WHTLines."WHT Amount";
+                            WHTAppEntry."WHT Name" := COPYSTR(WHTHeader."WHT Name", 1, 100);
+                            WHTAppEntry."WHT Name 2" := WHTHeader."WHT Name 2";
+                            WHTAppEntry."WHT Address" := WHTHeader."WHT Address";
+                            WHTAppEntry."WHT Address 2" := WHTHeader."WHT Address 2";
+                            WHTAppEntry."WHT City" := COPYSTR(WHTHeader."WHT City", 1, 30);
+                            WHTAppEntry."VAT Registration No." := WHTHeader."VAT Registration No.";
+                            WHTAppEntry."WHT Option" := WHTHeader."WHT Option";
+                            WHTAppEntry."VAT Branch Code" := WHTHeader."VAT Branch Code";
+                            WHTAppEntry."Head Office" := WHTHeader."Head Office";
+                            WHTAppEntry."WHT Post Code" := WHTHeader."Wht Post Code";
+                            if GenJournalTemplate.Type = GenJournalTemplate.Type::Payments then
+                                WHTAppEntry."WHT Document Type" := WHTAppEntry."WHT Document Type"::Payment;
+                            if GenJournalTemplate.Type = GenJournalTemplate.Type::"Cash Receipts" then
+                                WHTAppEntry."WHT Document Type" := WHTAppEntry."WHT Document Type"::"Cash Receipt";
+                            WHTAppEntry.Insert(true);
+                        until WHTLines.Next() = 0;
                 end;
             until GenJnlLine2.Next() = 0;
 
