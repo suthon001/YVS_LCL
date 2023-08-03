@@ -95,6 +95,20 @@ pageextension 80094 "YVS Role Purchase" extends "Purchasing Agent Role Center"
                         RunObject = page "YVS WHT53 Lists";
                         ToolTip = 'Executes the WHT53 action.';
                     }
+                    action("VATTransaction")
+                    {
+                        Caption = 'WHT Transaction';
+                        ApplicationArea = all;
+                        RunObject = page "YVS Vat Transaction Entries";
+                        ToolTip = 'Executes the Vat Transaction action.';
+                    }
+                    action("WHTTransaction")
+                    {
+                        Caption = 'WHT Transaction';
+                        ApplicationArea = all;
+                        RunObject = page "YVS WHT Transaction Entries";
+                        ToolTip = 'Executes the WHT Transaction action.';
+                    }
                 }
                 group("Sales Receipt")
                 {
