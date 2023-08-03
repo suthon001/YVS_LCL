@@ -6,7 +6,7 @@ page 80017 "YVS WHT Card"
 
     PageType = Document;
     SourceTable = "YVS Tax & WHT Header";
-    Caption = 'Withholding tax Card';
+    Caption = 'WHT03 Card';
     PromotedActionCategories = 'New,Process,Print,Approve,Release,Posting,Prepare,Request Approval,Approval,Print/Send,Navigate';
     RefreshOnActivate = true;
     SourceTableView = sorting("Tax Type", "Document No.") where("Tax Type" = filter(WHT03));

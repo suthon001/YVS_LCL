@@ -174,13 +174,20 @@ report 80021 "YVS Debit Note"
                     field(CaptionOptionThai; CaptionOptionThai)
                     {
                         ApplicationArea = all;
-                        Caption = 'Caption';
+                        Caption = 'Caption (Thai)';
                         ToolTip = 'Specifies the value of the Caption field.';
-                        OptionCaption = 'ใบเพิ่มหนี้,ใบเพิ่มหนี้/ใบกำกับภาษี';
-                        trigger OnValidate()
+                        trigger OnAssistEdit()
+                        var
+                            EvenCenter: Codeunit "YVS EventFunction";
                         begin
-                            CaptionOptionEng := CaptionOptionThai;
+                            EvenCenter.SelectCaptionReport(CaptionOptionThai, CaptionOptionEng);
                         end;
+                    }
+                    field(CaptionOptionEng; CaptionOptionEng)
+                    {
+                        ApplicationArea = all;
+                        Caption = 'Caption (Eng)';
+                        ToolTip = 'Specifies the value of the Caption field.';
                     }
                 }
             }
@@ -218,7 +225,6 @@ report 80021 "YVS Debit Note"
         AmtText, ReturnReasonDescFirstLine : Text[250];
         ComText: Array[10] of Text[250];
         CustText: Array[10] of Text[250];
-        CaptionOptionEng: Option "DEBIT NOTE","DEBIT NOTE/TAX INVOICE";
-        CaptionOptionThai: Option ใบเพิ่มหนี้,"ใบเพิ่มหนี้/ใบกำกับภาษี";
+        CaptionOptionEng, CaptionOptionThai : Text[50];
 
 }

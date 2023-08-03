@@ -174,13 +174,20 @@ report 80018 "YVS Sales Credit Memo (Post)"
                     field(CaptionOptionThai; CaptionOptionThai)
                     {
                         ApplicationArea = all;
-                        OptionCaption = 'ใบลดหนี้,ใบลดหนี้/ใบกำกับภาษี';
-                        Caption = 'Caption';
+                        Caption = 'Caption (Thai)';
                         ToolTip = 'Specifies the value of the Caption field.';
-                        trigger OnValidate()
+                        trigger OnAssistEdit()
+                        var
+                            EvenCenter: Codeunit "YVS EventFunction";
                         begin
-                            CaptionOptionEng := CaptionOptionThai;
+                            EvenCenter.SelectCaptionReport(CaptionOptionThai, CaptionOptionEng);
                         end;
+                    }
+                    field(CaptionOptionEng; CaptionOptionEng)
+                    {
+                        ApplicationArea = all;
+                        Caption = 'Caption (Eng)';
+                        ToolTip = 'Specifies the value of the Caption field.';
                     }
                 }
             }
@@ -219,7 +226,6 @@ report 80018 "YVS Sales Credit Memo (Post)"
         AmtText, ReturnReasonDescFirstLine : Text[250];
         ComText: Array[10] of Text[250];
         CustText: Array[10] of Text[250];
-        CaptionOptionEng: Option "CREDIT NOTE","CREDIT NOTE/TAX INVOICE";
-        CaptionOptionThai: Option ใบลดหนี้,"ใบลดหนี้/ใบกำกับภาษี";
+        CaptionOptionEng, CaptionOptionThai : Text[50];
 
 }

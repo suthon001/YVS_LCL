@@ -2,11 +2,11 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "TestObject",
+            "name": "DemoTH",
             "request": "launch",
             "type": "al",
             "environmentType": "Sandbox",
-            "environmentName": "TestObject",
+            "environmentName": "DemoTH",
             "startupObjectId": 22,
             "startupObjectType": "Page",
             "breakOnError": true,
@@ -14,7 +14,7 @@
             "enableLongRunningSqlStatements": true,
             "schemaUpdateMode": "ForceSync",
             "enableSqlInformationDebugger": true,
-            "tenant": "ebf48875-962e-4077-b148-dd17c576d9f7"
+            "tenant": "c82c348b-64ef-4a07-bfa7-62fc88bc1517"
         },
     ]
 }

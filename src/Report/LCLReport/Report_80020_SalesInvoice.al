@@ -125,13 +125,20 @@ report 80020 "YVS Report Sales Invoice"
                     field(CaptionOptionThai; CaptionOptionThai)
                     {
                         ApplicationArea = all;
-                        OptionCaption = 'ใบแจ้งหนี้,ใบแจ้งหนี้/ใบกำกับภาษี';
-                        Caption = 'Caption';
+                        Caption = 'Caption (Thai)';
                         ToolTip = 'Specifies the value of the Caption field.';
-                        trigger OnValidate()
+                        trigger OnAssistEdit()
+                        var
+                            EvenCenter: Codeunit "YVS EventFunction";
                         begin
-                            CaptionOptionEng := CaptionOptionThai;
+                            EvenCenter.SelectCaptionReport(CaptionOptionThai, CaptionOptionEng);
                         end;
+                    }
+                    field(CaptionOptionEng; CaptionOptionEng)
+                    {
+                        ApplicationArea = all;
+                        Caption = 'Caption (Eng)';
+                        ToolTip = 'Specifies the value of the Caption field.';
                     }
                 }
             }
@@ -147,6 +154,7 @@ report 80020 "YVS Report Sales Invoice"
     end;
 
     var
+
         LotSeriesCaption: Text[50];
         LineLotSeries: Integer;
         SplitDate: Array[3] of Text[20];
@@ -168,7 +176,6 @@ report 80020 "YVS Report Sales Invoice"
         AmtText: Text[250];
         ComText: Array[10] of Text[250];
         CustText, CustTextShipment : Array[10] of Text[250];
-        CaptionOptionEng: Option INVOICE,"INVOICE/TAX INVOICE";
-        CaptionOptionThai: Option ใบแจ้งหนี้,"ใบแจ้งหนี้/ใบกำกับภาษี";
+        CaptionOptionEng, CaptionOptionThai : Text[50];
 
 }

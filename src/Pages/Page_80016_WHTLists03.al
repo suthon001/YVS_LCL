@@ -6,7 +6,7 @@ page 80016 "YVS WHT Lists"
 
     PageType = List;
     SourceTable = "YVS Tax & WHT Header";
-    Caption = 'Withholding Tax';
+    Caption = 'WHT03 List';
     CardPageId = "YVS WHT Card";
     UsageCategory = Lists;
     ApplicationArea = all;

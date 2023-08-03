@@ -5,6 +5,28 @@ codeunit 80005 "YVS EventFunction"
 {
     Permissions = TableData "G/L Entry" = rimd;
 
+    /// <summary>
+    /// SelectCaptionReport.
+    /// </summary>
+    /// <param name="pNameThai">VAR text[50].</param>
+    /// <param name="pNameEng">VAR text[50].</param>
+    procedure SelectCaptionReport(var pNameThai: text[50]; var pNameEng: text[50])
+    var
+        ltSelectCaptionReport: Record "YVS Caption Report Setup";
+        ltCaptionReport: Page "YVS Caption Report List";
+    begin
+        CLEAR(ltCaptionReport);
+        ltSelectCaptionReport.reset();
+        ltCaptionReport.SetTableView(ltSelectCaptionReport);
+        ltCaptionReport.LookupMode := true;
+        if ltCaptionReport.RunModal() = Action::LookupOK then begin
+            ltCaptionReport.GetRecord(ltSelectCaptionReport);
+            pNameThai := ltSelectCaptionReport."Name (Thai)";
+            pNameEng := ltSelectCaptionReport."Name (Eng)";
+        end;
+        Clear(ltCaptionReport);
+    end;
+
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Financial Report Mgt.", 'OnBeforePrint', '', false, false)]
     local procedure OnBeforePrintFinancial(var FinancialReport: Record "Financial Report"; var IsHandled: Boolean)
     var
