@@ -95,6 +95,20 @@ pageextension 80033 "YVS Business Manager Role" extends "Business Manager Role C
                         RunObject = page "YVS WHT53 Lists";
                         ToolTip = 'Executes the WHT53 action.';
                     }
+                    action("VATTransaction")
+                    {
+                        Caption = 'VAT Transaction';
+                        ApplicationArea = all;
+                        RunObject = page "YVS Vat Transaction Entries";
+                        ToolTip = 'Executes the Vat Transaction action.';
+                    }
+                    action("WHTTransaction")
+                    {
+                        Caption = 'WHT Transaction';
+                        ApplicationArea = all;
+                        RunObject = page "YVS WHT Transaction Entries";
+                        ToolTip = 'Executes the WHT Transaction action.';
+                    }
                 }
                 group("Sales Receipt")
                 {

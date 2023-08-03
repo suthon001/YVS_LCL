@@ -97,7 +97,7 @@ pageextension 80094 "YVS Role Purchase" extends "Purchasing Agent Role Center"
                     }
                     action("VATTransaction")
                     {
-                        Caption = 'WHT Transaction';
+                        Caption = 'VAT Transaction';
                         ApplicationArea = all;
                         RunObject = page "YVS Vat Transaction Entries";
                         ToolTip = 'Executes the Vat Transaction action.';

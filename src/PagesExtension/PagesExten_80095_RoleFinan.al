@@ -97,7 +97,7 @@ pageextension 80095 "YVS Role Finan" extends "Accountant Role Center"
                     }
                     action("VATTransaction")
                     {
-                        Caption = 'WHT Transaction';
+                        Caption = 'VAT Transaction';
                         ApplicationArea = all;
                         RunObject = page "YVS Vat Transaction Entries";
                         ToolTip = 'Executes the Vat Transaction action.';

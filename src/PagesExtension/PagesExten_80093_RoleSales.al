@@ -97,7 +97,7 @@ pageextension 80093 "YVS Role Sales" extends "Order Processor Role Center"
                     }
                     action("VATTransaction")
                     {
-                        Caption = 'WHT Transaction';
+                        Caption = 'VAT Transaction';
                         ApplicationArea = all;
                         RunObject = page "YVS Vat Transaction Entries";
                         ToolTip = 'Executes the Vat Transaction action.';
