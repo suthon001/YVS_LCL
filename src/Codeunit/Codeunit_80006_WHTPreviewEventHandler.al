@@ -39,6 +39,13 @@ codeunit 80006 "WHT Preview Event Handler"
         TempWHTApplied.Insert();
     end;
 
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"YVS Journal Function", 'OnbeforInsertWHTAPPLYGL', '', false, false)]
+    local procedure OnbeforInsertWHTAPPLYGL()
+    begin
+        TempWHTApplied.reset();
+        TempWHTApplied.deleteall();
+    end;
+
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"YVS Purchase Function", 'OnbeforInsertWHTAPPLY', '', false, false)]
     local procedure OnbeforInsertWHTAPPLY()
     begin

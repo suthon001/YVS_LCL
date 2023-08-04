@@ -37,6 +37,7 @@ codeunit 80000 "YVS Journal Function"
                     WHTHeader.Modify();
 
                     LastLineNo := 0;
+                    OnbeforInsertWHTAPPLYGL();
                     WHTLines.reset();
                     WHTLines.SetRange("WHT No.", WHTHeader."WHT No.");
                     WHTLines.SetFilter("WHT Product Posting Group", '<>%1', '');
@@ -312,16 +313,58 @@ codeunit 80000 "YVS Journal Function"
     local procedure "AfterCopyFromGen"(GenJournalLine: Record "Gen. Journal Line"; var BankAccountLedgerEntry: Record "Bank Account Ledger Entry")
     begin
         //   with BankAccountLedgerEntry do begin
-        BankAccountLedgerEntry."Bank Account No." := GenJournalLine."YVS Bank Account No.";
         BankAccountLedgerEntry."YVS Bank Branch No." := GenJournalLine."YVS Bank Branch No.";
         BankAccountLedgerEntry."YVS Bank Code" := GenJournalLine."YVS Bank Code";
         BankAccountLedgerEntry."YVS Bank Name" := GenJournalLine."YVS Bank Name";
-        BankAccountLedgerEntry."YVS Cheque Name" := GenJournalLine."YVS Cheque Name";
+        BankAccountLedgerEntry."YVS Cheque Name" := GenJournalLine."YVS Pay Name";
         BankAccountLedgerEntry."YVS Cheque No." := GenJournalLine."YVS Cheque No.";
         BankAccountLedgerEntry."YVS Customer/Vendor No." := GenJournalLine."YVS Customer/Vendor No.";
         BankAccountLedgerEntry."YVS Cheque Date" := GenJournalLine."YVS Cheque Date";
         "YVS OnAfterBankAccountLedgerEntryCopyFromGenJnlLine"(BankAccountLedgerEntry, GenJournalLine);
         //  end;
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Gen. Jnl.-Post Line", 'OnPostBankAccOnAfterBankAccLedgEntryInsert', '', false, false)]
+    local procedure OnPostBankAccOnAfterBankAccLedgEntryInsert(var BankAccountLedgerEntry: Record "Bank Account Ledger Entry"; var GenJournalLine: Record "Gen. Journal Line"; BankAccount: Record "Bank Account")
+    var
+        CheckLedgEntry: Record "Check Ledger Entry";
+        NextCheckEntryNo: Integer;
+        DocNoMustBeEnteredErr: Label 'Document No. must be entered when Bank Payment Type is %1.', Comment = '%1 - option value';
+        CheckAlreadyExistsErr: Label 'Check %1 already exists for this Bank Account.', Comment = '%1 - document no.';
+    begin
+        if ((GenJournalLine.Amount < 0) and (GenJournalLine."Bank Payment Type" = "Bank Payment Type"::" ") and (GenJournalLine."YVS Cheque No." <> ''))
+     then begin
+            if GenJournalLine."Document No." = '' then
+                Error(DocNoMustBeEnteredErr, GenJournalLine."Bank Payment Type");
+            CheckLedgEntry.Reset();
+            CheckLedgEntry.LockTable();
+            if CheckLedgEntry.FindLast() then
+                NextCheckEntryNo := CheckLedgEntry."Entry No." + 1
+            else
+                NextCheckEntryNo := 1;
+
+
+            CheckLedgEntry.SetRange("Bank Account No.", GenJournalLine."Account No.");
+            CheckLedgEntry.SetFilter(
+              "Entry Status", '%1|%2|%3',
+              CheckLedgEntry."Entry Status"::Printed,
+              CheckLedgEntry."Entry Status"::Posted,
+              CheckLedgEntry."Entry Status"::"Financially Voided");
+            CheckLedgEntry.SetRange("Check No.", GenJournalLine."Document No.");
+            if not CheckLedgEntry.IsEmpty() then
+                Error(CheckAlreadyExistsErr, GenJournalLine."Document No.");
+
+            CheckLedgEntry.Init();
+            CheckLedgEntry.CopyFromBankAccLedgEntry(BankAccountLedgerEntry);
+            CheckLedgEntry."Entry No." := NextCheckEntryNo;
+
+            CheckLedgEntry."Bank Payment Type" := CheckLedgEntry."Bank Payment Type"::"Manual Check";
+            if BankAccount."Currency Code" <> '' then
+                CheckLedgEntry.Amount := -GenJournalLine.Amount
+            else
+                CheckLedgEntry.Amount := -GenJournalLine."Amount (LCY)";
+            CheckLedgEntry.Insert(true);
+        end;
     end;
 
     [EventSubscriber(ObjectType::Table, Database::"Check Ledger Entry", 'OnAfterCopyFromBankAccLedgEntry', '', TRUE, TRUE)]
@@ -564,4 +607,10 @@ codeunit 80000 "YVS Journal Function"
     local procedure "YVS OnCopyItemLedgerFromItemJournal"(var ItemLedgerEntry: record "Item Ledger Entry"; ItemJournalLine: Record "Item Journal Line")
     begin
     end;
+
+    [BusinessEvent(false)]
+    local procedure OnbeforInsertWHTAPPLYGL()
+    begin
+    end;
+
 }
