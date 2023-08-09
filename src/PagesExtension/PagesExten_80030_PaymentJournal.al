@@ -300,14 +300,21 @@ pageextension 80030 "YVS Payment Journal" extends "Payment Journal"
         if gvDocument <> '' then
             rec.SetRange("Document No.", gvDocument);
     end;
-
+    /// <summary>
+    /// SetDocumnet.
+    /// </summary>
+    /// <param name="pDocument">code[20].</param>
     procedure SetDocumnet(pDocument: code[20])
     begin
         gvDocument := pDocument;
     end;
 
     [IntegrationEvent(true, false)]
-
+    /// <summary>
+    /// OnbeforInsertWhtHeader.
+    /// </summary>
+    /// <param name="WHTHeader">VAR Record "YVS WHT Header".</param>
+    /// <param name="GenLine">Record "Gen. Journal Line".</param>
     procedure OnbeforInsertWhtHeader(var WHTHeader: Record "YVS WHT Header"; GenLine: Record "Gen. Journal Line")
     begin
 

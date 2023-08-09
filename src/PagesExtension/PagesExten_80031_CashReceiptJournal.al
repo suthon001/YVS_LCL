@@ -213,7 +213,10 @@ pageextension 80031 "YVS Receipt Journal" extends "Cash Receipt Journal"
             PurchaseBilling.Modify();
         end;
     end;
-
+    /// <summary>
+    /// SetDocumnet.
+    /// </summary>
+    /// <param name="pDocument">code[20].</param>
     procedure SetDocumnet(pDocument: code[20])
     begin
         gvDocument := pDocument;
