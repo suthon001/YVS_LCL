@@ -201,7 +201,6 @@ report 80020 "YVS Report Sales Invoice"
         AmtText: Text[250];
         ComText: Array[10] of Text[250];
         CustText, CustTextShipment : Array[10] of Text[250];
-        CaptionOptionEng, CaptionOptionThai : Text[50];
-        OriginalCaption: Text;
+        CaptionOptionEng, CaptionOptionThai, OriginalCaption : Text[50];
 
 }
