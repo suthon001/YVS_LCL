@@ -6,7 +6,7 @@ report 80007 "YVS FA G/L Journal Voucher (P)"
     Permissions = TableData "G/L Entry" = rimd;
     Caption = 'FA G/L Journal Voucher';
     DefaultLayout = RDLC;
-    RDLCLayout = './LayoutReport/LCLReport/Report_80007_FAGLJournalReportPosted.al.rdl';
+    RDLCLayout = './LayoutReport/LCLReport/Report_80007_FAGLJournalReportPosted.rdl';
     UsageCategory = None;
     dataset
     {
@@ -141,9 +141,9 @@ report 80007 "YVS FA G/L Journal Voucher (P)"
         GenLine.reset();
         GenLine.SetRange("Journal Template Name", GenJournalLine."Journal Template Name");
         GenLine.SetRange("Journal Batch Name", GenJournalLine."Journal Batch Name");
-        GenLine.SetRange("Document No.", GenJournalLine."Document No.");
+        GenLine.SetFilter("YVS Journal Description", '<>%1', '');
         if GenLine.FindFirst() then
-            PostingDescription := GenLine.Description;
+            PostingDescription := GenLine."YVS Journal Description";
     end;
 
 

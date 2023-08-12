@@ -145,8 +145,9 @@ report 80026 "YVS FA G/L Journal Voucher"
         GenLine.SetRange("Journal Template Name", GenJournalLine."Journal Template Name");
         GenLine.SetRange("Journal Batch Name", GenJournalLine."Journal Batch Name");
         GenLine.SetRange("Document No.", GenJournalLine."Document No.");
+        GenLine.SetFilter("YVS Journal Description", '<>%1', '');
         if GenLine.FindFirst() then
-            PostingDescription := GenLine.Description;
+            PostingDescription := GenLine."YVS Journal Description";
     end;
 
 

@@ -60,25 +60,45 @@ report 80020 "YVS Report Sales Invoice"
             column(CaptionOptionThai; CaptionOptionThai) { }
             column(CaptionOptionEng; CaptionOptionEng) { }
             column(VatText; VatText) { }
-            dataitem(SalesLine; "Sales Line")
+            dataitem(myLoop; Integer)
             {
-                DataItemTableView = sorting("Document Type", "Document No.", "Line No.");
-                DataItemLink = "Document Type" = field("Document Type"), "Document No." = FIELD("No.");
-                column(SalesLine_No_; "No.") { }
-                column(SalesLine_Description; Description) { }
-                column(SalesLine_Description_2; "Description 2") { }
-                column(SalesLine_Unit_Price; "Unit Price") { }
-                column(Line_Discount__; "Line Discount %") { }
-                column(SalesLine_LineNo; LineNo) { }
-                column(SalesLine_Quantity; Quantity) { }
-                column(SalesLine_Unit_of_Measure_Code; "Unit of Measure Code") { }
-                column(Line_Amount; "Line Amount") { }
+                DataItemTableView = sorting(Number) where(Number = filter(1 ..));
+                column(Number; Number) { }
+                column(OriginalCaption; OriginalCaption) { }
+                dataitem(SalesLine; "Sales Line")
+                {
+                    DataItemTableView = sorting("Document Type", "Document No.", "Line No.");
+                    DataItemLink = "Document Type" = field("Document Type"), "Document No." = FIELD("No.");
+                    DataItemLinkReference = SalesHeader;
+                    column(SalesLine_No_; "No.") { }
+                    column(SalesLine_Description; Description) { }
+                    column(SalesLine_Description_2; "Description 2") { }
+                    column(SalesLine_Unit_Price; "Unit Price") { }
+                    column(Line_Discount__; "Line Discount %") { }
+                    column(SalesLine_LineNo; LineNo) { }
+                    column(SalesLine_Quantity; Quantity) { }
+                    column(SalesLine_Unit_of_Measure_Code; "Unit of Measure Code") { }
+                    column(Line_Amount; "Line Amount") { }
 
+
+                    trigger OnAfterGetRecord()
+                    begin
+                        If "No." <> '' then
+                            LineNo += 1;
+                    end;
+                }
+                trigger OnPreDataItem()
+                begin
+                    SetRange(Number, 1, NoOfCopies + 1);
+                end;
 
                 trigger OnAfterGetRecord()
                 begin
-                    If "No." <> '' then
-                        LineNo += 1;
+                    LineNo := 0;
+                    if Number = 1 then
+                        OriginalCaption := 'Original'
+                    else
+                        OriginalCaption := 'Copy';
                 end;
             }
 
@@ -122,6 +142,13 @@ report 80020 "YVS Report Sales Invoice"
                 group("Options")
                 {
                     Caption = 'Options';
+                    field(NoOfCopies; NoOfCopies)
+                    {
+                        ApplicationArea = all;
+                        Caption = 'No. of Copies';
+                        ToolTip = 'Specifies the value of the No. of Copies field.';
+                        MinValue = 0;
+                    }
                     field(CaptionOptionThai; CaptionOptionThai)
                     {
                         ApplicationArea = all;
@@ -154,9 +181,8 @@ report 80020 "YVS Report Sales Invoice"
     end;
 
     var
+        NoOfCopies: Integer;
 
-        LotSeriesCaption: Text[50];
-        LineLotSeries: Integer;
         SplitDate: Array[3] of Text[20];
 
         companyInfor: Record "Company Information";
@@ -166,7 +192,6 @@ report 80020 "YVS Report Sales Invoice"
         ShipMethod: Record "Shipment Method";
         ExchangeRate: Text[30];
         LineNo: Integer;
-        LotSeriesNo: Code[50];
         CommentText: Array[99] of Text[250];
 
         FunctionCenter: Codeunit "YVS Function Center";
@@ -177,5 +202,6 @@ report 80020 "YVS Report Sales Invoice"
         ComText: Array[10] of Text[250];
         CustText, CustTextShipment : Array[10] of Text[250];
         CaptionOptionEng, CaptionOptionThai : Text[50];
+        OriginalCaption: Text;
 
 }

@@ -5,6 +5,57 @@ codeunit 80005 "YVS EventFunction"
 {
     Permissions = TableData "G/L Entry" = rimd;
 
+    [EventSubscriber(ObjectType::Page, Page::"Acc. Schedule Overview", 'OnBeforePrint', '', false, false)]
+    local procedure OnBeforePrintAccSheduleOverview(var AccScheduleLine: Record "Acc. Schedule Line"; var IsHandled: Boolean; var TempFinancialReport: Record "Financial Report" temporary)
+    var
+        AccSched: Report "YVS Account Schedule";
+        DateFilter2: Text;
+        GLBudgetFilter2: Text;
+        BusUnitFilter: Text;
+        CostBudgetFilter2: Text;
+    begin
+        if TempFinancialReport.Name <> '' then
+            AccSched.SetFinancialReportName(TempFinancialReport.Name);
+        if TempFinancialReport."Financial Report Row Group" <> '' then
+            AccSched.SetAccSchedName(TempFinancialReport."Financial Report Row Group");
+        if TempFinancialReport."Financial Report Column Group" <> '' then
+            AccSched.SetColumnLayoutName(TempFinancialReport."Financial Report Column Group");
+        DateFilter2 := AccScheduleLine.GetFilter("Date Filter");
+        GLBudgetFilter2 := AccScheduleLine.GetFilter("G/L Budget Filter");
+        CostBudgetFilter2 := AccScheduleLine.GetFilter("Cost Budget Filter");
+        BusUnitFilter := AccScheduleLine.GetFilter("Business Unit Filter");
+        AccSched.SetFilters(DateFilter2, GLBudgetFilter2, CostBudgetFilter2, BusUnitFilter, TempFinancialReport.Dim1Filter, TempFinancialReport.Dim2Filter, TempFinancialReport.Dim3Filter, TempFinancialReport.Dim4Filter, TempFinancialReport.CashFlowFilter);
+        AccSched.Run();
+
+        IsHandled := true;
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Test Report-Print", 'OnBeforePrintGenJnlLine', '', false, false)]
+    local procedure OnBeforePrintGenJnlLine(var NewGenJnlLine: Record "Gen. Journal Line"; var IsHandled: Boolean)
+    var
+        GenJnlLine: Record "Gen. Journal Line";
+        GenJnlTemplate: Record "Gen. Journal Template";
+    begin
+        GenJnlLine.Copy(NewGenJnlLine);
+        GenJnlTemplate.Get(GenJnlLine."Journal Template Name");
+        if GenJnlTemplate.Type = GenJnlTemplate.Type::Assets then begin
+            GenJnlLine.SetRange("Journal Template Name", GenJnlLine."Journal Template Name");
+            GenJnlLine.SetRange("Journal Batch Name", GenJnlLine."Journal Batch Name");
+            REPORT.Run(REPORT::"YVS Fixed Asset Journal - Test", true, false, GenJnlLine);
+            IsHandled := true;
+        end;
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Financial Report Mgt.", 'OnBeforePrint', '', false, false)]
+    local procedure OnBeforePrintFinancial(var FinancialReport: Record "Financial Report"; var IsHandled: Boolean)
+    var
+        AccountSchedule: Report "YVS Account Schedule";
+    begin
+        AccountSchedule.SetFinancialReportName(FinancialReport.Name);
+        AccountSchedule.Run();
+        IsHandled := true;
+    end;
+
     /// <summary>
     /// SelectCaptionReport.
     /// </summary>
@@ -27,15 +78,6 @@ codeunit 80005 "YVS EventFunction"
         Clear(ltCaptionReport);
     end;
 
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Financial Report Mgt.", 'OnBeforePrint', '', false, false)]
-    local procedure OnBeforePrintFinancial(var FinancialReport: Record "Financial Report"; var IsHandled: Boolean)
-    var
-        AccountSchedule: Report "YVS Account Schedule";
-    begin
-        AccountSchedule.SetFinancialReportName(FinancialReport.Name);
-        AccountSchedule.Run();
-        IsHandled := true;
-    end;
 
     [EventSubscriber(ObjectType::Table, Database::"FA Depreciation Book", 'OnBeforeValidateNoOfDepreYears', '', false, false)]
     local procedure OnBeforeValidateNoOfDepreYears(var IsHandled: Boolean)
@@ -326,6 +368,8 @@ codeunit 80005 "YVS EventFunction"
             NewReportId := REPORT::"YVS Inventory - List";
         if ReportId = Report::"Account Schedule" then
             NewReportId := report::"YVS Account Schedule";
+        if ReportId = Report::"Fixed Asset - Acquisition List" then
+            NewReportId := report::"YVS Fixed Asset - Acquisition";
 
 
     end;
