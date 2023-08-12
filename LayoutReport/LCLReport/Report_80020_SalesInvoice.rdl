@@ -2574,7 +2574,7 @@ Due Date</Value>
                                             </Paragraphs>
                                             <rd:DefaultName>Textbox1</rd:DefaultName>
                                             <Visibility>
-                                              <Hidden>=Code.SetData(Cstr(Fields!Number.Value), 1)</Hidden>
+                                              <Hidden>=Code.SetData(Cstr(Fields!OriginalCaption.Value), 1)</Hidden>
                                             </Visibility>
                                             <Style>
                                               <Border>
@@ -2665,7 +2665,7 @@ Due Date</Value>
       <Width>19.82064cm</Width>
       <Page>
         <PageHeader>
-          <Height>8.8312cm</Height>
+          <Height>8.88412cm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -3026,7 +3026,7 @@ Due Date</Value>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox42</rd:DefaultName>
-              <Top>1.8949in</Top>
+              <Top>1.8824in</Top>
               <Left>0.06088in</Left>
               <Height>0.25in</Height>
               <Width>1.09792in</Width>
@@ -3060,7 +3060,7 @@ Due Date</Value>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox42</rd:DefaultName>
-              <Top>1.8949in</Top>
+              <Top>1.8824in</Top>
               <Left>1.22824in</Left>
               <Height>0.25in</Height>
               <Width>3.21384in</Width>
@@ -3122,7 +3122,7 @@ Due Date</Value>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox42</rd:DefaultName>
-              <Top>2.1449in</Top>
+              <Top>2.1324in</Top>
               <Left>1.22824in</Left>
               <Height>0.50556in</Height>
               <Width>3.21384in</Width>
@@ -3156,7 +3156,7 @@ Due Date</Value>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox42</rd:DefaultName>
-              <Top>2.89768in</Top>
+              <Top>2.93518in</Top>
               <Left>1.22824in</Left>
               <Height>0.25in</Height>
               <Width>3.21384in</Width>
@@ -3190,7 +3190,7 @@ Due Date</Value>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox42</rd:DefaultName>
-              <Top>3.15046in</Top>
+              <Top>3.18796in</Top>
               <Left>1.22824in</Left>
               <Height>0.25in</Height>
               <Width>3.21384in</Width>
@@ -3225,7 +3225,7 @@ Due Date</Value>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox42</rd:DefaultName>
-              <Top>2.1449in</Top>
+              <Top>2.1324in</Top>
               <Left>0.06088in</Left>
               <Height>0.25in</Height>
               <Width>1.09792in</Width>
@@ -3260,7 +3260,7 @@ Due Date</Value>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox42</rd:DefaultName>
-              <Top>2.88796in</Top>
+              <Top>2.92546in</Top>
               <Left>0.06088in</Left>
               <Height>0.25in</Height>
               <Width>1.09792in</Width>
@@ -3295,7 +3295,7 @@ Due Date</Value>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox42</rd:DefaultName>
-              <Top>3.15185in</Top>
+              <Top>3.18935in</Top>
               <Left>0.06088in</Left>
               <Height>0.25in</Height>
               <Width>1.09792in</Width>
@@ -3429,7 +3429,7 @@ Due Date</Value>
               <Top>1.8699in</Top>
               <Left>5.67888in</Left>
               <Height>0.50556in</Height>
-              <Width>2.06573in</Width>
+              <Width>2.10369in</Width>
               <ZIndex>21</ZIndex>
               <Style>
                 <Border>
@@ -3633,9 +3633,9 @@ Due Date</Value>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox42</rd:DefaultName>
-              <Top>2.64768in</Top>
+              <Top>2.67546in</Top>
               <Left>1.90221in</Left>
-              <Height>0.25in</Height>
+              <Height>0.25972in</Height>
               <Width>2.53987in</Width>
               <ZIndex>27</ZIndex>
               <Style>
@@ -3668,7 +3668,7 @@ Due Date</Value>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox42</rd:DefaultName>
-              <Top>2.63796in</Top>
+              <Top>2.67546in</Top>
               <Left>0.05776in</Left>
               <Height>0.25in</Height>
               <Width>1.84445in</Width>
@@ -3759,7 +3759,7 @@ Due Date</Value>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>=GetData(1,1)</Value>
+                      <Value>=Code.GetData(1,1)</Value>
                       <Style>
                         <FontFamily>Tahoma</FontFamily>
                         <FontSize>12pt</FontSize>
@@ -3817,7 +3817,7 @@ Due Date</Value>
                     </TextRun>
                   </TextRuns>
                   <Style>
-                    <TextAlign>Center</TextAlign>
+                    <TextAlign>Left</TextAlign>
                   </Style>
                 </Paragraph>
                 <Paragraph>
@@ -3832,7 +3832,7 @@ Due Date</Value>
                     </TextRun>
                   </TextRuns>
                   <Style>
-                    <TextAlign>Center</TextAlign>
+                    <TextAlign>Left</TextAlign>
                   </Style>
                 </Paragraph>
               </Paragraphs>
@@ -4394,7 +4394,7 @@ Due Date</Value>
                     </TextRun>
                   </TextRuns>
                   <Style>
-                    <TextAlign>Center</TextAlign>
+                    <TextAlign>Left</TextAlign>
                   </Style>
                 </Paragraph>
                 <Paragraph>
@@ -4409,7 +4409,7 @@ Due Date</Value>
                     </TextRun>
                   </TextRuns>
                   <Style>
-                    <TextAlign>Center</TextAlign>
+                    <TextAlign>Left</TextAlign>
                   </Style>
                 </Paragraph>
               </Paragraphs>
@@ -4492,7 +4492,7 @@ Due Date</Value>
                   <rd:DefaultName>Textbox18</rd:DefaultName>
                   <Top>0.10583cm</Top>
                   <Left>0.15311cm</Left>
-                  <Height>0.7905cm</Height>
+                  <Height>0.92167cm</Height>
                   <Width>5.54496cm</Width>
                   <Style>
                     <Border>
@@ -4630,7 +4630,7 @@ Due Date</Value>
                   <rd:DefaultName>Textbox18</rd:DefaultName>
                   <Top>0.10583cm</Top>
                   <Left>0.12001cm</Left>
-                  <Height>0.7905cm</Height>
+                  <Height>0.92167cm</Height>
                   <Width>6.1185cm</Width>
                   <Style>
                     <Border>
