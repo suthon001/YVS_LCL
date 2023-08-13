@@ -37,7 +37,7 @@ codeunit 80000 "YVS Journal Function"
                     WHTHeader.Modify();
 
                     LastLineNo := 0;
-                    OnbeforInsertWHTAPPLYGL();
+                    OnBeforInsertWHTAPPLYGL();
                     WHTLines.reset();
                     WHTLines.SetRange("WHT No.", WHTHeader."WHT No.");
                     WHTLines.SetFilter("WHT Product Posting Group", '<>%1', '');
@@ -609,7 +609,7 @@ codeunit 80000 "YVS Journal Function"
     end;
 
     [BusinessEvent(false)]
-    local procedure OnbeforInsertWHTAPPLYGL()
+    local procedure OnBeforInsertWHTAPPLYGL()
     begin
     end;
 
