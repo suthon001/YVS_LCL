@@ -1,5 +1,6 @@
 pageextension 80019 "YVS Posted Sales Invoices" extends "Posted Sales Invoices"
 {
+
     actions
     {
         addlast(Reporting)

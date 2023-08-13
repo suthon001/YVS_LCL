@@ -18,6 +18,21 @@ pageextension 80066 "YVS Sales Invoice Card" extends "Sales Invoice"
                 ApplicationArea = all;
                 ToolTip = 'Specifies value of the field.';
             }
+            field("YVS Ref. Tax Invoice No."; rec."YVS Ref. Tax Invoice No.")
+            {
+                ApplicationArea = all;
+                ToolTip = 'Specifies the value of the Ref. Tax Invoice No. field.';
+            }
+            field("YVS Ref. Tax Invoice Date"; rec."YVS Ref. Tax Invoice Date")
+            {
+                ApplicationArea = all;
+                ToolTip = 'Specifies the value of the Ref. Tax Invoice Amount field.';
+            }
+            field("YVS Ref. Tax Invoice Amount"; rec."YVS Ref. Tax Invoice Amount")
+            {
+                ApplicationArea = all;
+                ToolTip = 'Specifies the value of the Ref. Tax Invoice Amount field.';
+            }
 
         }
         modify("Posting Description")

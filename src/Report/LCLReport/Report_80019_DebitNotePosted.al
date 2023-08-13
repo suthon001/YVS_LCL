@@ -61,31 +61,50 @@ report 80019 "YVS Debit Note (Post)"
             column(var_RefDocumentNo; RefDocumentNo) { }
             column(var_RefDocumentDate; format(var_RefDocumentDate, 0, '<Day,2>/<Month,2>/<Year4>')) { }
             column(ReturnReasonDescFirstLine; ReturnReasonDescFirstLine) { }
-            dataitem(SalesLine; "Sales Invoice Line")
+            dataitem(myLoop; Integer)
             {
-                DataItemTableView = sorting("Document No.", "Line No.");
-                DataItemLink = "Document No." = FIELD("No.");
-                column(SalesLine_No_; "No.") { }
-                column(SalesLine_Description; Description) { }
-                column(SalesLine_Description_2; "Description 2") { }
-                column(SalesLine_Unit_Price; "Unit Price") { }
-                column(Line_Discount__; "Line Discount %") { }
-                column(SalesLine_Line_Amount; "Line Amount") { }
-                column(SalesLine_LineNo; LineNo) { }
-                column(SalesLine_Quantity; Quantity) { }
-                column(SalesLine_Unit_of_Measure_Code; "Unit of Measure Code") { }
+                DataItemTableView = sorting(Number) where(Number = filter(1 ..));
+                column(Number; Number) { }
+                column(OriginalCaption; OriginalCaption) { }
+                dataitem(SalesLine; "Sales Invoice Line")
+                {
+                    DataItemTableView = sorting("Document No.", "Line No.");
+                    DataItemLink = "Document No." = FIELD("No.");
+                    DataItemLinkReference = SalesHeader;
+                    column(SalesLine_No_; "No.") { }
+                    column(SalesLine_Description; Description) { }
+                    column(SalesLine_Description_2; "Description 2") { }
+                    column(SalesLine_Unit_Price; "Unit Price") { }
+                    column(Line_Discount__; "Line Discount %") { }
+                    column(SalesLine_Line_Amount; "Line Amount") { }
+                    column(SalesLine_LineNo; LineNo) { }
+                    column(SalesLine_Quantity; Quantity) { }
+                    column(SalesLine_Unit_of_Measure_Code; "Unit of Measure Code") { }
+
+                    trigger OnAfterGetRecord()
+                    begin
+                        If "No." <> '' then
+                            LineNo += 1;
+                    end;
+                }
+                trigger OnPreDataItem()
+                begin
+                    SetRange(Number, 1, NoOfCopies + 1);
+                end;
 
                 trigger OnAfterGetRecord()
                 begin
-                    If "No." <> '' then
-                        LineNo += 1;
+                    LineNo := 0;
+                    if Number = 1 then
+                        OriginalCaption := 'Original'
+                    else
+                        OriginalCaption := 'Copy';
                 end;
             }
 
             trigger OnAfterGetRecord()
             var
                 NewDate: Date;
-                RecCustLedgEntry: Record "Cust. Ledger Entry";
                 RecReturnReason: Record "Return Reason";
                 RecSaleLine: Record "Sales Invoice Line";
                 ltDocumentType: Enum "Sales Comment Document Type";
@@ -114,37 +133,13 @@ report 80019 "YVS Debit Note (Post)"
                     AmtText := '(' + FunctionCenter."NumberEngToText"(TotalAmt[5], "Currency Code") + ')';
 
 
-                RecCustLedgEntry.RESET();
-                RecCustLedgEntry.SetRange("Document Type", RecCustLedgEntry."Document Type"::Invoice);
-                IF "Applies-to Doc. No." <> '' THEN
-                    RecCustLedgEntry.SetRange("Document No.", "Applies-to Doc. No.")
-                ELSE
-                    RecCustLedgEntry.SetRange("Document No.", "YVS Applies-to ID");
-
-                IF RecCustLedgEntry.FindFirst() THEN BEGIN
-                    RecCustLedgEntry.CALCFIELDS("Original Amt. (LCY)");
-                    if "YVS Ref. Tax Invoice Amount" <> 0 then
-                        TotalAmt[100] := "YVS Ref. Tax Invoice Amount"
-                    else
-                        TotalAmt[100] := RecCustLedgEntry."Sales (LCY)";
-                    if "YVS Ref. Tax Invoice Date" <> 0D then
-                        var_RefDocumentDate := "YVS Ref. Tax Invoice Date"
-                    else
-                        var_RefDocumentDate := RecCustLedgEntry."Document Date";
-                END ELSE begin
-                    var_RefDocumentDate := "YVS Ref. Tax Invoice Date";
-                    TotalAmt[100] := "YVS Ref. Tax Invoice Amount";
-                end;
+                TotalAmt[100] := "YVS Ref. Tax Invoice Amount";
                 TotalAmt[99] := TotalAmt[100] - TotalAmt[1];
-
-                IF "Applies-to Doc. No." <> '' THEN
-                    RefDocumentNo := "Applies-to Doc. No."
-                else
-                    RefDocumentNo := "YVS Applies-to ID";
+                var_RefDocumentDate := "YVS Ref. Tax Invoice Date";
+                RefDocumentNo := "YVS Ref. Tax Invoice No.";
 
                 ReturnReasonDescFirstLine := '';
                 RecSaleLine.Reset();
-
                 RecSaleLine.SetRange("Document No.", SalesHeader."No.");
                 RecSaleLine.SetFilter("Return Reason Code", '<>%1', '');
                 if RecSaleLine.FindFirst() then begin
@@ -166,6 +161,13 @@ report 80019 "YVS Debit Note (Post)"
                 group("Options")
                 {
                     Caption = 'Options';
+                    field(NoOfCopies; NoOfCopies)
+                    {
+                        ApplicationArea = all;
+                        Caption = 'No. of Copies';
+                        ToolTip = 'Specifies the value of the No. of Copies field.';
+                        MinValue = 0;
+                    }
                     field(CaptionOptionThai; CaptionOptionThai)
                     {
                         ApplicationArea = all;
@@ -219,6 +221,7 @@ report 80019 "YVS Debit Note (Post)"
         AmtText, ReturnReasonDescFirstLine : Text[250];
         ComText: Array[10] of Text[250];
         CustText: Array[10] of Text[250];
-        CaptionOptionEng, CaptionOptionThai : Text[50];
+        CaptionOptionEng, CaptionOptionThai, OriginalCaption : Text[50];
+        NoOfCopies: Integer;
 
 }
