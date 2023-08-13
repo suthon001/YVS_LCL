@@ -58,27 +58,47 @@ report 80022 "YVS Report Sales Credit Memo"
             column(CaptionOptionThai; CaptionOptionThai) { }
             column(CaptionOptionEng; CaptionOptionEng) { }
             column(RefDocumentNo; RefDocumentNo) { }
-            column(var_RefDocumentNo; var_RefDocumentNo) { }
+            column(var_RefDocumentNo; RefDocumentNo) { }
             column(var_RefDocumentDate; format(var_RefDocumentDate, 0, '<Day,2>/<Month,2>/<Year4>')) { }
             column(ReturnReasonDescFirstLine; ReturnReasonDescFirstLine) { }
-            dataitem(SalesLine; "Sales Line")
+            dataitem(myLoop; Integer)
             {
-                DataItemTableView = sorting("Document Type", "Document No.", "Line No.");
-                DataItemLink = "Document Type" = FIELD("Document Type"), "Document No." = FIELD("No.");
-                column(SalesLine_No_; "No.") { }
-                column(SalesLine_Description; Description) { }
-                column(SalesLine_Description_2; "Description 2") { }
-                column(SalesLine_Unit_Price; "Unit Price") { }
-                column(Line_Discount__; "Line Discount %") { }
-                column(SalesLine_Line_Amount; "Line Amount") { }
-                column(SalesLine_LineNo; LineNo) { }
-                column(SalesLine_Quantity; Quantity) { }
-                column(SalesLine_Unit_of_Measure_Code; "Unit of Measure Code") { }
+                DataItemTableView = sorting(Number) where(Number = filter(1 ..));
+                column(Number; Number) { }
+                column(OriginalCaption; OriginalCaption) { }
+                dataitem(SalesLine; "Sales Line")
+                {
+                    DataItemTableView = sorting("Document Type", "Document No.", "Line No.");
+                    DataItemLink = "Document Type" = FIELD("Document Type"), "Document No." = FIELD("No.");
+                    DataItemLinkReference = SalesHeader;
+                    column(SalesLine_No_; "No.") { }
+                    column(SalesLine_Description; Description) { }
+                    column(SalesLine_Description_2; "Description 2") { }
+                    column(SalesLine_Unit_Price; "Unit Price") { }
+                    column(Line_Discount__; "Line Discount %") { }
+                    column(SalesLine_Line_Amount; "Line Amount") { }
+                    column(SalesLine_LineNo; LineNo) { }
+                    column(SalesLine_Quantity; Quantity) { }
+                    column(SalesLine_Unit_of_Measure_Code; "Unit of Measure Code") { }
+
+                    trigger OnAfterGetRecord()
+                    begin
+                        If "No." <> '' then
+                            LineNo += 1;
+                    end;
+                }
+                trigger OnPreDataItem()
+                begin
+                    SetRange(Number, 1, NoOfCopies + 1);
+                end;
 
                 trigger OnAfterGetRecord()
                 begin
-                    If "No." <> '' then
-                        LineNo += 1;
+                    LineNo := 0;
+                    if Number = 1 then
+                        OriginalCaption := 'Original'
+                    else
+                        OriginalCaption := 'Copy';
                 end;
             }
 
@@ -126,28 +146,38 @@ report 80022 "YVS Report Sales Credit Memo"
                         TotalAmt[100] := "YVS Ref. Tax Invoice Amount"
                     else
                         TotalAmt[100] := RecCustLedgEntry."Sales (LCY)";
-                END ELSE
+                    if "YVS Ref. Tax Invoice Date" <> 0D then
+                        var_RefDocumentDate := "YVS Ref. Tax Invoice Date"
+                    else
+                        var_RefDocumentDate := RecCustLedgEntry."Document Date";
+                END ELSE begin
+                    var_RefDocumentDate := "YVS Ref. Tax Invoice Date";
                     TotalAmt[100] := "YVS Ref. Tax Invoice Amount";
+                end;
                 TotalAmt[99] := TotalAmt[100] - TotalAmt[1];
 
                 IF "Applies-to Doc. No." <> '' THEN
-                    RefDocumentNo := "Applies-to Doc. No.";
-
-                IF "Applies-to ID" <> '' THEN
+                    RefDocumentNo := "Applies-to Doc. No."
+                else
                     RefDocumentNo := "Applies-to ID";
 
-                RecCustLedgEntry.RESET();
-                RecCustLedgEntry.SetRange("Document No.", RefDocumentNo);
-                RecCustLedgEntry.SetRange("Document Type", "Document Type"::Invoice);
-                IF RecCustLedgEntry.FindFirst() THEN BEGIN
-                    var_RefDocumentNo := RecCustLedgEntry."Document No.";
-                    var_RefDocumentDate := RecCustLedgEntry."Document Date";
-                END;
+                // RecCustLedgEntry.RESET();
+                // RecCustLedgEntry.SetRange("Document No.", RefDocumentNo);
+                // RecCustLedgEntry.SetRange("Document Type", "Document Type"::Invoice);
+                // IF RecCustLedgEntry.FindFirst() THEN BEGIN
+                //     if "YVS Ref. Tax Invoice Date" <> 0D then
+                //         var_RefDocumentDate := "YVS Ref. Tax Invoice Date"
+                //     else begin
+                //         var_RefDocumentNo := RecCustLedgEntry."Document No.";
+                //         var_RefDocumentDate := RecCustLedgEntry."Document Date";
+                //     end;
+                // END else
+                //     var_RefDocumentDate := "YVS Ref. Tax Invoice Date";
 
-                IF "YVS Ref. Tax Invoice No." <> '' then begin
-                    var_RefDocumentDate := "YVS Ref. Tax Invoice Date";
-                    var_RefDocumentNo := "YVS Ref. Tax Invoice No.";
-                end;
+                // IF "YVS Ref. Tax Invoice No." <> '' then begin
+                //     var_RefDocumentDate := "YVS Ref. Tax Invoice Date";
+                //     var_RefDocumentNo := "YVS Ref. Tax Invoice No.";
+                // end;
 
                 ReturnReasonDescFirstLine := '';
                 RecSaleLine.Reset();
@@ -173,6 +203,13 @@ report 80022 "YVS Report Sales Credit Memo"
                 group("Options")
                 {
                     Caption = 'Options';
+                    field(NoOfCopies; NoOfCopies)
+                    {
+                        ApplicationArea = all;
+                        Caption = 'No. of Copies';
+                        ToolTip = 'Specifies the value of the No. of Copies field.';
+                        MinValue = 0;
+                    }
                     field(CaptionOptionThai; CaptionOptionThai)
                     {
                         ApplicationArea = all;
@@ -181,8 +218,9 @@ report 80022 "YVS Report Sales Credit Memo"
                         trigger OnAssistEdit()
                         var
                             EvenCenter: Codeunit "YVS EventFunction";
+                            ltDocumentType: Enum "Sales Document Type";
                         begin
-                            EvenCenter.SelectCaptionReport(CaptionOptionThai, CaptionOptionEng);
+                            EvenCenter.SelectCaptionReport(CaptionOptionThai, CaptionOptionEng, ltDocumentType::"Credit Memo");
                         end;
                     }
                     field(CaptionOptionEng; CaptionOptionEng)
@@ -205,8 +243,7 @@ report 80022 "YVS Report Sales Credit Memo"
     end;
 
     var
-        LotSeriesCaption: Text[50];
-        LineLotSeries: Integer;
+
         SplitDate: Array[3] of Text[20];
 
         companyInfor: Record "Company Information";
@@ -218,7 +255,7 @@ report 80022 "YVS Report Sales Credit Memo"
         ExchangeRate: Text[30];
 
         LineNo: Integer;
-        LotSeriesNo, RefDocumentNo, var_RefDocumentNo : Code[50];
+        RefDocumentNo, var_RefDocumentNo : Code[50];
         CommentText: Array[99] of Text[250];
 
         FunctionCenter: Codeunit "YVS Function Center";
@@ -228,6 +265,7 @@ report 80022 "YVS Report Sales Credit Memo"
         AmtText, ReturnReasonDescFirstLine : Text[250];
         ComText: Array[10] of Text[250];
         CustText: Array[10] of Text[250];
-        CaptionOptionEng, CaptionOptionThai : Text[50];
+        CaptionOptionEng, CaptionOptionThai, OriginalCaption : Text[50];
+        NoOfCopies: Integer;
 
 }

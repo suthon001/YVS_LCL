@@ -157,8 +157,9 @@ report 80020 "YVS Report Sales Invoice"
                         trigger OnAssistEdit()
                         var
                             EvenCenter: Codeunit "YVS EventFunction";
+                            ltDocumentType: Enum "Sales Document Type";
                         begin
-                            EvenCenter.SelectCaptionReport(CaptionOptionThai, CaptionOptionEng);
+                            EvenCenter.SelectCaptionReport(CaptionOptionThai, CaptionOptionEng, ltDocumentType::Invoice);
                         end;
                     }
                     field(CaptionOptionEng; CaptionOptionEng)

@@ -710,12 +710,18 @@ codeunit 80004 "YVS Function Center"
             if PurchHeader."YVS Head Office" then
                 Text[10] += ' (สำนักงานใหญ่)'
             else
-                Text[10] += ' (' + PurchHeader."YVS VAT Branch Code" + ')';
+                if PurchHeader."YVS VAT Branch Code" <> '' then
+                    Text[10] += ' (' + PurchHeader."YVS VAT Branch Code" + ')'
+                else
+                    Text[10] += ' (สำนักงานใหญ่)';
         end else
             if PurchHeader."YVS Head Office" then
                 Text[10] += ' (Head Office)'
             else
-                Text[10] += ' (' + PurchHeader."YVS VAT Branch Code" + ')';
+                if PurchHeader."YVS VAT Branch Code" <> '' then
+                    Text[10] += ' (' + PurchHeader."YVS VAT Branch Code" + ')'
+                else
+                    Text[10] += ' (Head Office)';
     end;
 
     /// <summary> 
@@ -1217,13 +1223,19 @@ codeunit 80004 "YVS Function Center"
             if SalesHeader."YVS Head Office" then
                 Text[10] += ' (สำนักงานใหญ่)'
             else
-                Text[10] += ' (' + SalesHeader."YVS VAT Branch Code" + ')';
+                if SalesHeader."YVS VAT Branch Code" <> '' then
+                    Text[10] += ' (' + SalesHeader."YVS VAT Branch Code" + ')'
+                else
+                    Text[10] += ' (สำนักงานใหญ่)';
         end else
 
             if SalesHeader."YVS Head Office" then
                 Text[10] += ' (Head Office)'
             else
-                Text[10] += ' (' + SalesHeader."YVS VAT Branch Code" + ')';
+                if SalesHeader."YVS VAT Branch Code" <> '' then
+                    Text[10] += ' (' + SalesHeader."YVS VAT Branch Code" + ')'
+                else
+                    Text[10] += ' (Head Office)';
 
     end;
 

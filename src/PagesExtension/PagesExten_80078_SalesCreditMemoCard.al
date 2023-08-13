@@ -35,6 +35,20 @@ pageextension 80078 "YVS Sales Credit Memo Card" extends "Sales Credit Memo"
             Importance = Promoted;
         }
         moveafter("External Document No."; "Salesperson Code", "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code")
+        addafter("Applies-to ID")
+        {
+            field("YVS Ref. Tax Invoice Date"; rec."YVS Ref. Tax Invoice Date")
+            {
+                ApplicationArea = all;
+                ToolTip = 'Specifies the value of the Ref. Tax Invoice Amount field.';
+            }
+            field("YVS Ref. Tax Invoice Amount"; rec."YVS Ref. Tax Invoice Amount")
+            {
+                ApplicationArea = all;
+                ToolTip = 'Specifies the value of the Ref. Tax Invoice Amount field.';
+            }
+
+        }
     }
     actions
     {

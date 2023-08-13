@@ -3,6 +3,51 @@
 /// </summary>
 pageextension 80009 "YVS Posted Sales Credit Memo" extends "Posted Sales Credit Memo"
 {
+    layout
+    {
+        addlast(General)
+        {
+            field("Head Office"; Rec."YVS Head Office")
+            {
+                ApplicationArea = all;
+                ToolTip = 'Specifies value of the field.';
+            }
+            field("VAT Branch Code"; Rec."YVS VAT Branch Code")
+            {
+                ApplicationArea = all;
+                ToolTip = 'Specifies value of the field.';
+            }
+        }
+        modify("VAT Registration No.")
+        {
+            Visible = true;
+        }
+        moveafter("VAT Branch Code"; "VAT Registration No.")
+        modify("No.")
+        {
+            Visible = true;
+        }
+        addafter("Applies-to Doc. No.")
+        {
+            field("YVS Applies-to ID"; rec."YVS Applies-to ID")
+            {
+                ApplicationArea = all;
+                ToolTip = 'Specifies the value of the Applies-to ID. field.';
+            }
+            field("YVS Ref. Tax Invoice Date"; rec."YVS Ref. Tax Invoice Date")
+            {
+                ApplicationArea = all;
+                ToolTip = 'Specifies the value of the Ref. Tax Invoice Amount field.';
+            }
+            field("YVS Ref. Tax Invoice Amount"; rec."YVS Ref. Tax Invoice Amount")
+            {
+                ApplicationArea = all;
+                ToolTip = 'Specifies the value of the Ref. Tax Invoice Amount field.';
+            }
+        }
+        moveafter("External Document No."; "Salesperson Code", "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code")
+
+    }
     actions
     {
 

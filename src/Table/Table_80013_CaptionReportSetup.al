@@ -23,10 +23,15 @@ table 80013 "YVS Caption Report Setup"
             Caption = 'Name (Eng)';
             DataClassification = CustomerContent;
         }
+        field(4; "Document Type"; Enum "Sales Document Type")
+        {
+            Caption = 'Document Type';
+            DataClassification = CustomerContent;
+        }
     }
     keys
     {
-        key(PK; "Entry No.")
+        key(PK; "Document Type", "Entry No.")
         {
             Clustered = true;
         }

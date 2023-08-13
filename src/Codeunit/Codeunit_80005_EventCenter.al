@@ -61,13 +61,15 @@ codeunit 80005 "YVS EventFunction"
     /// </summary>
     /// <param name="pNameThai">VAR text[50].</param>
     /// <param name="pNameEng">VAR text[50].</param>
-    procedure SelectCaptionReport(var pNameThai: text[50]; var pNameEng: text[50])
+    /// <param name="pDocumentType">Enum "Sales Document Type".</param>
+    procedure SelectCaptionReport(var pNameThai: text[50]; var pNameEng: text[50]; pDocumentType: Enum "Sales Document Type")
     var
         ltSelectCaptionReport: Record "YVS Caption Report Setup";
         ltCaptionReport: Page "YVS Caption Report List";
     begin
         CLEAR(ltCaptionReport);
         ltSelectCaptionReport.reset();
+        ltSelectCaptionReport.SetRange("Document Type", pDocumentType);
         ltCaptionReport.SetTableView(ltSelectCaptionReport);
         ltCaptionReport.LookupMode := true;
         if ltCaptionReport.RunModal() = Action::LookupOK then begin

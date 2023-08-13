@@ -15,6 +15,11 @@ page 80034 "YVS Caption Report List"
         {
             repeater(General)
             {
+                field("Document Type"; rec."Document Type")
+                {
+                    ToolTip = 'Specifies the value of the "Document Type" field.';
+                    ApplicationArea = All;
+                }
                 field("Name (Thai)"; Rec."Name (Thai)")
                 {
                     ToolTip = 'Specifies the value of the Name (Thai) field.';

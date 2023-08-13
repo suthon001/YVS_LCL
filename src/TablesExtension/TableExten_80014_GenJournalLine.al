@@ -525,6 +525,13 @@ tableextension 80014 "YVS GenJournal Lines" extends "Gen. Journal Line"
                 end;
             end;
         }
+        modify(Description)
+        {
+            trigger OnAfterValidate()
+            begin
+                rec."YVS Journal Description" := rec.Description;
+            end;
+        }
     }
     trigger OnInsert()
     begin
