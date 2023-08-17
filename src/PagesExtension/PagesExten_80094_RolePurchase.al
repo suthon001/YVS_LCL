@@ -5,6 +5,31 @@ pageextension 80094 "YVS Role Purchase" extends "Purchasing Agent Role Center"
 {
     actions
     {
+        addafter("Purchase &Quote")
+        {
+            action("Purchase &Request")
+            {
+                ApplicationArea = Suite;
+                Caption = 'Purchase &Request';
+                Image = Quote;
+
+                //The property 'PromotedCategory' can only be set if the property 'Promoted' is set to 'true'
+                //PromotedCategory = Process;
+                RunObject = Page "YVS Purchase Request Card";
+                RunPageMode = Create;
+                ToolTip = 'Create a new purchase Request, for example to reflect a request for Request.';
+            }
+        }
+        addafter("Purchase Quotes")
+        {
+            action("Purchase Requests")
+            {
+                ApplicationArea = Suite;
+                Caption = 'Purchase Requests';
+                RunObject = Page "YVS Purchase Requests";
+                ToolTip = 'Create purchase Requests to represent your request for quotes from vendors. Quotes can be converted to purchase orders.';
+            }
+        }
         addfirst(sections)
         {
             group("Localized")

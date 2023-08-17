@@ -635,7 +635,6 @@ codeunit 80005 "YVS EventFunction"
                     BillingReceipt.CalcFields(Amount);
 
                     ApprovalEntryArgument."Document Type" := ApprovalEntryArgument."Document Type"::"YVS Sales Receipt";
-
                     ApprovalEntryArgument.Amount := BillingReceipt.Amount;
                 end;
 

@@ -5,6 +5,28 @@ pageextension 80033 "YVS Business Manager Role" extends "Business Manager Role C
 {
     actions
     {
+        addafter("Purchase Quotes")
+        {
+            action("Purchase Requests")
+            {
+                ApplicationArea = Suite;
+                Caption = 'Purchase Requests';
+                RunObject = Page "YVS Purchase Requests";
+                ToolTip = 'Create purchase Requests to represent your request for quotes from vendors. Quotes can be converted to purchase orders.';
+            }
+        }
+        addafter("Purchase Quote")
+        {
+            action("Purchase &Request")
+            {
+                ApplicationArea = Suite;
+                Caption = 'Purchase Request';
+                Image = Quote;
+                RunObject = Page "YVS Purchase Request Card";
+                RunPageMode = Create;
+                ToolTip = 'Create a new purchase Request, for example to reflect a request for Request.';
+            }
+        }
         addfirst(sections)
         {
             group("Localized")

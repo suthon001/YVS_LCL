@@ -37,7 +37,7 @@ tableextension 80011 "YVS ExtenPurchase Line" extends "Purchase Line"
                         "YVS Qty. to Cancel (Base)" := UOMMgt.CalcBaseQty("YVS Qty. to Cancel", "Qty. per Unit of Measure");
                         InitOutstanding();
                     END;
-                    IF ("Document Type" = "Document Type"::Quote) THEN BEGIN
+                    IF ("Document Type" IN ["Document Type"::Quote, "Document Type"::"YVS Purchase Request"]) THEN BEGIN
                         checkBeforQtyToCancal();
                         "YVS Qty. to Cancel (Base)" := UOMMgt.CalcBaseQty("YVS Qty. to Cancel", "Qty. per Unit of Measure");
                         InitOutstanding();
@@ -282,7 +282,7 @@ tableextension 80011 "YVS ExtenPurchase Line" extends "Purchase Line"
         PurchaseHeader.GET("Document Type", "Document No.");
         PurchaseHeader.TestField(Status, PurchaseHeader.Status::Open);
         PurchaseQuotesLine.reset();
-        PurchaseQuotesLine.SetRange("Document Type", PurchaseQuotesLine."Document Type"::Quote);
+        PurchaseQuotesLine.SetFilter("Document Type", '%1|%2', PurchaseQuotesLine."Document Type"::Quote, PurchaseQuotesLine."Document Type"::"YVS Purchase Request");
         PurchaseQuotesLine.SetRange("Buy-from Vendor No.", PurchaseHeader."Buy-from Vendor No.");
         PurchaseQuotesLine.SetRange("YVS Status", PurchaseQuotesLine."YVS Status"::Released);
         PurchaseQuotesLine.SetFilter("Outstanding Quantity", '<>%1', 0);
@@ -346,14 +346,23 @@ tableextension 80011 "YVS ExtenPurchase Line" extends "Purchase Line"
                 TempQty := TempQty + POLine.Quantity;
                 TempQtyBase := TempQtyBase + POLine."Quantity (Base)";
             end;
-            PRLine.GET(PRLine."Document Type"::Quote, "YVS Ref. PQ No.", "YVS Ref. PQ Line No.");
-            if (TempQty + Quantity) > PRLine.Quantity then
-                FieldError(Quantity, StrSubstNo(PrRemainingErr, "YVS Ref. PQ No.", PRLine.Quantity - TempQty));
+            if PRLine.GET(PRLine."Document Type"::Quote, "YVS Ref. PQ No.", "YVS Ref. PQ Line No.") then begin
+                if (TempQty + Quantity) > PRLine.Quantity then
+                    FieldError(Quantity, StrSubstNo(PrRemainingErr, "YVS Ref. PQ No.", PRLine.Quantity - TempQty));
+                PRLine."Outstanding Quantity" := PRLine.Quantity - (TempQty + Quantity);
+                PRLine."Outstanding Qty. (Base)" := PRLine."Quantity (Base)" - (TempQtyBase + "Quantity (Base)");
+                PRLine."Completely Received" := PRLine."Outstanding Quantity" = 0;
+                PRLine.Modify();
+            end else
+                if PRLine.GET(PRLine."Document Type"::"YVS Purchase Request", "YVS Ref. PQ No.", "YVS Ref. PQ Line No.") then begin
+                    if (TempQty + Quantity) > PRLine.Quantity then
+                        FieldError(Quantity, StrSubstNo(PrRemainingErr, "YVS Ref. PQ No.", PRLine.Quantity - TempQty));
 
-            PRLine."Outstanding Quantity" := PRLine.Quantity - (TempQty + Quantity);
-            PRLine."Outstanding Qty. (Base)" := PRLine."Quantity (Base)" - (TempQtyBase + "Quantity (Base)");
-            PRLine."Completely Received" := PRLine."Outstanding Quantity" = 0;
-            PRLine.Modify();
+                    PRLine."Outstanding Quantity" := PRLine.Quantity - (TempQty + Quantity);
+                    PRLine."Outstanding Qty. (Base)" := PRLine."Quantity (Base)" - (TempQtyBase + "Quantity (Base)");
+                    PRLine."Completely Received" := PRLine."Outstanding Quantity" = 0;
+                    PRLine.Modify();
+                end;
         end;
 
 

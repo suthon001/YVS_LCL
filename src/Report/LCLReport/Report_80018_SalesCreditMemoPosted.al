@@ -52,7 +52,7 @@ report 80018 "YVS Sales Credit Memo (Post)"
             column(TotalAmt_5; TotalAmt[5]) { }
             column(TotalAmt_99; TotalAmt[99]) { }
             column(TotalAmt_100; TotalAmt[100]) { }
-            column(VatText; VatText) { }
+            column(VatText; 'จำนวนภาษีมูลค่าเพิ่ม/' + VatText) { }
             column(Quote_No_; '') { }
             column(ShipMethod_Description; ShipMethod.Description) { }
             column(CaptionOptionThai; CaptionOptionThai) { }

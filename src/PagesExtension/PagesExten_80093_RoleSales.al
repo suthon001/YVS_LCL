@@ -5,6 +5,16 @@ pageextension 80093 "YVS Role Sales" extends "Order Processor Role Center"
 {
     actions
     {
+        addafter("Purchase Quotes")
+        {
+            action("Purchase Requests")
+            {
+                ApplicationArea = Suite;
+                Caption = 'Purchase Requests';
+                RunObject = Page "YVS Purchase Requests";
+                ToolTip = 'Create purchase Requests to represent your request for quotes from vendors. Quotes can be converted to purchase orders.';
+            }
+        }
         addfirst(sections)
         {
             group("Localized")

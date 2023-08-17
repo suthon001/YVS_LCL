@@ -34,6 +34,12 @@ pageextension 80012 "YVS Purchase Quote Card" extends "Purchase Quote"
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the YVS Make PO No. Series field.';
             }
+            field("Completely Received"; rec."Completely Received")
+            {
+                ApplicationArea = all;
+                ToolTip = 'Specifies value of the field.';
+                Caption = 'Completely';
+            }
         }
         modify("No.")
         {
@@ -64,15 +70,7 @@ pageextension 80012 "YVS Purchase Quote Card" extends "Purchase Quote"
         moveafter("Purchaser Code"; "Currency Code")
         moveafter("Currency Code"; "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code")
         moveafter("YVS Make PO No. Series"; "Expected Receipt Date", "Location Code")
-        addafter(Status)
-        {
-            field("Completely Received"; rec."Completely Received")
-            {
-                ApplicationArea = all;
-                ToolTip = 'Specifies value of the field.';
-                Caption = 'Completely';
-            }
-        }
+
     }
     actions
     {

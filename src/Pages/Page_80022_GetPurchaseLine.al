@@ -180,8 +180,10 @@ page 80022 "YVS Get Purchase Lines"
                 PurchLineReserve.VerifyQuantity(PurchaseOrderLine, PurchaseQuotesLine);
 
 
-
-                PurchCommentLine.CopyLineComments(0, 1, PurchaseQuotesLine."Document No.", PurchaseOrderLine."Document No.", PurchaseQuotesLine."Line No.", PurchaseOrderLine."Line No.");
+                if PurchaseQuotesLine."Document Type" = PurchaseQuotesLine."Document Type"::Quote then
+                    PurchCommentLine.CopyLineComments(0, 1, PurchaseQuotesLine."Document No.", PurchaseOrderLine."Document No.", PurchaseQuotesLine."Line No.", PurchaseOrderLine."Line No.")
+                else
+                    PurchCommentLine.CopyLineComments(80001, 1, PurchaseQuotesLine."Document No.", PurchaseOrderLine."Document No.", PurchaseQuotesLine."Line No.", PurchaseOrderLine."Line No.");
                 CopyCommentDescription(PurchaseQuotesLine."Document Type", PurchaseOrderLine."Document Type", PurchaseQuotesLine."Document No.", PurchaseOrderLine."Document No.", PurchaseQuotesLine."Line No.");
             until PurchaseQuotesLine.next() = 0;
     end;

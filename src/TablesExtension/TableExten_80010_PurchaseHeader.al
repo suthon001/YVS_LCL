@@ -144,4 +144,20 @@ tableextension 80010 "YVS ExtenPurchase Header" extends "Purchase Header"
         if "Document Type" IN ["Document Type"::Invoice, "Document Type"::"Credit Memo"] then
             "Posting No." := "No.";
     end;
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="PurchaseHeader"></param>
+    procedure YVSPerformManualRelease(var PurchaseHeader: Record "Purchase Header")
+    var
+        BatchProcessingMgt: Codeunit "Batch Processing Mgt.";
+        NoOfSelected: Integer;
+        NoOfSkipped: Integer;
+    begin
+        NoOfSelected := PurchaseHeader.Count();
+        PurchaseHeader.SetFilter(Status, '<>%1', PurchaseHeader.Status::Released);
+        NoOfSkipped := NoOfSelected - PurchaseHeader.Count;
+        BatchProcessingMgt.BatchProcess(PurchaseHeader, Codeunit::"Purchase Manual Release", "Error Handling Options"::"Show Error", NoOfSelected, NoOfSkipped);
+    end;
 }

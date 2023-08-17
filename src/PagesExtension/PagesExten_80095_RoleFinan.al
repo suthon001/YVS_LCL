@@ -5,6 +5,23 @@ pageextension 80095 "YVS Role Finan" extends "Accountant Role Center"
 {
     actions
     {
+        addbefore("Purchase Orders")
+        {
+            action("Purchase Quotes")
+            {
+                ApplicationArea = Suite;
+                Caption = 'Purchase Quotes';
+                RunObject = Page "Purchase Quotes";
+                ToolTip = 'Create purchase quotes to represent your request for quotes from vendors. Quotes can be converted to purchase orders.';
+            }
+            action("Purchase Requests")
+            {
+                ApplicationArea = Suite;
+                Caption = 'Purchase Requests';
+                RunObject = Page "YVS Purchase Requests";
+                ToolTip = 'Create purchase Requests to represent your request for quotes from vendors. Quotes can be converted to purchase orders.';
+            }
+        }
         addfirst(sections)
         {
             group("Localized")

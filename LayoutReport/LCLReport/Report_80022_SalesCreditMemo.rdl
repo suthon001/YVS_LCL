@@ -2556,10 +2556,22 @@
           </Style>
         </PageHeader>
         <PageFooter>
-          <Height>10.25283cm</Height>
+          <Height>9.00929cm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
+            <Line Name="Line3">
+              <Top>0.17118cm</Top>
+              <Left>0.16111cm</Left>
+              <Height>0cm</Height>
+              <Width>19.50155cm</Width>
+              <Style>
+                <Border>
+                  <Color>DimGray</Color>
+                  <Style>Solid</Style>
+                </Border>
+              </Style>
+            </Line>
             <Textbox Name="Textbox87">
               <CanGrow>true</CanGrow>
               <KeepTogether>true</KeepTogether>
@@ -2596,10 +2608,11 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox87</rd:DefaultName>
-              <Top>0.32672cm</Top>
-              <Left>0.16113cm</Left>
+              <Top>0.44117cm</Top>
+              <Left>0.1532cm</Left>
               <Height>0.86458cm</Height>
               <Width>1.67979cm</Width>
+              <ZIndex>1</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -2628,11 +2641,11 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox88</rd:DefaultName>
-              <Top>0.32672cm</Top>
-              <Left>1.94675cm</Left>
+              <Top>0.44117cm</Top>
+              <Left>1.93882cm</Left>
               <Height>0.6cm</Height>
-              <Width>9.98623cm</Width>
-              <ZIndex>1</ZIndex>
+              <Width>7.6822cm</Width>
+              <ZIndex>2</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -2661,11 +2674,11 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox88</rd:DefaultName>
-              <Top>0.92672cm</Top>
-              <Left>1.94675cm</Left>
+              <Top>1.04117cm</Top>
+              <Left>1.93882cm</Left>
               <Height>0.6cm</Height>
-              <Width>9.98623cm</Width>
-              <ZIndex>2</ZIndex>
+              <Width>8.99631cm</Width>
+              <ZIndex>3</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -2694,11 +2707,11 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox88</rd:DefaultName>
-              <Top>1.52672cm</Top>
-              <Left>1.94675cm</Left>
+              <Top>1.64117cm</Top>
+              <Left>1.93882cm</Left>
               <Height>0.6cm</Height>
-              <Width>9.98623cm</Width>
-              <ZIndex>3</ZIndex>
+              <Width>8.99631cm</Width>
+              <ZIndex>4</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -2716,11 +2729,14 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>รวมเงิน/Sub Total</Value>
+                      <Value>ผลต่าง/Different Amt.</Value>
                       <Style>
+                        <FontStyle>Normal</FontStyle>
                         <FontFamily>Tahoma</FontFamily>
                         <FontSize>8pt</FontSize>
                         <FontWeight>Bold</FontWeight>
+                        <TextDecoration>None</TextDecoration>
+                        <Color>#000000</Color>
                       </Style>
                     </TextRun>
                   </TextRuns>
@@ -2730,83 +2746,11 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox88</rd:DefaultName>
-              <Top>1.632cm</Top>
-              <Left>12.95871cm</Left>
-              <Height>0.6cm</Height>
-              <Width>4.15395cm</Width>
-              <ZIndex>4</ZIndex>
-              <Style>
-                <Border>
-                  <Style>None</Style>
-                </Border>
-                <PaddingLeft>2pt</PaddingLeft>
-                <PaddingRight>2pt</PaddingRight>
-                <PaddingTop>2pt</PaddingTop>
-                <PaddingBottom>2pt</PaddingBottom>
-              </Style>
-            </Textbox>
-            <Textbox Name="Textbox92">
-              <CanGrow>true</CanGrow>
-              <KeepTogether>true</KeepTogether>
-              <Paragraphs>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
-                      <Value>ส่วนลด/Discount</Value>
-                      <Style>
-                        <FontFamily>Tahoma</FontFamily>
-                        <FontSize>8pt</FontSize>
-                        <FontWeight>Bold</FontWeight>
-                      </Style>
-                    </TextRun>
-                  </TextRuns>
-                  <Style>
-                    <TextAlign>Right</TextAlign>
-                  </Style>
-                </Paragraph>
-              </Paragraphs>
-              <rd:DefaultName>Textbox88</rd:DefaultName>
-              <Top>2.232cm</Top>
-              <Left>12.95871cm</Left>
+              <Top>1.74645cm</Top>
+              <Left>12.95078cm</Left>
               <Height>0.6cm</Height>
               <Width>4.15395cm</Width>
               <ZIndex>5</ZIndex>
-              <Style>
-                <Border>
-                  <Style>None</Style>
-                </Border>
-                <PaddingLeft>2pt</PaddingLeft>
-                <PaddingRight>2pt</PaddingRight>
-                <PaddingTop>2pt</PaddingTop>
-                <PaddingBottom>2pt</PaddingBottom>
-              </Style>
-            </Textbox>
-            <Textbox Name="Textbox93">
-              <CanGrow>true</CanGrow>
-              <KeepTogether>true</KeepTogether>
-              <Paragraphs>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
-                      <Value>มูลค่าหลังหักส่วนลด/Total</Value>
-                      <Style>
-                        <FontFamily>Tahoma</FontFamily>
-                        <FontSize>8pt</FontSize>
-                        <FontWeight>Bold</FontWeight>
-                      </Style>
-                    </TextRun>
-                  </TextRuns>
-                  <Style>
-                    <TextAlign>Right</TextAlign>
-                  </Style>
-                </Paragraph>
-              </Paragraphs>
-              <rd:DefaultName>Textbox88</rd:DefaultName>
-              <Top>2.832cm</Top>
-              <Left>12.95871cm</Left>
-              <Height>0.6cm</Height>
-              <Width>4.15395cm</Width>
-              <ZIndex>6</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -2838,11 +2782,11 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox88</rd:DefaultName>
-              <Top>3.432cm</Top>
-              <Left>12.95871cm</Left>
+              <Top>2.33995cm</Top>
+              <Left>12.95078cm</Left>
               <Height>0.6cm</Height>
               <Width>4.15395cm</Width>
-              <ZIndex>7</ZIndex>
+              <ZIndex>6</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -2874,11 +2818,11 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox88</rd:DefaultName>
-              <Top>4.032cm</Top>
-              <Left>12.95871cm</Left>
+              <Top>2.93995cm</Top>
+              <Left>12.95078cm</Left>
               <Height>0.6cm</Height>
               <Width>4.15395cm</Width>
-              <ZIndex>8</ZIndex>
+              <ZIndex>7</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -2910,83 +2854,11 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox88</rd:DefaultName>
-              <Top>1.62847cm</Top>
-              <Left>17.28906cm</Left>
+              <Top>1.74292cm</Top>
+              <Left>17.28113cm</Left>
               <Height>0.6cm</Height>
               <Width>2.38945cm</Width>
-              <ZIndex>9</ZIndex>
-              <Style>
-                <Border>
-                  <Style>None</Style>
-                </Border>
-                <PaddingLeft>2pt</PaddingLeft>
-                <PaddingRight>2pt</PaddingRight>
-                <PaddingTop>2pt</PaddingTop>
-                <PaddingBottom>2pt</PaddingBottom>
-              </Style>
-            </Textbox>
-            <Textbox Name="Textbox97">
-              <CanGrow>true</CanGrow>
-              <KeepTogether>true</KeepTogether>
-              <Paragraphs>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
-                      <Value>=First(Fields!TotalAmt_2.Value, "DataSet_Result")</Value>
-                      <Style>
-                        <FontFamily>Tahoma</FontFamily>
-                        <FontSize>8pt</FontSize>
-                        <Format>#,0.00</Format>
-                      </Style>
-                    </TextRun>
-                  </TextRuns>
-                  <Style>
-                    <TextAlign>Right</TextAlign>
-                  </Style>
-                </Paragraph>
-              </Paragraphs>
-              <rd:DefaultName>Textbox88</rd:DefaultName>
-              <Top>2.22847cm</Top>
-              <Left>17.28906cm</Left>
-              <Height>0.6cm</Height>
-              <Width>2.38945cm</Width>
-              <ZIndex>10</ZIndex>
-              <Style>
-                <Border>
-                  <Style>None</Style>
-                </Border>
-                <PaddingLeft>2pt</PaddingLeft>
-                <PaddingRight>2pt</PaddingRight>
-                <PaddingTop>2pt</PaddingTop>
-                <PaddingBottom>2pt</PaddingBottom>
-              </Style>
-            </Textbox>
-            <Textbox Name="Textbox98">
-              <CanGrow>true</CanGrow>
-              <KeepTogether>true</KeepTogether>
-              <Paragraphs>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
-                      <Value>=First(Fields!TotalAmt_3.Value, "DataSet_Result")</Value>
-                      <Style>
-                        <FontFamily>Tahoma</FontFamily>
-                        <FontSize>8pt</FontSize>
-                        <Format>#,0.00</Format>
-                      </Style>
-                    </TextRun>
-                  </TextRuns>
-                  <Style>
-                    <TextAlign>Right</TextAlign>
-                  </Style>
-                </Paragraph>
-              </Paragraphs>
-              <rd:DefaultName>Textbox88</rd:DefaultName>
-              <Top>2.82847cm</Top>
-              <Left>17.28906cm</Left>
-              <Height>0.6cm</Height>
-              <Width>2.38945cm</Width>
-              <ZIndex>11</ZIndex>
+              <ZIndex>8</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -3018,11 +2890,11 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox88</rd:DefaultName>
-              <Top>3.42847cm</Top>
-              <Left>17.28906cm</Left>
+              <Top>2.33642cm</Top>
+              <Left>17.28113cm</Left>
               <Height>0.6cm</Height>
               <Width>2.38945cm</Width>
-              <ZIndex>12</ZIndex>
+              <ZIndex>9</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -3054,11 +2926,11 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox88</rd:DefaultName>
-              <Top>4.02847cm</Top>
-              <Left>17.28906cm</Left>
+              <Top>2.93642cm</Top>
+              <Left>17.28113cm</Left>
               <Height>0.6cm</Height>
               <Width>2.38945cm</Width>
-              <ZIndex>13</ZIndex>
+              <ZIndex>10</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -3087,11 +2959,11 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox88</rd:DefaultName>
-              <Top>2.12672cm</Top>
-              <Left>1.94675cm</Left>
+              <Top>2.24117cm</Top>
+              <Left>1.93882cm</Left>
               <Height>0.6cm</Height>
-              <Width>9.98622cm</Width>
-              <ZIndex>14</ZIndex>
+              <Width>8.9963cm</Width>
+              <ZIndex>11</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -3122,11 +2994,11 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox88</rd:DefaultName>
-              <Top>4.02847cm</Top>
-              <Left>1.94675cm</Left>
+              <Top>2.93642cm</Top>
+              <Left>1.93882cm</Left>
               <Height>0.6cm</Height>
               <Width>10.90613cm</Width>
-              <ZIndex>15</ZIndex>
+              <ZIndex>12</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -3173,11 +3045,11 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox87</rd:DefaultName>
-              <Top>3.76389cm</Top>
-              <Left>0.16113cm</Left>
+              <Top>2.67184cm</Top>
+              <Left>0.1532cm</Left>
               <Height>0.86458cm</Height>
               <Width>1.60924cm</Width>
-              <ZIndex>16</ZIndex>
+              <ZIndex>13</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -3188,19 +3060,6 @@
                 <PaddingBottom>2pt</PaddingBottom>
               </Style>
             </Textbox>
-            <Line Name="Line3">
-              <Top>0.17118cm</Top>
-              <Left>0.16111cm</Left>
-              <Height>0cm</Height>
-              <Width>19.50155cm</Width>
-              <ZIndex>17</ZIndex>
-              <Style>
-                <Border>
-                  <Color>DimGray</Color>
-                  <Style>Solid</Style>
-                </Border>
-              </Style>
-            </Line>
             <Textbox Name="Textbox114">
               <CanGrow>true</CanGrow>
               <KeepTogether>true</KeepTogether>
@@ -3208,11 +3067,14 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>มูลค่าเอกสารเดิม/Original Amt.</Value>
+                      <Value>มูลค่าตามใบกำกับภาษีเดิม/Original Invoice Amt.</Value>
                       <Style>
+                        <FontStyle>Normal</FontStyle>
                         <FontFamily>Tahoma</FontFamily>
                         <FontSize>8pt</FontSize>
                         <FontWeight>Bold</FontWeight>
+                        <TextDecoration>None</TextDecoration>
+                        <Color>#000000</Color>
                       </Style>
                     </TextRun>
                   </TextRuns>
@@ -3222,11 +3084,11 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox88</rd:DefaultName>
-              <Top>0.3511cm</Top>
-              <Left>12.24434cm</Left>
+              <Top>0.46555cm</Top>
+              <Left>9.79741cm</Left>
               <Height>0.6cm</Height>
-              <Width>4.86833cm</Width>
-              <ZIndex>18</ZIndex>
+              <Width>7.30733cm</Width>
+              <ZIndex>14</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -3258,11 +3120,11 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox88</rd:DefaultName>
-              <Top>0.9511cm</Top>
-              <Left>12.24434cm</Left>
+              <Top>1.0973cm</Top>
+              <Left>12.23641cm</Left>
               <Height>0.6cm</Height>
               <Width>4.86833cm</Width>
-              <ZIndex>19</ZIndex>
+              <ZIndex>15</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -3294,11 +3156,11 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox88</rd:DefaultName>
-              <Top>0.34757cm</Top>
-              <Left>17.28906cm</Left>
+              <Top>0.46202cm</Top>
+              <Left>17.28113cm</Left>
               <Height>0.6cm</Height>
               <Width>2.38945cm</Width>
-              <ZIndex>20</ZIndex>
+              <ZIndex>16</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -3330,44 +3192,11 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox88</rd:DefaultName>
-              <Top>0.94757cm</Top>
-              <Left>17.28906cm</Left>
+              <Top>1.09377cm</Top>
+              <Left>17.28113cm</Left>
               <Height>0.6cm</Height>
               <Width>2.38945cm</Width>
-              <ZIndex>21</ZIndex>
-              <Style>
-                <Border>
-                  <Style>None</Style>
-                </Border>
-                <PaddingLeft>2pt</PaddingLeft>
-                <PaddingRight>2pt</PaddingRight>
-                <PaddingTop>2pt</PaddingTop>
-                <PaddingBottom>2pt</PaddingBottom>
-              </Style>
-            </Textbox>
-            <Textbox Name="Textbox118">
-              <CanGrow>true</CanGrow>
-              <KeepTogether>true</KeepTogether>
-              <Paragraphs>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
-                      <Value>=First(Fields!CommentText_5.Value, "DataSet_Result")</Value>
-                      <Style>
-                        <FontFamily>Tahoma</FontFamily>
-                        <FontSize>8pt</FontSize>
-                      </Style>
-                    </TextRun>
-                  </TextRuns>
-                  <Style />
-                </Paragraph>
-              </Paragraphs>
-              <rd:DefaultName>Textbox88</rd:DefaultName>
-              <Top>2.72672cm</Top>
-              <Left>1.94676cm</Left>
-              <Height>0.6cm</Height>
-              <Width>9.98622cm</Width>
-              <ZIndex>22</ZIndex>
+              <ZIndex>17</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -3395,11 +3224,11 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox5</rd:DefaultName>
-              <Top>5.00233cm</Top>
-              <Left>0.47611cm</Left>
+              <Top>3.84678cm</Top>
+              <Left>0.46818cm</Left>
               <Height>0.5055cm</Height>
               <Width>18.88937cm</Width>
-              <ZIndex>23</ZIndex>
+              <ZIndex>18</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -3491,7 +3320,7 @@
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>วันที่............/........../............</Value>
+                          <Value>วันที่/Date........./........../............</Value>
                           <Style>
                             <FontFamily>Tahoma</FontFamily>
                             <FontSize>8pt</FontSize>
@@ -3526,11 +3355,11 @@
                 </Textbox>
               </ReportItems>
               <KeepTogether>true</KeepTogether>
-              <Top>5.61494cm</Top>
-              <Left>0.45832cm</Left>
+              <Top>4.45939cm</Top>
+              <Left>0.45039cm</Left>
               <Height>4.08226cm</Height>
               <Width>5.85506cm</Width>
-              <ZIndex>24</ZIndex>
+              <ZIndex>19</ZIndex>
               <Style>
                 <Border>
                   <Style>Solid</Style>
@@ -3629,7 +3458,7 @@
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>วันที่............/........../............</Value>
+                          <Value>วันที่/Date........./........../............</Value>
                           <Style>
                             <FontFamily>Tahoma</FontFamily>
                             <FontSize>8pt</FontSize>
@@ -3664,11 +3493,11 @@
                 </Textbox>
               </ReportItems>
               <KeepTogether>true</KeepTogether>
-              <Top>5.61494cm</Top>
-              <Left>6.45449cm</Left>
+              <Top>4.45939cm</Top>
+              <Left>6.44656cm</Left>
               <Height>4.08226cm</Height>
               <Width>6.31703cm</Width>
-              <ZIndex>25</ZIndex>
+              <ZIndex>20</ZIndex>
               <Style>
                 <Border>
                   <Style>Solid</Style>
@@ -3853,11 +3682,11 @@
                 </Line>
               </ReportItems>
               <KeepTogether>true</KeepTogether>
-              <Top>5.61494cm</Top>
-              <Left>12.87441cm</Left>
+              <Top>4.45939cm</Top>
+              <Left>12.86648cm</Left>
               <Height>4.08226cm</Height>
               <Width>6.49105cm</Width>
-              <ZIndex>26</ZIndex>
+              <ZIndex>21</ZIndex>
               <Style>
                 <Border>
                   <Style>Solid</Style>

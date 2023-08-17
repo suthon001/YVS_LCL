@@ -113,7 +113,13 @@ pageextension 80070 "YVS Purchase Order Subpage" extends "Purchase Order Subform
                 PQLine."Outstanding Qty. (Base)" := PQLine."Outstanding Qty. (Base)" + rec."Quantity (Base)";
                 PQLine."Completely Received" := PQLine."Outstanding Quantity" = 0;
                 PQLine.Modify();
-            end;
+            end else
+                if PQLine.GET(PQLine."Document Type"::"YVS Purchase Request", rec."YVS Ref. PQ No.", rec."YVS Ref. PQ Line No.") then begin
+                    PQLine."Outstanding Quantity" := PQLine."Outstanding Quantity" + rec.Quantity;
+                    PQLine."Outstanding Qty. (Base)" := PQLine."Outstanding Qty. (Base)" + rec."Quantity (Base)";
+                    PQLine."Completely Received" := PQLine."Outstanding Quantity" = 0;
+                    PQLine.Modify();
+                end;
     end;
 
 }

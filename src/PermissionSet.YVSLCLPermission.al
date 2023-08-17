@@ -45,6 +45,7 @@ permissionset 80000 "YVS LCL Permission"
         codeunit "YVS EventFunction" = X,
         codeunit "YVS Function Center" = X,
         codeunit "YVS Get Cust/Vend Ledger Entry" = X,
+        codeunit "YVS Purch.-Req to Order" = X,
         page "YVS PostedShowDetailWHT" = X,
         page "YVS Posted ShowDetail Cheque" = X,
         page "YVS Posted ShowDetail Vat" = X,
@@ -80,6 +81,9 @@ permissionset 80000 "YVS LCL Permission"
         page "YVS Vat Transaction Entries" = X,
         page "YVS WHT Transaction Entries" = X,
         page "YVS Caption Report List" = X,
+        page "YVS Purchase Requests" = X,
+        page "YVS Purchase Request Card" = X,
+        page "YVS Purchase Request Sub." = X,
         query "YVS Groupping WHT Transaction" = X,
         report "YVS AP CN Voucher" = X,
         report "YVS AP Voucher" = X,
@@ -150,5 +154,6 @@ permissionset 80000 "YVS LCL Permission"
         report "YVS Sales Receipt" = X,
         report "YVS Fixed Asset - Acquisition" = X,
         report "YVS Fixed Asset Journal - Test" = X,
+        report "YVS Purchase Request" = X,
         report "YVS Recript to CashReceipt" = X;
 }

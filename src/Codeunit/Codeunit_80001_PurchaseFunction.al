@@ -4,6 +4,26 @@
 codeunit 80001 "YVS Purchase Function"
 {
     EventSubscriberInstance = StaticAutomatic;
+
+    [EventSubscriber(ObjectType::Table, Database::"Purchase Header", 'OnBeforeTestNoSeries', '', false, false)]
+    local procedure OnBeforeTestNoSeriesPurch(var PurchaseHeader: Record "Purchase Header")
+    var
+        PurchSetup: Record "Purchases & Payables Setup";
+    begin
+        PurchSetup.GET();
+        if PurchaseHeader."Document Type" = PurchaseHeader."Document Type"::"YVS Purchase Request" then
+            PurchSetup.TestField("YVS Purchase Request Nos.");
+    end;
+
+    [EventSubscriber(ObjectType::Table, Database::"Purchase Header", 'OnBeforeGetNoSeriesCode', '', false, false)]
+    local procedure OnBeforeGetNoSeriesCodePurch(var PurchaseHeader: Record "Purchase Header"; var IsHandled: Boolean; var NoSeriesCode: Code[20]; PurchSetup: Record "Purchases & Payables Setup")
+    begin
+        if PurchaseHeader."Document Type" = PurchaseHeader."Document Type"::"YVS Purchase Request" then begin
+            NoSeriesCode := PurchSetup."YVS Purchase Request Nos.";
+            IsHandled := true;
+        end;
+    end;
+
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Req. Wksh.-Make Order", 'OnAfterInitPurchOrderLine', '', false, false)]
     local procedure OnAfterInitPurchOrderLine(var PurchaseLine: Record "Purchase Line")
     begin
@@ -148,10 +168,10 @@ codeunit 80001 "YVS Purchase Function"
         POLine: Record "Purchase Line";
         TempQty, TempQtyBase : Decimal;
     begin
-        if PurchaseLine."Document Type" IN [PurchaseLine."Document Type"::Quote, PurchaseLine."Document Type"::Order] then begin
+        if PurchaseLine."Document Type" IN [PurchaseLine."Document Type"::Quote, PurchaseLine."Document Type"::"YVS Purchase Request", PurchaseLine."Document Type"::Order] then begin
             PurchaseLine."Outstanding Quantity" := PurchaseLine.Quantity - PurchaseLine."Quantity Received" - PurchaseLine."YVS Qty. to Cancel";
             PurchaseLine."Outstanding Qty. (Base)" := PurchaseLine."Quantity (Base)" - PurchaseLine."Qty. Received (Base)" - PurchaseLine."YVS Qty. to Cancel (Base)";
-            if PurchaseLine."Document Type" = PurchaseLine."Document Type"::Quote then begin
+            if PurchaseLine."Document Type" in [PurchaseLine."Document Type"::Quote, PurchaseLine."Document Type"::"YVS Purchase Request"] then begin
                 POLine.reset();
                 POLine.SetRange("Document Type", POLine."Document Type"::Order);
                 POLine.SetRange("YVS Ref. PQ No.", PurchaseLine."Document No.");

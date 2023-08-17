@@ -12,5 +12,11 @@ tableextension 80005 "YVS ExtenPurcha&PayablesSetup" extends "Purchases & Payabl
             TableRelation = "No. Series";
             DataClassification = CustomerContent;
         }
+        field(80002; "YVS Purchase Request Nos."; Code[20])
+        {
+            Caption = 'Purchase Request Nos.';
+            TableRelation = "No. Series";
+            DataClassification = CustomerContent;
+        }
     }
 }

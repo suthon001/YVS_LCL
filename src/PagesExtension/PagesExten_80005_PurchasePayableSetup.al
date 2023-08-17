@@ -15,5 +15,13 @@ pageextension 80005 "YVS ExtenPurchaPayablesSetup" extends "Purchases & Payables
             }
 
         }
+        addafter("Quote Nos.")
+        {
+            field("YVS Purchase Request Nos."; rec."YVS Purchase Request Nos.")
+            {
+                ApplicationArea = all;
+                ToolTip = 'Specifies the value of the Purchase Request Nos. field.';
+            }
+        }
     }
 }

@@ -15,6 +15,6 @@
             "schemaUpdateMode": "ForceSync",
             "enableSqlInformationDebugger": true,
             "tenant": "c82c348b-64ef-4a07-bfa7-62fc88bc1517"
-        },
+        }
     ]
 }
