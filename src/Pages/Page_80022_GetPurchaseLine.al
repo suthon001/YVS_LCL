@@ -101,11 +101,33 @@ page 80022 "YVS Get Purchase Lines"
             }
         }
     }
-    trigger OnQueryClosePage(CloseAction: Action): Boolean
-    begin
-        if CloseAction = Action::LookupOK then
-            CreateLine();
-    end;
+    actions
+    {
+        area(Processing)
+        {
+            action(ApplyLines)
+            {
+                Image = Approval;
+                ApplicationArea = all;
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+                PromotedOnly = true;
+                Caption = 'Apply Lines';
+                ToolTip = 'ApplyLines action';
+                trigger OnAction()
+                begin
+                    CreateLine();
+                    CurrPage.Close();
+                end;
+            }
+        }
+    }
+    // trigger OnQueryClosePage(CloseAction: Action): Boolean
+    // begin
+    //     if CloseAction = Action::LookupOK then
+    //         CreateLine();
+    // end;
 
     /// <summary>
     /// Set PurchaseHeader.
@@ -224,6 +246,8 @@ page 80022 "YVS Get Purchase Lines"
                 until ReqisitionLine.Next() = 0;
         end;
     end;
+
+
 
     var
         PurchaseHeader: Record "Purchase Header";

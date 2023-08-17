@@ -144,10 +144,26 @@ codeunit 80001 "YVS Purchase Function"
 
     [EventSubscriber(ObjectType::Table, Database::"Purchase Line", 'OnAfterInitOutstandingQty', '', false, false)]
     local procedure "OnAfterInitOutstandingQty"(var PurchaseLine: Record "Purchase Line")
+    var
+        POLine: Record "Purchase Line";
+        TempQty, TempQtyBase : Decimal;
     begin
         if PurchaseLine."Document Type" IN [PurchaseLine."Document Type"::Quote, PurchaseLine."Document Type"::Order] then begin
             PurchaseLine."Outstanding Quantity" := PurchaseLine.Quantity - PurchaseLine."Quantity Received" - PurchaseLine."YVS Qty. to Cancel";
             PurchaseLine."Outstanding Qty. (Base)" := PurchaseLine."Quantity (Base)" - PurchaseLine."Qty. Received (Base)" - PurchaseLine."YVS Qty. to Cancel (Base)";
+            if PurchaseLine."Document Type" = PurchaseLine."Document Type"::Quote then begin
+                POLine.reset();
+                POLine.SetRange("Document Type", POLine."Document Type"::Order);
+                POLine.SetRange("YVS Ref. PQ No.", PurchaseLine."Document No.");
+                POLine.SetRange("YVS Ref. PQ Line No.", PurchaseLine."Line No.");
+                if POLine.FindFirst() then begin
+                    POLine.CalcSums(Quantity, "Quantity (Base)");
+                    TempQty := POLine.Quantity;
+                    TempQtyBase := POLine."Quantity (Base)";
+                    PurchaseLine."Outstanding Quantity" := PurchaseLine.Quantity - PurchaseLine."Quantity Received" - TempQty - PurchaseLine."YVS Qty. to Cancel";
+                    PurchaseLine."Outstanding Qty. (Base)" := PurchaseLine."Quantity (Base)" - PurchaseLine."Qty. Received (Base)" - TempQtyBase - PurchaseLine."YVS Qty. to Cancel (Base)";
+                end;
+            end;
         end;
     end;
 

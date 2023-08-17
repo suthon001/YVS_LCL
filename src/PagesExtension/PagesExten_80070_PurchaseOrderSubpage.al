@@ -46,13 +46,14 @@ pageextension 80070 "YVS Purchase Order Subpage" extends "Purchase Order Subform
         {
             Visible = true;
         }
+        modify(Type)
+        {
+            Importance = Standard;
+            ApplicationArea = all;
+        }
         modify(FilteredTypeField)
         {
             Visible = false;
-        }
-        modify(Type)
-        {
-            ApplicationArea = all;
         }
         moveafter(Quantity; "Over-Receipt Code", "Over-Receipt Quantity")
         modify("Bin Code") { Visible = false; }
@@ -68,6 +69,7 @@ pageextension 80070 "YVS Purchase Order Subpage" extends "Purchase Order Subform
         modify("VAT Prod. Posting Group") { Visible = true; }
         modify("Gen. Bus. Posting Group") { Visible = true; }
         modify("Gen. Prod. Posting Group") { Visible = true; }
+
         movefirst(Control1; Type, "No.", Description, "Description 2", "Location Code", "Gen. Bus. Posting Group", "Gen. Prod. Posting Group", "VAT Bus. Posting Group", "VAT Prod. Posting Group", Quantity, "Unit of Measure Code", "Direct Unit Cost", "Line Discount %", "Line Discount Amount", "Line Amount",
         "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code", ShortcutDimCode3, ShortcutDimCode4, ShortcutDimCode5, ShortcutDimCode6, ShortcutDimCode7, ShortcutDimCode8, "Qty. to Receive", "Quantity Received", "Qty. to Invoice", "Quantity Invoiced")
         addafter("Qty. to Receive")

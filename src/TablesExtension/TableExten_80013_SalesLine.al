@@ -27,8 +27,10 @@ tableextension 80013 "YVS ExtenSales Line" extends "Sales Line"
             var
                 UOMMgt: Codeunit "Unit of Measure Management";
             begin
-                if not Confirm('Do you want to Cancel Qty. ? ') then
+                if not Confirm('Do you want to Cancel Qty. ? ') then begin
+                    rec."YVS Qty. to Cancel" := xRec."YVS Qty. to Cancel";
                     exit;
+                end;
                 IF ("Document Type" = "Document Type"::Order) THEN BEGIN
                     IF "Outstanding Quantity" = 0 THEN
                         ERROR('Outstanding Quantity must not be 0');

@@ -9,6 +9,15 @@ pageextension 80013 "YVS Purchase Quotes Subpage" extends "Purchase Quote Subfor
         {
             Visible = true;
         }
+        modify(Type)
+        {
+            Importance = Standard;
+            ApplicationArea = all;
+        }
+        modify(FilteredTypeField)
+        {
+            Visible = false;
+        }
         modify("Qty. to Assign") { Visible = false; }
         modify("Qty. Assigned") { Visible = false; }
         modify("Expected Receipt Date") { Visible = false; }
