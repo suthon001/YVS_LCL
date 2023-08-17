@@ -4347,7 +4347,7 @@ Due Date</Value>
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>วันที่............/........../............</Value>
+                          <Value>วันที่/Date........./........../...........</Value>
                           <Style>
                             <FontFamily>Tahoma</FontFamily>
                             <FontSize>8pt</FontSize>
@@ -4485,7 +4485,7 @@ Due Date</Value>
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>วันที่............/........../............</Value>
+                          <Value>วันที่/Date........./........../...........</Value>
                           <Style>
                             <FontFamily>Tahoma</FontFamily>
                             <FontSize>8pt</FontSize>
