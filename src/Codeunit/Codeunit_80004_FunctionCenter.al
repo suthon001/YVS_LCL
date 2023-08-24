@@ -1411,8 +1411,8 @@ codeunit 80004 "YVS Function Center"
         GenJnlLine: Record "Posted Gen. Journal Line";
         VendLedgEntry: Record "Vendor Ledger Entry";
         CustLedgEntry: Record "Cust. Ledger Entry";
-        DetailVendor, DetailVendor2 : Record "Detailed Vendor Ledg. Entry";
-        DetailCust, DetailCust2 : Record "Detailed Cust. Ledg. Entry";
+        DetailVendor: Record "Detailed Vendor Ledg. Entry";
+        DetailCust: Record "Detailed Cust. Ledg. Entry";
         CvNo: Code[30];
     begin
         GenJnlLine.RESET();
