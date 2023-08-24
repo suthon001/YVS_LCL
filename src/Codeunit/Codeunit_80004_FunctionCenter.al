@@ -1411,6 +1411,8 @@ codeunit 80004 "YVS Function Center"
         GenJnlLine: Record "Posted Gen. Journal Line";
         VendLedgEntry: Record "Vendor Ledger Entry";
         CustLedgEntry: Record "Cust. Ledger Entry";
+        DetailVendor, DetailVendor2 : Record "Detailed Vendor Ledg. Entry";
+        DetailCust, DetailCust2 : Record "Detailed Cust. Ledg. Entry";
         CvNo: Code[30];
     begin
         GenJnlLine.RESET();
@@ -1427,22 +1429,26 @@ codeunit 80004 "YVS Function Center"
                     IF GenJnlLine."Account Type" = GenJnlLine."Account Type"::Vendor THEN
                         CVNo := GenJnlLine."Account No.";
                     IF GenJnlLine."Applies-to ID" <> '' THEN BEGIN
-                        VendLedgEntry.RESET();
-                        VendLedgEntry.SETCURRENTKEY("Vendor No.", "Applies-to ID", Open, Positive, "Due Date");
-                        VendLedgEntry.SETRANGE("Vendor No.", CVNo);
-                        VendLedgEntry.SETRANGE("Applies-to ID", GenJnlLine."Applies-to ID");
-                        //VendLedgEntry.SETRANGE(Open,TRUE);
-                        IF VendLedgEntry.FINDFIRST() THEN
-                            REPEAT
+                        DetailVendor.reset();
+                        DetailVendor.SETRANGE("Vendor No.", CVNo);
+                        DetailVendor.SetRange("Document No.", GenJnlLine."Applies-to ID");
+                        DetailVendor.SetFilter("YVS Invoice Entry No.", '<>%1', 0);
+                        if DetailVendor.FindSet() then
+                            repeat
+                                DetailVendor.CalcSums(Amount);
+                                DetailVendor.CalcFields("YVS Invoice Entry No.");
+                                VendLedgEntry.GET(DetailVendor."YVS Invoice Entry No.");
                                 VendLedgEntry.CALCFIELDS(Amount, "Amount (LCY)", "Remaining Amount",
-                                    "Remaining Amt. (LCY)", "Original Amount", "Original Amt. (LCY)");
+                                  "Remaining Amt. (LCY)", "Original Amount", "Original Amt. (LCY)");
                                 CVLedgEntryBuf.CopyFromVendLedgEntry(VendLedgEntry);
-                                //GenPostLine.TransferVendLedgEntry(CVLedgEntryBuf,VendLedgEntry,TRUE);
+                                CVLedgEntryBuf."Amount to Apply" := DetailVendor.Amount;
                                 if not CVLedgEntryBuf.INSERT() then
                                     CVLedgEntryBuf.Modify();
-                            UNTIL VendLedgEntry.NEXT() = 0;
+                            until DetailVendor.Next() = 0;
+
                     END ELSE
                         IF GenJnlLine."Applies-to Doc. No." <> '' THEN BEGIN
+
                             VendLedgEntry.RESET();
                             VendLedgEntry.SETCURRENTKEY("Vendor No.", "Document Type", "Document No.", Open);
                             VendLedgEntry.SETRANGE("Vendor No.", CVNo);
@@ -1466,20 +1472,23 @@ codeunit 80004 "YVS Function Center"
                     IF GenJnlLine."Account Type" = GenJnlLine."Account Type"::Customer THEN
                         CVNo := GenJnlLine."Account No.";
                     IF GenJnlLine."Applies-to ID" <> '' THEN BEGIN
-                        CustLedgEntry.RESET();
-                        CustLedgEntry.SETCURRENTKEY("Customer No.", "Applies-to ID", Open, Positive, "Due Date");
-                        CustLedgEntry.SETRANGE("Customer No.", CVNo);
-                        CustLedgEntry.SETRANGE("Applies-to ID", GenJnlLine."Applies-to ID");
-                        //CustLedgEntry.SETRANGE(Open,TRUE);
-                        IF CustLedgEntry.FINDFIRST() THEN
+                        DetailCust.reset();
+                        DetailCust.SETRANGE("Customer No.", CVNo);
+                        DetailCust.SetRange("Document No.", GenJnlLine."Applies-to ID");
+                        DetailCust.SetFilter("YVS Invoice Entry No.", '<>%1', 0);
+                        if DetailCust.FindSet() then
                             REPEAT
+                                DetailCust.CalcSums(Amount);
+                                DetailCust.CalcFields("YVS Invoice Entry No.");
+                                CustLedgEntry.GET(DetailVendor."YVS Invoice Entry No.");
                                 CustLedgEntry.CALCFIELDS(Amount, "Amount (LCY)", "Remaining Amount",
                                     "Remaining Amt. (LCY)", "Original Amount", "Original Amt. (LCY)");
                                 //TmpGenPostLine.TransferCustLedgEntry(CVLedgEntryBuf,CustLedgEntry,TRUE);
                                 CVLedgEntryBuf.CopyFromCustLedgEntry(CustLedgEntry);
+                                CVLedgEntryBuf."Amount to Apply" := CustLedgEntry.Amount;
                                 if not CVLedgEntryBuf.INSERT() then
                                     CVLedgEntryBuf.Modify();
-                            UNTIL CustLedgEntry.NEXT() = 0;
+                            UNTIL DetailCust.NEXT() = 0;
                     END ELSE
                         IF GenJnlLine."Applies-to Doc. No." <> '' THEN BEGIN
                             CustLedgEntry.RESET();
@@ -1508,7 +1517,11 @@ codeunit 80004 "YVS Function Center"
     /// <param name="DocumentNo">Code[20].</param>
     /// <param name="VAR TotalAmt">ARRAY[100] OF Decimal.</param>
     /// <param name="VAR VATText">Text[30].</param>
-    procedure "PostedSalesInvoiceStatistics"(DocumentNo: Code[20]; VAR TotalAmt: ARRAY[100] OF Decimal; VAR VATText: Text[30])
+    procedure "PostedSalesInvoiceStatistics"(DocumentNo: Code[20]; VAR
+                                                                       TotalAmt: ARRAY[100] OF Decimal;
+
+    VAR
+        VATText: Text[30])
 
     var
         DocumentTotals: Codeunit "Document Totals";
@@ -1785,7 +1798,8 @@ codeunit 80004 "YVS Function Center"
     /// <param name="DocumentNo">Code[30].</param>
     /// <param name="LineNo">Integer.</param>
     /// <param name="SalesComment">VAR array[100] of text[250].</param>
-    procedure GetSalesComment(DocumentType: Enum "Sales Comment Document Type"; DocumentNo: Code[30]; LineNo: Integer; var SalesComment: array[100] of text[250])
+    procedure GetSalesComment(DocumentType: Enum "Sales Comment Document Type"; DocumentNo: Code[30];
+                                                LineNo: Integer; var SalesComment: array[100] of text[250])
     var
         SalesCommentLine: Record "Sales Comment Line";
         i: Integer;
@@ -1814,7 +1828,8 @@ codeunit 80004 "YVS Function Center"
     /// <param name="DocumentNo">Code[30].</param>
     /// <param name="LineNo">Integer.</param>
     /// <param name="PurchCommentLine">VAR array[100] of text[250].</param>
-    procedure GetPurchaseComment(DocumentType: Enum "Purchase Comment Document Type"; DocumentNo: Code[30]; LineNo: Integer; var PurchCommentLine: array[100] of text[250])
+    procedure GetPurchaseComment(DocumentType: Enum "Purchase Comment Document Type"; DocumentNo: Code[30];
+                                                   LineNo: Integer; var PurchCommentLine: array[100] of text[250])
     var
         PurchaseCommentLine: Record "Purch. Comment Line";
         i: Integer;

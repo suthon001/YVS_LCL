@@ -24,8 +24,6 @@ tableextension 80050 "YVS ExtenPostedGenLines" extends "Posted Gen. Journal Line
         {
             Caption = 'Tax Invoice Base';
             DataClassification = CustomerContent;
-
-
         }
         field(80004; "YVS Tax Invoice Amount"; Decimal)
         {
@@ -43,9 +41,6 @@ tableextension 80050 "YVS ExtenPostedGenLines" extends "Posted Gen. Journal Line
             IF ("Gen. Posting Type" = filter(" "), "YVS Template Source Type" = filter("Cash Receipts")) Customer."No."
             else
             Vendor."No.";
-
-
-
         }
         field(80006; "YVS Tax Invoice Name"; Text[120])
         {
@@ -62,15 +57,11 @@ tableextension 80050 "YVS ExtenPostedGenLines" extends "Posted Gen. Journal Line
         {
             Caption = 'Head Office';
             DataClassification = CustomerContent;
-
-
         }
         field(80009; "YVS VAT Branch Code"; Code[5])
         {
             Caption = 'VAT Branch Code';
             DataClassification = CustomerContent;
-
-
         }
         field(80010; "YVS Description Voucher"; Text[250])
         {
@@ -82,7 +73,6 @@ tableextension 80050 "YVS ExtenPostedGenLines" extends "Posted Gen. Journal Line
             Caption = 'WHT Business Posting Group';
             TableRelation = "YVS WHT Business Posting Group"."Code";
             DataClassification = CustomerContent;
-
         }
         field(80012; "YVS WHT Product Posting Group"; Code[10])
         {
@@ -253,8 +243,6 @@ tableextension 80050 "YVS ExtenPostedGenLines" extends "Posted Gen. Journal Line
         {
             Caption = 'Require Screen Detail';
             DataClassification = CustomerContent;
-
-
         }
         field(80043; "YVS Customer/Vendor No."; code[20])
         {
@@ -314,7 +302,6 @@ tableextension 80050 "YVS ExtenPostedGenLines" extends "Posted Gen. Journal Line
             DataClassification = CustomerContent;
             Caption = 'Tax Invoice Address 2';
         }
-
         field(80052; "YVS Template Source Type"; Enum "Gen. Journal Template Type")
         {
             Editable = false;
@@ -322,6 +309,7 @@ tableextension 80050 "YVS ExtenPostedGenLines" extends "Posted Gen. Journal Line
             CalcFormula = lookup("Gen. Journal Template".Type where(Name = field("Journal Template Name")));
             Caption = 'Template Source Type';
         }
+
 
     }
 }

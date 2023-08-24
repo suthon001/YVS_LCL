@@ -335,10 +335,13 @@ report 80035 "YVS Payment Voucher (Post)"
         GenLineCheck.SetRange("Document No.", GenJournalLine."Document No.");
         GenLineCheck.SetRange("YVS Require Screen Detail", GenLineCheck."YVS Require Screen Detail"::VAT);
         HaveItemVAT := GenLineCheck.Count <> 0;
+
         GenLineCheck.SetRange("YVS Require Screen Detail", GenLineCheck."YVS Require Screen Detail"::WHT);
         HaveWHT := GenLineCheck.Count <> 0;
+
         GenLineCheck.SetRange("YVS Require Screen Detail", GenLineCheck."YVS Require Screen Detail"::CHEQUE);
         haveCheque := GenLineCheck.Count <> 0;
+
         GenLineCheck.reset();
         GenLineCheck.SetRange("Journal Template Name", GenJournalLine."Journal Template Name");
         GenLineCheck.SetRange("Journal Batch Name", GenJournalLine."Journal Batch Name");

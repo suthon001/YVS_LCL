@@ -468,6 +468,7 @@ Table 80011 "YVS Billing Receipt Header"
             DataClassification = CustomerContent;
             Caption = 'Remark';
         }
+
     }
     keys
     {

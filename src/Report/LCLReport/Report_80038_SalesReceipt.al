@@ -40,6 +40,11 @@ report 80038 "YVS Sales Receipt"
             column(Payment_Terms_Code; PaymentTerm.description) { }
             column(Amount__LCY_; "Amount") { }
             column(AmtText; AmtText) { }
+            column(BankName; BankName) { }
+            column(BankBranchNo; BankBranchNo) { }
+            column(PaymentMethodMark_1; PaymentMethodMark[1]) { }
+            column(PaymentMethodMark_2; PaymentMethodMark[2]) { }
+            column(PaymentMethodMark_3; PaymentMethodMark[3]) { }
             dataitem("Billing & Receipt Line"; "YVS Billing Receipt Line")
             {
                 DataItemTableView = sorting("Document Type", "Document No.", "Line No.");
@@ -50,7 +55,7 @@ report 80038 "YVS Sales Receipt"
                 column(Source_Posting_Date; format("Source Posting Date", 0, '<Day,2>/<Month,2>/<Year4>')) { }
                 column(Source_Due_Date; format("Source Due Date", 0, '<Day,2>/<Month,2>/<Year4>')) { }
                 column(Source_Description; "Source Description") { }
-                column(Source_Amount__LCY_; "Source Amount") { }
+                column(Source_Amount__LCY_; Amount) { }
                 column(Source_Document_No_; "Source Document No.") { }
 
             }
@@ -81,20 +86,45 @@ report 80038 "YVS Sales Receipt"
                 if "Currency Code" = '' then
                     AmtText := FunctionCenter."NumberThaiToText"("Amount")
                 else
-                    AmtText := FunctionCenter.NumberEngToText("Amount", "Currency Code")
+                    AmtText := FunctionCenter.NumberEngToText("Amount", "Currency Code");
+                CLEAR(PaymentMethodMark);
+
+                if "Payment Method Code" = 'CASH' then
+                    PaymentMethodMark[1] := '/';
+
+                if "Payment Method Code" in ['BANK', 'TRANSFER'] then begin
+                    PaymentMethodMark[2] := '/';
+                    if not BankAcc.GET(BillingReceiptHeader."Account No.") then
+                        BankAcc.Init();
+                    BankName := BankAcc.Name;
+                    BankBranchNo := BankAcc."Bank Branch No.";
+                end;
+
+                if "Payment Method Code" in ['CHECK', 'CHEQUE'] then begin
+                    PaymentMethodMark[3] := '/';
+                    if not BankAcc.GET(BillingReceiptHeader."Account No.") then
+                        BankAcc.Init();
+                    BankName := BankAcc.Name;
+                    BankBranchNo := BankAcc."Bank Branch No.";
+                end;
+
+
             end;
 
         }
 
     }
     var
+        BankAcc: Record "Bank Account";
         ComText: array[10] of Text[250];
         CustVend: array[10] of Text[250];
         FunctionCenter: Codeunit "YVS Function Center";
         companyInfor: Record "Company Information";
         ExchangeRate: Text[30];
+        BankName, BankBranchNo : Text;
         SplitDate: Array[3] of Text[20];
         AmtText: Text;
         PaymentTerm: Record "Payment Terms";
+        PaymentMethodMark: array[3] of text[50];
 
 }

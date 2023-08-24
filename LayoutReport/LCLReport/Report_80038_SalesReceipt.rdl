@@ -1445,7 +1445,7 @@
           </Style>
         </PageHeader>
         <PageFooter>
-          <Height>7.05554cm</Height>
+          <Height>6.88157cm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -1462,6 +1462,79 @@
               </Style>
             </Line>
             <Rectangle Name="Rectangle1">
+              <ReportItems>
+                <Textbox Name="Textbox1">
+                  <CanGrow>true</CanGrow>
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=First(Fields!BankName.Value, "DataSet_Result")</Value>
+                          <Style>
+                            <FontFamily>Tahoma</FontFamily>
+                            <FontSize>8pt</FontSize>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style>
+                        <TextAlign>Center</TextAlign>
+                      </Style>
+                    </Paragraph>
+                  </Paragraphs>
+                  <rd:DefaultName>Textbox1</rd:DefaultName>
+                  <Top>0.88775cm</Top>
+                  <Left>3.82099cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>3.56089cm</Width>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                    <VerticalAlign>Middle</VerticalAlign>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+                <Textbox Name="Textbox2">
+                  <CanGrow>true</CanGrow>
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=First(Fields!BankBranchNo.Value, "DataSet_Result")</Value>
+                          <Style>
+                            <FontFamily>Tahoma</FontFamily>
+                            <FontSize>8pt</FontSize>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style>
+                        <TextAlign>Center</TextAlign>
+                      </Style>
+                    </Paragraph>
+                  </Paragraphs>
+                  <rd:DefaultName>Textbox1</rd:DefaultName>
+                  <Top>0.88775cm</Top>
+                  <Left>8.5702cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>2.61124cm</Width>
+                  <ZIndex>1</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                    <VerticalAlign>Middle</VerticalAlign>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+              </ReportItems>
               <KeepTogether>true</KeepTogether>
               <Top>0.375in</Top>
               <Left>0.22554in</Left>
@@ -1494,14 +1567,16 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value />
+                      <Value>=First(Fields!PaymentMethodMark_1.Value, "DataSet_Result")</Value>
                       <Style>
                         <FontFamily>Tahoma</FontFamily>
                         <FontSize>8pt</FontSize>
                       </Style>
                     </TextRun>
                   </TextRuns>
-                  <Style />
+                  <Style>
+                    <TextAlign>Center</TextAlign>
+                  </Style>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox25</rd:DefaultName>
@@ -1535,6 +1610,7 @@
                   <Style>Solid</Style>
                   <Width>0.5pt</Width>
                 </RightBorder>
+                <VerticalAlign>Middle</VerticalAlign>
                 <PaddingLeft>2pt</PaddingLeft>
                 <PaddingRight>2pt</PaddingRight>
                 <PaddingTop>2pt</PaddingTop>
@@ -1580,14 +1656,16 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value />
+                      <Value>=First(Fields!PaymentMethodMark_2.Value, "DataSet_Result")</Value>
                       <Style>
                         <FontFamily>Tahoma</FontFamily>
                         <FontSize>8pt</FontSize>
                       </Style>
                     </TextRun>
                   </TextRuns>
-                  <Style />
+                  <Style>
+                    <TextAlign>Center</TextAlign>
+                  </Style>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox25</rd:DefaultName>
@@ -1621,6 +1699,7 @@
                   <Style>Solid</Style>
                   <Width>0.5pt</Width>
                 </RightBorder>
+                <VerticalAlign>Middle</VerticalAlign>
                 <PaddingLeft>2pt</PaddingLeft>
                 <PaddingRight>2pt</PaddingRight>
                 <PaddingTop>2pt</PaddingTop>
@@ -1666,14 +1745,16 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value />
+                      <Value>=First(Fields!PaymentMethodMark_3.Value, "DataSet_Result")</Value>
                       <Style>
                         <FontFamily>Tahoma</FontFamily>
                         <FontSize>8pt</FontSize>
                       </Style>
                     </TextRun>
                   </TextRuns>
-                  <Style />
+                  <Style>
+                    <TextAlign>Center</TextAlign>
+                  </Style>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox25</rd:DefaultName>
@@ -1707,6 +1788,7 @@
                   <Style>Solid</Style>
                   <Width>0.5pt</Width>
                 </RightBorder>
+                <VerticalAlign>Middle</VerticalAlign>
                 <PaddingLeft>2pt</PaddingLeft>
                 <PaddingRight>2pt</PaddingRight>
                 <PaddingTop>2pt</PaddingTop>
@@ -1762,7 +1844,7 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox25</rd:DefaultName>
-              <Top>1.36548in</Top>
+              <Top>1.24048in</Top>
               <Left>0.35054in</Left>
               <Height>0.26042in</Height>
               <Width>1.43056in</Width>
@@ -1778,7 +1860,7 @@
               </Style>
             </Textbox>
             <Line Name="Line3">
-              <Top>1.55992in</Top>
+              <Top>1.43492in</Top>
               <Left>1.84012in</Left>
               <Height>0in</Height>
               <Width>1.29167in</Width>
@@ -1806,7 +1888,7 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox25</rd:DefaultName>
-              <Top>1.36548in</Top>
+              <Top>1.24048in</Top>
               <Left>3.21422in</Left>
               <Height>0.26042in</Height>
               <Width>0.31597in</Width>
@@ -1822,7 +1904,7 @@
               </Style>
             </Textbox>
             <Line Name="Line4">
-              <Top>1.55992in</Top>
+              <Top>1.43492in</Top>
               <Left>3.58054in</Left>
               <Height>0in</Height>
               <Width>0.98875in</Width>
@@ -1889,64 +1971,6 @@
                 </Border>
               </Style>
             </Line>
-            <Line Name="Line7">
-              <Top>1.28343in</Top>
-              <Left>1.84012in</Left>
-              <Height>0in</Height>
-              <Width>1.29167in</Width>
-              <ZIndex>16</ZIndex>
-              <Style>
-                <Border>
-                  <Style>Solid</Style>
-                </Border>
-              </Style>
-            </Line>
-            <Textbox Name="Textbox41">
-              <KeepTogether>true</KeepTogether>
-              <Paragraphs>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
-                      <Value>ลงวันที่</Value>
-                      <Style>
-                        <FontFamily>Tahoma</FontFamily>
-                        <FontSize>8pt</FontSize>
-                      </Style>
-                    </TextRun>
-                  </TextRuns>
-                  <Style>
-                    <TextAlign>Center</TextAlign>
-                  </Style>
-                </Paragraph>
-              </Paragraphs>
-              <rd:DefaultName>Textbox25</rd:DefaultName>
-              <Top>1.08899in</Top>
-              <Left>3.17672in</Left>
-              <Height>0.26042in</Height>
-              <Width>0.40973in</Width>
-              <ZIndex>17</ZIndex>
-              <Style>
-                <Border>
-                  <Style>None</Style>
-                </Border>
-                <PaddingLeft>2pt</PaddingLeft>
-                <PaddingRight>2pt</PaddingRight>
-                <PaddingTop>2pt</PaddingTop>
-                <PaddingBottom>2pt</PaddingBottom>
-              </Style>
-            </Textbox>
-            <Line Name="Line8">
-              <Top>1.28343in</Top>
-              <Left>3.58054in</Left>
-              <Height>0in</Height>
-              <Width>0.98875in</Width>
-              <ZIndex>18</ZIndex>
-              <Style>
-                <Border>
-                  <Style>Solid</Style>
-                </Border>
-              </Style>
-            </Line>
             <Textbox Name="Textbox44">
               <KeepTogether>true</KeepTogether>
               <Paragraphs>
@@ -1970,7 +1994,7 @@
               <Left>4.71679in</Left>
               <Height>0.21875in</Height>
               <Width>0.42014in</Width>
-              <ZIndex>19</ZIndex>
+              <ZIndex>16</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -2004,7 +2028,7 @@
               <Left>5.19248in</Left>
               <Height>0.21875in</Height>
               <Width>2.20472in</Width>
-              <ZIndex>20</ZIndex>
+              <ZIndex>17</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -2038,7 +2062,7 @@
               <Left>4.96679in</Left>
               <Height>0.27083in</Height>
               <Width>2.43042in</Width>
-              <ZIndex>21</ZIndex>
+              <ZIndex>18</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -2054,7 +2078,7 @@
               <Left>5.34179in</Left>
               <Height>0in</Height>
               <Width>1.74354in</Width>
-              <ZIndex>22</ZIndex>
+              <ZIndex>19</ZIndex>
               <Style>
                 <Border>
                   <Style>Solid</Style>
@@ -2084,7 +2108,7 @@
               <Left>0.35054in</Left>
               <Height>0.27083in</Height>
               <Width>7.04666in</Width>
-              <ZIndex>23</ZIndex>
+              <ZIndex>20</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -2118,7 +2142,7 @@
               <Left>0.35054in</Left>
               <Height>0.27083in</Height>
               <Width>7.04666in</Width>
-              <ZIndex>24</ZIndex>
+              <ZIndex>21</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -2135,7 +2159,7 @@
               <Left>0.22554in</Left>
               <Height>0.66319in</Height>
               <Width>7.30308in</Width>
-              <ZIndex>25</ZIndex>
+              <ZIndex>22</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -2279,6 +2303,21 @@ End Function
         </Field>
         <Field Name="AmtText">
           <DataField>AmtText</DataField>
+        </Field>
+        <Field Name="BankName">
+          <DataField>BankName</DataField>
+        </Field>
+        <Field Name="BankBranchNo">
+          <DataField>BankBranchNo</DataField>
+        </Field>
+        <Field Name="PaymentMethodMark_1">
+          <DataField>PaymentMethodMark_1</DataField>
+        </Field>
+        <Field Name="PaymentMethodMark_2">
+          <DataField>PaymentMethodMark_2</DataField>
+        </Field>
+        <Field Name="PaymentMethodMark_3">
+          <DataField>PaymentMethodMark_3</DataField>
         </Field>
         <Field Name="Source_Document_Date">
           <DataField>Source_Document_Date</DataField>
