@@ -55,6 +55,7 @@ report 80039 "YVS Recript to CashReceipt"
                 GenJnlLine.VALIDATE("Document No.", DocumentNo);
                 GenJnlLine.VALIDATE("YVS Document No. Series", "Journal No. Series");
                 GenJnlLine.VALIDATE("Posting Date", "Journal Date");
+                GenJnlLine.VALIDATE("Document Date", "Journal Date");
                 GenJnlLine.VALIDATE("Account Type", GenJnlLine."Account Type"::Customer);
                 GenJnlLine.VALIDATE("Account No.", "Bill/Pay-to Cust/Vend No.");
                 GenJnlLine.VALIDATE("External Document No.", "No.");
@@ -87,7 +88,8 @@ report 80039 "YVS Recript to CashReceipt"
                     GenJnlLine.VALIDATE("Document Type", GenJnlLine."Document Type"::Payment);
                     GenJnlLine.VALIDATE("Document No.", DocumentNo);
                     GenJnlLine.VALIDATE("YVS Document No. Series", "Journal No. Series");
-                    GenJnlLine.VALIDATE("Posting Date", BillingHeader."Journal Date");
+                    GenJnlLine.VALIDATE("Posting Date", "Journal Date");
+                    GenJnlLine.VALIDATE("Document Date", "Journal Date");
                     GenJnlLine.VALIDATE("Account Type", GenJnlLine."Account Type"::"G/L Account");
                     GenJnlLine.VALIDATE("Account No.", "Prepaid WHT Acc.");
                     GenJnlLine.VALIDATE("Document Date", "Prepaid WHT Date");
@@ -112,6 +114,7 @@ report 80039 "YVS Recript to CashReceipt"
                     GenJnlLine.VALIDATE("Document No.", DocumentNo);
                     GenJnlLine.VALIDATE("YVS Document No. Series", "Journal No. Series");
                     GenJnlLine.VALIDATE("Posting Date", "Journal Date");
+                    GenJnlLine.VALIDATE("Document Date", "Journal Date");
                     GenJnlLine.VALIDATE("Account Type", GenJnlLine."Account Type"::"G/L Account");
                     GenJnlLine.VALIDATE("Account No.", "Bank Fee Acc.");
                     GenJnlLine.VALIDATE("Amount", "Bank Fee Amount (LCY)");
@@ -136,6 +139,7 @@ report 80039 "YVS Recript to CashReceipt"
                     GenJnlLine.VALIDATE("Document No.", DocumentNo);
                     GenJnlLine.VALIDATE("YVS Document No. Series", "Journal No. Series");
                     GenJnlLine.VALIDATE("Posting Date", "Journal Date");
+                    GenJnlLine.VALIDATE("Document Date", "Journal Date");
                     GenJnlLine.VALIDATE("Account Type", GenJnlLine."Account Type"::"G/L Account");
                     GenJnlLine.VALIDATE("Account No.", "Diff Amount Acc.");
                     GenJnlLine.VALIDATE("Amount", "Diff Amount (LCY)");
@@ -154,7 +158,8 @@ report 80039 "YVS Recript to CashReceipt"
                 GenJnlLine.VALIDATE("Document Type", GenJnlLine."Document Type"::Payment);
                 GenJnlLine.VALIDATE("Document No.", DocumentNo);
                 GenJnlLine.VALIDATE("YVS Document No. Series", "Journal No. Series");
-                GenJnlLine.VALIDATE("Posting Date", BillingHeader."Journal Date");
+                GenJnlLine.VALIDATE("Posting Date", "Journal Date");
+                GenJnlLine.VALIDATE("Document Date", "Journal Date");
                 IF BillingHeader."Account Type" = BillingHeader."Account Type"::"G/L Account" THEN
                     GenJnlLine.VALIDATE("Account Type", GenJnlLine."Account Type"::"G/L Account")
                 ELSE
@@ -170,6 +175,7 @@ report 80039 "YVS Recript to CashReceipt"
                 GenJnlLine."YVS Create By" := COPYSTR(UserId(), 1, 50);
                 GenJnlLine."YVS Create DateTime" := CurrentDateTime();
                 GenJnlLine.MODIFY();
+
                 BillingHeader."Journal Document No." := DocumentNo;
                 BillingHeader."Status" := BillingHeader."Status"::"Created to Journal";
                 BillingHeader."Create to Journal" := true;

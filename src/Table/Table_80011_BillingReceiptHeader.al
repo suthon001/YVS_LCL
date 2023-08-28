@@ -478,12 +478,21 @@ Table 80011 "YVS Billing Receipt Header"
         }
     }
     trigger OnInsert()
+    var
+        SalesSetup: Record "Sales & Receivables Setup";
     begin
+        SalesSetup.GET();
         TestField("No.");
         "Create By User" := COPYSTR(UserId(), 1, 50);
         "Create DateTime" := CurrentDateTime;
         "Posting Date" := Today();
         "Document Date" := Today();
+        "Bank Fee Acc." := SalesSetup."YVS Default Bank Fee Acc.";
+        "Prepaid WHT Acc." := SalesSetup."YVS Default Prepaid WHT Acc.";
+        if "Prepaid WHT Acc." <> '' then
+            "Prepaid WHT Date" := Today();
+        "Diff Amount Acc." := SalesSetup."YVS Default Diff Amount Acc.";
+
 
     end;
 

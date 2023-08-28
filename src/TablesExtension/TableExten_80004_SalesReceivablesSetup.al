@@ -18,5 +18,24 @@ tableextension 80004 "YVS ExtenSales&ReceivableSetup" extends "Sales & Receivabl
             TableRelation = "No. Series".Code;
             DataClassification = CustomerContent;
         }
+        field(80002; "YVS Default Prepaid WHT Acc."; code[20])
+        {
+            Caption = 'Default Prepaid WHT Acc.';
+            TableRelation = "G/L Account"."No." where(Blocked = const(false), "Account Type" = const(Posting));
+            DataClassification = CustomerContent;
+        }
+
+        field(80003; "YVS Default Bank Fee Acc."; code[20])
+        {
+            Caption = 'Default Bank Fee Acc.';
+            TableRelation = "G/L Account"."No." where(Blocked = const(false), "Account Type" = const(Posting));
+            DataClassification = CustomerContent;
+        }
+        field(80004; "YVS Default Diff Amount Acc."; code[20])
+        {
+            Caption = 'Default Diff Amount Acc.';
+            TableRelation = "G/L Account"."No." where(Blocked = const(false), "Account Type" = const(Posting));
+            DataClassification = CustomerContent;
+        }
     }
 }
