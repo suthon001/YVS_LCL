@@ -155,5 +155,7 @@ permissionset 80000 "YVS LCL Permission"
         report "YVS Fixed Asset - Acquisition" = X,
         report "YVS Fixed Asset Journal - Test" = X,
         report "YVS Purchase Request" = X,
+        report "YVS Purchase - Return Shipment" = X,
+        report "YVS Purchase Receipt" = X,
         report "YVS Recript to CashReceipt" = X;
 }

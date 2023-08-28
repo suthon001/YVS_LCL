@@ -372,6 +372,10 @@ codeunit 80005 "YVS EventFunction"
             NewReportId := report::"YVS Account Schedule";
         if ReportId = Report::"Fixed Asset - Acquisition List" then
             NewReportId := report::"YVS Fixed Asset - Acquisition";
+        if ReportId = Report::"Purchase - Receipt" then
+            NewReportId := report::"YVS Purchase Receipt";
+        if ReportId = Report::"Purchase - Return Shipment" then
+            NewReportId := report::"YVS Purchase - Return Shipment";
 
 
     end;
