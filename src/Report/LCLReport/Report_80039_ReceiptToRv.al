@@ -146,7 +146,7 @@ report 80039 "YVS Recript to CashReceipt"
                     GenJnlLine."YVS Ref. Billing & Receipt No." := "No.";
                     GenJnlLine.MODIFY();
                 END;
-                //Insert Receive Line
+
                 GenJnlLine.INIT();
                 GenJnlLine."Journal Template Name" := GenTemplate.Name;
                 GenJnlLine."Journal Batch Name" := GenBatch.Name;

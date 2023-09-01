@@ -90,7 +90,46 @@ codeunit 80000 "YVS Journal Function"
             until GenJnlLine3.Next() = 0;
     end;
 
+    [EventSubscriber(ObjectType::Table, Database::"Gen. Journal Line", 'OnAfterCopyGenJnlLineFromSalesHeaderPrepmt', '', true, true)]
+    local procedure "YVS CopyHeaderFromPropmtInvoiceBuff"(SalesHeader: Record "Sales Header"; var GenJournalLine: Record "Gen. Journal Line")
+    begin
 
+        GenJournalLine."YVS Head Office" := SalesHeader."YVS Head Office";
+        GenJournalLine."YVS VAT Branch Code" := SalesHeader."YVS VAT Branch Code";
+        GenJournalLine."YVS Tax Invoice No." := SalesHeader."No.";
+        GenJournalLine."VAT Registration No." := SalesHeader."VAT Registration No.";
+        GenJournalLine."Document Date" := SalesHeader."Document Date";
+        GenJournalLine."YVS Tax Invoice Date" := SalesHeader."Posting Date";
+        GenJournalLine."YVS Tax Invoice Name" := SalesHeader."Sell-to Customer Name";
+        GenJournalLine."YVS Tax Invoice Name 2" := SalesHeader."Sell-to Customer Name 2";
+
+    end;
+
+    [EventSubscriber(ObjectType::Table, Database::"Gen. Journal Line", 'OnAfterCopyGenJnlLineFromPrepmtInvBuffer', '', false, false)]
+    local procedure OnAfterCopyGenJnlLineFromPrepmtInvBuffer(PrepmtInvLineBuffer: Record "Prepayment Inv. Line Buffer"; var GenJournalLine: Record "Gen. Journal Line")
+    begin
+        if PrepmtInvLineBuffer."YVS Tax Invoice No." <> '' then
+            GenJournalLine."YVS Tax Invoice No." := PrepmtInvLineBuffer."YVS Tax Invoice No.";
+        GenJournalLine."VAT Registration No." := PrepmtInvLineBuffer."YVS Vat Registration No.";
+        GenJournalLine."YVS Tax Invoice Name" := PrepmtInvLineBuffer."YVS Tax Invoice Name";
+        GenJournalLine."YVS Tax Invoice Name 2" := PrepmtInvLineBuffer."YVS Tax Invoice Name 2";
+        GenJournalLine."YVS VAT Branch Code" := PrepmtInvLineBuffer."YVS VAT Branch Code";
+        GenJournalLine."YVS Head Office" := PrepmtInvLineBuffer."YVS Head Office";
+    end;
+
+    [EventSubscriber(ObjectType::Table, Database::"Prepayment Inv. Line Buffer", 'OnAfterCopyFromSalesLine', '', false, false)]
+    local procedure OnAfterCopyFromSalesLine(SalesLine: Record "Sales Line"; var PrepaymentInvLineBuffer: Record "Prepayment Inv. Line Buffer")
+    var
+        SalesHeader: Record "Sales Header";
+    begin
+        SalesHeader.GET(SalesLine."Document Type", SalesLine."Document No.");
+        PrepaymentInvLineBuffer."YVS Tax Invoice No." := SalesHeader."Prepayment No.";
+        PrepaymentInvLineBuffer."YVS Tax Invoice Name" := SalesHeader."Sell-to Customer Name";
+        PrepaymentInvLineBuffer."YVS Tax Invoice Name 2" := SalesHeader."Sell-to Customer Name 2";
+        PrepaymentInvLineBuffer."YVS Vat Registration No." := SalesHeader."VAT Registration No.";
+        PrepaymentInvLineBuffer."YVS VAT Branch Code" := SalesHeader."YVS VAT Branch Code";
+        PrepaymentInvLineBuffer."YVS Head Office" := SalesHeader."YVS Head Office";
+    end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Gen. Jnl.-Post Line", 'OnBeforeInsertPostUnrealVATEntry', '', true, true)]
     /// <summary> 
