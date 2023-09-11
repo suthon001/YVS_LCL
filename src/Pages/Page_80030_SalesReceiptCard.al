@@ -248,6 +248,11 @@ page 80030 "YVS Sales Receipt Card"
                         ApplicationArea = all;
                         ToolTip = 'Specifies the value of the Prepaid WHT No. field.';
                     }
+                    field("Prepaid WHT Acc."; rec."Prepaid WHT Acc.")
+                    {
+                        ApplicationArea = all;
+                        ToolTip = 'Specifies the value of the Prepaid WHT Acc. field.';
+                    }
                     field("Prepaid WHT Amount (LCY)"; Rec."Prepaid WHT Amount (LCY)")
                     {
                         ApplicationArea = all;
