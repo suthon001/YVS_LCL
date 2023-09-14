@@ -94,6 +94,15 @@ report 80011 "YVS Sales Vat"
                 column(AmountInclVAT_TaxReportLine; "Amount Incl. VAT")
                 {
                 }
+                trigger OnPreDataItem()
+                begin
+                    if gvTempVatBus <> '' then
+                        "Tax Report Line".SetFilter("VAT Business Posting Group", gvTempVatBus);
+                    if gvTempProd <> '' then
+                        "Tax Report Line".SetFilter("VAT Product Posting Group", gvTempProd);
+                    if gvTempdate <> '' then
+                        "Tax Report Line".SetFilter("Tax Invoice Date", gvTempdate);
+                end;
 
                 trigger OnAfterGetRecord()
                 begin
@@ -155,12 +164,10 @@ report 80011 "YVS Sales Vat"
     /// <param name="Tempdate">Parameter of type Text[100].</param>
     procedure "SetFilter"(TempVatBus: Code[250]; TempProd: Code[250]; Tempdate: Text)
     begin
-        if TempVatBus <> '' then
-            "Tax Report Line".SetFilter("VAT Business Posting Group", TempVatBus);
-        if TempProd <> '' then
-            "Tax Report Line".SetFilter("VAT Product Posting Group", TempProd);
-        if Tempdate <> '' then
-            "Tax Report Line".SetFilter("Tax Invoice Date", Tempdate);
+
+        gvTempVatBus := TempVatBus;
+        gvTempProd := TempProd;
+        gvTempdate := Tempdate;
         VatBus := TempVatBus;
     end;
 
@@ -182,7 +189,7 @@ report 80011 "YVS Sales Vat"
         var_BrandName: Code[20];
         VatBus: text[250];
         Comtext: Array[10] of text[250];
-
+        gvTempVatBus, gvTempProd, gvTempdate : text;
         BranchText: Code[5];
 
 }

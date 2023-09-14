@@ -184,6 +184,24 @@ page 80017 "YVS WHT Card"
                     Clear(WithholdingReport);
                 end;
             }
+            action("WHT 03")
+            {
+                ApplicationArea = all;
+                Promoted = true;
+                PromotedCategory = Report;
+                PromotedIsBig = true;
+                Image = PrintReport;
+                Caption = 'รายงานใบแนบ ภ.ง.ด.';
+                trigger OnAction()
+                var
+                    TaxReportHeader: Record "YVS Tax & WHT Header";
+                begin
+                    TaxReportHeader.Reset();
+                    TaxReportHeader.SetRange("Tax Type", rec."Tax Type");
+                    TaxReportHeader.SetRange("Document No.", rec."Document No.");
+                    REPORT.RUN(REPORT::"YVS WHT03 Report", TRUE, TRUE, TaxReportHeader);
+                end;
+            }
             action("PND 03")
             {
                 Caption = 'PND 03';

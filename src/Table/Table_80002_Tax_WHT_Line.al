@@ -98,6 +98,7 @@ table 80002 "YVS Tax & WHT Line"
         field(17; "VAT Product Posting Group"; Code[20])
         {
             Caption = 'VAT Product Posting Group';
+            TableRelation = "VAT Product Posting Group".Code;
             DataClassification = SystemMetadata;
         }
         field(18; "Tax Invoice Name 2"; Text[50])
@@ -108,11 +109,13 @@ table 80002 "YVS Tax & WHT Line"
         field(1000; "WHT Business Posting Group"; Code[20])
         {
             Caption = 'WHT Business Posting Group';
+            TableRelation = "YVS WHT Business Posting Group".Code;
             DataClassification = SystemMetadata;
         }
         field(1001; "WHT Product Posting Group"; Code[20])
         {
             Caption = 'WHT Product Posting Group';
+            TableRelation = "YVS WHT Product Posting Group".Code;
             DataClassification = SystemMetadata;
         }
 
@@ -426,9 +429,15 @@ table 80002 "YVS Tax & WHT Line"
                         TaxReportLine."Tax Invoice Date" := VatTransection."Tax Invoice Date";
                         TaxReportLine."Tax Invoice No." := TaxInvoiceNo;
                         if VatTransection."Tax Invoice No." <> '' then begin
+
                             TaxReportLine."Tax Invoice No." := VatTransection."Tax Invoice No.";
-                            TaxReportLine."Base Amount" := ABS(VatTransection."Tax Invoice Base");
-                            TaxReportLine."VAT Amount" := ABS(VatTransection."Tax Invoice Amount");
+                            if ABS(VatTransection."Tax Invoice Base") <> 0 then begin
+                                TaxReportLine."Base Amount" := ABS(VatTransection."Tax Invoice Base");
+                                TaxReportLine."VAT Amount" := ABS(VatTransection."Tax Invoice Amount");
+                            end else begin
+                                TaxReportLine."Base Amount" := VatBase;
+                                TaxReportLine."VAT Amount" := VatAmt;
+                            end;
                         end else begin
                             TaxReportLine."Base Amount" := VatBase;
                             TaxReportLine."VAT Amount" := VatAmt;
@@ -460,8 +469,13 @@ table 80002 "YVS Tax & WHT Line"
                             TaxReportLine."VAT Amount" += ABS(VatTransection."Remaining Unrealized Amt.");
                         end else
                             if VatTransection."Tax Invoice No." <> '' then begin
-                                TaxReportLine."Base Amount" += ABS(VatTransection."Tax Invoice Base");
-                                TaxReportLine."VAT Amount" += ABS(VatTransection."Tax Invoice Amount");
+                                if ABS(VatTransection."Tax Invoice Base") <> 0 then begin
+                                    TaxReportLine."Base Amount" += ABS(VatTransection."Tax Invoice Base");
+                                    TaxReportLine."VAT Amount" += ABS(VatTransection."Tax Invoice Amount");
+                                end else begin
+                                    TaxReportLine."Base Amount" += VatBase;
+                                    TaxReportLine."VAT Amount" += VatAmt;
+                                end;
                             end else begin
                                 TaxReportLine."Tax Invoice No." += VatTransection."External Document No.";
                                 TaxReportLine."Base Amount" += VatBase;
