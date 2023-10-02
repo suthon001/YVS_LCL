@@ -607,21 +607,33 @@ report 80059 "YVS Fixed Asset - Book Value01"
 
         exit(StartingDate - 1);
     end;
-
+    /// <summary>
+    /// SetMandatoryFields.
+    /// </summary>
+    /// <param name="DepreciationBookCodeFrom">Code[10].</param>
+    /// <param name="StartingDateFrom">Date.</param>
+    /// <param name="EndingDateFrom">Date.</param>
     procedure SetMandatoryFields(DepreciationBookCodeFrom: Code[10]; StartingDateFrom: Date; EndingDateFrom: Date)
     begin
         DeprBookCode := DepreciationBookCodeFrom;
         StartingDate := StartingDateFrom;
         EndingDate := EndingDateFrom;
     end;
-
+    /// <summary>
+    /// SetTotalFields.
+    /// </summary>
+    /// <param name="GroupTotalsFrom">Option.</param>
+    /// <param name="PrintDetailsFrom">Boolean.</param>
+    /// <param name="BudgetReportFrom">Boolean.</param>
     procedure SetTotalFields(GroupTotalsFrom: Option; PrintDetailsFrom: Boolean; BudgetReportFrom: Boolean)
     begin
         GroupTotals := GroupTotalsFrom;
         PrintDetails := PrintDetailsFrom;
         BudgetReport := BudgetReportFrom;
     end;
-
+    /// <summary>
+    /// GetDepreciationBookCode.
+    /// </summary>
     procedure GetDepreciationBookCode()
     begin
         if DeprBookCode = '' then begin

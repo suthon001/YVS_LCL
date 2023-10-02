@@ -67,7 +67,17 @@ codeunit 80003 "YVS Calculate Normal Dep"
         Text008: Label '%1 must not be used together with %2 = %3 for %4.';
         Year365Days: Boolean;
         Year366Days: Boolean;
-
+    /// <summary>
+    /// YVS Calculate.
+    /// </summary>
+    /// <param name="DeprAmount">VAR Decimal.</param>
+    /// <param name="NumberOfDays4">VAR Integer.</param>
+    /// <param name="FANo">Code[20].</param>
+    /// <param name="DeprBookCode2">Code[10].</param>
+    /// <param name="UntilDate2">Date.</param>
+    /// <param name="EntryAmounts2">array[4] of Decimal.</param>
+    /// <param name="DateFromProjection2">Date.</param>
+    /// <param name="DaysInPeriod2">Integer.</param>
     procedure "YVS Calculate"(var DeprAmount: Decimal; var NumberOfDays4: Integer; FANo: Code[20]; DeprBookCode2: Code[10]; UntilDate2: Date; EntryAmounts2: array[4] of Decimal; DateFromProjection2: Date; DaysInPeriod2: Integer)
     var
         i: Integer;

@@ -192,6 +192,7 @@ page 80017 "YVS WHT Card"
                 PromotedIsBig = true;
                 Image = PrintReport;
                 Caption = 'รายงานใบแนบ ภ.ง.ด.';
+                ToolTip = 'Executes the รายงานใบแนบ ภ.ง.ด. action.';
                 trigger OnAction()
                 var
                     TaxReportHeader: Record "YVS Tax & WHT Header";

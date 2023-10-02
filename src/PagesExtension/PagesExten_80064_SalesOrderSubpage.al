@@ -75,6 +75,14 @@ pageextension 80064 "YVS Sales Order Subpage" extends "Sales Order Subform"
                 ToolTip = 'Specifies value of the field.';
             }
         }
+        addafter("Quantity Invoiced")
+        {
+            field("YVS Qty. to Cancel"; rec."YVS Qty. to Cancel")
+            {
+                ApplicationArea = all;
+                ToolTip = 'Specifies value of the field.';
+            }
+        }
 
     }
 }
