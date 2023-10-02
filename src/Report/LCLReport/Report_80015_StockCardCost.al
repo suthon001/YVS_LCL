@@ -118,7 +118,7 @@ report 80015 "YVS Report Stock Card Cost"
                 column(Quantity_ItemLedgerEntry; "Item Ledger Entry".Quantity)
                 {
                 }
-                column(EntryType_ItemLedgerEntry; "Item Ledger Entry"."Entry Type")
+                column(EntryType_ItemLedgerEntry; EntryType)
                 {
                 }
                 column(OrderNo_ItemLedgerEntry; "Item Ledger Entry"."Order No.")
@@ -162,6 +162,9 @@ report 80015 "YVS Report Stock Card Cost"
                 var
                     ltValueEntry: Record "Value Entry";
                 begin
+                    EntryType := format("Item Ledger Entry"."Entry Type");
+                    if "Item Ledger Entry"."Entry Type" = "Item Ledger Entry"."Entry Type"::"Assembly Consumption" then
+                        EntryType := 'Assembly Cons.';
                     var_Pos := 0;
                     var_AmountPos := 0;
                     var_UnitCostPos := 0;
@@ -330,7 +333,7 @@ report 80015 "YVS Report Stock Card Cost"
         var_ItemLedDocumentNo: Text;
         var_ItemLedLocationCode: Text;
         var_ItemLedEntryType: Text;
-        _USERID: Text[100];
+        _USERID, EntryType : Text[100];
         var_Amount2: Decimal;
         var_UnitCost2: Decimal;
         var_Amount: Decimal;

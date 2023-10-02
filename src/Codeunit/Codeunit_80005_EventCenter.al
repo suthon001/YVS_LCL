@@ -62,7 +62,7 @@ codeunit 80005 "YVS EventFunction"
     /// <param name="pNameThai">VAR text[50].</param>
     /// <param name="pNameEng">VAR text[50].</param>
     /// <param name="pDocumentType">Enum "Sales Document Type".</param>
-    procedure SelectCaptionReport(var pNameThai: text[50]; var pNameEng: text[50]; pDocumentType: Enum "Sales Document Type")
+    procedure SelectCaptionReport(var pNameThai: text[50]; var pNameEng: text[50]; pDocumentType: Enum "YVS Document Type Report")
     var
         ltSelectCaptionReport: Record "YVS Caption Report Setup";
         ltCaptionReport: Page "YVS Caption Report List";

@@ -199,9 +199,9 @@ report 80018 "YVS Sales Credit Memo (Post)"
                         trigger OnAssistEdit()
                         var
                             EvenCenter: Codeunit "YVS EventFunction";
-                            ltDocumentType: Enum "Sales Document Type";
+                            ltDocumentType: Enum "YVS Document Type Report";
                         begin
-                            EvenCenter.SelectCaptionReport(CaptionOptionThai, CaptionOptionEng, ltDocumentType::"Credit Memo");
+                            EvenCenter.SelectCaptionReport(CaptionOptionThai, CaptionOptionEng, ltDocumentType::"Sales Credit Memo");
                         end;
                     }
                     field(CaptionOptionEng; CaptionOptionEng)

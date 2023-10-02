@@ -19,22 +19,22 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>1.01586in</Width>
+                  <Width>1.03669in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.80936in</Width>
+                  <Width>3.44162in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.875in</Width>
+                  <Width>0.65625in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.02084in</Width>
+                  <Width>0.92709in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1in</Width>
+                  <Width>0.89583in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.83333in</Width>
+                  <Width>0.77083in</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -562,6 +562,7 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Description_ItemMo2">
+                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -609,7 +610,7 @@
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
                                     <FontSize>8pt</FontSize>
-                                    <Format>#,0.00</Format>
+                                    <Format>#,0;-#,0;''</Format>
                                   </Style>
                                 </TextRun>
                                 <TextRun>
@@ -617,7 +618,7 @@
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
                                     <FontSize>8pt</FontSize>
-                                    <Format>#,0</Format>
+                                    <Format>#,0;-#,0;''</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -728,6 +729,23 @@
                               </TextRuns>
                               <Style />
                             </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>HHFGSCBPCR0001</Value>
+                                  <Style>
+                                    <FontStyle>Normal</FontStyle>
+                                    <FontFamily>Tahoma</FontFamily>
+                                    <FontSize>8pt</FontSize>
+                                    <FontWeight>Normal</FontWeight>
+                                    <TextDecoration>None</TextDecoration>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
+                            </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox16</rd:DefaultName>
                           <Style>
@@ -741,6 +759,7 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox51">
+                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -1829,7 +1848,7 @@
             <Top>0.025in</Top>
             <Left>0.28126in</Left>
             <Height>1.64664in</Height>
-            <Width>7.5544in</Width>
+            <Width>7.72832in</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1902,8 +1921,8 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>PageNumber</rd:DefaultName>
-              <Top>0.46181in</Top>
-              <Left>6.37731in</Left>
+              <Top>0.44931in</Top>
+              <Left>6.50231in</Left>
               <Height>0.25in</Height>
               <Width>1.45833in</Width>
               <ZIndex>1</ZIndex>
@@ -1971,8 +1990,8 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox11</rd:DefaultName>
-              <Top>0.68681in</Top>
-              <Left>6.37732in</Left>
+              <Top>0.67431in</Top>
+              <Left>6.50232in</Left>
               <Height>0.25in</Height>
               <Width>1.45833in</Width>
               <ZIndex>3</ZIndex>
@@ -1994,7 +2013,7 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>="Date : " &amp; Globals!ExecutionTime</Value>
+                      <Value>="Date : " &amp; First(Fields!currDateTime.Value, "DataSet_Result")</Value>
                       <Style>
                         <FontFamily>Tahoma</FontFamily>
                         <FontSize>8pt</FontSize>
@@ -2008,8 +2027,8 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox10</rd:DefaultName>
-              <Top>0.21181in</Top>
-              <Left>6.37732in</Left>
+              <Top>0.19931in</Top>
+              <Left>6.50232in</Left>
               <Height>0.25in</Height>
               <Width>1.45833in</Width>
               <ZIndex>4</ZIndex>
@@ -2149,6 +2168,9 @@ LK/qVFFYRi0rN3IrVFObkla/RbfI+S/+Cwn7E/if9uv9nzw74X8K3Wn2d9pfiKPVJXvN+wxrbXERA2Kx
   <DataSets>
     <DataSet Name="DataSet_Result">
       <Fields>
+        <Field Name="currDateTime">
+          <DataField>currDateTime</DataField>
+        </Field>
         <Field Name="ItemNo_ItemLedgerEntry">
           <DataField>ItemNo_ItemLedgerEntry</DataField>
         </Field>

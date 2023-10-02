@@ -23,7 +23,7 @@ table 80013 "YVS Caption Report Setup"
             Caption = 'Name (Eng)';
             DataClassification = CustomerContent;
         }
-        field(4; "Document Type"; Enum "Sales Document Type")
+        field(4; "Document Type"; Enum "YVS Document Type Report")
         {
             Caption = 'Document Type';
             DataClassification = CustomerContent;

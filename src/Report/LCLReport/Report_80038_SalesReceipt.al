@@ -45,19 +45,41 @@ report 80038 "YVS Sales Receipt"
             column(PaymentMethodMark_1; PaymentMethodMark[1]) { }
             column(PaymentMethodMark_2; PaymentMethodMark[2]) { }
             column(PaymentMethodMark_3; PaymentMethodMark[3]) { }
-            dataitem("Billing & Receipt Line"; "YVS Billing Receipt Line")
+            column(CaptionOptionThai; CaptionOptionThai) { }
+            column(CaptionOptionEng; CaptionOptionEng) { }
+
+            dataitem(myLoop; Integer)
             {
-                DataItemTableView = sorting("Document Type", "Document No.", "Line No.");
-                DataItemLink = "Document Type" = field("Document Type"), "DOcument No." = field("NO.");
+                DataItemTableView = sorting(Number) where(Number = filter(1 ..));
+                column(Number; Number) { }
+                column(OriginalCaption; OriginalCaption) { }
+                dataitem("Billing & Receipt Line"; "YVS Billing Receipt Line")
+                {
+                    DataItemTableView = sorting("Document Type", "Document No.", "Line No.");
+                    DataItemLink = "Document Type" = field("Document Type"), "DOcument No." = field("NO.");
+                    DataItemLinkReference = BillingReceiptHeader;
 
-                column(Source_Document_Date; format("Source Document Date", 0, '<Day,2>/<Month,2>/<Year4>')) { }
-                column(Source_Ext__Document_No_; "Source Ext. Document No.") { }
-                column(Source_Posting_Date; format("Source Posting Date", 0, '<Day,2>/<Month,2>/<Year4>')) { }
-                column(Source_Due_Date; format("Source Due Date", 0, '<Day,2>/<Month,2>/<Year4>')) { }
-                column(Source_Description; "Source Description") { }
-                column(Source_Amount__LCY_; Amount) { }
-                column(Source_Document_No_; "Source Document No.") { }
+                    column(Source_Document_Date; format("Source Document Date", 0, '<Day,2>/<Month,2>/<Year4>')) { }
+                    column(Source_Ext__Document_No_; "Source Ext. Document No.") { }
+                    column(Source_Posting_Date; format("Source Posting Date", 0, '<Day,2>/<Month,2>/<Year4>')) { }
+                    column(Source_Due_Date; format("Source Due Date", 0, '<Day,2>/<Month,2>/<Year4>')) { }
+                    column(Source_Description; "Source Description") { }
+                    column(Source_Amount__LCY_; Amount) { }
+                    column(Source_Document_No_; "Source Document No.") { }
 
+                }
+                trigger OnPreDataItem()
+                begin
+                    SetRange(Number, 1, NoOfCopies + 1);
+                end;
+
+                trigger OnAfterGetRecord()
+                begin
+                    if Number = 1 then
+                        OriginalCaption := 'Original'
+                    else
+                        OriginalCaption := 'Copy';
+                end;
             }
             trigger OnPreDataItem()
             begin
@@ -114,6 +136,47 @@ report 80038 "YVS Sales Receipt"
         }
 
     }
+    requestpage
+    {
+        layout
+        {
+            area(content)
+            {
+                group("Options")
+                {
+                    Caption = 'Options';
+                    field(NoOfCopies; NoOfCopies)
+                    {
+                        ApplicationArea = all;
+                        Caption = 'No. of Copies';
+                        ToolTip = 'Specifies the value of the No. of Copies field.';
+                        MinValue = 0;
+                    }
+                    field(CaptionOptionThai; CaptionOptionThai)
+                    {
+                        ApplicationArea = all;
+                        Caption = 'Caption (Thai)';
+                        ToolTip = 'Specifies the value of the Caption field.';
+                        trigger OnAssistEdit()
+                        var
+                            EvenCenter: Codeunit "YVS EventFunction";
+                            ltDocumentType: Enum "YVS Document Type Report";
+                        begin
+                            EvenCenter.SelectCaptionReport(CaptionOptionThai, CaptionOptionEng, ltDocumentType::"Sales Receipt");
+                        end;
+                    }
+                    field(CaptionOptionEng; CaptionOptionEng)
+                    {
+                        ApplicationArea = all;
+                        Caption = 'Caption (Eng)';
+                        ToolTip = 'Specifies the value of the Caption field.';
+                    }
+                }
+            }
+        }
+
+
+    }
     var
         BankAcc: Record "Bank Account";
         ComText: array[10] of Text[250];
@@ -123,8 +186,11 @@ report 80038 "YVS Sales Receipt"
         ExchangeRate: Text[30];
         BankName, BankBranchNo : Text;
         SplitDate: Array[3] of Text[20];
-        AmtText: Text;
+        AmtText, OriginalCaption : Text;
         PaymentTerm: Record "Payment Terms";
         PaymentMethodMark: array[3] of text[50];
+
+        NoOfCopies: Integer;
+        CaptionOptionEng, CaptionOptionThai : Text[50];
 
 }

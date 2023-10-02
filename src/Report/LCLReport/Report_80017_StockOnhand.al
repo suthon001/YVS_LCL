@@ -17,6 +17,7 @@ report 80017 "YVS Stock On hand"
         {
             DataItemTableView = SORTING("Item No.", "Location Code");
             RequestFilterFields = "Item No.", "Location Code", "Expiration Date";
+            column(currDateTime; CurrentDateTime()) { }
             column(ItemNo_ItemLedgerEntry; "Item Ledger Entry"."Item No.")
             {
             }
