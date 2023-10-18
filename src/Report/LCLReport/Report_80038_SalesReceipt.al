@@ -138,6 +138,7 @@ report 80038 "YVS Sales Receipt"
     }
     requestpage
     {
+        SaveValues = true;
         layout
         {
             area(content)

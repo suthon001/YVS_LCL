@@ -196,6 +196,7 @@ report 80022 "YVS Report Sales Credit Memo"
     }
     requestpage
     {
+        SaveValues = true;
         layout
         {
             area(content)

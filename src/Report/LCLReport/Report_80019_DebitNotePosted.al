@@ -154,6 +154,7 @@ report 80019 "YVS Debit Note (Post)"
     }
     requestpage
     {
+        SaveValues = true;
         layout
         {
             area(content)

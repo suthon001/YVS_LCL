@@ -177,6 +177,7 @@ report 80018 "YVS Sales Credit Memo (Post)"
     }
     requestpage
     {
+        SaveValues = true;
         layout
         {
             area(content)

@@ -135,6 +135,7 @@ report 80025 "YVS Sales Invoice (Post)"
     }
     requestpage
     {
+        SaveValues = true;
         layout
         {
             area(content)
