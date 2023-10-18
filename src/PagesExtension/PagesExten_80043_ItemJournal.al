@@ -13,5 +13,15 @@ pageextension 80043 "YVS Item Journal" extends "Item Journal"
                     CurrPage.Update();
             end;
         }
+        modify("Gen. Bus. Posting Group")
+        {
+            Visible = true;
+        }
+        modify("Gen. Prod. Posting Group")
+        {
+            Visible = true;
+        }
+        moveafter("Unit of Measure Code"; "Gen. Bus. Posting Group", "Gen. Prod. Posting Group")
+
     }
 }

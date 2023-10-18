@@ -4,6 +4,12 @@
 codeunit 80005 "YVS EventFunction"
 {
     Permissions = TableData "G/L Entry" = rimd;
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post (Yes/No)", 'OnBeforeOnRun', '', false, false)]
+    local procedure OnBeforeOnRunPurchasePostYesNo(var PurchaseHeader: Record "Purchase Header")
+    begin
+        if PurchaseHeader."Document Type" = PurchaseHeader."Document Type"::Order then
+            PurchaseHeader.TestField(Status, PurchaseHeader.Status::Released);
+    end;
 
     [EventSubscriber(ObjectType::Page, Page::"Acc. Schedule Overview", 'OnBeforePrint', '', false, false)]
     local procedure OnBeforePrintAccSheduleOverview(var AccScheduleLine: Record "Acc. Schedule Line"; var IsHandled: Boolean; var TempFinancialReport: Record "Financial Report" temporary)
