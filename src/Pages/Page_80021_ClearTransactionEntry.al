@@ -10,7 +10,7 @@ page 80021 "YVS Clear Transaction Entry"
     UsageCategory = Tasks;
     AccessByPermission = tabledata "YVS Record Deletion Table" = RIMD;
     ApplicationArea = All;
-    Caption = 'Clear Transection';
+    Caption = 'Clean Transections';
     layout
     {
         area(content)

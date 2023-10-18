@@ -313,6 +313,7 @@ codeunit 80012 "YVS Clear Transactions"
         MyTable.add('YVS WHT Header');
         MyTable.add('YVS WHT Line');
         MyTable.add('YVS WHT Applied Entry');
+        OnAfterAddtableCleanTransaction(MyTable);
         RecordDeltetionEntry.reset();
         RecordDeltetionEntry.DeleteAll();
         foreach NyTableName in MyTable do begin
@@ -329,5 +330,9 @@ codeunit 80012 "YVS Clear Transactions"
         end;
     end;
 
+    [IntegrationEvent(false, false)]
+    local procedure OnAfterAddtableCleanTransaction(var pMyTable: List of [text])
+    begin
+    end;
 
 }
