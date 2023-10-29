@@ -1,7 +1,7 @@
 /// <summary>
 /// Page YVS Clear Transaction Entry (ID 80021).
 /// </summary>
-page 80021 "YVS Clear Transaction Entry"
+page 80021 "YVS Clean Transaction Entry"
 {
     InsertAllowed = True;
     PageType = List;
@@ -10,7 +10,7 @@ page 80021 "YVS Clear Transaction Entry"
     UsageCategory = Tasks;
     AccessByPermission = tabledata "YVS Record Deletion Table" = RIMD;
     ApplicationArea = All;
-    Caption = 'Clean Transections';
+    Caption = 'Clean Transaction';
     layout
     {
         area(content)

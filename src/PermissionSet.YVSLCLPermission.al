@@ -52,7 +52,7 @@ permissionset 80000 "YVS LCL Permission"
         page "YVS Signature" = X,
         page "YVS WHT Subpage" = X,
         page "YVS Get Purchase Lines" = X,
-        page "YVS Clear Transaction Entry" = X,
+        page "YVS Clean Transaction Entry" = X,
         page "YVS WHT Applied Entry" = X,
         page "YVS WHT53 Card" = X,
         page "YVS WHT53 Lists" = X,
