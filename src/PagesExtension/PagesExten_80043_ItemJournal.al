@@ -22,6 +22,11 @@ pageextension 80043 "YVS Item Journal" extends "Item Journal"
             Visible = true;
         }
         moveafter("Unit of Measure Code"; "Gen. Bus. Posting Group", "Gen. Prod. Posting Group")
+        modify("Lot No.")
+        {
+            Visible = true;
+        }
 
     }
+
 }

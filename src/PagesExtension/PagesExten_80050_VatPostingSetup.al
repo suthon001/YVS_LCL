@@ -18,5 +18,17 @@ pageextension 80050 "YVS VatPostingSetup" extends "VAT Posting Setup Card"
                 ToolTip = 'Specifies the value of the Generate Sales Vat Report field.';
             }
         }
+        modify("Unrealized VAT Type")
+        {
+            Visible = true;
+        }
+        modify("Sales VAT Unreal. Account")
+        {
+            Visible = true;
+        }
+        modify("Purch. VAT Unreal. Account")
+        {
+            Visible = true;
+        }
     }
 }
