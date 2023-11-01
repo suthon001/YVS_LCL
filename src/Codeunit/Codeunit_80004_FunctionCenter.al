@@ -1645,7 +1645,10 @@ codeunit 80004 "YVS Function Center"
                 if BillingReceiptHeader."Head Office" then
                     VatRegis += ' (สำนักงานใหญ่)'
                 else
-                    VatRegis += ' (' + BillingReceiptHeader."VAT Branch Code" + ')';
+                    if BillingReceiptHeader."VAT Branch Code" <> '' then
+                        VatRegis += ' (' + BillingReceiptHeader."VAT Branch Code" + ')'
+                    else
+                        VatRegis += ' (สำนักงานใหญ่)';
             end else begin
                 if vendor."Fax No." <> '' then
                     tel += 'Fax : ' + vendor."Fax No.";
@@ -1653,7 +1656,10 @@ codeunit 80004 "YVS Function Center"
                 if BillingReceiptHeader."Head Office" then
                     VatRegis += ' (Head Office)'
                 else
-                    VatRegis += ' (' + BillingReceiptHeader."VAT Branch Code" + ')';
+                    if BillingReceiptHeader."VAT Branch Code" <> '' then
+                        VatRegis += ' (' + BillingReceiptHeader."VAT Branch Code" + ')'
+                    else
+                        VatRegis += ' (Head Office)';
             end;
         end else begin
             Cust.get(BillingReceiptHeader."Bill/Pay-to Cust/Vend No.");
@@ -1665,7 +1671,10 @@ codeunit 80004 "YVS Function Center"
                 if BillingReceiptHeader."Head Office" then
                     VatRegis += ' (สำนักงานใหญ่)'
                 else
-                    VatRegis += ' (' + BillingReceiptHeader."VAT Branch Code" + ')';
+                    if BillingReceiptHeader."VAT Branch Code" <> '' then
+                        VatRegis += ' (' + BillingReceiptHeader."VAT Branch Code" + ')'
+                    else
+                        VatRegis += ' (สำนักงานใหญ่)';
             end else begin
                 if Cust."Fax No." <> '' then
                     tel += 'Fax : ' + Cust."Fax No.";
@@ -1673,7 +1682,10 @@ codeunit 80004 "YVS Function Center"
                 if BillingReceiptHeader."Head Office" then
                     VatRegis += ' (Head Office)'
                 else
-                    VatRegis += ' (' + BillingReceiptHeader."VAT Branch Code" + ')';
+                    if BillingReceiptHeader."VAT Branch Code" <> '' then
+                        VatRegis += ' (' + BillingReceiptHeader."VAT Branch Code" + ')'
+                    else
+                        VatRegis += ' (Head Office)';
             end;
         end;
 
