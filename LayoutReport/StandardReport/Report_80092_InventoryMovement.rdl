@@ -1191,6 +1191,7 @@ Fields!JournalBatchName_ItemJournalLine.Value)</Hidden>
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="textbox27">
+                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -1210,6 +1211,9 @@ Fields!JournalBatchName_ItemJournalLine.Value)</Hidden>
                           </Paragraphs>
                           <ZIndex>26</ZIndex>
                           <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
                             <PaddingLeft>0.075cm</PaddingLeft>
                             <PaddingRight>0.075cm</PaddingRight>
                             <PaddingTop>1pt</PaddingTop>
@@ -1223,6 +1227,7 @@ Fields!JournalBatchName_ItemJournalLine.Value)</Hidden>
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="textbox28">
+                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -1240,6 +1245,9 @@ Fields!JournalBatchName_ItemJournalLine.Value)</Hidden>
                           </Paragraphs>
                           <ZIndex>25</ZIndex>
                           <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
                             <PaddingLeft>0.075cm</PaddingLeft>
                             <PaddingRight>0.075cm</PaddingRight>
                             <PaddingTop>1pt</PaddingTop>
@@ -1590,6 +1598,7 @@ Fields!JournalBatchName_ItemJournalLine.Value)</Hidden>
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="textbox39">
+                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -1609,6 +1618,9 @@ Fields!JournalBatchName_ItemJournalLine.Value)</Hidden>
                           </Paragraphs>
                           <ZIndex>12</ZIndex>
                           <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
                             <PaddingLeft>0.075cm</PaddingLeft>
                             <PaddingRight>0.075cm</PaddingRight>
                             <PaddingTop>1pt</PaddingTop>
@@ -1620,6 +1632,7 @@ Fields!JournalBatchName_ItemJournalLine.Value)</Hidden>
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="textbox40">
+                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -1637,6 +1650,9 @@ Fields!JournalBatchName_ItemJournalLine.Value)</Hidden>
                           </Paragraphs>
                           <ZIndex>11</ZIndex>
                           <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
                             <PaddingLeft>0.075cm</PaddingLeft>
                             <PaddingRight>0.075cm</PaddingRight>
                             <PaddingTop>1pt</PaddingTop>
@@ -2121,7 +2137,7 @@ Fields!JournalBatchName_ItemJournalLine.Value)</Hidden>
             </Filters>
             <Top>0.51217in</Top>
             <Height>3.80705cm</Height>
-            <Width>23.45303cm</Width>
+            <Width>23.45302cm</Width>
             <Style />
           </Tablix>
           <Tablix Name="table1">
