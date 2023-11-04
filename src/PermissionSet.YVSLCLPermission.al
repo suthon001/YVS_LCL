@@ -107,6 +107,7 @@ permissionset 80000 "YVS LCL Permission"
         report "YVS Debit Note (Post)" = X,
         report "YVS Report Sales Invoice" = X,
         report "YVS Debit Note" = X,
+        report "YVS Inventory Movement" = X,
         report "YVS Report Sales Credit Memo" = X,
         report "YVS PurchaseQuotes" = X,
         report "YVS PurchaseOrder" = X,
