@@ -63,6 +63,7 @@ report 80017 "YVS Stock On hand"
             column(ShowItems; var_ShowItems)
             {
             }
+            column(Expiration_Date; format("Expiration Date", 0, '<Day,2>/<Month,2>/<Year4>')) { }
 
             trigger OnAfterGetRecord()
             begin
@@ -70,7 +71,7 @@ report 80017 "YVS Stock On hand"
 
                 ItemMo.RESET();
                 ItemMo.SETFILTER("No.", '%1', "Item No.");
-                IF NOT ItemMo.FIND('-') THEN
+                IF NOT ItemMo.FindFirst() THEN
                     CLEAR(ItemMo);
 
 
@@ -79,7 +80,7 @@ report 80017 "YVS Stock On hand"
                 IF "Item Ledger Entry".GETFILTER("Location Code") <> '' THEN
                     "Item Mo".SETFILTER("Location Filter", "Item Ledger Entry".GETFILTER("Location Code"));
                 "Item Mo".SETRANGE("Date Filter", 0D, GETRANGEMAX("Posting Date"));
-                IF "Item Mo".FIND('-') THEN
+                IF "Item Mo".FindFirst() THEN
                     "Item Mo".CALCFIELDS("Net Change");
 
                 var_ShowItems := FALSE;
