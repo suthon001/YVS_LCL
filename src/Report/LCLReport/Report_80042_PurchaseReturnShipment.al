@@ -628,11 +628,9 @@ report 80042 "YVS Purchase - Return Shipment"
 
     local procedure FormatDocumentFields(ReturnShipmentHeader: Record "Return Shipment Header")
     begin
-        with ReturnShipmentHeader do begin
-            FormatDocument.SetPurchaser(SalesPurchPerson, "Purchaser Code", PurchaserText);
+        FormatDocument.SetPurchaser(SalesPurchPerson, ReturnShipmentHeader."Purchaser Code", PurchaserText);
 
-            ReferenceText := FormatDocument.SetText("Your Reference" <> '', FieldCaption("Your Reference"));
-        end;
+        ReferenceText := FormatDocument.SetText(ReturnShipmentHeader."Your Reference" <> '', ReturnShipmentHeader.FieldCaption("Your Reference"));
     end;
 
     [IntegrationEvent(TRUE, false)]

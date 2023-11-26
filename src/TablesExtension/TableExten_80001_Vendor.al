@@ -147,6 +147,13 @@ tableextension 80001 "YVS ExtenVendor" extends Vendor
                 UpdateVendorCustBranch(6, Address, false);
             end;
         }
+        modify("Address 2")
+        {
+            trigger OnAfterValidate()
+            begin
+                UpdateVendorCustBranch(23, "Address 2", false);
+            end;
+        }
         modify(City)
         {
             trigger OnAfterValidate()
@@ -208,10 +215,12 @@ tableextension 80001 "YVS ExtenVendor" extends Vendor
             tempHeadOffice := WHTResult = '00000';
 
         if (xRec."No." <> '') AND (xRec."No." <> "No.") then begin
-            VendorCustBranch.reset();
-            VendorCustBranch.SetRange("Source Type", VendorCustBranch."Source Type"::Vendor);
-            VendorCustBranch.SetRange("Source No.", xrec."No.");
-            VendorCustBranch.DeleteAll();
+            if xrec."No." <> '' then begin
+                VendorCustBranch.reset();
+                VendorCustBranch.SetRange("Source Type", VendorCustBranch."Source Type"::Vendor);
+                VendorCustBranch.SetRange("Source No.", xrec."No.");
+                VendorCustBranch.DeleteAll();
+            end;
 
             VendorCustBranch.init();
             VendorCustBranch."Source Type" := VendorCustBranch."Source Type"::Vendor;
@@ -268,7 +277,7 @@ tableextension 80001 "YVS ExtenVendor" extends Vendor
     begin
         VendorCustBranch.reset();
         VendorCustBranch.SetRange("Source Type", VendorCustBranch."Source Type"::Vendor);
-        VendorCustBranch.SetRange("Source No.", "No.");
+        VendorCustBranch.SetRange("Source No.", rec."No.");
         VendorCustBranch.DeleteAll();
     end;
 }
