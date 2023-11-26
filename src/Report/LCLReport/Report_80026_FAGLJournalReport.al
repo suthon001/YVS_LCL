@@ -71,7 +71,7 @@ report 80026 "YVS FA G/L Journal Voucher"
                 ltGenjournalTemplate: Record "Gen. Journal Template";
                 NewDate: Date;
             begin
-                FunctionCenter.SetReportGLEntry(GenJournalLine, GLEntry, TempAmt, groupping);
+                FunctionCenter.SetReportGLEntry(GenJournalLine, GLEntry, VatEntryTemporary, TempAmt, groupping);
                 GetExchange();
                 FunctionCenter."ConvExchRate"(CurrencyCode, CurrencyFactor, ExchangeRate);
                 AmtText := '(' + FunctionCenter."NumberThaiToText"(TempAmt) + ')';
@@ -155,7 +155,7 @@ report 80026 "YVS FA G/L Journal Voucher"
 
 
     var
-
+        VatEntryTemporary: Record "Vat Entry" temporary;
         FunctionCenter: Codeunit "YVS Function Center";
         companyInfor: Record "Company Information";
         ExchangeRate: Text[30];

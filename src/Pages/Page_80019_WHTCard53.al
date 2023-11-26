@@ -167,7 +167,7 @@ page 80019 "YVS WHT53 Card"
                 ToolTip = 'Executes the Export PND action.';
                 trigger OnAction()
                 begin
-                    CurrPage."WHTSubpage".Page."ExportPND"();
+                    rec."ExportPND"();
                 end;
             }
             action("Wighholding Report")

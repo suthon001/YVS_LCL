@@ -211,7 +211,6 @@ report 80014 "YVS WHT PND 53"
                         var_WHTNo := TaxReportLine."WHT Document No.";
                         var_WHTRegisNo := TaxReportLine."WHT Registration No.";
 
-
                     UNTIL TaxReportLine.NEXT() = 0;
 
                 //##### Option Type ######

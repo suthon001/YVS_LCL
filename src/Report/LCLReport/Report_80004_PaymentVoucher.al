@@ -224,7 +224,7 @@ report 80004 "YVS Payment Voucher"
                 ltGenjournalTemplate: Record "Gen. Journal Template";
                 NewDate: Date;
             begin
-                FunctionCenter.SetReportGLEntry(GenJournalLine, GLEntry, TempAmt, groupping);
+                FunctionCenter.SetReportGLEntry(GenJournalLine, GLEntry, VatEntryTemporary, TempAmt, groupping);
                 GetVendorExchange();
                 FunctionCenter."VendInfo"(VendorCode, VendText);
 
@@ -349,6 +349,7 @@ report 80004 "YVS Payment Voucher"
 
 
     var
+        VatEntryTemporary: Record "Vat Entry" temporary;
         FunctionCenter: Codeunit "YVS Function Center";
         companyInfor: Record "Company Information";
         ExchangeRate: Text[30];

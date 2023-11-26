@@ -436,19 +436,28 @@ codeunit 80005 "YVS EventFunction"
     /// </summary>
     /// <param name="GenJournalLine">Parameter of type Record "Gen. Journal Line".</param>
     /// <param name="TemporaryGL">Parameter of type Record "G/L Entry" temporary.</param>
-    procedure "GenLinePreviewVourcher"(GenJournalLine: Record "Gen. Journal Line"; var TemporaryGL: Record "G/L Entry" temporary)
+    /// <param name="pTempVatEntry">Temporary VAR Record "VAT Entry".</param>
+    procedure "GenLinePreviewVourcher"(GenJournalLine: Record "Gen. Journal Line"; var TemporaryGL: Record "G/L Entry" temporary; var pTempVatEntry: Record "VAT Entry" temporary)
     var
-        RecRef: RecordRef;
+        ltGenLine: Record "Gen. Journal Line";
+        RecRef, RecRefVat : RecordRef;
         TempErrorMessage: Record "Error Message" temporary;
     begin
-
+        ltGenLine.Reset();
+        ltGenLine.SetRange("Journal Template Name", GenJournalLine."Journal Template Name");
+        ltGenLine.SetRange("Journal Batch Name", GenJournalLine."Journal Batch Name");
+        ltGenLine.SetRange("Document No.", GenJournalLine."Document No.");
+        ltGenLine.FindFirst();
         ErrorMessageMgt.Activate(ErrorMessageHandler);
         BindSubscription(GenJnlPost);
-        GenJnlPostPreview.SetContext(GenJnlPost, GenJournalLine);
+        GenJnlPostPreview.SetContext(GenJnlPost, ltGenLine);
         IF NOT GenJnlPostPreview.Run() AND GenJnlPostPreview.IsSuccess() THEN begin
             GenJnlPostPreview.GetPreviewHandler(PostingPreviewEventHandler);
             PostingPreviewEventHandler.GetEntries(Database::"G/L Entry", RecRef);
+            PostingPreviewEventHandler.GetEntries(Database::"VAT Entry", RecRefVat);
             InsertToTempGL(RecRef, TemporaryGL);
+            InsertToTempVAT(RecRefVat, pTempVatEntry);
+
         end;
         if ErrorMessageMgt.GetErrors(TempErrorMessage) then
             ERROR(TempErrorMessage.Message);
@@ -472,6 +481,16 @@ codeunit 80005 "YVS EventFunction"
 
             until RecRef2.next() = 0;
     end;
+
+    local procedure InsertToTempVAT(RecRef2: RecordRef; var pTempVATEntry: Record "VAT Entry" temporary)
+    begin
+        if RecRef2.FindSet() then
+            repeat
+                RecRef2.SetTable(pTempVATEntry);
+                pTempVATEntry.Insert();
+            until RecRef2.next() = 0;
+    end;
+
 
     /// <summary>
     /// RunWorkflowOnSendBillingReceiptHeaderApprovalCode.
