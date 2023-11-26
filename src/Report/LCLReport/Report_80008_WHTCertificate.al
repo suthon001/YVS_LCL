@@ -31,7 +31,7 @@ report 80008 "YVS WHT Certificate"
                 WHTRegID2 := WHTBus."VAT Registration No.";
                 WHTCerti := "WHT Certificate No.";
                 WHTDAte := "WHT Date";
-                whtVendorName := "WHT Name" + '  ' + "WHT Name 2";
+                whtVendorName := StrSubstNo('%1', format("WHT Title Name") + ' ' + "WHT Name" + '  ' + "WHT Name 2").TrimEnd();
                 whtVendorAddress := "WHT Address" + ' ' + "WHT Address 2" + ' ' + "WHT Address 3" + ' ' + "WHT City" + ' ' + "WHT Post Code";
 
                 Currcount := 0;
@@ -328,8 +328,8 @@ report 80008 "YVS WHT Certificate"
         WHTName: Text[250];
         WHTAddress: Text[250];
         WHTCerti: Text[250];
-        whtVendorName: Text[250];
-        whtVendorAddress: Text[1024];
+        whtVendorName: Text;
+        whtVendorAddress: Text;
         WHTDAte: date;
         generaledgersetup: Record "General Ledger Setup";
         WHTHeaderText: array[4] of Text[1024];

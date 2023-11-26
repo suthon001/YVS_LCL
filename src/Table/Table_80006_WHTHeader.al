@@ -66,13 +66,8 @@ table 80006 "YVS WHT Header"
                         "WHT Type" := whtBusPostingGroup."WHT Type";
                         "WHT City" := Vendor.City;
                         "WHT Post Code" := Vendor."Post Code";
-                        if Vendor."YVS WHT Name" <> '' then
-                            if "WHT Title Name" <> "WHT Title Name"::" " then
-                                "WHT Name" := format("WHT Title Name") + ' ' + Vendor."YVS WHT Name"
-                            else
-                                "WHT Name" := Vendor."YVS WHT Name";
-
                         "WHT Title Name" := Vendor."YVS WHT Title Name";
+                        "WHT Name" := Vendor."YVS WHT Name";
                         "WHT Building" := Vendor."YVS WHT Building";
                         "WHT District" := Vendor."YVS WHT District";
                         "WHT Sub-district" := Vendor."YVS WHT Sub-district";
@@ -115,8 +110,6 @@ table 80006 "YVS WHT Header"
             DataClassification = CustomerContent;
             trigger OnValidate()
             begin
-                if "WHT Title Name" <> "WHT Title Name"::" " then
-                    "WHT Name" := COPYSTR(format("WHT Title Name") + ' ' + "WHT Name", 1, 160);
                 TrasnferToWHTLine();
             end;
         }
