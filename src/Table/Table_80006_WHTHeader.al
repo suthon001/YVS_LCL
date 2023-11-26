@@ -49,15 +49,31 @@ table 80006 "YVS WHT Header"
                 Vendor: Record Vendor;
                 Customer: Record Customer;
                 whtBusPostingGroup: Record "YVS WHT Business Posting Group";
+                VendCustomerBranch: Record "YVS Customer & Vendor Branch";
             begin
                 IF "WHT Source Type" = "WHT Source Type"::Vendor THEN BEGIN
                     IF Vendor.GET("WHT Source No.") THEN BEGIN
+                        if not VendCustomerBranch.GET(VendCustomerBranch."Source Type"::Vendor, rec."WHT Source No.", Vendor."YVS Head Office", Vendor."YVS VAT Branch Code") then
+                            VendCustomerBranch.Init();
                         "WHT Source No." := Vendor."No.";
-                        "WHT Name" := Vendor.Name;
-                        "WHT Name 2" := Vendor."Name 2";
-                        "WHT Address" := Vendor.Address;
-                        "WHT Address 2" := Vendor."Address 2";
-                        "VAT Registration No." := Vendor."VAT Registration No.";
+                        if Vendor."YVS WHT Name" <> '' then
+                            "WHT Name" := Vendor."YVS WHT Name"
+                        else
+                            if VendCustomerBranch.Name <> '' then
+                                "WHT Name" := VendCustomerBranch.Name
+                            else begin
+                                "WHT Name" := Vendor.Name;
+                                "WHT Name 2" := Vendor."Name 2";
+                            end;
+                        if VendCustomerBranch.Address = '' then begin
+                            "WHT Address" := Vendor.Address;
+                            "WHT Address 2" := Vendor."Address 2";
+                            "VAT Registration No." := Vendor."VAT Registration No.";
+                        end else begin
+                            "WHT Address" := VendCustomerBranch.Address;
+                            "WHT Address 2" := VendCustomerBranch."Address 2";
+                            "VAT Registration No." := VendCustomerBranch."VAT Registration No.";
+                        end;
                         "Head Office" := Vendor."YVS Head Office";
                         "VAT Branch Code" := Vendor."YVS VAT Branch Code";
                         "WHT Business Posting Group" := Vendor."YVS WHT Business Posting Group";
@@ -67,7 +83,7 @@ table 80006 "YVS WHT Header"
                         "WHT City" := Vendor.City;
                         "WHT Post Code" := Vendor."Post Code";
                         "WHT Title Name" := Vendor."YVS WHT Title Name";
-                        "WHT Name" := Vendor."YVS WHT Name";
+
                         "WHT Building" := Vendor."YVS WHT Building";
                         "WHT District" := Vendor."YVS WHT District";
                         "WHT Sub-district" := Vendor."YVS WHT Sub-district";
@@ -85,12 +101,24 @@ table 80006 "YVS WHT Header"
                     END;
                 END ELSE
                     IF Customer.GET("WHT Source No.") THEN BEGIN
+                        if not VendCustomerBranch.GET(VendCustomerBranch."Source Type"::Customer, rec."WHT Source No.", Customer."YVS Head Office", Customer."YVS VAT Branch Code") then
+                            VendCustomerBranch.Init();
                         "WHT Source No." := Customer."No.";
-                        "WHT Name" := Customer.Name;
-                        "WHT Name 2" := Customer."Name 2";
-                        "WHT Address" := Customer.Address;
-                        "WHT Address 2" := Customer."Address 2";
-                        "VAT Registration No." := Customer."VAT Registration No.";
+                        if VendCustomerBranch.Name <> '' then
+                            "WHT Name" := VendCustomerBranch.Name
+                        else begin
+                            "WHT Name" := Customer.Name;
+                            "WHT Name 2" := Customer."Name 2";
+                        end;
+                        if VendCustomerBranch.Address = '' then begin
+                            "WHT Address" := Customer.Address;
+                            "WHT Address 2" := Customer."Address 2";
+                            "VAT Registration No." := Customer."VAT Registration No.";
+                        end else begin
+                            "WHT Address" := VendCustomerBranch.Address;
+                            "WHT Address 2" := VendCustomerBranch."Address 2";
+                            "VAT Registration No." := VendCustomerBranch."VAT Registration No.";
+                        end;
                         "Head Office" := Customer."YVS Head Office";
                         "VAT Branch Code" := Customer."YVS VAT Branch Code";
                         "WHT Business Posting Group" := Customer."YVS WHT Business Posting Group";
