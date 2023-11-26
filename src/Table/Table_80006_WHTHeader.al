@@ -135,12 +135,12 @@ table 80006 "YVS WHT Header"
                 TrasnferToWHTLine();
             end;
         }
-        field(10; "WHT Address 2"; Text[50])
+        field(10; "WHT Address 2"; Text[100])
         {
             Caption = 'WHT Address 2';
             DataClassification = CustomerContent;
         }
-        field(11; "WHT Address 3"; Text[50])
+        field(11; "WHT Address 3"; Text[100])
         {
             Caption = 'WHT Address 3';
             DataClassification = CustomerContent;
