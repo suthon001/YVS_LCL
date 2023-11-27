@@ -151,7 +151,6 @@ report 80017 "YVS Stock On hand"
         CompanyInformation: Record "Company Information";
         ItemMo: Record Item;
         "Item Mo": Record Item;
-        [InDataSet]
         var_ShowItems: Boolean;
         EndingDate: Date;
         var_ZeroStock: Boolean;
