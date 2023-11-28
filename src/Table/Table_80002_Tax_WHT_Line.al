@@ -146,7 +146,7 @@ table 80002 "YVS Tax & WHT Line"
             Caption = 'Address';
             DataClassification = SystemMetadata;
         }
-        field(1007; "Address 2"; Text[50])
+        field(1007; "Address 2"; Text[100])
         {
             Caption = 'Address 2';
             DataClassification = SystemMetadata;

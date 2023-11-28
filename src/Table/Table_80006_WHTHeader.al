@@ -184,7 +184,10 @@ table 80006 "YVS WHT Header"
             begin
                 if "Head Office" then
                     "VAT Branch Code" := '';
+                rec.UpdateAddressByBranch();
             end;
+
+
         }
         field(15; "VAT Branch Code"; Code[5])
         {
@@ -204,6 +207,7 @@ table 80006 "YVS WHT Header"
                     "Head Office" := TRUE;
                     "VAT Branch Code" := '';
                 end;
+                rec.UpdateAddressByBranch();
             end;
 
         }
@@ -480,6 +484,31 @@ table 80006 "YVS WHT Header"
             Rec."WHT Address 2" := Addr[2];
         if Addr[3] <> '' then
             Rec."WHT Address 3" := Addr[3];
+
+    end;
+
+    /// <summary>
+    /// UpdateAddressByBranch.
+    /// </summary>
+    procedure UpdateAddressByBranch()
+    var
+        VendorCustomerBranch: Record "YVS Customer & Vendor Branch";
+    begin
+        if VendorCustomerBranch.GET(VendorCustomerBranch."Source Type"::Vendor, rec."WHT Source No.", rec."Head Office", rec."VAT Branch Code") then begin
+            "WHT Address" := VendorCustomerBranch.Address;
+            "WHT Address 2" := VendorCustomerBranch."Address 2";
+            "WHT Building" := VendorCustomerBranch."Building";
+            "WHT Alley/Lane" := VendorCustomerBranch."Alley/Lane";
+            "WHT District" := VendorCustomerBranch."District";
+            "WHT Floor" := VendorCustomerBranch."Floor";
+            "WHT House No." := VendorCustomerBranch."House No.";
+            "WHT Street" := VendorCustomerBranch."Street";
+            "WHT Name" := VendorCustomerBranch."Name";
+            "WHT Title Name" := VendorCustomerBranch."Title Name";
+            "WHT Village No." := VendorCustomerBranch."Village No.";
+            "WHT City" := VendorCustomerBranch."Province";
+            "WHT Post Code" := VendorCustomerBranch."post Code";
+        end;
 
     end;
 

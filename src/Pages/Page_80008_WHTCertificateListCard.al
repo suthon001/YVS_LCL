@@ -74,6 +74,7 @@ page 80008 "YVS WHT Certificate"
                 {
                     ApplicationArea = all;
                     ToolTip = 'Specifies the value of the Head Office field.';
+
                 }
                 field("VAT Branch Code"; Rec."VAT Branch Code")
                 {
