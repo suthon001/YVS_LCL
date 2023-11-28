@@ -494,22 +494,23 @@ table 80006 "YVS WHT Header"
     var
         VendorCustomerBranch: Record "YVS Customer & Vendor Branch";
     begin
-        if VendorCustomerBranch.GET(VendorCustomerBranch."Source Type"::Vendor, rec."WHT Source No.", rec."Head Office", rec."VAT Branch Code") then begin
-            "WHT Address" := VendorCustomerBranch.Address;
-            "WHT Address 2" := VendorCustomerBranch."Address 2";
-            "WHT Building" := VendorCustomerBranch."Building";
-            "WHT Alley/Lane" := VendorCustomerBranch."Alley/Lane";
-            "WHT District" := VendorCustomerBranch."District";
-            "WHT Floor" := VendorCustomerBranch."Floor";
-            "WHT House No." := VendorCustomerBranch."House No.";
-            "WHT Street" := VendorCustomerBranch."Street";
-            "WHT Name" := VendorCustomerBranch."Name";
-            "WHT Title Name" := VendorCustomerBranch."Title Name";
-            "WHT Village No." := VendorCustomerBranch."Village No.";
-            "WHT City" := VendorCustomerBranch."Province";
-            "WHT Post Code" := VendorCustomerBranch."post Code";
-        end;
-
+        if not VendorCustomerBranch.GET(rec."WHT Source Type", rec."WHT Source No.", rec."Head Office", rec."VAT Branch Code") then
+            VendorCustomerBranch.Init();
+        "WHT Name" := VendorCustomerBranch."Name";
+        "VAT Registration No." := VendorCustomerBranch."Vat Registration No.";
+        "WHT Address" := VendorCustomerBranch.Address;
+        "WHT Address 2" := VendorCustomerBranch."Address 2";
+        "WHT Building" := VendorCustomerBranch."Building";
+        "WHT Alley/Lane" := VendorCustomerBranch."Alley/Lane";
+        "WHT District" := VendorCustomerBranch."District";
+        "WHT Floor" := VendorCustomerBranch."Floor";
+        "WHT House No." := VendorCustomerBranch."House No.";
+        "WHT Street" := VendorCustomerBranch."Street";
+        "WHT Title Name" := VendorCustomerBranch."Title Name";
+        "WHT Village No." := VendorCustomerBranch."Village No.";
+        "WHT City" := VendorCustomerBranch."Province";
+        "WHT Post Code" := VendorCustomerBranch."post Code";
+        OnCopyAddressbyBranch(rec, VendorCustomerBranch);
     end;
 
     local procedure CheckLen(Txt: text; inTxt: text; i: Integer): Integer
@@ -588,6 +589,13 @@ table 80006 "YVS WHT Header"
     [IntegrationEvent(true, false)]
 
     procedure OnAfterinitWHTHeaderCust(var WHTHeader: Record "YVS WHT Header"; Cust: Record Customer)
+    begin
+
+    end;
+
+    [IntegrationEvent(true, false)]
+
+    procedure OnCopyAddressbyBranch(var WHTHeader: Record "YVS WHT Header"; CustomerVendorBranch: Record "YVS Customer & Vendor Branch")
     begin
 
     end;
