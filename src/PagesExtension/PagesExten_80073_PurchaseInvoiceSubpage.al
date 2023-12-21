@@ -99,5 +99,12 @@ pageextension 80073 "YVS Purchase Invoice Subpage" extends "Purch. Invoice Subfo
         }
 
     }
+    trigger OnDeleteRecord(): Boolean
+    var
+        YVSFunctionCenter: Codeunit "YVS Function Center";
+    begin
+        if rec."Receipt No." <> '' then
+            YVSFunctionCenter.SetDefualtGetInvoicePurch(rec."Receipt No.", Rec."Receipt Line No.");
+    end;
 
 }

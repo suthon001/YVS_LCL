@@ -51,5 +51,10 @@ tableextension 80028 "YVS Purchase Rcpt. Header" extends "Purch. Rcpt. Header"
             DataClassification = CustomerContent;
 
         }
+        field(95000; "YVS Vendor Invoice No."; Code[35])
+        {
+            Caption = 'Vendor Invoice No.';
+            DataClassification = CustomerContent;
+        }
     }
 }

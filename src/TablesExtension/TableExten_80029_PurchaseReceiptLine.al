@@ -142,6 +142,12 @@ tableextension 80029 "YVS Purchase Rcpt. Line" extends "Purch. Rcpt. Line"
             DataClassification = CustomerContent;
 
         }
+        field(95000; "YVS Get to Invoice"; Boolean)
+        {
+            Caption = 'Get to Invoice';
+            DataClassification = CustomerContent;
+            Editable = false;
+        }
 
     }
 }

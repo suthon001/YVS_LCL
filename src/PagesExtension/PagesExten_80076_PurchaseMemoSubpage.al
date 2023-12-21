@@ -43,4 +43,11 @@ pageextension 80076 "YVS Purch. Credit Memo Subpage" extends "Purch. Cr. Memo Su
             }
         }
     }
+    trigger OnDeleteRecord(): Boolean
+    var
+        YVSFunctionCenter: Codeunit "YVS Function Center";
+    begin
+        if rec."Return Shipment No." <> '' then
+            YVSFunctionCenter.SetDefualtGetPurchCN(rec."Return Shipment No.", Rec."Return Shipment Line No.");
+    end;
 }

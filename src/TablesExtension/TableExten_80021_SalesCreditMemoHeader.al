@@ -23,7 +23,6 @@ tableextension 80021 "YVS ExtenSalesCr.MemoHeader" extends "Sales Cr.Memo Header
             TableRelation = "YVS Customer & Vendor Branch"."VAT Branch Code" WHERE("Source Type" = CONST(Customer), "Source No." = FIELD("Sell-to Customer No."));
             DataClassification = CustomerContent;
 
-
         }
         field(80003; "YVS Ref. Tax Invoice Date"; Date)
         {

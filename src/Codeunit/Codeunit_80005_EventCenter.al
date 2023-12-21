@@ -3,7 +3,60 @@
 /// </summary>
 codeunit 80005 "YVS EventFunction"
 {
-    Permissions = TableData "G/L Entry" = rimd;
+    Permissions = TableData "G/L Entry" = rimd, tabledata "Purch. Rcpt. Line" = imd, tabledata "Return Shipment Line" = imd, tabledata "Sales Shipment Line" = imd;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Get Shipment", 'OnRunAfterFilterSalesShpLine', '', false, false)]
+    local procedure OnRunAfterFilterSalesShpLine(var SalesShptLine: Record "Sales Shipment Line")
+    begin
+        SalesShptLine.SetRange("YVS Get to Invoice", false);
+    end;
+
+
+    [EventSubscriber(ObjectType::Table, Database::"Sales Shipment Line", 'OnAfterInsertInvLineFromShptLine', '', false, false)]
+    local procedure OnAfterInsertInvLineFromShptLine(SalesShipmentLine: Record "Sales Shipment Line")
+    begin
+        SalesShipmentLine."YVS Get to Invoice" := true;
+        SalesShipmentLine.Modify();
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Get Receipt", 'OnAfterPurchRcptLineSetFilters', '', false, false)]
+    local procedure OnAfterPurchRcptLineSetFilters(var PurchRcptLine: Record "Purch. Rcpt. Line")
+    begin
+        PurchRcptLine.SetRange("YVS Get to Invoice", false);
+    end;
+
+    [EventSubscriber(ObjectType::Table, Database::"Purch. Rcpt. Line", 'OnAfterInsertInvLineFromRcptLine', '', false, false)]
+    local procedure OnAfterInsertInvLineFromRcptLine(PurchRcptLine: Record "Purch. Rcpt. Line")
+    begin
+        PurchRcptLine."YVS Get to Invoice" := true;
+        PurchRcptLine.Modify();
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Get Return Shipments", 'OnRunOnAfterSetReturnShptLineFilters', '', false, false)]
+    local procedure OnRunOnAfterSetReturnShptLineFilters(var ReturnShipmentLine: Record "Return Shipment Line")
+    begin
+        ReturnShipmentLine.SetRange("YVS Get to CN", false);
+    end;
+
+    [EventSubscriber(ObjectType::Table, Database::"Return Shipment Line", 'OnBeforeInsertInvLineFromRetShptLine', '', false, false)]
+    local procedure OnBeforeInsertInvLineFromRetShptLine(var ReturnShipmentLine: Record "Return Shipment Line")
+    begin
+        ReturnShipmentLine."YVS Get to CN" := true;
+        ReturnShipmentLine.Modify();
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post", 'OnBeforePurchRcptHeaderInsert', '', false, false)]
+    local procedure OnBeforePurchRcptHeaderInsert(var PurchRcptHeader: Record "Purch. Rcpt. Header"; var PurchaseHeader: Record "Purchase Header")
+    begin
+        PurchRcptHeader."YVS Vendor Invoice No." := PurchaseHeader."Vendor Invoice No.";
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post", 'OnBeforeInsertReturnShipmentHeader', '', false, false)]
+    local procedure OnBeforeInsertReturnShipmentHeader(var PurchHeader: Record "Purchase Header"; var ReturnShptHeader: Record "Return Shipment Header")
+    begin
+        ReturnShptHeader."YVS Vendor Cr. Memo No." := PurchHeader."Vendor Cr. Memo No.";
+    end;
+
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post (Yes/No)", 'OnBeforeOnRun', '', false, false)]
     local procedure OnBeforeOnRunPurchasePostYesNo(var PurchaseHeader: Record "Purchase Header")
     begin

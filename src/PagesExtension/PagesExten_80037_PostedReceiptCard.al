@@ -18,6 +18,14 @@ pageextension 80037 "YVS PostedReceiptCard" extends "Posted Purchase Receipt"
         {
             Visible = false;
         }
+        addafter("Vendor Order No.")
+        {
+            field("YVS Vendor Invoice No."; rec."YVS Vendor Invoice No.")
+            {
+                ApplicationArea = all;
+                ToolTip = 'Specifies the value of the Vendor Invoice No. field.';
+            }
+        }
 
     }
 }

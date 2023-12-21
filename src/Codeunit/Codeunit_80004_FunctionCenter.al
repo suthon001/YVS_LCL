@@ -4,7 +4,53 @@
 codeunit 80004 "YVS Function Center"
 {
 
-    Permissions = tabledata "G/L Entry" = rimd;
+    Permissions = tabledata "G/L Entry" = rimd, tabledata "Purch. Rcpt. Line" = imd, tabledata "Return Shipment Line" = imd, tabledata "Sales Shipment Line" = imd;
+
+    /// <summary>
+    /// SetDefualtGetInvoiceSales.
+    /// </summary>
+    /// <param name="pShipNo">code[20].</param>
+    /// <param name="pShipLineNo">integer.</param>
+    procedure SetDefualtGetInvoiceSales(pShipNo: code[20]; pShipLineNo: integer)
+    var
+        SalesShipmentLine: record "Sales Shipment Line";
+    begin
+        if SalesShipmentLine.GET(pShipNo, pShipLineNo) then begin
+            SalesShipmentLine."YVS Get to Invoice" := false;
+            SalesShipmentLine.Modify();
+        end;
+    end;
+
+    /// <summary>
+    /// SetDefualtGetInvoice.
+    /// </summary>
+    /// <param name="pReceiptNo">code[20].</param>
+    /// <param name="pReceiptLineNo">integer.</param>
+    procedure SetDefualtGetInvoicePurch(pReceiptNo: code[20]; pReceiptLineNo: integer)
+    var
+        ReceiptLine: record "Purch. Rcpt. Line";
+    begin
+        if ReceiptLine.GET(pReceiptNo, pReceiptLineNo) then begin
+            ReceiptLine."YVS Get to Invoice" := false;
+            ReceiptLine.Modify();
+        end;
+    end;
+
+    /// <summary>
+    /// SetDefualtGetCN.
+    /// </summary>
+    /// <param name="pReturnShipmentNo">code[20].</param>
+    /// <param name="pReturnShipmentLineNo">integer.</param>
+    procedure SetDefualtGetPurchCN(pReturnShipmentNo: code[20]; pReturnShipmentLineNo: integer)
+    var
+        ReturnShipmentLine: record "Return Shipment Line";
+    begin
+        if ReturnShipmentLine.GET(pReturnShipmentNo, pReturnShipmentLineNo) then begin
+            ReturnShipmentLine."YVS Get to CN" := false;
+            ReturnShipmentLine.Modify();
+        end;
+    end;
+
     /// <summary>
     /// Generatebarcode.
     /// </summary>
