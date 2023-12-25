@@ -5,6 +5,8 @@ codeunit 80005 "YVS EventFunction"
 {
     Permissions = TableData "G/L Entry" = rimd, tabledata "Purch. Rcpt. Line" = imd, tabledata "Return Shipment Line" = imd, tabledata "Sales Shipment Line" = imd;
 
+
+
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Get Shipment", 'OnRunAfterFilterSalesShpLine', '', false, false)]
     local procedure OnRunAfterFilterSalesShpLine(var SalesShptLine: Record "Sales Shipment Line")
     begin
@@ -17,6 +19,23 @@ codeunit 80005 "YVS EventFunction"
     begin
         SalesShipmentLine."YVS Get to Invoice" := true;
         SalesShipmentLine.Modify();
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Get Receipt", 'OnAfterInsertLines', '', false, false)]
+    local procedure OnAfterInsertLines(var PurchHeader: Record "Purchase Header")
+    var
+        ReceiptHeader: Record "Purch. Rcpt. Header";
+        PurchaseLine: Record "Purchase Line";
+    begin
+        PurchaseLine.reset();
+        PurchaseLine.SetRange("Document Type", PurchHeader."Document Type");
+        PurchaseLine.SetRange("Document No.", PurchHeader."No.");
+        PurchaseLine.SetFilter("Receipt No.", '<>%1', '');
+        if PurchaseLine.FindFirst() then
+            if ReceiptHeader.GET(PurchaseLine."Receipt No.") then begin
+                PurchHeader."Vendor Invoice No." := ReceiptHeader."YVS Vendor Invoice No.";
+                PurchHeader.Modify();
+            end;
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Get Receipt", 'OnAfterPurchRcptLineSetFilters', '', false, false)]
@@ -36,6 +55,23 @@ codeunit 80005 "YVS EventFunction"
     local procedure OnRunOnAfterSetReturnShptLineFilters(var ReturnShipmentLine: Record "Return Shipment Line")
     begin
         ReturnShipmentLine.SetRange("YVS Get to CN", false);
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Get Return Shipments", 'OnAfterCreateInvLines', '', false, false)]
+    local procedure OnAfterCreateInvLines(PurchaseHeader: Record "Purchase Header")
+    var
+        ReturnShipment: Record "Return Shipment Header";
+        PurchaseLine: Record "Purchase Line";
+    begin
+        PurchaseLine.reset();
+        PurchaseLine.SetRange("Document Type", PurchaseHeader."Document Type");
+        PurchaseLine.SetRange("Document No.", PurchaseHeader."No.");
+        PurchaseLine.SetFilter("Return Shipment No.", '<>%1', '');
+        if PurchaseLine.FindFirst() then
+            if ReturnShipment.GET(PurchaseLine."Return Shipment No.") then begin
+                PurchaseHeader."Vendor Cr. Memo No." := ReturnShipment."YVS Vendor Cr. Memo No.";
+                PurchaseHeader.Modify();
+            end;
     end;
 
     [EventSubscriber(ObjectType::Table, Database::"Return Shipment Line", 'OnBeforeInsertInvLineFromRetShptLine', '', false, false)]
@@ -294,10 +330,11 @@ codeunit 80005 "YVS EventFunction"
         end;
     end;
 
+
     /// <summary>
     /// CreateWHTCertificate.
     /// </summary>
-    /// <param name="rec">VAR WHTHeader "YVS WHT Header".</param>
+    /// <param name="WHTHeader">VAR Record "YVS WHT Header".</param>
     /// <param name="pGenJournalLine">Record "Gen. Journal Line".</param>
     procedure CreateWHTCertificate(var WHTHeader: Record "YVS WHT Header"; pGenJournalLine: Record "Gen. Journal Line")
     var
@@ -887,18 +924,36 @@ codeunit 80005 "YVS EventFunction"
         exit(StrSubstNo(BillingReceiptConditionTxt, workflowSetup.Encode(BillingReceipt.GetView(false)), workflowSetup.Encode(BillingReceiptLine.GetView(false))));
     end;
 
+    /// <summary>
+    /// OnbeforInsertWHTLine.
+    /// </summary>
+    /// <param name="WhtApplyLine">Record "YVS WHT Applied Entry".</param>
+    /// <param name="WHTHeader">Record "YVS WHT Header".</param>
+    /// <param name="GenLine">Record "Gen. Journal Line".</param>
+    /// <param name="WHTLine">VAR Record "YVS WHT Line".</param>
     [IntegrationEvent(true, false)]
     procedure OnbeforInsertWHTLine(WhtApplyLine: Record "YVS WHT Applied Entry"; WHTHeader: Record "YVS WHT Header"; GenLine: Record "Gen. Journal Line"; var WHTLine: Record "YVS WHT Line")
     begin
 
     end;
 
+    /// <summary>
+    /// OnbeforModifyWHTHeader.
+    /// </summary>
+    /// <param name="WhtApplyLine">Record "YVS WHT Applied Entry".</param>
+    /// <param name="WHTHeader">VAR Record "YVS WHT Header".</param>
+    /// <param name="GenLine">Record "Gen. Journal Line".</param>
     [IntegrationEvent(true, false)]
     procedure OnbeforModifyWHTHeader(WhtApplyLine: Record "YVS WHT Applied Entry"; var WHTHeader: Record "YVS WHT Header"; GenLine: Record "Gen. Journal Line")
     begin
 
     end;
 
+    /// <summary>
+    /// OnbeformodifyCreateWHTCertificate.
+    /// </summary>
+    /// <param name="WHTHeader">Record "YVS WHT Header".</param>
+    /// <param name="GenLine">VAR Record "Gen. Journal Line".</param>
     [IntegrationEvent(true, false)]
     procedure OnbeformodifyCreateWHTCertificate(WHTHeader: Record "YVS WHT Header"; var GenLine: Record "Gen. Journal Line")
     begin
