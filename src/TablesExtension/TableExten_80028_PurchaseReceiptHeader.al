@@ -55,6 +55,7 @@ tableextension 80028 "YVS Purchase Rcpt. Header" extends "Purch. Rcpt. Header"
         {
             Caption = 'Vendor Invoice No.';
             DataClassification = CustomerContent;
+            Editable = false;
         }
     }
 }

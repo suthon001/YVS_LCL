@@ -45,6 +45,11 @@ pageextension 80036 "YVS PostedReceiptList" extends "Posted Purchase Receipts"
                 ApplicationArea = all;
                 ToolTip = 'Specifies the vendor''s shipment number. It is inserted in the corresponding field on the source document during posting.';
             }
+            field("YVS Vendor Invoice No."; rec."YVS Vendor Invoice No.")
+            {
+                ApplicationArea = all;
+                ToolTip = 'Specifies the value of the Vendor Invoice No. field.';
+            }
         }
         addafter("Pay-to Name")
         {
