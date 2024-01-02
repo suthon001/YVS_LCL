@@ -21,4 +21,25 @@ pageextension 80097 "YVS Depreciation Book Card" extends "Depreciation Book Card
             }
         }
     }
+    actions
+    {
+        addfirst(processing)
+        {
+            action(ClearNoOfYear)
+            {
+                ApplicationArea = all;
+                Caption = 'Clear No. Of Days in Fisical year';
+                Image = ClearLog;
+                ToolTip = 'Executes the Clear No. Of Days in Fisical year action.';
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+                trigger OnAction()
+                begin
+                    rec."No. of Days in Fiscal Year" := 0;
+                    rec.Modify();
+                end;
+            }
+        }
+    }
 }

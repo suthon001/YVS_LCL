@@ -1,3 +1,6 @@
+/// <summary>
+/// TableExtension YVS Depreciation Book (ID 80054) extends Record Depreciation Book.
+/// </summary>
 tableextension 80054 "YVS Depreciation Book" extends "Depreciation Book"
 {
     fields

@@ -94,18 +94,16 @@ pageextension 80069 "YVS Purchase Order Card" extends "Purchase Order"
                 field("Receiving No. Series"; rec."Receiving No. Series")
                 {
                     ApplicationArea = all;
-                    Caption = 'Receiving No.';
                     ToolTip = 'Specifies the value of the Receiving No. Series field.';
                 }
                 field("Receiving No."; rec."Receiving No.")
                 {
                     ApplicationArea = all;
-                    Caption = 'Receiving No.';
                     ToolTip = 'Specifies the value of the Receiving No. field.';
                 }
             }
         }
-        moveafter("Posting DateVYS"; "Vendor Invoice No.", "Vendor Shipment No.")
+        moveafter("Posting DateVYS"; "Vendor Invoice No.", "Vendor Shipment No.", "Document Date")
         modify("Invoice Details")
         {
             Editable = Rec.Status = Rec.Status::Open;
@@ -152,6 +150,7 @@ pageextension 80069 "YVS Purchase Order Card" extends "Purchase Order"
         modify("Order Date")
         {
             Editable = Rec.Status = Rec.Status::Open;
+            Importance = Standard;
         }
         modify("Purchaser Code") { Editable = Rec.Status = Rec.Status::Open; }
         modify("Your Reference")
@@ -159,9 +158,9 @@ pageextension 80069 "YVS Purchase Order Card" extends "Purchase Order"
             Editable = Rec.Status = Rec.Status::Open;
         }
 
-        modify("Due Date") { Editable = Rec.Status = Rec.Status::Open; }
-        modify("Document Date") { Editable = Rec.Status = Rec.Status::Open; }
-        modify("Posting Date") { Editable = Rec.Status = Rec.Status::Open; }
+        modify("Due Date") { Editable = Rec.Status = Rec.Status::Open; Importance = Standard; }
+        modify("Document Date") { Editable = Rec.Status = Rec.Status::Open; Importance = Standard; }
+        modify("Posting Date") { Editable = Rec.Status = Rec.Status::Open; Importance = Standard; }
         modify("Buy-from Contact") { Editable = Rec.Status = Rec.Status::Open; }
         modify("Buy-from Contact No.") { Editable = Rec.Status = Rec.Status::Open; }
         modify("Shortcut Dimension 1 Code") { Editable = Rec.Status = Rec.Status::Open; }
@@ -169,7 +168,7 @@ pageextension 80069 "YVS Purchase Order Card" extends "Purchase Order"
         moveafter("Purchaser Code"; "Currency Code")
         moveafter("Currency Code"; "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code")
         movebefore(Status; "Expected Receipt Date", "Location Code")
-        moveafter("Posting Date"; "Document Date", "Due Date")
+        moveafter("Posting Date"; "Order Date", "Due Date")
 
     }
     actions

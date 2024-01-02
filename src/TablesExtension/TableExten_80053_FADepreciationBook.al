@@ -1,3 +1,6 @@
+/// <summary>
+/// TableExtension YVS FA Depreciation Book (ID 80053) extends Record FA Depreciation Book.
+/// </summary>
 tableextension 80053 "YVS FA Depreciation Book" extends "FA Depreciation Book"
 {
     fields
@@ -34,7 +37,19 @@ tableextension 80053 "YVS FA Depreciation Book" extends "FA Depreciation Book"
                 rec.Validate("YVS No. of Years", rec."No. of Depreciation Years");
             end;
         }
+        Modify("Depreciation Book Code")
+        {
+            trigger OnBeforeValidate()
+            begin
+                if rec."Depreciation Book Code" <> '' then
+                    if rec."Depreciation Starting Date" = 0D then
+                        rec."Depreciation Starting Date" := WorkDate();
+            end;
+        }
     }
+    /// <summary>
+    /// YVS CalcDeprPeriod.
+    /// </summary>
     procedure "YVS CalcDeprPeriod"()
     var
         DeprBook2: Record "Depreciation Book";
