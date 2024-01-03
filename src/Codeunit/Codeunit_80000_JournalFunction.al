@@ -118,6 +118,8 @@ codeunit 80000 "YVS Journal Function"
         GenJournalLine."YVS Tax Invoice Name 2" := PrepmtInvLineBuffer."YVS Tax Invoice Name 2";
         GenJournalLine."YVS VAT Branch Code" := PrepmtInvLineBuffer."YVS VAT Branch Code";
         GenJournalLine."YVS Head Office" := PrepmtInvLineBuffer."YVS Head Office";
+        GenJournalLine."YVS Tax Invoice Base" := PrepmtInvLineBuffer."YVS Tax Invoice Base";
+        GenJournalLine."YVS Tax Invoice Amount" := PrepmtInvLineBuffer."YVS Tax Invoice Amount";
     end;
 
     [EventSubscriber(ObjectType::Table, Database::"Prepayment Inv. Line Buffer", 'OnAfterCopyFromSalesLine', '', false, false)]
@@ -132,6 +134,27 @@ codeunit 80000 "YVS Journal Function"
         PrepaymentInvLineBuffer."YVS Vat Registration No." := SalesHeader."VAT Registration No.";
         PrepaymentInvLineBuffer."YVS VAT Branch Code" := SalesHeader."YVS VAT Branch Code";
         PrepaymentInvLineBuffer."YVS Head Office" := SalesHeader."YVS Head Office";
+    end;
+
+    [EventSubscriber(ObjectType::Table, Database::"Prepayment Inv. Line Buffer", 'OnAfterCopyFromPurchLine', '', false, false)]
+    local procedure OnAfterCopyFromPurchLine(PurchaseLine: Record "Purchase Line"; var PrepaymentInvLineBuffer: Record "Prepayment Inv. Line Buffer")
+    var
+        PurchHeader: Record "Purchase Header";
+    begin
+        PurchHeader.GET(PurchaseLine."Document Type", PurchaseLine."Document No.");
+        PrepaymentInvLineBuffer."YVS Tax Invoice No." := PurchHeader."Prepayment No.";
+        PrepaymentInvLineBuffer."YVS Tax Invoice Name" := PurchHeader."Buy-from Vendor Name";
+        PrepaymentInvLineBuffer."YVS Tax Invoice Name 2" := PurchHeader."Buy-from Vendor Name 2";
+        PrepaymentInvLineBuffer."YVS Vat Registration No." := PurchHeader."VAT Registration No.";
+        PrepaymentInvLineBuffer."YVS VAT Branch Code" := PurchHeader."YVS VAT Branch Code";
+        PrepaymentInvLineBuffer."YVS Head Office" := PurchHeader."YVS Head Office";
+        PrepaymentInvLineBuffer."YVS Tax Invoice Base" := PurchaseLine.Amount;
+        PrepaymentInvLineBuffer."YVS Tax Invoice Amount" := PurchaseLine."Amount Including VAT" - PurchaseLine.Amount;
+        if PurchaseLine."YVS Tax Invoice No." <> '' then begin
+            PrepaymentInvLineBuffer."YVS Tax Invoice No." := PurchaseLine."YVS Tax Invoice No.";
+            PrepaymentInvLineBuffer."YVS Tax Invoice Name" := PurchaseLine."YVS Tax Invoice Name";
+            PrepaymentInvLineBuffer."YVS Tax Invoice Name 2" := PurchaseLine."YVS Tax Invoice Name 2";
+        end;
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Gen. Jnl.-Post Line", 'OnBeforeInsertPostUnrealVATEntry', '', true, true)]
