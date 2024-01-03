@@ -421,7 +421,7 @@ report 80041 "YVS Purchase Receipt"
 
             trigger OnAfterGetRecord()
             begin
-                CurrReport.Language := Language.GetLanguageIdOrDefault("Language Code");
+                CurrReport.Language := gvLanguage.GetLanguageIdOrDefault("Language Code");
                 FormatAddr.SetLanguageCode("Language Code");
 
                 FormatAddressFields("Purch. Rcpt. Header");
@@ -533,7 +533,7 @@ report 80041 "YVS Purchase Receipt"
         RespCenter: Record "Responsibility Center";
         BuyFromContact: Record Contact;
         PayToContact: Record Contact;
-        Language: Codeunit Language;
+        gvLanguage: Codeunit Language;
         FormatAddr: Codeunit "Format Address";
         FormatDocument: Codeunit "Format Document";
         SegManagement: Codeunit SegManagement;
@@ -553,7 +553,6 @@ report 80041 "YVS Purchase Receipt"
         LogInteraction: Boolean;
         ShowCorrectionLines: Boolean;
         OutputNo: Integer;
-        [InDataSet]
         LogInteractionEnable: Boolean;
         PhoneNoCaptionLbl: Label 'Phone No.';
         HomePageCaptionLbl: Label 'Home Page';
@@ -579,6 +578,13 @@ report 80041 "YVS Purchase Receipt"
         PayToContactMobilePhoneNoLbl: Label 'Pay-to Contact Mobile Phone No.';
         PayToContactEmailLbl: Label 'Pay-to Contact E-Mail';
 
+    /// <summary>
+    /// InitializeRequest.
+    /// </summary>
+    /// <param name="NewNoOfCopies">Integer.</param>
+    /// <param name="NewShowInternalInfo">Boolean.</param>
+    /// <param name="NewLogInteraction">Boolean.</param>
+    /// <param name="NewShowCorrectionLines">Boolean.</param>
     procedure InitializeRequest(NewNoOfCopies: Integer; NewShowInternalInfo: Boolean; NewLogInteraction: Boolean; NewShowCorrectionLines: Boolean)
     begin
         NoOfCopies := NewNoOfCopies;

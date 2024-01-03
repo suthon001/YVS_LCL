@@ -572,7 +572,7 @@ report 80042 "YVS Purchase - Return Shipment"
         PayToVendorNo: Code[20];
         BuyFromVendorNo: Code[20];
         PayToCaption: Text[30];
-        [InDataSet]
+
         LogInteractionEnable: Boolean;
         CompanyInfoPhoneNoCaptionLbl: Label 'Phone No.';
         CompanyInfoVATRegNoCaptionLbl: Label 'VAT Reg. No.';
