@@ -249,7 +249,10 @@ codeunit 80001 "YVS Purchase Function"
                     InvoicePostingBuffer."YVS Tax Invoice Base" := PurchaseLine."YVS Tax Invoice Base";
                     InvoicePostingBuffer."YVS Tax Invoice Amount" := PurchaseLine."YVS Tax Invoice Amount";
                 end;
-            END;
+            END ELSE begin
+                InvoicePostingBuffer."YVS Tax Invoice Base" := PurchaseLine."YVS Tax Invoice Base";
+                InvoicePostingBuffer."YVS Tax Invoice Amount" := PurchaseLine."Line Amount";
+            end;
         END;
 
         IF PurchaseLine."YVS VAT Registration No." <> '' THEN
