@@ -262,6 +262,8 @@ codeunit 80001 "YVS Purchase Function"
 
         IF (InvoicePostingBuffer.Type = InvoicePostingBuffer.Type::"G/L Account") OR (InvoicePostingBuffer.Type = InvoicePostingBuffer.Type::"Fixed Asset") THEN
             InvoicePostingBuffer."YVS Line No." := PurchaseLine."Line No.";
+
+        "YVS OnAfterPreparePurchaseToInvoicePostingBuffer"(InvoicePostingBuffer, PurchaseLine);
     end;
 
     [EventSubscriber(ObjectType::Table, Database::"Invoice Post. Buffer", 'OnAfterInvPostBufferPreparePurchase', '', true, true)]
@@ -374,6 +376,12 @@ codeunit 80001 "YVS Purchase Function"
     local procedure OnbeforInsertWHTAPPLY(var PurchaseHeader: Record "Purchase Header"; var PurchaseLine: Record "Purchase Line")
     begin
     end;
+
+    [IntegrationEvent(false, false)]
+    local procedure "YVS OnAfterPreparePurchaseToInvoicePostingBuffer"(var InvoicePostingBuffer: Record "Invoice Posting Buffer"; PurchaseLine: Record "Purchase Line")
+    begin
+    end;
+
 
 
 }

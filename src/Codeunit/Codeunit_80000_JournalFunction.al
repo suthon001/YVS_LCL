@@ -105,6 +105,7 @@ codeunit 80000 "YVS Journal Function"
         GenJournalLine."YVS Tax Invoice Date" := SalesHeader."Posting Date";
         GenJournalLine."YVS Tax Invoice Name" := SalesHeader."Sell-to Customer Name";
         GenJournalLine."YVS Tax Invoice Name 2" := SalesHeader."Sell-to Customer Name 2";
+        "YVS OnAfterCopyFromSalesHeaderPrepayment"(GenJournalLine, SalesHeader);
 
     end;
 
@@ -120,6 +121,7 @@ codeunit 80000 "YVS Journal Function"
         GenJournalLine."YVS Head Office" := PrepmtInvLineBuffer."YVS Head Office";
         GenJournalLine."YVS Tax Invoice Base" := PrepmtInvLineBuffer."YVS Tax Invoice Base";
         GenJournalLine."YVS Tax Invoice Amount" := PrepmtInvLineBuffer."YVS Tax Invoice Amount";
+        "YVS OnAfterCopyFromPrepaymentInvoice"(PrepmtInvLineBuffer, GenJournalLine);
     end;
 
     [EventSubscriber(ObjectType::Table, Database::"Prepayment Inv. Line Buffer", 'OnAfterCopyFromSalesLine', '', false, false)]
@@ -134,6 +136,7 @@ codeunit 80000 "YVS Journal Function"
         PrepaymentInvLineBuffer."YVS Vat Registration No." := SalesHeader."VAT Registration No.";
         PrepaymentInvLineBuffer."YVS VAT Branch Code" := SalesHeader."YVS VAT Branch Code";
         PrepaymentInvLineBuffer."YVS Head Office" := SalesHeader."YVS Head Office";
+        "YVS OnAfterCopyFromSalesLinePrepayment"(PrepaymentInvLineBuffer, SalesLine, SalesHeader);
     end;
 
     [EventSubscriber(ObjectType::Table, Database::"Prepayment Inv. Line Buffer", 'OnAfterCopyFromPurchLine', '', false, false)]
@@ -155,6 +158,7 @@ codeunit 80000 "YVS Journal Function"
             PrepaymentInvLineBuffer."YVS Tax Invoice Name" := PurchaseLine."YVS Tax Invoice Name";
             PrepaymentInvLineBuffer."YVS Tax Invoice Name 2" := PurchaseLine."YVS Tax Invoice Name 2";
         end;
+        "YVS OnAfterCopyFromPurchLinePrepayment"(PrepaymentInvLineBuffer, PurchaseLine, PurchHeader);
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Gen. Jnl.-Post Line", 'OnBeforeInsertPostUnrealVATEntry', '', true, true)]
@@ -675,6 +679,28 @@ codeunit 80000 "YVS Journal Function"
 
     [BusinessEvent(false)]
     local procedure OnBeforInsertWHTAPPLYGL()
+    begin
+    end;
+
+
+    [IntegrationEvent(false, false)]
+    local procedure "YVS OnAfterCopyFromPurchLinePrepayment"(var PrepaymentInvoiceBuffer: Record "Prepayment Inv. Line Buffer"; purchaseLine: Record "Purchase Line"; PurchaseHeader: Record "Purchase Header")
+    begin
+    end;
+
+
+    [IntegrationEvent(false, false)]
+    local procedure "YVS OnAfterCopyFromSalesLinePrepayment"(var PrepaymentInvoiceBuffer: Record "Prepayment Inv. Line Buffer"; SalesLine: Record "Sales Line"; SalesHeader: Record "Sales Header")
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure "YVS OnAfterCopyFromSalesHeaderPrepayment"(var GenLine: Record "Gen. Journal Line"; SalesHeader: Record "Sales Header")
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure "YVS OnAfterCopyFromPrepaymentInvoice"(PrepaymentInvoiceBuffer: Record "Prepayment Inv. Line Buffer"; var GenLine: Record "Gen. Journal Line")
     begin
     end;
 

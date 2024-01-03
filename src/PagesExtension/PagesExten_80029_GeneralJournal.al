@@ -231,6 +231,7 @@ pageextension 80029 "YVS General Journal" extends "General Journal"
                             WHTHeader.validate("WHT Source No.", Customer."No.");
                         END;
             END;
+            OnbeforInsertWhtHeader(WHTHeader, rec);
             WHTHeader.INSERT();
             rec.Modify();
         END ELSE
@@ -256,6 +257,17 @@ pageextension 80029 "YVS General Journal" extends "General Journal"
         WHTEader.SetRange("Gen. Journal Line No.", rec."Line No.");
         if WHTEader.FindFirst() then
             WHTEader.Delete(True);
+    end;
+
+    [IntegrationEvent(true, false)]
+    /// <summary>
+    /// OnbeforInsertWhtHeader.
+    /// </summary>
+    /// <param name="WHTHeader">VAR Record "YVS WHT Header".</param>
+    /// <param name="GenLine">Record "Gen. Journal Line".</param>
+    procedure OnbeforInsertWhtHeader(var WHTHeader: Record "YVS WHT Header"; GenLine: Record "Gen. Journal Line")
+    begin
+
     end;
 
 }

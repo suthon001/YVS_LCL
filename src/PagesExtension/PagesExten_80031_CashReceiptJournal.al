@@ -207,11 +207,12 @@ pageextension 80031 "YVS Receipt Journal" extends "Cash Receipt Journal"
     var
         PurchaseBilling: Record "YVS Billing Receipt Header";
     begin
-        if PurchaseBilling.GET(PurchaseBilling."Document Type"::"Sales Receipt", rec."YVS Ref. Billing & Receipt No.") then begin
-            PurchaseBilling."Status" := PurchaseBilling."Status"::Released;
-            PurchaseBilling."Create to Journal" := false;
-            PurchaseBilling.Modify();
-        end;
+        if rec."YVS Ref. Billing & Receipt No." <> '' then
+            if PurchaseBilling.GET(PurchaseBilling."Document Type"::"Sales Receipt", rec."YVS Ref. Billing & Receipt No.") then begin
+                PurchaseBilling."Status" := PurchaseBilling."Status"::Released;
+                PurchaseBilling."Create to Journal" := false;
+                PurchaseBilling.Modify();
+            end;
     end;
     /// <summary>
     /// SetDocumnet.
