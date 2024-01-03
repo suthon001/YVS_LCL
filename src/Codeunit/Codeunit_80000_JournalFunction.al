@@ -60,7 +60,8 @@ codeunit 80000 "YVS Journal Function"
                                 WHTAppEntry."WHT Name" := COPYSTR(WHTHeader."WHT Name", 1, 100);
                                 WHTAppEntry."WHT Name 2" := WHTHeader."WHT Name 2";
                                 WHTAppEntry."WHT Address" := WHTHeader."WHT Address";
-                                WHTAppEntry."WHT Address 2" := COPYSTR(WHTHeader."WHT Address 2", 1, 50);
+                                WHTAppEntry."WHT Address 2" := WHTHeader."WHT Address 2";
+                                WHTAppEntry."WHT Address 3" := WHTHeader."WHT Address 3";
                                 WHTAppEntry."WHT City" := COPYSTR(WHTHeader."WHT City", 1, 30);
                                 WHTAppEntry."VAT Registration No." := WHTHeader."VAT Registration No.";
                                 WHTAppEntry."WHT Option" := WHTHeader."WHT Option";

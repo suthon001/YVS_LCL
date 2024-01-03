@@ -69,12 +69,12 @@ table 80009 "YVS WHT Applied Entry"
             Caption = 'WHT Address';
             DataClassification = CustomerContent;
         }
-        field(13; "WHT Address 2"; Text[50])
+        field(13; "WHT Address 2"; Text[100])
         {
             Caption = 'WHT Address 2';
             DataClassification = CustomerContent;
         }
-        field(14; "WHT Address 3"; Text[50])
+        field(14; "WHT Address 3"; Text[100])
         {
             Caption = 'WHT Address 3';
             DataClassification = CustomerContent;
