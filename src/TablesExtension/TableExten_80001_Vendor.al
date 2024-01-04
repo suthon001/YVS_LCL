@@ -242,10 +242,16 @@ tableextension 80001 "YVS ExtenVendor" extends Vendor
             if VendorCustBranch.FindFirst() then begin
                 VenCust.Get(VendorCustBranch.RecordId);
                 MyFieldRef := VenCust.Field(FiledsNo);
-                if FiledsNo = 3 then
-                    MyFieldRef.validate(tempHeadOffice)
-                else
-                    MyFieldRef.validate(WHTResult);
+                if FiledsNo in [16, 17, 23] then begin
+                    MyFieldRef := VenCust.Field(23);
+                    MyFieldRef.validate(StrSubstNo('%1', rec."Address 2" + ' ' + rec.City + ' ' + rec."Post Code").TrimEnd());
+                end else begin
+                    MyFieldRef := VenCust.Field(FiledsNo);
+                    if FiledsNo = 3 then
+                        MyFieldRef.validate(tempHeadOffice)
+                    else
+                        MyFieldRef.validate(WHTResult);
+                end;
                 VenCust.Modify();
             end else begin
                 VendorCustBranch.init();
@@ -256,10 +262,16 @@ tableextension 80001 "YVS ExtenVendor" extends Vendor
                 VendorCustBranch.insert();
                 VenCust.Get(VendorCustBranch.RecordId);
                 MyFieldRef := VenCust.Field(FiledsNo);
-                if FiledsNo = 3 then
-                    MyFieldRef.validate(tempHeadOffice)
-                else
-                    MyFieldRef.validate(WHTResult);
+                if FiledsNo in [16, 17, 23] then begin
+                    MyFieldRef := VenCust.Field(23);
+                    MyFieldRef.validate(StrSubstNo('%1', rec."Address 2" + ' ' + rec.City + ' ' + rec."Post Code").TrimEnd());
+                end else begin
+                    MyFieldRef := VenCust.Field(FiledsNo);
+                    if FiledsNo = 3 then
+                        MyFieldRef.validate(tempHeadOffice)
+                    else
+                        MyFieldRef.validate(WHTResult);
+                end;
                 VenCust.Modify();
             end;
         END;
