@@ -154,7 +154,13 @@ tableextension 80012 "YVS ExtenSales Header" extends "Sales Header"
             rec."Posting Date" := Today();
         if rec."Document Date" = 0D then
             rec."Document Date" := Today();
-        if "Document Type" IN ["Document Type"::Invoice, "Document Type"::"Credit Memo"] then
+        if "Document Type" IN ["Document Type"::Invoice, "Document Type"::"Credit Memo"] then begin
             "Posting No." := "No.";
+            "Posting No. Series" := "No. Series";
+        end;
+        if "Document Type" = "Document Type"::"Return Order" then begin
+            "Return Receipt No." := "No.";
+            "Return Receipt No. Series" := "No. Series";
+        end;
     end;
 }
