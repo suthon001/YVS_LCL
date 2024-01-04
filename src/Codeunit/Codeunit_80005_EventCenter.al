@@ -174,9 +174,11 @@ codeunit 80005 "YVS EventFunction"
     var
         AccountSchedule: Report "YVS Account Schedule";
     begin
+        CLEAR(AccountSchedule);
         AccountSchedule.SetFinancialReportName(FinancialReport.Name);
         AccountSchedule.Run();
         IsHandled := true;
+        CLEAR(AccountSchedule);
     end;
 
     /// <summary>
