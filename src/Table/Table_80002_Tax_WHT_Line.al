@@ -584,7 +584,7 @@ table 80002 "YVS Tax & WHT Line"
                         TaxReportLineFind.Street := WHTHeader."WHT Street";
                         TaxReportLineFind.District := WHTHeader."WHT District";
                         TaxReportLineFind."Village No." := WHTHeader."WHT Village No.";
-                        TaxReportLineFind."No." := WHTHeader."WHT No.";
+                        TaxReportLineFind."No." := WHTHeader."WHT of No.";
                         TaxReportLineFind."City" := WHTHeader."WHT City";
                         TaxReportLineFind."Post Code" := WHTHeader."WHT Post Code";
 
