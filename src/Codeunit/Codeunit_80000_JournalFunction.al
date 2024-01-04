@@ -293,7 +293,7 @@ codeunit 80000 "YVS Journal Function"
         GenJournalLine."YVS Head Office" := PurchaseHeader."YVS Head Office";
         GenJournalLine."YVS VAT Branch Code" := PurchaseHeader."YVS VAT Branch Code";
         if VendCust.Get(VendCust."Source Type"::Vendor, PurchaseHeader."Buy-from Vendor No.", PurchaseHeader."YVS Head Office", PurchaseHeader."YVS VAT Branch Code") then
-            if VendCust."Title Name" <> VendCust."Title Name"::" " then
+            if VendCust."Title Name" <> '' then
                 GenJournalLine."YVS Tax Invoice Name" := format(VendCust."Title Name") + ' ' + VendCust."Name"
             else
                 GenJournalLine."YVS Tax Invoice Name" := VendCust."Name";

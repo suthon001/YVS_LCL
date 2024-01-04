@@ -13,7 +13,6 @@ tableextension 80000 "YVS ExtenCustomer" extends Customer
             begin
                 if "YVS Head Office" then
                     "YVS VAT Branch Code" := '';
-
             end;
 
         }
@@ -25,7 +24,6 @@ tableextension 80000 "YVS ExtenCustomer" extends Customer
             DataClassification = CustomerContent;
             trigger OnValidate()
             var
-                TempSendtoUpdate: Text[50];
                 CustVendBarch: Record "YVS Customer & Vendor Branch";
             begin
 
@@ -43,13 +41,11 @@ tableextension 80000 "YVS ExtenCustomer" extends Customer
                     if StrLen("YVS VAT Branch Code") < 5 then
                         Error('VAT Branch Code must be 5 characters');
                     "YVS Head Office" := false;
-                    UpdateVendorCustBranch(4, "YVS VAT Branch Code", false);
                 end;
                 if "YVS VAT Branch Code" = '00000' then begin
                     "YVS Head Office" := TRUE;
                     "YVS VAT Branch Code" := '';
                 end;
-                UpdateVendorCustBranch(4, TempSendtoUpdate, TRUE);
             end;
 
 

@@ -73,7 +73,7 @@ report 80039 "YVS Recript to CashReceipt"
                 IF BillingLine.FIND('-') THEN
                     REPEAT
                         CustLedgEntry.GET(BillingLine."Source Ledger Entry No.");
-                        SetCustApplId(CustLedgEntry, BillingLine."Amount (LCY)");
+                        SetCustApplId(CustLedgEntry, BillingLine.Amount);
                     UNTIL BillingLine.NEXT() = 0;
                 //Insert WHT
                 IF "Prepaid WHT Amount (LCY)" <> 0 THEN BEGIN

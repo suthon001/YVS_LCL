@@ -66,10 +66,10 @@ pageextension 80001 "YVS ExtenVendor Card" extends "Vendor Card"
                     ApplicationArea = all;
                     ToolTip = 'Specifies the value of the ชื่ออาคาร/หมู่บ้าน field.';
                 }
-                field("YVS WHT House No."; rec."YVS WHT House No.")
+                field("YVS WHT No."; rec."YVS WHT No.")
                 {
                     ApplicationArea = all;
-                    ToolTip = 'Specifies the value of the เลขที่ห้อง field.';
+                    ToolTip = 'Specifies the value of the เลขที่ field.';
                 }
                 field("YVS WHT Village No."; rec."YVS WHT Village No.")
                 {
@@ -81,10 +81,11 @@ pageextension 80001 "YVS ExtenVendor Card" extends "Vendor Card"
                     ApplicationArea = all;
                     ToolTip = 'Specifies the value of the ชั้น field.';
                 }
-                field("YVS WHT No."; rec."YVS WHT No.")
+
+                field("YVS WHT House No."; rec."YVS WHT House No.")
                 {
                     ApplicationArea = all;
-                    ToolTip = 'Specifies the value of the เลขที่ field.';
+                    ToolTip = 'Specifies the value of the เลขที่ห้อง field.';
                 }
                 field("YVS WHT Street"; rec."YVS WHT Street")
                 {

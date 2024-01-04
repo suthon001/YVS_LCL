@@ -32,8 +32,7 @@ report 80008 "YVS WHT Certificate"
                 WHTCerti := "WHT Certificate No.";
                 WHTDAte := "WHT Date";
                 whtVendorName := StrSubstNo('%1', format("WHT Title Name") + ' ' + "WHT Name" + '  ' + "WHT Name 2").TrimEnd();
-                whtVendorAddress := "WHT Address" + ' ' + "WHT Address 2" + ' ' + "WHT Address 3" + ' ' + "WHT City" + ' ' + "WHT Post Code";
-
+                whtVendorAddress := "WHT Address" + ' ' + "WHT Address 2" + ' ' + "WHT Address 3";
                 Currcount := 0;
                 DigitCount := 1;
                 REPEAT

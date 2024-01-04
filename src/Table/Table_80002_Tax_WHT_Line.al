@@ -221,7 +221,7 @@ table 80002 "YVS Tax & WHT Line"
             Caption = 'WHT Certificate No.';
             DataClassification = SystemMetadata;
         }
-        field(1026; "Title Name"; Enum "YVS Title Document Name")
+        field(1026; "Title Name"; text[50])
         {
             Caption = 'คำนำหน้า';
             DataClassification = CustomerContent;

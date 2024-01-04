@@ -1270,18 +1270,15 @@ codeunit 80004 "YVS Function Center"
                 Text[10] += ' (สำนักงานใหญ่)'
             else
                 if SalesHeader."YVS VAT Branch Code" <> '' then
-                    Text[10] += ' (' + SalesHeader."YVS VAT Branch Code" + ')'
-                else
-                    Text[10] += ' (สำนักงานใหญ่)';
+                    Text[10] += ' (' + SalesHeader."YVS VAT Branch Code" + ')';
         end else
 
             if SalesHeader."YVS Head Office" then
                 Text[10] += ' (Head Office)'
             else
                 if SalesHeader."YVS VAT Branch Code" <> '' then
-                    Text[10] += ' (' + SalesHeader."YVS VAT Branch Code" + ')'
-                else
-                    Text[10] += ' (Head Office)';
+                    Text[10] += ' (' + SalesHeader."YVS VAT Branch Code" + ')';
+
 
     end;
 
@@ -2407,17 +2404,15 @@ codeunit 80004 "YVS Function Center"
                             Text[10] += ' (สำนักงานใหญ่)'
                         else
                             if SalesShptHeader."YVS VAT Branch Code" <> '' then
-                                Text[10] += ' (' + SalesShptHeader."YVS VAT Branch Code" + ')'
-                            else
-                                Text[10] += ' (สำนักงานใหญ่)';
+                                Text[10] += ' (' + SalesShptHeader."YVS VAT Branch Code" + ')';
+
                     end else
                         if SalesShptHeader."YVS Head Office" then
                             Text[10] += ' (Head Office)'
                         else
                             if SalesShptHeader."YVS VAT Branch Code" <> '' then
-                                Text[10] += ' (' + SalesShptHeader."YVS VAT Branch Code" + ')'
-                            else
-                                Text[10] += ' (Head Office)';
+                                Text[10] += ' (' + SalesShptHeader."YVS VAT Branch Code" + ')';
+
                 end;
             DocumentType::"Return Receipt":
                 BEGIN
@@ -2573,17 +2568,14 @@ codeunit 80004 "YVS Function Center"
                             Text[10] += ' (สำนักงานใหญ่)'
                         else
                             if SalesInvHeader."YVS VAT Branch Code" <> '' then
-                                Text[10] += ' (' + SalesInvHeader."YVS VAT Branch Code" + ')'
-                            else
-                                Text[10] += ' (สำนักงานใหญ่)';
+                                Text[10] += ' (' + SalesInvHeader."YVS VAT Branch Code" + ')';
                     end else
                         if SalesInvHeader."YVS Head Office" then
                             Text[10] += ' (Head Office)'
                         else
                             if SalesInvHeader."YVS VAT Branch Code" <> '' then
-                                Text[10] += ' (' + SalesInvHeader."YVS VAT Branch Code" + ')'
-                            else
-                                Text[10] += ' (Head Office)';
+                                Text[10] += ' (' + SalesInvHeader."YVS VAT Branch Code" + ')';
+
                 end;
             DocumentType::"Posted Credit Memo":
                 BEGIN
@@ -2665,17 +2657,15 @@ codeunit 80004 "YVS Function Center"
                             Text[10] += ' (สำนักงานใหญ่)'
                         else
                             if SalesCrMemoHeader."YVS VAT Branch Code" <> '' then
-                                Text[10] += ' (' + SalesCrMemoHeader."YVS VAT Branch Code" + ')'
-                            else
-                                Text[10] += ' (สำนักงานใหญ่)';
+                                Text[10] += ' (' + SalesCrMemoHeader."YVS VAT Branch Code" + ')';
+
                     end else
                         if SalesCrMemoHeader."YVS Head Office" then
                             Text[10] += ' (Head Office)'
                         else
                             if SalesCrMemoHeader."YVS VAT Branch Code" <> '' then
-                                Text[10] += ' (' + SalesCrMemoHeader."YVS VAT Branch Code" + ')'
-                            else
-                                Text[10] += ' (Head Office)';
+                                Text[10] += ' (' + SalesCrMemoHeader."YVS VAT Branch Code" + ')';
+
                 end;
         end;
 

@@ -43,27 +43,4 @@ pageextension 80000 "YVS ExtenCustomer Card" extends "Customer Card"
         }
 
     }
-
-    actions
-    {
-        addafter("&Customer")
-        {
-            action(TEST)
-            {
-                Image = TestDatabase;
-                ApplicationArea = all;
-                PromotedIsBig = true;
-                Promoted = true;
-                PromotedCategory = Process;
-                PromotedOnly = true;
-                Caption = 'TEST';
-                ToolTip = 'Executes the TEST action.';
-                trigger OnAction()
-                begin
-                    MESSAGE('%1 %2', DMY2Date(1, 1, 2022), CalcDate('<CM>', DMY2Date(1, 1, 2022)));
-
-                end;
-            }
-        }
-    }
 }

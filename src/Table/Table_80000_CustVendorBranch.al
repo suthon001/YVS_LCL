@@ -63,7 +63,7 @@ table 80000 "YVS Customer & Vendor Branch"
             Caption = 'Address';
             DataClassification = CustomerContent;
         }
-        field(7; "Title Name"; Enum "YVS Title Document Name")
+        field(7; "Title Name"; text[50])
         {
             Caption = 'คำนำหน้า';
             DataClassification = CustomerContent;

@@ -212,24 +212,24 @@ codeunit 80001 "YVS Purchase Function"
         InvoicePostingBuffer."YVS Head Office" := PurchHeader."YVS Head Office";
         InvoicePostingBuffer."YVS VAT Branch Code" := PurchHeader."YVS VAT Branch Code";
         InvoicePostingBuffer."YVS Tax Invoice Date" := PurchHeader."Document Date";
-        InvoicePostingBuffer."YVS Tax Invoice Name" := PurchHeader."Buy-from Vendor Name";
-        InvoicePostingBuffer."YVS Tax Invoice Name 2" := PurchHeader."Buy-from Vendor Name 2";
-        InvoicePostingBuffer."YVS Address" := PurchHeader."Buy-from Address";
-        InvoicePostingBuffer."YVS Address 2" := PurchHeader."Buy-from Address 2";
-        InvoicePostingBuffer."YVS city" := PurchHeader."Buy-from city";
-        InvoicePostingBuffer."YVS Post Code" := PurchHeader."Buy-from Post Code";
+        InvoicePostingBuffer."YVS Tax Invoice Name" := PurchHeader."Pay-to Name";
+        InvoicePostingBuffer."YVS Tax Invoice Name 2" := PurchHeader."Pay-to Name 2";
+        InvoicePostingBuffer."YVS Address" := PurchHeader."Pay-to Address";
+        InvoicePostingBuffer."YVS Address 2" := PurchHeader."Pay-to Address 2";
+        InvoicePostingBuffer."YVS city" := PurchHeader."Pay-to City";
+        InvoicePostingBuffer."YVS Post Code" := PurchHeader."Pay-to Post Code";
         InvoicePostingBuffer."YVS Document Line No." := PurchaseLine."Line No.";
-
-        if VendCust.Get(VendCust."Source Type"::Vendor, PurchHeader."Buy-from Vendor No.", PurchHeader."YVS Head Office", PurchHeader."YVS VAT Branch Code") then begin
-            if VendCust."Title Name" <> VendCust."Title Name"::" " then
-                InvoicePostingBuffer."YVS Tax Invoice Name" := format(VendCust."Title Name") + ' ' + VendCust."Name"
-            else
-                InvoicePostingBuffer."YVS Tax Invoice Name" := VendCust."Name";
-            InvoicePostingBuffer."YVS Address" := VendCust."Address";
-            InvoicePostingBuffer."YVS Address 2" := VendCust."Address 2";
-            InvoicePostingBuffer."YVS city" := VendCust."Province";
-            InvoicePostingBuffer."YVS Post Code" := VendCust."Post Code";
-        end;
+        if not PurchHeader."YVS Head Office" then
+            if VendCust.Get(VendCust."Source Type"::Vendor, PurchHeader."Buy-from Vendor No.", PurchHeader."YVS Head Office", PurchHeader."YVS VAT Branch Code") then begin
+                if VendCust."Title Name" <> '' then
+                    InvoicePostingBuffer."YVS Tax Invoice Name" := format(VendCust."Title Name") + ' ' + VendCust."Name"
+                else
+                    InvoicePostingBuffer."YVS Tax Invoice Name" := VendCust."Name";
+                InvoicePostingBuffer."YVS Address" := VendCust."Address";
+                InvoicePostingBuffer."YVS Address 2" := VendCust."Address 2";
+                InvoicePostingBuffer."YVS city" := VendCust."Province";
+                InvoicePostingBuffer."YVS Post Code" := VendCust."Post Code";
+            end;
         InvoicePostingBuffer."YVS Description Line" := PurchaseLine.Description;
         InvoicePostingBuffer."YVS Tax Invoice Base" := PurchaseLine.Amount;
         InvoicePostingBuffer."YVS Tax Invoice Amount" := PurchaseLine."Amount Including VAT" - PurchaseLine.Amount;
@@ -292,21 +292,22 @@ codeunit 80001 "YVS Purchase Function"
         InvoicePostBuffer."YVS Tax Invoice Date" := PurchHeader."Document Date";
         InvoicePostBuffer."YVS Tax Invoice Name" := PurchHeader."Pay-to Name";
         InvoicePostBuffer."YVS Tax Invoice Name 2" := PurchHeader."Pay-to Name 2";
-        InvoicePostBuffer."YVS Address" := PurchHeader."Buy-from Address";
-        InvoicePostBuffer."YVS Address 2" := PurchHeader."Buy-from Address 2";
-        InvoicePostBuffer."YVS city" := PurchHeader."Buy-from city";
-        InvoicePostBuffer."YVS Post Code" := PurchHeader."Buy-from Post Code";
+        InvoicePostBuffer."YVS Address" := PurchHeader."Pay-to Address";
+        InvoicePostBuffer."YVS Address 2" := PurchHeader."Pay-to Address 2";
+        InvoicePostBuffer."YVS city" := PurchHeader."Pay-to City";
+        InvoicePostBuffer."YVS Post Code" := PurchHeader."Pay-to Post Code";
         InvoicePostBuffer."YVS Document Line No." := PurchaseLine."Line No.";
-        if VendCust.Get(VendCust."Source Type"::Vendor, PurchHeader."Buy-from Vendor No.", PurchHeader."YVS Head Office", PurchHeader."YVS VAT Branch Code") then begin
-            if VendCust."Title Name" <> VendCust."Title Name"::" " then
-                InvoicePostBuffer."YVS Tax Invoice Name" := format(VendCust."Title Name") + ' ' + VendCust."Name"
-            else
-                InvoicePostBuffer."YVS Tax Invoice Name" := VendCust."Name";
-            InvoicePostBuffer."YVS Address" := VendCust."Address";
-            InvoicePostBuffer."YVS Address 2" := VendCust."Address 2";
-            InvoicePostBuffer."YVS city" := VendCust."Province";
-            InvoicePostBuffer."YVS Post Code" := VendCust."Post Code";
-        end;
+        if not PurchHeader."YVS Head Office" then
+            if VendCust.Get(VendCust."Source Type"::Vendor, PurchHeader."Buy-from Vendor No.", PurchHeader."YVS Head Office", PurchHeader."YVS VAT Branch Code") then begin
+                if VendCust."Title Name" <> '' then
+                    InvoicePostBuffer."YVS Tax Invoice Name" := format(VendCust."Title Name") + ' ' + VendCust."Name"
+                else
+                    InvoicePostBuffer."YVS Tax Invoice Name" := VendCust."Name";
+                InvoicePostBuffer."YVS Address" := VendCust."Address";
+                InvoicePostBuffer."YVS Address 2" := VendCust."Address 2";
+                InvoicePostBuffer."YVS city" := VendCust."Province";
+                InvoicePostBuffer."YVS Post Code" := VendCust."Post Code";
+            end;
         InvoicePostBuffer."YVS Description Line" := PurchaseLine.Description;
         InvoicePostBuffer."YVS Tax Invoice Base" := PurchaseLine.Amount;
         InvoicePostBuffer."YVS Tax Invoice Amount" := PurchaseLine."Amount Including VAT" - PurchaseLine.Amount;

@@ -294,13 +294,13 @@ table 80006 "YVS WHT Header"
             Editable = false;
             DataClassification = CustomerContent;
         }
-        field(28; "WHT Title Name"; Enum "YVS Title Document Name")
+        field(28; "WHT Title Name"; text[50])
         {
             Caption = 'คำนำหน้า';
             DataClassification = CustomerContent;
             trigger OnValidate()
             begin
-                if "WHT Title Name" <> "WHT Title Name"::" " then
+                if "WHT Title Name" <> '' then
                     "WHT Name" := COPYSTR(format("WHT Title Name") + ' ' + "WHT Name", 1, 160)
                 else
                     "WHT Name" := "WHT Name";
@@ -461,6 +461,16 @@ table 80006 "YVS WHT Header"
                 i := CheckLen(Addr[i], VTxT, i);
                 Addr[i] += VTxT;
             end;
+            if "WHT Province" <> '' then begin
+                VTxT := "WHT District" + ' ';
+                i := CheckLen(Addr[i], VTxT, i);
+                Addr[i] += VTxT;
+            end;
+            if "Wht Post Code" <> '' then begin
+                VTxT := "Wht Post Code" + ' ';
+                i := CheckLen(Addr[i], VTxT, i);
+                Addr[i] += VTxT;
+            end;
         end else begin
             Clear(VTxT);
             if "WHT Sub-district" <> '' then begin
@@ -470,6 +480,16 @@ table 80006 "YVS WHT Header"
             end;
             if "WHT District" <> '' then begin
                 VTxT := 'อำเภอ' + "WHT District" + ' ';
+                i := CheckLen(Addr[i], VTxT, i);
+                Addr[i] += VTxT;
+            end;
+            if "WHT Province" <> '' then begin
+                VTxT := 'จังหวัด' + "WHT District" + ' ';
+                i := CheckLen(Addr[i], VTxT, i);
+                Addr[i] += VTxT;
+            end;
+            if "Wht Post Code" <> '' then begin
+                VTxT := "Wht Post Code" + ' ';
                 i := CheckLen(Addr[i], VTxT, i);
                 Addr[i] += VTxT;
             end;

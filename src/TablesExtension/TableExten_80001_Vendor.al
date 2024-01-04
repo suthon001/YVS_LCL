@@ -41,7 +41,6 @@ tableextension 80001 "YVS ExtenVendor" extends Vendor
                     if StrLen("YVS VAT Branch Code") < 5 then
                         Error('VAT Branch Code must be 5 characters');
                     "YVS Head Office" := false;
-                    UpdateVendorCustBranch(4, "YVS VAT Branch Code", false);
 
                 end;
                 if "YVS VAT Branch Code" = '00000' then begin
@@ -57,7 +56,7 @@ tableextension 80001 "YVS ExtenVendor" extends Vendor
             TableRelation = "YVS WHT Business Posting Group"."Code";
             DataClassification = CustomerContent;
         }
-        field(80003; "YVS WHT Title Name"; Enum "YVS Title Document Name")
+        field(80003; "YVS WHT Title Name"; Text[50])
         {
             Caption = 'คำนำหน้า';
             DataClassification = CustomerContent;
