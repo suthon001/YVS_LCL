@@ -25,7 +25,7 @@ table 80004 "YVS WHT Posting Setup"
             Caption = 'WHT %';
             DataClassification = CustomerContent;
         }
-        field(8; "WHT Report Line No. Series"; Code[10])
+        field(8; "WHT Report Line No. Series"; Code[20])
         {
             Caption = 'WHT Report Line No. Series';
             TableRelation = "No. Series";

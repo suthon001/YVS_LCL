@@ -244,7 +244,7 @@ tableextension 80014 "YVS GenJournal Lines" extends "Gen. Journal Line"
             Caption = 'WHT Option';
             DataClassification = CustomerContent;
         }
-        field(80029; "YVS WHT No. Series"; Code[10])
+        field(80029; "YVS WHT No. Series"; Code[20])
         {
             Caption = 'WHT No. Series';
             DataClassification = CustomerContent;
