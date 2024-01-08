@@ -416,6 +416,7 @@ tableextension 80011 "YVS ExtenPurchase Line" extends "Purchase Line"
         end;
     end;
 
+
     var
         PrRemainingErr: Label 'PR No. %1 ,Remaining Quantity is %2', Locked = true;
         PrRemainingOutStdErr: Label 'Remaining Quantity is %1', Locked = true;

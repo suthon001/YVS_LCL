@@ -55,6 +55,15 @@ pageextension 80067 "YVS Sales Invoice Subpage" extends "Sales Invoice Subform"
         {
             Visible = false;
         }
+        // modify(Quantity)
+        // {
+        //     trigger OnAfterValidate()
+        //     var
+        //         YVSEnventCenter: Codeunit "YVS EventFunction";
+        //     begin
+        //         YVSEnventCenter.CheckRemainingSalesInvoice(Rec);
+        //     end;
+        // }
         moveafter("VAT Bus. Posting Group"; "VAT Prod. Posting Group")
     }
     trigger OnDeleteRecord(): Boolean

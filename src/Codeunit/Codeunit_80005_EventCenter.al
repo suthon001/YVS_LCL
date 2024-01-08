@@ -5,6 +5,129 @@ codeunit 80005 "YVS EventFunction"
 {
     Permissions = TableData "G/L Entry" = rimd, tabledata "Purch. Rcpt. Line" = imd, tabledata "Return Shipment Line" = imd, tabledata "Sales Shipment Line" = imd;
 
+    // [EventSubscriber(ObjectType::Table, database::"Sales Shipment Line", 'OnInsertInvLineFromShptLineOnBeforeValidateQuantity', '', false, false)]
+    // local procedure OnInsertInvLineFromShptLineOnBeforeValidateQuantity(var IsHandled: Boolean; var SalesLine: Record "Sales Line"; SalesShipmentLine: Record "Sales Shipment Line")
+    // var
+    //     SalesInvoiceLine: Record "Sales Line";
+    //     TotalShipment: Decimal;
+    // begin
+    //     SalesInvoiceLine.reset();
+    //     SalesInvoiceLine.SetFilter("Document No.", '<>%1', SalesLine."Document No.");
+    //     SalesInvoiceLine.SetRange("Shipment No.", SalesLine."Shipment No.");
+    //     SalesInvoiceLine.SetRange("Shipment Line No.", SalesLine."Shipment Line No.");
+    //     SalesInvoiceLine.CalcSums(Quantity);
+    //     TotalShipment := SalesInvoiceLine.Quantity;
+
+    //     SalesInvoiceLine.reset();
+    //     SalesInvoiceLine.SetRange("Document No.", SalesLine."Document No.");
+    //     SalesInvoiceLine.SetFilter("Line No.", '<>%1', SalesLine."Line No.");
+    //     SalesInvoiceLine.SetRange("Shipment No.", SalesLine."Shipment No.");
+    //     SalesInvoiceLine.SetRange("Shipment Line No.", SalesLine."Shipment Line No.");
+    //     SalesInvoiceLine.CalcSums(Quantity);
+    //     TotalShipment := TotalShipment + SalesInvoiceLine.Quantity;
+
+    //     SalesInvoiceLine.Validate(Quantity, SalesShipmentLine.Quantity - SalesShipmentLine."Quantity Invoiced" - TotalShipment);
+
+    //     IsHandled := true;
+
+    // end;
+
+    // [EventSubscriber(ObjectType::Table, database::"Purch. Rcpt. Line", 'OnInsertInvLineFromRcptLineOnBeforeValidateQuantity', '', false, false)]
+    // local procedure OnInsertInvLineFromRcptLineOnBeforeValidateQuantity(var IsHandled: Boolean; var PurchaseLine: Record "Purchase Line"; PurchRcptLine: Record "Purch. Rcpt. Line")
+    // var
+    //     PurchaseInvoiceLine: Record "Purchase Line";
+    //     TotalReceipt: Decimal;
+    // begin
+    //     PurchaseInvoiceLine.reset();
+    //     PurchaseInvoiceLine.SetFilter("Document No.", '<>%1', PurchaseLine."Document No.");
+    //     PurchaseInvoiceLine.SetRange("Receipt No.", PurchaseLine."Receipt No.");
+    //     PurchaseInvoiceLine.SetRange("Receipt Line No.", PurchaseLine."Receipt Line No.");
+    //     PurchaseInvoiceLine.CalcSums(Quantity);
+    //     TotalReceipt := PurchaseInvoiceLine.Quantity;
+
+    //     PurchaseInvoiceLine.reset();
+    //     PurchaseInvoiceLine.SetRange("Document No.", PurchaseLine."Document No.");
+    //     PurchaseInvoiceLine.SetFilter("Line No.", '<>%1', PurchaseLine."Line No.");
+    //     PurchaseInvoiceLine.SetRange("Receipt No.", PurchaseLine."Receipt No.");
+    //     PurchaseInvoiceLine.SetRange("Receipt Line No.", PurchaseLine."Receipt Line No.");
+    //     PurchaseInvoiceLine.CalcSums(Quantity);
+    //     TotalReceipt := TotalReceipt + PurchaseInvoiceLine.Quantity;
+
+    //     PurchaseLine.Validate(Quantity, PurchRcptLine.Quantity - PurchRcptLine."Quantity Invoiced" - TotalReceipt);
+
+    //     IsHandled := true;
+
+    // end;
+
+    // /// <summary>
+    // /// CheckRemainingPurchaseInvoice.
+    // /// </summary>
+    // /// <param name="pPuchaseLine">Record "Purchase Line".</param>
+    // procedure CheckRemainingPurchaseInvoice(pPuchaseLine: Record "Purchase Line")
+    // var
+    //     PurchaseInvoiceLine: Record "Purchase Line";
+    //     PurchaseReceiptLine: Record "Purch. Rcpt. Line";
+    //     TotalReceipt, TotalInvoice : Decimal;
+
+    // begin
+    //     if pPuchaseLine."Receipt No." <> '' then begin
+    //         PurchaseInvoiceLine.reset();
+    //         PurchaseInvoiceLine.SetFilter("Document No.", '<>%1', pPuchaseLine."Document No.");
+    //         PurchaseInvoiceLine.SetRange("Receipt No.", pPuchaseLine."Receipt No.");
+    //         PurchaseInvoiceLine.SetRange("Receipt Line No.", pPuchaseLine."Receipt Line No.");
+    //         PurchaseInvoiceLine.CalcSums(Quantity);
+    //         TotalReceipt := PurchaseInvoiceLine.Quantity;
+
+    //         PurchaseInvoiceLine.reset();
+    //         PurchaseInvoiceLine.SetRange("Document No.", pPuchaseLine."Document No.");
+    //         PurchaseInvoiceLine.SetFilter("Line No.", '<>%1', pPuchaseLine."Line No.");
+    //         PurchaseInvoiceLine.SetRange("Receipt No.", pPuchaseLine."Receipt No.");
+    //         PurchaseInvoiceLine.SetRange("Receipt Line No.", pPuchaseLine."Receipt Line No.");
+    //         PurchaseInvoiceLine.CalcSums(Quantity);
+    //         TotalReceipt := TotalReceipt + PurchaseInvoiceLine.Quantity;
+
+    //         if PurchaseReceiptLine.GET(pPuchaseLine."Receipt No.", pPuchaseLine."Receipt Line No.") then begin
+    //             TotalInvoice := PurchaseReceiptLine.Quantity - PurchaseReceiptLine."Quantity Invoiced";
+    //             PurchaseReceiptLine."YVS Get to Invoice" := (TotalReceipt + pPuchaseLine.Quantity) >= TotalInvoice;
+    //             PurchaseReceiptLine.Modify();
+    //         end;
+    //     end;
+    // end;
+
+    // /// <summary>
+    // /// CheckRemainingSalesInvoice.
+    // /// </summary>
+    // /// <param name="pSalesLine">Record "Sales Line".</param>
+    // procedure CheckRemainingSalesInvoice(pSalesLine: Record "Sales Line")
+    // var
+    //     SalesInvoiceLine: Record "Sales Line";
+    //     SalesShipmentLine: Record "Sales Shipment Line";
+    //     TotalShipment, TotalInvoice : Decimal;
+
+    // begin
+    //     if pSalesLine."Shipment No." <> '' then begin
+    //         SalesInvoiceLine.reset();
+    //         SalesInvoiceLine.SetFilter("Document No.", '<>%1', pSalesLine."Document No.");
+    //         SalesInvoiceLine.SetRange("Shipment No.", pSalesLine."Shipment No.");
+    //         SalesInvoiceLine.SetRange("Shipment Line No.", pSalesLine."Shipment Line No.");
+    //         SalesInvoiceLine.CalcSums(Quantity);
+    //         TotalShipment := SalesInvoiceLine.Quantity;
+
+    //         SalesInvoiceLine.reset();
+    //         SalesInvoiceLine.SetRange("Document No.", pSalesLine."Document No.");
+    //         SalesInvoiceLine.SetFilter("Line No.", '<>%1', pSalesLine."Line No.");
+    //         SalesInvoiceLine.SetRange("Shipment No.", pSalesLine."Shipment No.");
+    //         SalesInvoiceLine.SetRange("Shipment Line No.", pSalesLine."Shipment Line No.");
+    //         SalesInvoiceLine.CalcSums(Quantity);
+    //         TotalShipment := TotalShipment + SalesInvoiceLine.Quantity;
+    //         if SalesShipmentLine.GET(pSalesLine."Shipment No.", pSalesLine."Shipment Line No.") then begin
+    //             TotalInvoice := SalesShipmentLine.Quantity - SalesShipmentLine."Quantity Invoiced";
+    //             SalesShipmentLine."YVS Get to Invoice" := (TotalShipment + pSalesLine.Quantity) >= TotalInvoice;
+    //             SalesShipmentLine.Modify();
+    //         end;
+    //     end;
+    // end;
+
     [EventSubscriber(ObjectType::Page, Page::"Fixed Asset Card", 'OnBeforeUpdateDepreciationBook', '', false, false)]
     local procedure OnBeforeUpdateDepreciationBook(var IsHandled: Boolean; var FADepreciationBook: Record "FA Depreciation Book"; var FixedAssetNo: Code[20])
     var
@@ -75,6 +198,7 @@ codeunit 80005 "YVS EventFunction"
     [EventSubscriber(ObjectType::Table, Database::"Purch. Rcpt. Line", 'OnAfterInsertInvLineFromRcptLine', '', false, false)]
     local procedure OnAfterInsertInvLineFromRcptLine(PurchRcptLine: Record "Purch. Rcpt. Line")
     begin
+
         PurchRcptLine."YVS Get to Invoice" := true;
         PurchRcptLine.Modify();
     end;
