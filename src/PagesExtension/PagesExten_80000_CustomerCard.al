@@ -41,6 +41,10 @@ pageextension 80000 "YVS ExtenCustomer Card" extends "Customer Card"
             Visible = true;
             Importance = Promoted;
         }
+        modify(Control10)
+        {
+            Visible = true;
+        }
 
     }
 }

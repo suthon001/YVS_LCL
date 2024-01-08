@@ -81,7 +81,14 @@ pageextension 80071 "YVS Purchase Invoice Card" extends "Purchase Invoice"
         moveafter("Gen. Bus. Posting Group"; "VAT Bus. Posting Group")
         moveafter("Buy-from Contact"; "Posting Description")
         moveafter("Vendor Invoice No."; "Payment Terms Code", "Payment Method Code")
-
+        modify(Control93)
+        {
+            Visible = true;
+        }
+        modify(Control103)
+        {
+            Visible = true;
+        }
 
 
 

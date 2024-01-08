@@ -62,6 +62,14 @@ pageextension 80066 "YVS Sales Invoice Card" extends "Sales Invoice"
         {
             Importance = Standard;
         }
+        modify(Control60)
+        {
+            Visible = true;
+        }
+        modify(Control85)
+        {
+            Visible = true;
+        }
 
 
 

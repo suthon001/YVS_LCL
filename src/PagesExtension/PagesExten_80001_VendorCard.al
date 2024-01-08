@@ -120,6 +120,10 @@ pageextension 80001 "YVS ExtenVendor Card" extends "Vendor Card"
 
             }
         }
+        modify(Control199)
+        {
+            Visible = true;
+        }
     }
 
 }

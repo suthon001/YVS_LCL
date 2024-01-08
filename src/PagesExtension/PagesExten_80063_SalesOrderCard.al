@@ -63,7 +63,10 @@ pageextension 80063 "YVS Sales Order Card" extends "Sales Order"
 
         moveafter("Due Date"; "Shipment Date")
         moveafter("External Document No."; "Salesperson Code", "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code")
-
+        modify(Control123)
+        {
+            Visible = true;
+        }
 
     }
 }

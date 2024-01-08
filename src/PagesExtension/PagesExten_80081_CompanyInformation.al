@@ -41,5 +41,9 @@ pageextension 80081 "YVS Company Information" extends "Company Information"
                 ToolTip = 'Specifies the value of the Address 2 (Eng) field.';
             }
         }
+        modify(CountyGroup)
+        {
+            Visible = true;
+        }
     }
 }

@@ -100,6 +100,10 @@ pageextension 80017 "YVS Sales Quote Card" extends "Sales Quote"
                 Caption = 'Completely';
             }
         }
+        modify(Control105)
+        {
+            Visible = true;
+        }
 
     }
 }

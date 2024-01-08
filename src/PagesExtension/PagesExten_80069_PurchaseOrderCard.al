@@ -169,6 +169,11 @@ pageextension 80069 "YVS Purchase Order Card" extends "Purchase Order"
         moveafter("Currency Code"; "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code")
         movebefore(Status; "Expected Receipt Date", "Location Code")
         moveafter("Posting Date"; "Order Date", "Due Date")
+        modify(Control122)
+        {
+            Visible = true;
+        }
+
 
     }
     actions
