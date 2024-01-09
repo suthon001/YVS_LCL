@@ -492,7 +492,7 @@ report 80090 "YVS Fixed Asset Journal - Test"
             OldFALedgEntry.SetRange("FA Posting Category", OldFALedgEntry."FA Posting Category"::" ");
             OldFALedgEntry.SetRange("FA Posting Type", "FA Journal Line".ConvertToLedgEntry("FA Journal Line"));
             OldFALedgEntry.SetRange("Document No.", "FA Journal Line"."Document No.");
-            if OldFALedgEntry.FindFirst() then
+            if not OldFALedgEntry.IsEmpty() then
                 AddError(
                   StrSubstNo(
                     Text014,
@@ -503,7 +503,7 @@ report 80090 "YVS Fixed Asset Journal - Test"
             OldMaintenanceLedgEntry.SetRange("FA No.", "FA Journal Line"."FA No.");
             OldMaintenanceLedgEntry.SetRange("Depreciation Book Code", "FA Journal Line"."Depreciation Book Code");
             OldMaintenanceLedgEntry.SetRange("Document No.", "FA Journal Line"."Document No.");
-            if OldMaintenanceLedgEntry.FindFirst() then
+            if not OldMaintenanceLedgEntry.IsEmpty() then
                 AddError(
                   StrSubstNo(
                     Text014,

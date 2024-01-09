@@ -1,3 +1,6 @@
+/// <summary>
+/// Report YVS Inventory - List (ID 80089).
+/// </summary>
 report 80089 "YVS Inventory - List"
 {
     DefaultLayout = RDLC;

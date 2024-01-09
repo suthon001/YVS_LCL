@@ -412,19 +412,33 @@ report 80071 "YVS Inventory Valuation"
         ItemLedgEntry.SetFilter("Global Dimension 1 Code", Item.GetFilter("Global Dimension 1 Filter"));
         ItemLedgEntry.SetFilter("Global Dimension 2 Code", Item.GetFilter("Global Dimension 2 Filter"));
         ItemLedgEntry."Entry No." := ItemApplnEntry."Outbound Item Entry No.";
-        exit(not ItemLedgEntry.Find());
+        exit(not ItemLedgEntry.find());
     end;
 
+    /// <summary>
+    /// SetStartDate.
+    /// </summary>
+    /// <param name="DateValue">Date.</param>
     procedure SetStartDate(DateValue: Date)
     begin
         StartDate := DateValue;
     end;
 
+    /// <summary>
+    /// SetEndDate.
+    /// </summary>
+    /// <param name="DateValue">Date.</param>
     procedure SetEndDate(DateValue: Date)
     begin
         EndDate := DateValue;
     end;
 
+    /// <summary>
+    /// InitializeRequest.
+    /// </summary>
+    /// <param name="NewStartDate">Date.</param>
+    /// <param name="NewEndDate">Date.</param>
+    /// <param name="NewShowExpected">Boolean.</param>
     procedure InitializeRequest(NewStartDate: Date; NewEndDate: Date; NewShowExpected: Boolean)
     begin
         StartDate := NewStartDate;
