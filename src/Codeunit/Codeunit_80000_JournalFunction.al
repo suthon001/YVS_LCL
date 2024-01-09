@@ -319,16 +319,35 @@ codeunit 80000 "YVS Journal Function"
     begin
 
         GenJournalLine."YVS Description Line" := PurchaseHeader."Posting Description";
+        GenJournalLine."YVS Journal Description" := PurchaseHeader."Posting Description";
+        GenJournalLine."YVS Tax Invoice Name" := PurchaseHeader."Pay-to Name";
+        GenJournalLine."YVS Tax Invoice Name 2" := PurchaseHeader."Pay-to Name 2";
         GenJournalLine."YVS Head Office" := PurchaseHeader."YVS Head Office";
         GenJournalLine."YVS VAT Branch Code" := PurchaseHeader."YVS VAT Branch Code";
-        if VendCust.Get(VendCust."Source Type"::Vendor, PurchaseHeader."Buy-from Vendor No.", PurchaseHeader."YVS Head Office", PurchaseHeader."YVS VAT Branch Code") then
-            if VendCust."Title Name" <> '' then
-                GenJournalLine."YVS Tax Invoice Name" := format(VendCust."Title Name") + ' ' + VendCust."Name"
-            else
-                GenJournalLine."YVS Tax Invoice Name" := VendCust."Name";
+        GenJournalLine."YVS Tax Invoice Address" := PurchaseHeader."Pay-to Address";
+        GenJournalLine."YVS Tax Invoice Address 2" := PurchaseHeader."Pay-to Address 2";
+        GenJournalLine."YVS Tax Invoice City" := PurchaseHeader."Pay-to City";
+        GenJournalLine."YVS Tax Invoice Post Code" := PurchaseHeader."Pay-to Post Code";
+        if not PurchaseHeader."YVS Head Office" then
+            if VendCust.Get(VendCust."Source Type"::Vendor, PurchaseHeader."Buy-from Vendor No.", PurchaseHeader."YVS Head Office", PurchaseHeader."YVS VAT Branch Code") then begin
+                if VendCust."Name" <> '' then
+                    if VendCust."Title Name" <> '' then
+                        GenJournalLine."YVS Tax Invoice Name" := format(VendCust."Title Name") + ' ' + VendCust."Name"
+                    else
+                        GenJournalLine."YVS Tax Invoice Name" := VendCust."Name";
 
-        if GenJournalLine."YVS Tax Invoice Name" = '' then
-            GenJournalLine."YVS Tax Invoice Name" := PurchaseHeader."Pay-to Name";
+                if VendCust."Address" <> '' then
+                    GenJournalLine."YVS Tax Invoice Address" := VendCust."Address";
+                if VendCust."Address 2" <> '' then
+                    GenJournalLine."YVS Tax Invoice Address 2" := VendCust."Address 2";
+                if VendCust."Province" <> '' then
+                    GenJournalLine."YVS Tax Invoice City" := VendCust."Province";
+                if VendCust."Post Code" <> '' then
+                    GenJournalLine."YVS Tax Invoice Post Code" := VendCust."Post Code";
+
+            end;
+
+
         if PurchaseHeader."Document Type" = PurchaseHeader."Document Type"::"Credit Memo" then
             if PurchaseHeader."Vendor Cr. Memo No." <> '' then
                 GenJournalLine."YVS Tax Invoice No." := PurchaseHeader."Vendor Cr. Memo No.";
@@ -346,11 +365,37 @@ codeunit 80000 "YVS Journal Function"
     /// <param name="SalesHeader">Parameter of type Record "Sales Header".</param>
     /// <param name="GenJournalLine">Parameter of type Record "Gen. Journal Line".</param>
     local procedure "CopyHeaderFromSalesHeader"(SalesHeader: Record "Sales Header"; var GenJournalLine: Record "Gen. Journal Line")
+    var
+        VendCust: Record "YVS Customer & Vendor Branch";
     begin
 
         GenJournalLine."YVS Description Line" := SalesHeader."Posting Description";
         GenJournalLine."YVS Head Office" := SalesHeader."YVS Head Office";
         GenJournalLine."YVS VAT Branch Code" := SalesHeader."YVS VAT Branch Code";
+        GenJournalLine."YVS Tax Invoice Date" := SalesHeader."Document Date";
+        GenJournalLine."YVS Tax Invoice Name" := SalesHeader."Bill-to Name";
+        GenJournalLine."YVS Tax Invoice Name 2" := SalesHeader."Bill-to Name 2";
+        GenJournalLine."YVS Tax Invoice Address" := SalesHeader."Bill-to Address";
+        GenJournalLine."YVS Tax Invoice Address 2" := SalesHeader."Bill-to Address 2";
+        GenJournalLine."YVS Tax Invoice City" := SalesHeader."Bill-to city";
+        GenJournalLine."YVS Tax Invoice Post Code" := SalesHeader."Bill-to Post Code";
+        if not SalesHeader."YVS Head Office" then
+            if VendCust.Get(VendCust."Source Type"::Customer, SalesHeader."Bill-to Customer No.", SalesHeader."YVS Head Office", SalesHeader."YVS VAT Branch Code") then begin
+                if VendCust."Name" <> '' then
+                    if VendCust."Title Name" <> '' then
+                        GenJournalLine."YVS Tax Invoice Name" := format(VendCust."Title Name") + ' ' + VendCust."Name"
+                    else
+                        GenJournalLine."YVS Tax Invoice Name" := VendCust."Name";
+                if VendCust."Address" <> '' then
+                    GenJournalLine."YVS Tax Invoice Address" := VendCust."Address";
+                if VendCust."Address 2" <> '' then
+                    GenJournalLine."YVS Tax Invoice Address 2" := VendCust."Address 2";
+                if VendCust."Province" <> '' then
+                    GenJournalLine."YVS Tax Invoice City" := VendCust."Province";
+                if VendCust."Post Code" <> '' then
+                    GenJournalLine."YVS Tax Invoice Post Code" := VendCust."Post Code";
+            end;
+
         "YVS AfterCopySalesHeaderToGenLine"(GenJournalLine, SalesHeader);
 
     end;
