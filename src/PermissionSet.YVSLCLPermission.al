@@ -46,6 +46,7 @@ permissionset 80000 "YVS LCL Permission"
         codeunit "YVS Function Center" = X,
         codeunit "YVS Get Cust/Vend Ledger Entry" = X,
         codeunit "YVS Purch.-Req to Order" = X,
+        codeunit "YVS FA Jnl.-Post Line" = X,
         page "YVS PostedShowDetailWHT" = X,
         page "YVS Posted ShowDetail Cheque" = X,
         page "YVS Posted ShowDetail Vat" = X,
