@@ -75,22 +75,6 @@ report 80089 "YVS Inventory - List"
         }
     }
 
-    requestpage
-    {
-
-        layout
-        {
-        }
-
-        actions
-        {
-        }
-    }
-
-    labels
-    {
-    }
-
     trigger OnPreReport()
     begin
         ItemFilter := Item.GetFilters();

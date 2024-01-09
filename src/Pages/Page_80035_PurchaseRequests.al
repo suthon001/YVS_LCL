@@ -569,10 +569,8 @@ page 80035 "YVS Purchase Requests"
     end;
 
     var
-        DocPrint: Codeunit "Document-Print";
         OpenApprovalEntriesExist: Boolean;
         CanCancelApprovalForRecord: Boolean;
-        [InDataSet]
         StatusStyleTxt: Text;
 
     local procedure SetControlAppearance()

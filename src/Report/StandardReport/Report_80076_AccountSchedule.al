@@ -754,7 +754,7 @@ Report 80076 "YVS Account Schedule"
         ColumnLayoutName: Code[10];
         ColumnLayoutNameHidden: Code[10];
         GLBudgetName: Code[10];
-        [InDataSet]
+
         StartDateEnabled: Boolean;
         StartDate: Date;
         EndDate: Date;
@@ -792,11 +792,11 @@ Report 80076 "YVS Account Schedule"
         AccSchedLineFilter: Text;
         Header: Text[50];
         RoundingHeader: Text[30];
-        [InDataSet]
+
         BusinessUnitFilterVisible: Boolean;
-        [InDataSet]
+
         BudgetFilterEnable: Boolean;
-        [InDataSet]
+
         UseAmtsInAddCurrVisible: Boolean;
         UseAmtsInAddCurr: Boolean;
         ShowRowNo: Boolean;
@@ -808,15 +808,15 @@ Report 80076 "YVS Account Schedule"
         DoubleUnderline_control: Boolean;
         PageGroupNo: Integer;
         NextPageGroupNo: Integer;
-        [InDataSet]
+
         Dim1FilterEnable: Boolean;
-        [InDataSet]
+
         Dim2FilterEnable: Boolean;
-        [InDataSet]
+
         Dim3FilterEnable: Boolean;
-        [InDataSet]
+
         Dim4FilterEnable: Boolean;
-        [InDataSet]
+
         AccSchedNameEditable: Boolean;
         LineShadowed: Boolean;
         LineSkipped: Boolean;
@@ -925,27 +925,30 @@ Report 80076 "YVS Account Schedule"
         OnAfterFormatZeroAmount(AccScheduleLine, ColumnLayout, Result);
     end;
 
-    local procedure FormatCurrencySymbol(var AccScheduleLine: Record "Acc. Schedule Line"; var ColumnLayout: Record "Column Layout"; var ColumnValuesAsText: Text[30])
+    local procedure FormatCurrencySymbol(var AccScheduleLine: Record "Acc. Schedule Line"; var ColumnLayout: Record "Column Layout"; var pColumnValuesAsText: Text[30])
     begin
         if not ShowCurrencySymbol then
             exit;
 
-        if ColumnValuesAsText = '' then
+        if pColumnValuesAsText = '' then
             exit;
 
-        if (ColumnValuesAsText = '-') and (ShowEmptyAmountType = ShowEmptyAmountType::Dash) then
+        if (pColumnValuesAsText = '-') and (ShowEmptyAmountType = ShowEmptyAmountType::Dash) then
             exit;
 
         if AccScheduleLine."Hide Currency Symbol" or ColumnLayout."Hide Currency Symbol" then
             exit;
 
-        ColumnValuesAsText :=
+        pColumnValuesAsText :=
             CopyStr(
-                GetCurrencySymbol() + ColumnValuesAsText,
+                GetCurrencySymbol() + pColumnValuesAsText,
                 1,
-                MaxStrLen(ColumnValuesAsText));
+                MaxStrLen(pColumnValuesAsText));
     end;
 
+    /// <summary>
+    /// InitAccSched.
+    /// </summary>
     procedure InitAccSched()
     var
         ColumnLayout: Record "Column Layout";
@@ -986,24 +989,40 @@ Report 80076 "YVS Account Schedule"
         ShowRoundingHeader := not ColumnLayout.IsEmpty();
     end;
 
+    /// <summary>
+    /// SetAccSchedName.
+    /// </summary>
+    /// <param name="NewAccSchedName">Code[10].</param>
     procedure SetAccSchedName(NewAccSchedName: Code[10])
     begin
         AccSchedNameHidden := NewAccSchedName;
         AccSchedNameEditable := true;
     end;
 
+    /// <summary>
+    /// SetAccSchedNameNonEditable.
+    /// </summary>
+    /// <param name="NewAccSchedName">Code[10].</param>
     procedure SetAccSchedNameNonEditable(NewAccSchedName: Code[10])
     begin
         SetAccSchedName(NewAccSchedName);
         AccSchedNameEditable := false;
     end;
 
+    /// <summary>
+    /// SetFinancialReportNameNonEditable.
+    /// </summary>
+    /// <param name="NewAccSchedName">Code[10].</param>
     procedure SetFinancialReportNameNonEditable(NewAccSchedName: Code[10])
     begin
         SetFinancialReportName(NewAccSchedName);
         AccSchedNameEditable := false;
     end;
 
+    /// <summary>
+    /// SetFinancialReportName.
+    /// </summary>
+    /// <param name="NewFinancialReportName">Code[10].</param>
     procedure SetFinancialReportName(NewFinancialReportName: Code[10])
     var
         FinancialReportLocal: Record "Financial Report";
@@ -1015,11 +1034,26 @@ Report 80076 "YVS Account Schedule"
         end;
     end;
 
+    /// <summary>
+    /// SetColumnLayoutName.
+    /// </summary>
+    /// <param name="ColLayoutName">Code[10].</param>
     procedure SetColumnLayoutName(ColLayoutName: Code[10])
     begin
         ColumnLayoutNameHidden := ColLayoutName;
     end;
 
+    /// <summary>
+    /// SetFilters.
+    /// </summary>
+    /// <param name="NewDateFilter">Text.</param>
+    /// <param name="NewBudgetFilter">Text.</param>
+    /// <param name="NewCostBudgetFilter">Text.</param>
+    /// <param name="NewBusUnitFilter">Text.</param>
+    /// <param name="NewDim1Filter">Text.</param>
+    /// <param name="NewDim2Filter">Text.</param>
+    /// <param name="NewDim3Filter">Text.</param>
+    /// <param name="NewDim4Filter">Text.</param>
     procedure SetFilters(NewDateFilter: Text; NewBudgetFilter: Text; NewCostBudgetFilter: Text; NewBusUnitFilter: Text; NewDim1Filter: Text; NewDim2Filter: Text; NewDim3Filter: Text; NewDim4Filter: Text)
     begin
         DateFilterHidden := NewDateFilter;
@@ -1035,7 +1069,19 @@ Report 80076 "YVS Account Schedule"
         OnAfterSetFilters(AccScheduleName, CostCenterFilter, CostObjectFilter, CashFlowFilter, CurrReport.UseRequestPage());
     end;
 
-    procedure SetFilters(NewDateFilter: Text; NewBudgetFilter: Text; NewCostBudgetFilter: Text; NewBusUnitFilter: Text; NewDim1Filter: Text; NewDim2Filter: Text; NewDim3Filter: Text; NewDim4Filter: Text; CashFlowFilter: Text)
+    /// <summary>
+    /// SetFilters.
+    /// </summary>
+    /// <param name="NewDateFilter">Text.</param>
+    /// <param name="NewBudgetFilter">Text.</param>
+    /// <param name="NewCostBudgetFilter">Text.</param>
+    /// <param name="NewBusUnitFilter">Text.</param>
+    /// <param name="NewDim1Filter">Text.</param>
+    /// <param name="NewDim2Filter">Text.</param>
+    /// <param name="NewDim3Filter">Text.</param>
+    /// <param name="NewDim4Filter">Text.</param>
+    /// <param name="pCashFlowFilter">Text.</param>
+    procedure SetFilters(NewDateFilter: Text; NewBudgetFilter: Text; NewCostBudgetFilter: Text; NewBusUnitFilter: Text; NewDim1Filter: Text; NewDim2Filter: Text; NewDim3Filter: Text; NewDim4Filter: Text; pCashFlowFilter: Text)
     begin
         DateFilterHidden := NewDateFilter;
         if DateFilterHidden <> '' then begin
@@ -1050,11 +1096,17 @@ Report 80076 "YVS Account Schedule"
         Dim2FilterHidden := NewDim2Filter;
         Dim3FilterHidden := NewDim3Filter;
         Dim4FilterHidden := NewDim4Filter;
-        CashFlowFilterHidden := CashFlowFilter;
+        CashFlowFilterHidden := pCashFlowFilter;
         UseHiddenFilters := true;
-        OnAfterSetFilters(AccScheduleName, CostCenterFilter, CostObjectFilter, CashFlowFilter, CurrReport.UseRequestPage());
+        OnAfterSetFilters(AccScheduleName, CostCenterFilter, CostObjectFilter, pCashFlowFilter, CurrReport.UseRequestPage());
     end;
 
+    /// <summary>
+    /// ShowLine.
+    /// </summary>
+    /// <param name="Bold">Boolean.</param>
+    /// <param name="Italic">Boolean.</param>
+    /// <returns>Return value of type Boolean.</returns>
     procedure ShowLine(Bold: Boolean; Italic: Boolean): Boolean
     begin
         if "Acc. Schedule Line"."Totaling Type" = "Acc. Schedule Line"."Totaling Type"::"Set Base For Percent" then
@@ -1069,7 +1121,7 @@ Report 80076 "YVS Account Schedule"
         exit(true);
     end;
 
-    local procedure FormLookUpDimFilter(Dim: Code[20]; var Text: Text[1024]): Boolean
+    local procedure FormLookUpDimFilter(Dim: Code[20]; var Text: Text): Boolean
     var
         DimVal: Record "Dimension Value";
         DimValList: Page "Dimension Value List";
@@ -1243,7 +1295,7 @@ Report 80076 "YVS Account Schedule"
             ValidateDateFilter(StrSubstNo('%1..%2', StartDate, EndDate));
     end;
 
-    local procedure ValidateDateFilter(NewDateFilter: Text[30])
+    local procedure ValidateDateFilter(NewDateFilter: Text)
     var
         FilterTokens: Codeunit "Filter Tokens";
     begin
@@ -1262,7 +1314,7 @@ Report 80076 "YVS Account Schedule"
         ValidateAccSchedName(FinancialReportToValidate);
     end;
 
-    local procedure ValidateAccSchedName(var FinancialReport: Record "Financial Report")
+    local procedure ValidateAccSchedName(var pFinancialReport: Record "Financial Report")
     var
         AccScheduleName: Record "Acc. Schedule Name";
     begin
@@ -1280,8 +1332,8 @@ Report 80076 "YVS Account Schedule"
         Dim2FilterEnable := AnalysisView."Dimension 2 Code" <> '';
         Dim3FilterEnable := AnalysisView."Dimension 3 Code" <> '';
         Dim4FilterEnable := AnalysisView."Dimension 4 Code" <> '';
-        if FinancialReport.Name <> '' then
-            RequestOptionsPage.Caption := FinancialReport.Description;
+        if pFinancialReport.Name <> '' then
+            RequestOptionsPage.Caption := pFinancialReport.Description;
         RequestOptionsPage.Update(false);
     end;
 

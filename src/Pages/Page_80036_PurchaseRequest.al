@@ -1512,7 +1512,6 @@ page 80036 "YVS Purchase Request Card"
         PurchCalcDiscByType: Codeunit "Purch - Calc Disc. By Type";
         FormatAddress: Codeunit "Format Address";
         ChangeExchangeRate: Page "Change Exchange Rate";
-        [InDataSet]
         StatusStyleTxt: Text;
         HasIncomingDocument: Boolean;
         DocNoVisible: Boolean;
@@ -1524,11 +1523,8 @@ page 80036 "YVS Purchase Request Card"
         IsBuyFromCountyVisible: Boolean;
         IsPayToCountyVisible: Boolean;
         IsShipToCountyVisible: Boolean;
-        [InDataSet]
         IsPurchaseLinesEditable: Boolean;
-        [InDataSet]
         IsJournalTemplateNameVisible: Boolean;
-        [InDataSet]
         IsPaymentMethodCodeVisible: Boolean;
 
     protected var
@@ -1547,12 +1543,7 @@ page 80036 "YVS Purchase Request Card"
         OnAfterActivateFields();
     end;
 
-#if not CLEAN21
-    local procedure SetPurchaseLinesAvailability()
-    begin
-        OnAfterSetPurchaseLinesAvailability(Rec, IsPurchaseLinesEditable);
-    end;
-#endif
+
 
     local procedure ApproveCalcInvDisc()
     begin
@@ -1606,9 +1597,7 @@ page 80036 "YVS Purchase Request Card"
         CanCancelApprovalForRecord := ApprovalsMgmt.CanCancelApprovalForRecord(Rec.RecordId);
         HasIncomingDocument := Rec."Incoming Document Entry No." <> 0;
         IsPurchaseLinesEditable := Rec.PurchaseLinesEditable();
-#if not CLEAN21
-        SetPurchaseLinesAvailability();
-#endif
+
     end;
 
     local procedure ValidateShippingOption()

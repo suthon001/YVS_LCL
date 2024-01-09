@@ -898,10 +898,8 @@ page 80037 "YVS Purchase Request Sub."
         DimVisible7: Boolean;
         DimVisible8: Boolean;
         IsBlankNumber: Boolean;
-        [InDataSet]
         IsCommentLine: Boolean;
         UnitofMeasureCodeIsChangeable: Boolean;
-        [InDataSet]
         ItemReferenceVisible: Boolean;
 
     local procedure SetOpenPage()
@@ -914,6 +912,9 @@ page 80037 "YVS Purchase Request Sub."
         SuppressTotals := CurrentClientType() = ClientType::ODataV4;
     end;
 
+    /// <summary>
+    /// ApproveCalcInvDisc.
+    /// </summary>
     procedure ApproveCalcInvDisc()
     begin
         CODEUNIT.Run(CODEUNIT::"Purch.-Disc. (Yes/No)", Rec);
@@ -946,6 +947,10 @@ page 80037 "YVS Purchase Request Sub."
         DocumentTotals.PurchaseDocTotalsNotUpToDate();
     end;
 
+    /// <summary>
+    /// InsertExtendedText.
+    /// </summary>
+    /// <param name="Unconditionally">Boolean.</param>
     procedure InsertExtendedText(Unconditionally: Boolean)
     var
         IsHandled: Boolean;
@@ -963,11 +968,18 @@ page 80037 "YVS Purchase Request Sub."
             UpdateForm(true);
     end;
 
+    /// <summary>
+    /// UpdateForm.
+    /// </summary>
+    /// <param name="SetSaveRecord">Boolean.</param>
     procedure UpdateForm(SetSaveRecord: Boolean)
     begin
         CurrPage.Update(SetSaveRecord);
     end;
 
+    /// <summary>
+    /// NoOnAfterValidate.
+    /// </summary>
     procedure NoOnAfterValidate()
     begin
         UpdateEditableOnRow();
@@ -980,6 +992,9 @@ page 80037 "YVS Purchase Request Sub."
         OnAfterNoOnAfterValidate(Rec, xRec);
     end;
 
+    /// <summary>
+    /// RedistributeTotalsOnAfterValidate.
+    /// </summary>
     procedure RedistributeTotalsOnAfterValidate()
     begin
         if SuppressTotals then
@@ -996,11 +1011,17 @@ page 80037 "YVS Purchase Request Sub."
         DocumentTotals.GetTotalPurchaseHeaderAndCurrency(Rec, TotalPurchaseHeader, Currency);
     end;
 
+    /// <summary>
+    /// ClearTotalPurchaseHeader.
+    /// </summary>
     procedure ClearTotalPurchaseHeader();
     begin
         Clear(TotalPurchaseHeader);
     end;
 
+    /// <summary>
+    /// CalculateTotals.
+    /// </summary>
     procedure CalculateTotals()
     begin
         if SuppressTotals then
@@ -1012,6 +1033,9 @@ page 80037 "YVS Purchase Request Sub."
         DocumentTotals.RefreshPurchaseLine(Rec);
     end;
 
+    /// <summary>
+    /// DeltaUpdateTotals.
+    /// </summary>
     procedure DeltaUpdateTotals()
     begin
         if SuppressTotals then
@@ -1022,6 +1046,9 @@ page 80037 "YVS Purchase Request Sub."
         CheckSendLineInvoiceDiscountResetNotification();
     end;
 
+    /// <summary>
+    /// ForceTotalsCalculation.
+    /// </summary>
     procedure ForceTotalsCalculation()
     begin
         DocumentTotals.PurchaseDocTotalsNotUpToDate();
@@ -1040,6 +1067,9 @@ page 80037 "YVS Purchase Request Sub."
             Rec.SendLineInvoiceDiscountResetNotification();
     end;
 
+    /// <summary>
+    /// UpdateEditableOnRow.
+    /// </summary>
     procedure UpdateEditableOnRow()
     begin
         IsCommentLine := Rec.Type = Rec.Type::" ";
@@ -1054,6 +1084,9 @@ page 80037 "YVS Purchase Request Sub."
         OnAfterUpdateEditableOnRow(Rec, IsCommentLine, IsBlankNumber);
     end;
 
+    /// <summary>
+    /// UpdateTypeText.
+    /// </summary>
     procedure UpdateTypeText()
     var
         RecRef: RecordRef;
