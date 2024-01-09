@@ -5,14 +5,6 @@ codeunit 80005 "YVS EventFunction"
 {
     Permissions = TableData "G/L Entry" = rimd, tabledata "Purch. Rcpt. Line" = imd, tabledata "Return Shipment Line" = imd, tabledata "Sales Shipment Line" = imd;
 
-    // [EventSubscriber(ObjectType::Codeunit, Codeunit::"FA Jnl.-Post Line", 'OnBeforeGenJnlPostLine', '', false, false)]
-    // local procedure OnBeforeFAJnlPostLine(var IsHandled: Boolean; var GenJournalLine: Record "Gen. Journal Line"; VATAmount: Decimal; FAAmount: Decimal; NextGLEntryNo: Integer; NextTransactionNo: Integer; GLRegisterNo: Integer)
-    // var
-    //     YVSFAJnlPostLine: Codeunit "YVS FA Jnl.-Post Line";
-    // begin
-    //     IsHandled := true;
-    //     YVSFAJnlPostLine.GenJnlPostLine(GenJournalLine, FAAmount, VATAmount, NextTransactionNo, NextGLEntryNo, GLRegisterNo);
-    // end;
 
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Gen. Jnl.-Post Line", 'OnBeforePostFixedAsset', '', false, false)]
