@@ -368,7 +368,7 @@ codeunit 80000 "YVS Journal Function"
     var
         VendCust: Record "YVS Customer & Vendor Branch";
     begin
-
+        GenJournalLine."YVS Tax Invoice No." := SalesHeader."No.";
         GenJournalLine."YVS Description Line" := SalesHeader."Posting Description";
         GenJournalLine."YVS Head Office" := SalesHeader."YVS Head Office";
         GenJournalLine."YVS VAT Branch Code" := SalesHeader."YVS VAT Branch Code";

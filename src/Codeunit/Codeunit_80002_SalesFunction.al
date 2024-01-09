@@ -113,6 +113,7 @@ codeunit 80002 "YVS Sales Function"
         VendCust: Record "YVS Customer & Vendor Branch";
     begin
         IF SalesHeader.GET(SalesLine."Document Type", SalesLine."Document No.") THEN BEGIN
+            InvoicePostingBuffer."YVS Tax Invoice No." := SalesHeader."No.";
             InvoicePostingBuffer."YVS Head Office" := SalesHeader."YVS Head Office";
             InvoicePostingBuffer."YVS VAT Branch Code" := SalesHeader."YVS VAT Branch Code";
             InvoicePostingBuffer."YVS VAT Registration No." := SalesHeader."VAT Registration No.";
@@ -159,6 +160,8 @@ codeunit 80002 "YVS Sales Function"
         VendCust: Record "YVS Customer & Vendor Branch";
     begin
         IF SalesHeader.GET(SalesLine."Document Type", SalesLine."Document No.") THEN BEGIN
+
+            InvoicePostBuffer."YVS Tax Invoice No." := SalesHeader."No.";
             InvoicePostBuffer."YVS Head Office" := SalesHeader."YVS Head Office";
             InvoicePostBuffer."YVS VAT Branch Code" := SalesHeader."YVS VAT Branch Code";
             InvoicePostBuffer."YVS VAT Registration No." := SalesHeader."VAT Registration No.";
