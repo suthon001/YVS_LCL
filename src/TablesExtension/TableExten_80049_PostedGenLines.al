@@ -297,7 +297,7 @@ tableextension 80050 "YVS ExtenPostedGenLines" extends "Posted Gen. Journal Line
             DataClassification = SystemMetadata;
             Editable = false;
         }
-        field(80051; "YVS Tax Invoice Address 2"; text[50])
+        field(80051; "YVS Tax Invoice Address 2"; text[100])
         {
             DataClassification = CustomerContent;
             Caption = 'Tax Invoice Address 2';

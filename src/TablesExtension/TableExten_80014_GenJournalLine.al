@@ -81,8 +81,6 @@ tableextension 80014 "YVS GenJournal Lines" extends "Gen. Journal Line"
                         "YVS Tax Invoice Address 2" := Vendor."Address 2";
                         "VAT Registration No." := Vendor."VAT Registration No.";
                     end;
-
-
             end;
 
         }
@@ -365,6 +363,53 @@ tableextension 80014 "YVS GenJournal Lines" extends "Gen. Journal Line"
         {
             Caption = 'Require Screen Detail';
             DataClassification = CustomerContent;
+            trigger OnValidate()
+            var
+                Cust: Record Customer;
+                Vendor: Record Vendor;
+            begin
+                if rec."YVS Require Screen Detail" = rec."YVS Require Screen Detail"::VAT then begin
+                    if rec."Account Type" = rec."Account Type"::Customer then begin
+                        Cust.INIT();
+                        "YVS Tax Vendor No." := "Account No.";
+                        "YVS Tax Invoice Name" := Cust.Name;
+                        "YVS Tax Invoice Name 2" := Cust."Name 2";
+                        "YVS Head Office" := Cust."YVS Head Office";
+                        "YVS VAT Branch Code" := Cust."YVS VAT Branch Code";
+                        if (NOT "YVS Head Office") AND ("YVS VAT Branch Code" = '') then
+                            "YVS Head Office" := true;
+                        "YVS Tax Invoice Address" := Cust.Address;
+                        "YVS Tax Invoice Address 2" := Cust."Address 2";
+                        "VAT Registration No." := Cust."VAT Registration No.";
+                        "YVS Tax Invoice City" := Cust.City;
+                        "YVS Tax Invoice Post Code" := Cust."Post Code";
+                    end;
+                    if rec."Account Type" = rec."Account Type"::Vendor then begin
+                        IF NOT Vendor.GET("YVS Tax Vendor No.") THEN
+                            Vendor.INIT();
+                        "YVS Tax Vendor No." := "Account No.";
+                        "YVS Tax Invoice Name" := Vendor.Name;
+                        "YVS Tax Invoice Name 2" := Vendor."Name 2";
+                        "YVS Head Office" := Vendor."YVS Head Office";
+                        "YVS VAT Branch Code" := Vendor."YVS VAT Branch Code";
+                        if (NOT "YVS Head Office") AND ("YVS VAT Branch Code" = '') then
+                            "YVS Head Office" := true;
+                        "YVS Tax Invoice Address" := Vendor.Address;
+                        "YVS Tax Invoice Address 2" := Vendor."Address 2";
+                        "VAT Registration No." := Vendor."VAT Registration No.";
+                        "YVS Tax Invoice City" := Vendor.City;
+                        "YVS Tax Invoice Post Code" := Vendor."Post Code";
+                    end;
+                end else begin
+                    "YVS Tax Vendor No." := '';
+                    "YVS Tax Invoice Name" := '';
+                    "YVS Tax Invoice Name 2" := '';
+                    "YVS Tax Invoice Address" := '';
+                    "YVS Tax Invoice Address 2" := '';
+                    "YVS Tax Invoice City" := '';
+                    "YVS Tax Invoice Post Code" := '';
+                end;
+            end;
 
 
         }
@@ -437,7 +482,7 @@ tableextension 80014 "YVS GenJournal Lines" extends "Gen. Journal Line"
             DataClassification = SystemMetadata;
             Editable = false;
         }
-        field(80051; "YVS Tax Invoice Address 2"; text[50])
+        field(80051; "YVS Tax Invoice Address 2"; text[100])
         {
             DataClassification = CustomerContent;
             Caption = 'Tax Invoice Address 2';
@@ -519,7 +564,7 @@ tableextension 80014 "YVS GenJournal Lines" extends "Gen. Journal Line"
             trigger OnAfterValidate()
             begin
                 if xRec."Account Type" <> "Account Type" then begin
-                    "YVS Require Screen Detail" := "YVS Require Screen Detail"::" ";
+                    validate("YVS Require Screen Detail", "YVS Require Screen Detail"::" ");
                     "YVS Head Office" := false;
                     "YVS VAT Branch Code" := '';
                 end;

@@ -106,6 +106,10 @@ codeunit 80000 "YVS Journal Function"
         GenJournalLine."YVS Tax Invoice Date" := SalesHeader."Posting Date";
         GenJournalLine."YVS Tax Invoice Name" := SalesHeader."Sell-to Customer Name";
         GenJournalLine."YVS Tax Invoice Name 2" := SalesHeader."Sell-to Customer Name 2";
+        GenJournalLine."YVS Tax Invoice Address" := SalesHeader."Sell-to Address";
+        GenJournalLine."YVS Tax Invoice Address 2" := SalesHeader."Sell-to Address 2";
+        GenJournalLine."YVS Tax Invoice City" := SalesHeader."Sell-to City";
+        GenJournalLine."YVS Tax Invoice Post Code" := SalesHeader."Sell-to Post Code";
         "YVS OnAfterCopyFromSalesHeaderPrepayment"(GenJournalLine, SalesHeader);
 
     end;
@@ -122,6 +126,10 @@ codeunit 80000 "YVS Journal Function"
         GenJournalLine."YVS Head Office" := PrepmtInvLineBuffer."YVS Head Office";
         GenJournalLine."YVS Tax Invoice Base" := PrepmtInvLineBuffer."YVS Tax Invoice Base";
         GenJournalLine."YVS Tax Invoice Amount" := PrepmtInvLineBuffer."YVS Tax Invoice Amount";
+        GenJournalLine."YVS Tax Invoice City" := PrepmtInvLineBuffer."YVS City";
+        GenJournalLine."YVS Tax Invoice Post Code" := PrepmtInvLineBuffer."YVS Post Code";
+        GenJournalLine."YVS Tax Invoice Address" := PrepmtInvLineBuffer."YVS Address";
+        GenJournalLine."YVS Tax Invoice Address 2" := PrepmtInvLineBuffer."YVS Address 2";
         "YVS OnAfterCopyFromPrepaymentInvoice"(PrepmtInvLineBuffer, GenJournalLine);
     end;
 
@@ -137,6 +145,10 @@ codeunit 80000 "YVS Journal Function"
         PrepaymentInvLineBuffer."YVS Vat Registration No." := SalesHeader."VAT Registration No.";
         PrepaymentInvLineBuffer."YVS VAT Branch Code" := SalesHeader."YVS VAT Branch Code";
         PrepaymentInvLineBuffer."YVS Head Office" := SalesHeader."YVS Head Office";
+        PrepaymentInvLineBuffer."YVS Address" := SalesHeader."Sell-to Address";
+        PrepaymentInvLineBuffer."YVS Address 2" := SalesHeader."Sell-to Address 2";
+        PrepaymentInvLineBuffer."YVS City" := SalesHeader."Sell-to City";
+        PrepaymentInvLineBuffer."YVS Post Code" := SalesHeader."Sell-to Post Code";
         "YVS OnAfterCopyFromSalesLinePrepayment"(PrepaymentInvLineBuffer, SalesLine, SalesHeader);
     end;
 
@@ -159,6 +171,10 @@ codeunit 80000 "YVS Journal Function"
             PrepaymentInvLineBuffer."YVS Tax Invoice Name" := PurchaseLine."YVS Tax Invoice Name";
             PrepaymentInvLineBuffer."YVS Tax Invoice Name 2" := PurchaseLine."YVS Tax Invoice Name 2";
         end;
+        PrepaymentInvLineBuffer."YVS Address" := PurchHeader."Buy-from Address";
+        PrepaymentInvLineBuffer."YVS Address 2" := PurchHeader."Buy-from Address 2";
+        PrepaymentInvLineBuffer."YVS City" := PurchHeader."Buy-from City";
+        PrepaymentInvLineBuffer."YVS Post Code" := PurchHeader."Buy-from Post Code";
         "YVS OnAfterCopyFromPurchLinePrepayment"(PrepaymentInvLineBuffer, PurchaseLine, PurchHeader);
     end;
 
@@ -172,6 +188,19 @@ codeunit 80000 "YVS Journal Function"
     begin
         VATEntry."YVS Tax Invoice Base" := VATEntry.Base;
         VATEntry."YVS Tax Invoice Amount" := VATEntry.Amount;
+        VATEntry."YVS Tax Invoice No." := GenJournalLine."YVS Tax Invoice No.";
+        VATEntry."YVS Tax Invoice Date" := GenJournalLine."YVS Tax Invoice Date";
+        VATEntry."YVS Tax Vendor No." := GenJournalLine."YVS Tax Vendor No.";
+        VATEntry."YVS Tax Invoice Name" := GenJournalLine."YVS Tax Invoice Name";
+        VATEntry."YVS Tax Invoice Name 2" := GenJournalLine."YVS Tax Invoice Name 2";
+        VATEntry."YVS Tax Invoice Address" := GenJournalLine."YVS Tax Invoice Address";
+        VATEntry."YVS Tax Invoice Address 2" := GenJournalLine."YVS Tax Invoice Address 2";
+        VATEntry."YVS Head Office" := GenJournalLine."YVS Head Office";
+        VATEntry."YVS VAT Branch Code" := GenJournalLine."YVS VAT Branch Code";
+        VATEntry."VAT Registration No." := GenJournalLine."VAT Registration No.";
+        VATEntry."YVS Description Line" := GenJournalLine."YVS Description Line";
+        VATEntry."YVS Tax Invoice City" := GenJournalLine."YVS Tax Invoice City";
+        VATEntry."YVS Tax Invoice Post Code" := GenJournalLine."YVS Tax Invoice Post Code";
     end;
 
     [EventSubscriber(ObjectType::Table, Database::"Invoice Posting Buffer", 'OnAfterCopyToGenJnlLine', '', true, true)]
