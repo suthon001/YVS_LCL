@@ -261,6 +261,8 @@ codeunit 80000 "YVS Journal Function"
         // end;
     end;
 
+
+
     [EventSubscriber(ObjectType::Table, Database::"VAT Entry", 'OnAfterCopyFromGenJnlLine', '', true, true)]
     /// <summary> 
     /// Description for CopyVatFromGenLine.
@@ -268,8 +270,7 @@ codeunit 80000 "YVS Journal Function"
     /// <param name="GenJournalLine">Parameter of type Record "Gen. Journal Line".</param>
     /// <param name="VATEntry">Parameter of type Record "VAT Entry".</param>
     local procedure "CopyVatFromGenLine"(GenJournalLine: Record "Gen. Journal Line"; var VATEntry: Record "VAT Entry")
-    var
-        VATProPostingGroup: Record "VAT Product Posting Group";
+
     begin
 
         VATEntry."YVS Head Office" := GenJournalLine."YVS Head Office";
@@ -292,19 +293,25 @@ codeunit 80000 "YVS Journal Function"
         else
             VATEntry."YVS Document Line No." := GenJournalLine."Line No.";
 
-        if NOT VATProPostingGroup.get(VATEntry."VAT Prod. Posting Group") then
-            VATProPostingGroup.init();
-        IF VATProPostingGroup."YVS Direct VAT" then begin
-            VATEntry.Base := VATEntry."YVS Tax Invoice Base";
-            VATEntry.Amount := VATEntry."YVS Tax Invoice Amount";
-        end ELSE BEGIN
-            VATEntry."YVS Tax Invoice Base" := VATEntry.Base;
-            VATEntry."YVS Tax Invoice Amount" := VATEntry.Amount;
-        END;
+
         "YVS AfterCopyGenLineToVatEntry"(VATEntry, GenJournalLine);
     end;
 
-
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Gen. Jnl.-Post Line", 'OnInsertVATOnAfterSetVATAmounts', '', false, false)]
+    local procedure OnInsertVATOnAfterSetVATAmounts(var VATEntry: Record "VAT Entry"; GenJournalLine: Record "Gen. Journal Line"; var VATAmount: Decimal; var VATBase: Decimal)
+    var
+        VATProPostingGroup: Record "VAT Product Posting Group";
+    begin
+        if NOT VATProPostingGroup.get(VATEntry."VAT Prod. Posting Group") then
+            VATProPostingGroup.init();
+        IF VATProPostingGroup."YVS Direct VAT" then begin
+            VATBase := VATEntry."YVS Tax Invoice Base";
+            VATAmount := VATEntry."YVS Tax Invoice Amount";
+        end ELSE BEGIN
+            VATEntry."YVS Tax Invoice Base" := VATBase;
+            VATEntry."YVS Tax Invoice Amount" := VATAmount;
+        END;
+    end;
 
 
     [EventSubscriber(ObjectType::Table, Database::"Gen. Journal Line", 'OnAfterCopyGenJnlLineFromPurchHeader', '', true, true)]

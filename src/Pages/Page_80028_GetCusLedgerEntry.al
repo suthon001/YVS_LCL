@@ -140,6 +140,7 @@ page 80028 "YVS Get Cus. Ledger Entry"
                         BillRcptLine."Vat %" := SalesCrLine."VAT %";
                 end;
                 BillRcptLine.CalAmtExcludeVat();
+                TotalReceipt := TotalReceipt + BillRcptLine.Amount;
                 BillRcptLine.Modify();
             UNTIL CUstLedger.NEXT() = 0;
         if TOtalReceipt <> 0 then begin

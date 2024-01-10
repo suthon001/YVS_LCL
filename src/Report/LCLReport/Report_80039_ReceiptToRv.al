@@ -64,6 +64,19 @@ report 80039 "YVS Recript to CashReceipt"
                 GenJnlLine."YVS Ref. Billing & Receipt No." := "No.";
                 GenJnlLine."YVS Create By" := COPYSTR(UserId(), 1, 50);
                 GenJnlLine."YVS Create DateTime" := CurrentDateTime();
+                GenJnlLine."YVS Require Screen Detail" := GenJnlLine."YVS Require Screen Detail"::VAT;
+                GenJnlLine."YVS Tax Invoice Date" := BillingHeader."Document Date";
+                GenJnlLine."YVS Tax Vendor No." := BillingHeader."Bill/Pay-to Cust/Vend No.";
+                GenJnlLine."YVS Tax Invoice No." := BillingHeader."No.";
+                GenJnlLine."YVS Tax Invoice Name" := BillingHeader."Bill/Pay-to Cust/Vend Name";
+                GenJnlLine."YVS Tax Invoice Name 2" := BillingHeader."Bill/Pay-to Cust/Vend Name 2";
+                GenJnlLine."YVS Tax Invoice Address" := BillingHeader."Bill/Pay-to Address";
+                GenJnlLine."YVS Tax Invoice Address 2" := BillingHeader."Bill/Pay-to Address 2";
+                GenJnlLine."YVS Tax Invoice City" := BillingHeader."Bill/Pay-to City";
+                GenJnlLine."YVS Tax Invoice Post Code" := BillingHeader."Bill/Pay-to Post Code";
+                GenJnlLine."YVS Head Office" := BillingHeader."Head Office";
+                GenJnlLine."YVS VAT Branch Code" := BillingHeader."VAT Branch Code";
+                GenJnlLine."VAT Registration No." := BillingHeader."Vat Registration No.";
                 GenJnlLine.MODIFY();
 
                 //Apply Document

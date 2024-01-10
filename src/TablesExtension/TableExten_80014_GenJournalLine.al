@@ -370,7 +370,8 @@ tableextension 80014 "YVS GenJournal Lines" extends "Gen. Journal Line"
             begin
                 if rec."YVS Require Screen Detail" = rec."YVS Require Screen Detail"::VAT then begin
                     if rec."Account Type" = rec."Account Type"::Customer then begin
-                        Cust.INIT();
+                        if not Cust.GET(rec."Account No.") then
+                            Cust.INIT();
                         "YVS Tax Vendor No." := "Account No.";
                         "YVS Tax Invoice Name" := Cust.Name;
                         "YVS Tax Invoice Name 2" := Cust."Name 2";
@@ -385,7 +386,7 @@ tableextension 80014 "YVS GenJournal Lines" extends "Gen. Journal Line"
                         "YVS Tax Invoice Post Code" := Cust."Post Code";
                     end;
                     if rec."Account Type" = rec."Account Type"::Vendor then begin
-                        IF NOT Vendor.GET("YVS Tax Vendor No.") THEN
+                        IF NOT Vendor.GET("Account No.") THEN
                             Vendor.INIT();
                         "YVS Tax Vendor No." := "Account No.";
                         "YVS Tax Invoice Name" := Vendor.Name;
