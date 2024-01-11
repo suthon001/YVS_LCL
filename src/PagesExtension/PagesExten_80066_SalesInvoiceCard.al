@@ -3,7 +3,6 @@
 /// </summary>
 pageextension 80066 "YVS Sales Invoice Card" extends "Sales Invoice"
 {
-    PromotedActionCategories = 'New,Process,Print,Approve,Posting,Prepare,Invoice,Release,Request Approval,View,Navigate';
     layout
     {
         addbefore(Status)

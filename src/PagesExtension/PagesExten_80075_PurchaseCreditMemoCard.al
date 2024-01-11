@@ -3,7 +3,7 @@
 /// </summary>
 pageextension 80075 "YVS Purchase Credit Memo Card" extends "Purchase Credit Memo"
 {
-    PromotedActionCategories = 'New,Process,Print,Approve,Request Approval,Credit Memo,Release,Posting,Navigate';
+
     layout
     {
         addbefore(Status)

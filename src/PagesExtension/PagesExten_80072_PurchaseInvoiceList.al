@@ -3,7 +3,6 @@
 /// </summary>
 pageextension 80072 "YVS Purchase Invoice Lists" extends "Purchase Invoices"
 {
-    PromotedActionCategories = 'New,Process,Print,Request Approval,Credit Memo,Release,Posting,Navigate';
     layout
     {
         modify(Status)

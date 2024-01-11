@@ -3,7 +3,6 @@
 /// </summary>
 pageextension 80065 "YVS Sales Invoice Lists" extends "Sales Invoice List"
 {
-    PromotedActionCategories = 'New,Process,Print,Request Approval,Credit Memo,Release,Posting,Navigate';
     layout
     {
         addbefore(Status)
