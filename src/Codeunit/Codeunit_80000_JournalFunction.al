@@ -301,16 +301,58 @@ codeunit 80000 "YVS Journal Function"
     local procedure OnInsertVATOnAfterSetVATAmounts(var VATEntry: Record "VAT Entry"; GenJournalLine: Record "Gen. Journal Line"; var VATAmount: Decimal; var VATBase: Decimal)
     var
         VATProPostingGroup: Record "VAT Product Posting Group";
+        VATPostingSetup: Record "VAT Posting Setup";
+        TaxJurisdiction: Record "Tax Jurisdiction";
+        UnrealizedVAT: Boolean;
     begin
-        if NOT VATProPostingGroup.get(VATEntry."VAT Prod. Posting Group") then
-            VATProPostingGroup.init();
-        IF VATProPostingGroup."YVS Direct VAT" then begin
-            VATBase := VATEntry."YVS Tax Invoice Base";
-            VATAmount := VATEntry."YVS Tax Invoice Amount";
-        end ELSE BEGIN
-            VATEntry."YVS Tax Invoice Base" := VATBase;
-            VATEntry."YVS Tax Invoice Amount" := VATAmount;
-        END;
+        VATPostingSetup.GET(VATEntry."VAT Bus. Posting Group", VATEntry."VAT Prod. Posting Group");
+        if VATEntry."Tax Jurisdiction Code" <> '' then
+            TaxJurisdiction.Get(VATEntry."Tax Jurisdiction Code");
+
+        UnrealizedVAT := SetUnrealizedVAT(GenJournalLine, VATPostingSetup, TaxJurisdiction);
+
+        if not UnrealizedVAT then begin
+            if NOT VATProPostingGroup.get(VATEntry."VAT Prod. Posting Group") then
+                VATProPostingGroup.init();
+            IF VATProPostingGroup."YVS Direct VAT" then begin
+                VATBase := VATEntry."YVS Tax Invoice Base";
+                VATAmount := VATEntry."YVS Tax Invoice Amount";
+            end ELSE BEGIN
+                VATEntry."YVS Tax Invoice Base" := VATBase;
+                VATEntry."YVS Tax Invoice Amount" := VATAmount;
+            END;
+        end;
+    end;
+
+    local procedure SetUnrealizedVAT(GenJnlLine: Record "Gen. Journal Line"; VATPostingSetup: Record "VAT Posting Setup"; TaxJurisdiction: Record "Tax Jurisdiction") UnrealizedVAT: Boolean
+    var
+        GLSetup: Record "General Ledger Setup";
+    begin
+        GLSetup.GET();
+        UnrealizedVAT :=
+            (((VATPostingSetup."Unrealized VAT Type" > 0) and
+            (VATPostingSetup."VAT Calculation Type" in
+                [VATPostingSetup."VAT Calculation Type"::"Normal VAT",
+                VATPostingSetup."VAT Calculation Type"::"Reverse Charge VAT",
+                VATPostingSetup."VAT Calculation Type"::"Full VAT"])) or
+            ((TaxJurisdiction."Unrealized VAT Type" > 0) and
+            (VATPostingSetup."VAT Calculation Type" in
+                [VATPostingSetup."VAT Calculation Type"::"Sales Tax"]))) and
+            IsNotPayment(GenJnlLine."Document Type");
+        if GLSetup."Prepayment Unrealized VAT" and not GLSetup."Unrealized VAT" and
+            (VATPostingSetup."Unrealized VAT Type" > 0)
+        then
+            UnrealizedVAT := GenJnlLine.Prepayment;
+
+    end;
+
+    local procedure IsNotPayment(DocumentType: Enum "Gen. Journal Document Type") Result: Boolean
+    begin
+        Result := DocumentType in [DocumentType::Invoice,
+                              DocumentType::"Credit Memo",
+                              DocumentType::"Finance Charge Memo",
+                              DocumentType::Reminder];
+
     end;
 
 
