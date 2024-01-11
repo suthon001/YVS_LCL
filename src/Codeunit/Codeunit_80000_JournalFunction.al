@@ -186,6 +186,8 @@ codeunit 80000 "YVS Journal Function"
     /// <param name="VATEntry">Parameter of type Record "VAT Entry".</param>
     local procedure "PostUnrealVatEntry"(GenJournalLine: Record "Gen. Journal Line"; var VATEntry: Record "VAT Entry")
     begin
+        VATEntry."YVS Tax Invoice Base" := VATEntry.Base;
+        VATEntry."YVS Tax Invoice Amount" := VATEntry.Amount;
         VATEntry."YVS Tax Invoice No." := GenJournalLine."YVS Tax Invoice No.";
         VATEntry."YVS Tax Invoice Date" := GenJournalLine."YVS Tax Invoice Date";
         VATEntry."YVS Tax Vendor No." := GenJournalLine."YVS Tax Vendor No.";
