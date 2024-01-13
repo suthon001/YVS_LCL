@@ -557,7 +557,7 @@ Table 80011 "YVS Billing Receipt Header"
                 begin
                     SalesSetup.TestField("YVS Sale Receipt Nos.");
                     EXIT(SalesSetup."YVS Sale Receipt Nos.");
-                end
+                end;
             else begin
                 OnAfterGetNoSeries(rec, ltNoSeries);
                 exit(ltNoSeries);
