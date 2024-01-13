@@ -62,11 +62,12 @@ page 80028 "YVS Get Cus. Ledger Entry"
                     ToolTip = 'Specifies the value of the Original Amount field.';
                     Caption = 'Original Amount';
                 }
-                field("YVS Receipt Amount"; Rec."YVS Receipt Amount")
+                field(BillingReceiptAmount; BillingReceiptAmount)
                 {
                     ApplicationArea = all;
-                    ToolTip = 'Specifies the value of the YVS Receipt Amount field.';
-                    Caption = 'Receipt Amount ';
+                    ToolTip = 'Specifies the value of the Amount field.';
+                    Editable = false;
+                    CaptionClass = captionField;
                 }
                 field("YVS Remaining Amt."; Rec."YVS Remaining Amt.")
                 {
@@ -82,6 +83,9 @@ page 80028 "YVS Get Cus. Ledger Entry"
     trigger OnAfterGetRecord()
     begin
         Rec.CalcFields("Remaining Amount", "Original Amount", Amount, "YVS Receipt Amount");
+        if BillRcptHeader."Document Type" = BillRcptHeader."Document Type"::"Sales Receipt" then
+            BillingReceiptAmount := rec."YVS Receipt Amount";
+        YVSOnAfterGetRecord(BillRcptHeader, BillingReceiptAmount, rec);
     end;
 
     trigger OnQueryClosePage(CloseAction: Action): Boolean
@@ -143,11 +147,12 @@ page 80028 "YVS Get Cus. Ledger Entry"
                 TotalReceipt := TotalReceipt + BillRcptLine.Amount;
                 BillRcptLine.Modify();
             UNTIL CUstLedger.NEXT() = 0;
-        if TOtalReceipt <> 0 then begin
-            ltBillRcptLHeader.GET(DocumentType, DocumentNo);
-            ltBillRcptLHeader."Receive & Payment Amount" := TotalReceipt;
-            ltBillRcptLHeader.Modify();
-        end;
+        if DocumentType = DocumentType::"Sales Receipt" then
+            if TOtalReceipt <> 0 then begin
+                ltBillRcptLHeader.GET(DocumentType, DocumentNo);
+                ltBillRcptLHeader."Receive & Payment Amount" := TotalReceipt;
+                ltBillRcptLHeader.Modify();
+            end;
 
     end;
 
@@ -164,28 +169,39 @@ page 80028 "YVS Get Cus. Ledger Entry"
         exit(10000);
     end;
 
+    /// <summary>
+    /// SetDocument.
+    /// </summary>
+    /// <param name="BillingRcptHeader">Record "Billing Receipt Header".</param>
+    procedure SetDocument(BillingRcptHeader: Record "YVS Billing Receipt Header")
+    begin
+        BillRcptHeader.GET(BillingRcptHeader."Document Type", BillingRcptHeader."No.");
+        if BillingRcptHeader."Document Type" = BillingRcptHeader."Document Type"::"Sales Receipt" then
+            captionField := 'Receipt Amount';
+        if BillingRcptHeader."Document Type" = BillingRcptHeader."Document Type"::"Sales Billing" then
+            captionField := 'Billing Amount';
+    end;
 
     /// <summary>
     /// SetTableData.
     /// </summary>
-    /// <param name="pVendorNo">code[20].</param>
+    /// <param name="pCustomerNo">code[20].</param>
     /// <param name="pDocumentType">Enum "Document Type".</param>
     /// <param name="pDocumentNo">code[30].</param>
-    procedure SetTableData(pVendorNo: code[20]; pDocumentType: Enum "YVS Billing Document Type"; pDocumentNo: code[20])
+    procedure SetTableData(pCustomerNo: code[20]; pDocumentType: Enum "YVS Billing Document Type"; pDocumentNo: code[20])
     var
         CustLedger: Record "Cust. Ledger Entry";
     begin
         DocumentType := pDocumentType;
         DocumentNo := pDocumentNo;
-        CustLedger.reset();
-        CustLedger.SetRange("Customer No.", pVendorNo);
-        CustLedger.SetFilter("Document Type", '%1|%2', CustLedger."Document Type"::Invoice, CustLedger."Document Type"::"Credit Memo");
-        CustLedger.setrange(Open, true);
-        if CustLedger.FindSet() then
-            repeat
-                CustLedger.CalcFields("Remaining Amount", "YVS Receipt Amount");
-
-                if pDocumentType = pDocumentType::"Sales Receipt" then
+        if pDocumentType = pDocumentType::"Sales Receipt" then begin
+            CustLedger.reset();
+            CustLedger.SetRange("Customer No.", pCustomerNo);
+            CustLedger.SetFilter("Document Type", '%1|%2', CustLedger."Document Type"::Invoice, CustLedger."Document Type"::"Credit Memo");
+            CustLedger.setrange(Open, true);
+            if CustLedger.FindSet() then
+                repeat
+                    CustLedger.CalcFields("Remaining Amount", "YVS Receipt Amount");
                     if (ABS(CustLedger."Remaining Amount") - abs(CustLedger."YVS Receipt Amount")) > 0 then begin
                         rec.Init();
                         rec.TransferFields(CustLedger);
@@ -195,12 +211,25 @@ page 80028 "YVS Get Cus. Ledger Entry"
                             rec."YVS Remaining Amt." := -(ABS(CustLedger."Remaining Amount") - abs(CustLedger."YVS Receipt Amount"));
                         rec.Insert();
                     end;
-            until CustLedger.Next() = 0;
+                until CustLedger.Next() = 0;
+        end;
+        OnAfterSetTableData(DocumentType, DocumentNo, pCustomerNo, Rec)
     end;
 
+    [IntegrationEvent(false, false)]
+    local procedure OnAfterSetTableData(pDocumentType: Enum "YVS Billing Document Type"; pDocumentNo: code[20]; pCustomerNo: code[20]; var CustLedgerTemp: Record "Cust. Ledger Entry" temporary)
+    begin
+    end;
 
+    [IntegrationEvent(false, false)]
+    local procedure YVSOnAfterGetRecord(pBillingHeader: Record "YVS Billing Receipt Header"; var pAmount: Decimal; pCustLedgerTemp: Record "Cust. Ledger Entry" temporary)
+    begin
+    end;
 
     var
         DocumentNo: code[20];
         DocumentType: Enum "YVS Billing Document Type";
+        BillRcptHeader: Record "YVS Billing Receipt Header";
+        BillingReceiptAmount: Decimal;
+        captionField: Text;
 }

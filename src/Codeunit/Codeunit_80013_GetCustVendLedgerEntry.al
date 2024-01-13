@@ -11,19 +11,25 @@ codeunit 80013 "YVS Get Cust/Vend Ledger Entry"
         BillingHeader.TESTFIELD("Bill/Pay-to Cust/Vend No.");
         BillingHeader.TestField(Status, BillingHeader.Status::Open);
         CASE BillingHeader."Document Type" OF
-            BillingHeader."Document Type"::"Sales Receipt":
+            BillingHeader."Document Type"::"Sales Billing", BillingHeader."Document Type"::"Sales Receipt":
                 BEGIN
                     CLEAR(GetCustLedger);
                     GetCustLedger.SetTableData(BillingHeader."Bill/Pay-to Cust/Vend No.", BillingHeader."Document Type", BillingHeader."No.");
+                    GetCustLedger.SetDocument(BillingHeader);
                     GetCustLedger.LOOKUPMODE := TRUE;
                     GetCustLedger.RUNMODAL();
                     CLEAR(GetCustLedger);
                 END;
-
         END;
+        AfterOnRun(BillingHeader);
+
 
     end;
 
+    [IntegrationEvent(false, false)]
+    local procedure AfterOnRun(BillingHeader: Record "YVS Billing Receipt Header")
+    begin
+    end;
     /// <summary> 
     /// Description for SetDocument.
     /// </summary>
