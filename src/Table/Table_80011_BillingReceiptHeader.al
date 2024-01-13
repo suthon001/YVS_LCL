@@ -487,13 +487,13 @@ Table 80011 "YVS Billing Receipt Header"
         "Create DateTime" := CurrentDateTime;
         "Posting Date" := Today();
         "Document Date" := Today();
-        "Bank Fee Acc." := SalesSetup."YVS Default Bank Fee Acc.";
-        "Prepaid WHT Acc." := SalesSetup."YVS Default Prepaid WHT Acc.";
-        if "Prepaid WHT Acc." <> '' then
-            "Prepaid WHT Date" := Today();
-        "Diff Amount Acc." := SalesSetup."YVS Default Diff Amount Acc.";
-
-
+        if rec."Document Type" = rec."Document Type"::"Sales Receipt" then begin
+            "Bank Fee Acc." := SalesSetup."YVS Default Bank Fee Acc.";
+            "Prepaid WHT Acc." := SalesSetup."YVS Default Prepaid WHT Acc.";
+            if "Prepaid WHT Acc." <> '' then
+                "Prepaid WHT Date" := Today();
+            "Diff Amount Acc." := SalesSetup."YVS Default Diff Amount Acc.";
+        end;
     end;
 
     trigger OnDelete()
@@ -549,16 +549,19 @@ Table 80011 "YVS Billing Receipt Header"
     local procedure "GetNoSeriesCode"(): Code[20]
     var
         SalesSetup: Record "Sales & Receivables Setup";
-        PurchSetup: Record "Purchases & Payables Setup";
+        ltNoSeries: code[20];
     begin
-        PurchSetup.get();
         SalesSetup.get();
         CASE "Document Type" OF
             "Document Type"::"Sales Receipt":
                 begin
                     SalesSetup.TestField("YVS Sale Receipt Nos.");
                     EXIT(SalesSetup."YVS Sale Receipt Nos.");
-                end;
+                end
+            else begin
+                OnAfterGetNoSeries(rec, ltNoSeries);
+                exit(ltNoSeries);
+            end;
         END;
     end;
 
@@ -638,6 +641,11 @@ Table 80011 "YVS Billing Receipt Header"
         exit(WFMngt.CanExecuteWorkflow(BillingReceiptHeader, WFCode.RunWorkflowOnSendBillingReceiptApprovalCode()))
     end;
 
+    [BusinessEvent(false)]
+    local procedure OnAfterGetNoSeries(BillingHeader: Record "YVS Billing Receipt Header"; var pNoSeries: code[20])
+    begin
+    end;
+
     /// <summary>
     /// CheckRelease.
     /// </summary>
@@ -677,7 +685,6 @@ Table 80011 "YVS Billing Receipt Header"
     /// </summary>
     procedure CalDiffAmt()
     begin
-
         TestStatusOpen();
         rec."Diff Amount (LCY)" := rec."Receive & Payment Amount" - rec."Bank Fee Amount (LCY)" - rec."Prepaid WHT Amount (LCY)" - rec.Amount;
     end;

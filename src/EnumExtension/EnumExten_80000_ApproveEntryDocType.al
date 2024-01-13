@@ -11,4 +11,8 @@ enumextension 80000 "YVS ApproveEntryDocType" extends "Approval Document Type"
     {
         Caption = 'Purchase Request';
     }
+    value(80002; "YVS Sales Billing")
+    {
+        Caption = 'Sales Billing';
+    }
 }

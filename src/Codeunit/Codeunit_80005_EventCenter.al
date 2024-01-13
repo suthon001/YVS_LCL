@@ -1052,7 +1052,6 @@ codeunit 80005 "YVS EventFunction"
                     RecRef.SetTable(BillingReceipts);
                     BillingReceipts.Status := BillingReceipts.Status::Released;
                     BillingReceipts.Modify();
-
                 end;
         end;
         Handled := true;
@@ -1096,8 +1095,10 @@ codeunit 80005 "YVS EventFunction"
                 begin
                     RecRef.SetTable(BillingReceipt);
                     BillingReceipt.CalcFields(Amount);
-
-                    ApprovalEntryArgument."Document Type" := ApprovalEntryArgument."Document Type"::"YVS Sales Receipt";
+                    if BillingReceipt."Document Type" = BillingReceipt."Document Type"::"Sales Receipt" then
+                        ApprovalEntryArgument."Document Type" := ApprovalEntryArgument."Document Type"::"YVS Sales Receipt";
+                    if BillingReceipt."Document Type" = BillingReceipt."Document Type"::"Sales Billing" then
+                        ApprovalEntryArgument."Document Type" := ApprovalEntryArgument."Document Type"::"YVS Sales Billing";
                     ApprovalEntryArgument.Amount := BillingReceipt.Amount;
                 end;
 
@@ -1111,10 +1112,8 @@ codeunit 80005 "YVS EventFunction"
     begin
         if (PageID = 0) and (RecordRef.Number = Database::"YVS Billing Receipt Header") then begin
             RecordRef.SetTable(BillingReceipt);
-
             if BillingReceipt."Document Type" = BillingReceipt."Document Type"::"Sales Receipt" then
                 PageID := Page::"YVS Sales Receipt List";
-
 
         end;
     end;

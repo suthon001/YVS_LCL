@@ -381,7 +381,7 @@ codeunit 80012 "YVS Clear Transactions"
         MyTable.add('Relationship Mgmt. Cue');
         MyTable.add('YVS Billing Receipt Header');
         MyTable.add('YVS Billing Receipt Line');
-        OnAfterAddtableCleanTransaction(MyTable);
+        OnAfterAddtableCleanMaster(MyTable);
         RecordDeltetionEntry.reset();
         RecordDeltetionEntry.SetRange("Transaction Type", RecordDeltetionEntry."Transaction Type"::Transaction);
         RecordDeltetionEntry.DeleteAll();
@@ -525,6 +525,11 @@ codeunit 80012 "YVS Clear Transactions"
 
     [IntegrationEvent(false, false)]
     local procedure OnAfterAddtableCleanTransaction(var pMyTable: List of [text])
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnAfterAddtableCleanMaster(var pMyTable: List of [text])
     begin
     end;
 
