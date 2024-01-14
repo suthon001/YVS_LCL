@@ -1,3 +1,6 @@
+/// <summary>
+/// Codeunit YVS FA Jnl.-Post Line (ID 80015).
+/// </summary>
 codeunit 80015 "YVS FA Jnl.-Post Line"
 {
 
