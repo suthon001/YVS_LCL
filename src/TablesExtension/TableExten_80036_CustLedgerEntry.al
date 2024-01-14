@@ -67,12 +67,6 @@ tableextension 80036 "YVS ExtenCustLedger Entry" extends "Cust. Ledger Entry"
             DataClassification = CustomerContent;
             Editable = false;
         }
-        field(80010; "YVS Completed Receipt"; Boolean)
-        {
-            Editable = false;
-            Caption = 'Completed Receipt';
-            DataClassification = CustomerContent;
-        }
         field(80011; "YVS Receipt Amount"; Decimal)
         {
             FieldClass = FlowField;

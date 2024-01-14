@@ -223,16 +223,6 @@ table 80012 "YVS Billing Receipt Line"
     trigger OnDelete()
     begin
         TestOpenStatus();
-        CASE "Document Type" OF
-
-            "Document Type"::"Sales Receipt":
-                if CustLedgEntry.GET("Source Ledger Entry No.") then begin
-                    CustLedgEntry."YVS Completed Receipt" := FALSE;
-                    CustLedgEntry.MODIFY();
-                end;
-
-
-        END;
     end;
 
     trigger OnModify()
