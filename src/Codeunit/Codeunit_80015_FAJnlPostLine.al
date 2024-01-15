@@ -500,6 +500,11 @@ codeunit 80015 "YVS FA Jnl.-Post Line"
         exit(FAInsertLedgEntry.FindFirstGLAcc(FAGLPostBuf));
     end;
 
+    /// <summary>
+    /// GetNextGLAcc.
+    /// </summary>
+    /// <param name="FAGLPostBuf">VAR Record "FA G/L Posting Buffer".</param>
+    /// <returns>Return value of type Integer.</returns>
     procedure GetNextGLAcc(var FAGLPostBuf: Record "FA G/L Posting Buffer"): Integer
     begin
         exit(FAInsertLedgEntry.GetNextGLAcc(FAGLPostBuf));
@@ -512,6 +517,10 @@ codeunit 80015 "YVS FA Jnl.-Post Line"
         exit(DepreciationCalc.FAName(FA, DeprBookCode));
     end;
 
+    /// <summary>
+    /// SetResultOnDisposal.
+    /// </summary>
+    /// <param name="pFALedgEntry">VAR Record "FA Ledger Entry".</param>
     procedure SetResultOnDisposal(var pFALedgEntry: Record "FA Ledger Entry")
     var
         ltFADeprBook: Record "FA Depreciation Book";
