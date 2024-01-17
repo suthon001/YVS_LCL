@@ -35,8 +35,10 @@ tableextension 80013 "YVS ExtenSales Line" extends "Sales Line"
                     IF "Outstanding Quantity" = 0 THEN
                         ERROR('Outstanding Quantity must not be 0');
 
-                    IF "YVS Qty. to Cancel" > (Quantity - "Quantity Shipped") THEN
-                        VALIDATE("YVS Qty. to Cancel", Quantity - "Quantity Shipped");
+                    IF "YVS Qty. to Cancel" <= (Quantity - "Quantity Shipped") THEN
+                        VALIDATE("YVS Qty. to Cancel", Quantity - "Quantity Shipped")
+                    else
+                        ERROR('Remaining Qty. is %1', rec.Quantity - rec."Quantity Shipped");
 
                     "YVS Qty. to Cancel (Base)" := UOMMgt.CalcBaseQty("YVS Qty. to Cancel", "Qty. per Unit of Measure");
                     InitOutstanding();
@@ -44,8 +46,10 @@ tableextension 80013 "YVS ExtenSales Line" extends "Sales Line"
                     VALIDATE("Qty. to Ship", "Outstanding Quantity");
                 END ELSE
                     IF ("Document Type" = "Document Type"::"Blanket Order") THEN BEGIN
-                        IF "YVS Qty. to Cancel" > Quantity THEN
-                            VALIDATE("YVS Qty. to Cancel", Quantity);
+                        IF "YVS Qty. to Cancel" <= Quantity THEN
+                            VALIDATE("YVS Qty. to Cancel", Quantity)
+                        else
+                            ERROR('Remaining Qty. is %1', rec.Quantity);
 
                         "YVS Qty. to Cancel (Base)" := UOMMgt.CalcBaseQty("YVS Qty. to Cancel", "Qty. per Unit of Measure");
                         InitOutstanding();
