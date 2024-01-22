@@ -106,13 +106,13 @@ pageextension 80029 "YVS General Journal" extends "General Journal"
         {
             action("Show Detail")
             {
-                Caption = 'Show Detail Vat & Cheque & WHT';
+                Caption = 'Show Detail VAT & Cheque & WHT';
                 Image = LineDescription;
                 ApplicationArea = all;
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
-                ToolTip = 'Executes the Show Detail Vat & Cheque & WHT action.';
+                ToolTip = 'Executes the Show Detail VAT & Cheque & WHT action.';
                 trigger OnAction()
                 var
                     ShowDetailCheque: Page "YVS ShowDetail Cheque";

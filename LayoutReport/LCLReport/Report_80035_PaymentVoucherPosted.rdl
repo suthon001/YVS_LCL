@@ -4946,7 +4946,7 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>=First(Fields!Journal_Batch_Name.Value, "DataSet_Result") &amp; " " &amp; First(Fields!GenjournalTemplate_DescThai.Value, "DataSet_Result")</Value>
+                      <Value>=First(Fields!PostingDescription.Value, "DataSet_Result")</Value>
                       <Style>
                         <FontFamily>Tahoma</FontFamily>
                         <FontSize>8pt</FontSize>

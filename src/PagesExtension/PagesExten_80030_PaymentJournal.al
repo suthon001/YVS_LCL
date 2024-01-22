@@ -90,13 +90,13 @@ pageextension 80030 "YVS Payment Journal" extends "Payment Journal"
             }
             action("Show Detail")
             {
-                Caption = 'Show Detail Vat & Cheque';
+                Caption = 'Show Detail VAT & Cheque';
                 Image = LineDescription;
                 ApplicationArea = all;
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
-                ToolTip = 'Executes the Show Detail Vat & Cheque action.';
+                ToolTip = 'Executes the Show Detail VAT & Cheque action.';
                 trigger OnAction()
                 var
                     ShowDetailCheque: Page "YVS ShowDetail Cheque";
