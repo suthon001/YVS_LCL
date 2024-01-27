@@ -120,54 +120,48 @@ table 80012 "YVS Billing Receipt Line"
             trigger OnValidate()
             var
                 CustLedger: Record "Cust. Ledger Entry";
-                PurchaseBilling: Record "YVS Billing Receipt Line";
-                PurchaseBillingHeader: Record "YVS Billing Receipt Header";
+                SalesReceipt: Record "YVS Billing Receipt Line";
+                SalesReceiptHeader: Record "YVS Billing Receipt Header";
                 TOtalAmt: Decimal;
             begin
-                PurchaseBillingHeader.GET(rec."Document Type", rec."Document No.");
-                PurchaseBillingHeader.TestField("Status", PurchaseBillingHeader."Status"::Open);
-                if PurchaseBillingHeader."Document Type" = PurchaseBillingHeader."Document Type"::"Sales Receipt" then begin
+                SalesReceiptHeader.GET(rec."Document Type", rec."Document No.");
+                SalesReceiptHeader.TestField("Status", SalesReceiptHeader."Status"::Open);
+                if rec."Document Type" = rec."Document Type"::"Sales Receipt" then begin
 
                     if not CustLedger.GET("Source Ledger Entry No.") then
                         CustLedger.Init();
                     CustLedger.CalcFields("Remaining Amount");
 
-                    PurchaseBilling.reset();
-                    PurchaseBilling.SetRange("Document Type", PurchaseBillingHeader."Document Type");
-                    PurchaseBilling.SetRange("Document No.", rec."Document No.");
-                    PurchaseBilling.SetFilter("Line No.", '<>%1', rec."Line No.");
-                    PurchaseBilling.setrange("Source Ledger Entry No.", rec."Source Ledger Entry No.");
+                    SalesReceipt.reset();
+                    SalesReceipt.SetRange("Document Type", rec."Document Type");
+                    SalesReceipt.SetRange("Document No.", rec."Document No.");
+                    SalesReceipt.SetFilter("Line No.", '<>%1', rec."Line No.");
+                    SalesReceipt.setrange("Source Ledger Entry No.", rec."Source Ledger Entry No.");
+                    SalesReceipt.CalcSums("Amount");
 
-                    PurchaseBilling.CalcSums("Amount");
+                    TOtalAmt := SalesReceipt."Amount";
 
-                    TOtalAmt := PurchaseBilling."Amount";
-
-                    PurchaseBilling.reset();
-                    PurchaseBilling.SetRange("Document Type", PurchaseBillingHeader."Document Type");
-                    PurchaseBilling.SetFilter("Document No.", '<>%1', rec."Document No.");
-                    PurchaseBilling.setrange("Source Ledger Entry No.", rec."Source Ledger Entry No.");
-                    PurchaseBilling.SetFilter("Status", '<>%1', PurchaseBilling."Status"::"Posted");
-                    PurchaseBilling.CalcSums("Amount");
-                    TOtalAmt := TOtalAmt + rec."Amount" + PurchaseBilling."Amount";
-
-
-                    if (ABS(CustLedger."Remaining Amount") - TOtalAmt) < 0 then
-                        CustLedger.FieldError("Remaining Amount", strsubstno('remaining amount is %1', ABS(CustLedger."Remaining Amount")));
+                    SalesReceipt.reset();
+                    SalesReceipt.SetRange("Document Type", rec."Document Type");
+                    SalesReceipt.SetFilter("Document No.", '<>%1', rec."Document No.");
+                    SalesReceipt.setrange("Source Ledger Entry No.", rec."Source Ledger Entry No.");
+                    SalesReceipt.SetFilter("Status", '<>%1', SalesReceipt."Status"::"Posted");
+                    SalesReceipt.CalcSums("Amount");
+                    TOtalAmt := TOtalAmt + SalesReceipt."Amount";
 
 
-                    TOtalAmt := 0;
-                    PurchaseBilling.reset();
-                    PurchaseBilling.SetRange("Document Type", PurchaseBillingHeader."Document Type");
-                    PurchaseBilling.SetRange("Document No.", rec."Document No.");
-                    PurchaseBilling.SetFilter("Line No.", '<>%1', rec."Line No.");
-                    PurchaseBilling.CalcSums("Amount");
+                    if (ABS(CustLedger."Remaining Amount") - ABS((TOtalAmt + rec."Amount"))) < 0 then
+                        CustLedger.FieldError("Remaining Amount", strsubstno('remaining amount is %1', ABS(CustLedger."Remaining Amount" - TOtalAmt)));
 
-                    TOtalAmt := PurchaseBilling.Amount + rec.Amount;
 
-                    PurchaseBillingHeader."Receive & Payment Amount" := TOtalAmt;
-                    PurchaseBillingHeader.Modify();
+                    TOtalAmt := TOtalAmt + rec.Amount;
+
+                    SalesReceiptHeader."Receive & Payment Amount" := TOtalAmt;
+                    SalesReceiptHeader.Modify();
 
                 end;
+                OnAfterValidateAmount(Rec, SalesReceiptHeader);
+
                 rec.CalAmtExcludeVat();
 
             end;
@@ -266,7 +260,9 @@ table 80012 "YVS Billing Receipt Line"
 
     end;
 
-    var
-        CustLedgEntry: Record "Cust. Ledger Entry";
+    [IntegrationEvent(false, false)]
+    local procedure OnAfterValidateAmount(var BillingLine: Record "YVS Billing Receipt Line"; BillingHeader: Record "YVS Billing Receipt Header")
+    begin
+    end;
 
 }
