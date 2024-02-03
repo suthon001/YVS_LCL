@@ -304,6 +304,7 @@ tableextension 80011 "YVS ExtenPurchase Line" extends "Purchase Line"
         PurchaseLine: Record "Purchase Line";
     begin
         PurchaseLine.reset();
+        PurchaseLine.ReadIsolation := IsolationLevel::UpdLock;
         PurchaseLine.SetCurrentKey("Document Type", "Document No.", "Line No.");
         PurchaseLine.SetRange("Document Type", "Document Type");
         PurchaseLine.SetRange("Document No.", "Document No.");
@@ -326,6 +327,7 @@ tableextension 80011 "YVS ExtenPurchase Line" extends "Purchase Line"
             ("YVS Ref. PQ No." <> '') then begin
 
             POLine.reset();
+            POLine.ReadIsolation := IsolationLevel::ReadCommitted;
             POLine.SetRange("Document Type", "Document Type");
             POLine.SetFilter("Document No.", '<>%1', "Document No.");
             POLine.SetRange("YVS Ref. PQ No.", "YVS Ref. PQ No.");
@@ -336,6 +338,7 @@ tableextension 80011 "YVS ExtenPurchase Line" extends "Purchase Line"
                 TempQtyBase := POLine."Quantity (Base)";
             end;
             POLine.reset();
+            POLine.ReadIsolation := IsolationLevel::ReadCommitted;
             POLine.SetRange("Document Type", "Document Type");
             POLine.SetFilter("Document No.", '%1', "Document No.");
             POLine.SetFilter("Line No.", '<>%1', "Line No.");
@@ -405,6 +408,7 @@ tableextension 80011 "YVS ExtenPurchase Line" extends "Purchase Line"
         TempQty: Decimal;
     begin
         POLine.reset();
+        POLine.ReadIsolation := IsolationLevel::ReadCommitted;
         POLine.SetRange("Document Type", POLine."Document Type"::Order);
         POLine.SetRange("YVS Ref. PQ No.", "Document No.");
         POLine.SetRange("YVS Ref. PQ Line No.", "Line No.");

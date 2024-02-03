@@ -3,7 +3,33 @@
 /// </summary>
 codeunit 80000 "YVS Journal Function"
 {
-    EventSubscriberInstance = StaticAutomatic;
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"TransferOrder-Post Shipment", 'OnAfterCreateItemJnlLine', '', false, false)]
+    local procedure OnAfterCreateItemJnlLineTransferShip(var ItemJournalLine: Record "Item Journal Line"; TransferLine: Record "Transfer Line")
+    begin
+        ItemJournalLine."YVS Temp. Bin Code" := TransferLine."Transfer-from Bin Code";
+        ItemJournalLine."YVS Temp. New Bin Code" := TransferLine."Transfer-To Bin Code";
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"TransferOrder-Post Receipt", 'OnBeforePostItemJournalLine', '', false, false)]
+    local procedure OnBeforePostItemJournalLineReceipt(var ItemJournalLine: Record "Item Journal Line"; TransLine: Record "Transfer Line")
+    begin
+        ItemJournalLine."YVS Temp. Bin Code" := TransLine."Transfer-from Bin Code";
+        ItemJournalLine."YVS Temp. New Bin Code" := TransLine."Transfer-To Bin Code";
+    end;
+
+    [EventSubscriber(ObjectType::Table, Database::"Gen. Journal Line", 'OnAfterCopyGenJnlLineFromPurchHeaderPrepmtPost', '', false, false)]
+    local procedure OnAfterCopyGenJnlLineFromPurchHeaderPrepmtPost(var GenJournalLine: Record "Gen. Journal Line"; PurchaseHeader: Record "Purchase Header")
+    begin
+        GenJournalLine."YVS Ref. Prepayment PO No." := PurchaseHeader."No.";
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Gen. Jnl.-Post Line", 'OnAfterInitVendLedgEntry', '', false, false)]
+    local procedure OnAfterInitVendLedgEntry(var VendorLedgerEntry: Record "Vendor Ledger Entry"; GenJournalLine: Record "Gen. Journal Line")
+    begin
+        if VendorLedgerEntry.Prepayment then
+            VendorLedgerEntry."YVS Ref. Prepayment PO No." := GenJournalLine."YVS Ref. Prepayment PO No.";
+    end;
+
 
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Gen. Jnl.-Post Batch", 'OnProcessLinesOnAfterPostGenJnlLines', '', true, true)]
@@ -694,7 +720,8 @@ codeunit 80000 "YVS Journal Function"
         NewItemLedgEntry."YVS Gen. Bus. Posting Group" := ItemJournalLine."Gen. Bus. Posting Group";
         NewItemLedgEntry."YVS Vat Bus. Posting Group" := ItemJournalLine."YVS Vat Bus. Posting Group";
         NewItemLedgEntry."YVS Vendor/Customer Name" := ItemJournalLine."YVS Vendor/Customer Name";
-        NewItemLedgEntry."YVS Bin Code" := ItemJournalLine."Bin Code";
+        NewItemLedgEntry."YVS Bin Code" := ItemJournalLine."YVS Temp. Bin Code";
+        NewItemLedgEntry."YVS New Bin Code" := ItemJournalLine."YVS Temp. New Bin Code";
         "YVS OnCopyItemLedgerFromItemJournal"(NewItemLedgEntry, ItemJournalLine);
 
     end;
@@ -737,7 +764,7 @@ codeunit 80000 "YVS Journal Function"
         ItemJnlLine."YVS Vat Bus. Posting Group" := SalesLine."VAT Bus. Posting Group";
         ItemJnlLine."Gen. Prod. Posting Group" := SalesLine."Gen. Prod. Posting Group";
         ItemJnlLine."Gen. Bus. Posting Group" := SalesLine."Gen. Bus. Posting Group";
-        ItemJnlLine."Bin Code" := SalesLine."Bin Code";
+        ItemJnlLine."YVS Temp. Bin Code" := SalesLine."Bin Code";
         ItemJnlLine.Description := SalesLine.Description;
 
     end;
@@ -753,7 +780,7 @@ codeunit 80000 "YVS Journal Function"
         ItemJnlLine."YVS Vat Bus. Posting Group" := PurchLine."VAT Bus. Posting Group";
         ItemJnlLine."Gen. Prod. Posting Group" := PurchLine."Gen. Prod. Posting Group";
         ItemJnlLine."Gen. Bus. Posting Group" := PurchLine."Gen. Bus. Posting Group";
-        ItemJnlLine."Bin Code" := PurchLine."Bin Code";
+        ItemJnlLine."YVS Temp. Bin Code" := PurchLine."Bin Code";
         ItemJnlLine.Description := PurchLine.Description;
     end;
 

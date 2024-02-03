@@ -67,5 +67,12 @@ tableextension 80037 "YVS ExtenVendorLedger Entry" extends "Vendor Ledger Entry"
             DataClassification = CustomerContent;
 
         }
+        field(80010; "YVS Ref. Prepayment PO No."; code[20])
+        {
+            Editable = false;
+            DataClassification = CustomerContent;
+            Caption = 'Ref. Prepayment PO No.';
+
+        }
     }
 }

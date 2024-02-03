@@ -133,6 +133,7 @@ table 80012 "YVS Billing Receipt Line"
                     CustLedger.CalcFields("Remaining Amount");
 
                     SalesReceipt.reset();
+                    SalesReceipt.ReadIsolation := IsolationLevel::ReadCommitted;
                     SalesReceipt.SetRange("Document Type", rec."Document Type");
                     SalesReceipt.SetRange("Document No.", rec."Document No.");
                     SalesReceipt.SetFilter("Line No.", '<>%1', rec."Line No.");
@@ -142,6 +143,7 @@ table 80012 "YVS Billing Receipt Line"
                     TOtalAmt := SalesReceipt."Amount";
 
                     SalesReceipt.reset();
+                    SalesReceipt.ReadIsolation := IsolationLevel::ReadCommitted;
                     SalesReceipt.SetRange("Document Type", rec."Document Type");
                     SalesReceipt.SetFilter("Document No.", '<>%1', rec."Document No.");
                     SalesReceipt.setrange("Source Ledger Entry No.", rec."Source Ledger Entry No.");
@@ -251,6 +253,7 @@ table 80012 "YVS Billing Receipt Line"
         BillingLines: Record "YVS Billing Receipt Line";
     begin
         BillingLines.reset();
+        BillingLines.ReadIsolation := IsolationLevel::UpdLock;
         BillingLines.SetCurrentKey("Document Type", "Document No.", "Line No.");
         BillingLines.SetRange("Document Type", "Document Type");
         BillingLines.SetRange("Document No.", "Document No.");

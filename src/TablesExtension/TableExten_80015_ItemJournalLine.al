@@ -48,6 +48,32 @@ tableextension 80015 "YVS ExtenItem Journal Line" extends "Item Journal Line"
             DataClassification = SystemMetadata;
             Editable = false;
         }
+        field(80007; "YVS Temp. Bin Code"; code[20])
+        {
+            Caption = 'Temp. Bin Code';
+            DataClassification = CustomerContent;
+            Editable = false;
+        }
+        field(80008; "YVS Temp. New Bin Code"; code[20])
+        {
+            Caption = 'Temp. New Bin Code';
+            DataClassification = CustomerContent;
+            Editable = false;
+        }
+        modify("Bin Code")
+        {
+            trigger OnAfterValidate()
+            begin
+                "YVS Temp. Bin Code" := "Bin Code";
+            end;
+        }
+        modify("New Bin Code")
+        {
+            trigger OnAfterValidate()
+            begin
+                "YVS Temp. New Bin Code" := "New Bin Code";
+            end;
+        }
     }
 
 
@@ -90,6 +116,7 @@ tableextension 80015 "YVS ExtenItem Journal Line" extends "Item Journal Line"
         ItemJournalLine: Record "Item Journal Line";
     begin
         ItemJournalLine.reset();
+        ItemJournalLine.ReadIsolation := IsolationLevel::UpdLock;
         ItemJournalLine.SetCurrentKey("Journal Template Name", "Journal Batch Name", "Line No.");
         ItemJournalLine.SetRange("Journal Template Name", "Journal Template Name");
         ItemJournalLine.SetRange("Journal Batch Name", "Journal Batch Name");

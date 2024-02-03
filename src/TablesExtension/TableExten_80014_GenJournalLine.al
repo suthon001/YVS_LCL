@@ -503,7 +503,13 @@ tableextension 80014 "YVS GenJournal Lines" extends "Gen. Journal Line"
             Caption = 'Ref. Billing & Receipt No.';
 
         }
+        field(80054; "YVS Ref. Prepayment PO No."; code[20])
+        {
+            Editable = false;
+            DataClassification = CustomerContent;
+            Caption = 'Ref. Prepayment PO No.';
 
+        }
         modify("External Document No.")
         {
             trigger OnAfterValidate()

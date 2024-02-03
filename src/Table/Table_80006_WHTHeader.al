@@ -606,22 +606,34 @@ table 80006 "YVS WHT Header"
 
     end;
 
+    /// <summary>
+    /// OnAfterinitWHTHeaderVend.
+    /// </summary>
+    /// <param name="WHTHeader">VAR Record "YVS WHT Header".</param>
+    /// <param name="Vend">Record Vendor.</param>
     [IntegrationEvent(true, false)]
-
     procedure OnAfterinitWHTHeaderVend(var WHTHeader: Record "YVS WHT Header"; Vend: Record Vendor)
     begin
 
     end;
 
+    /// <summary>
+    /// OnAfterinitWHTHeaderCust.
+    /// </summary>
+    /// <param name="WHTHeader">VAR Record "YVS WHT Header".</param>
+    /// <param name="Cust">Record Customer.</param>
     [IntegrationEvent(true, false)]
-
     procedure OnAfterinitWHTHeaderCust(var WHTHeader: Record "YVS WHT Header"; Cust: Record Customer)
     begin
 
     end;
 
+    /// <summary>
+    /// OnCopyAddressbyBranch.
+    /// </summary>
+    /// <param name="WHTHeader">VAR Record "YVS WHT Header".</param>
+    /// <param name="CustomerVendorBranch">Record "YVS Customer Vendor Branch".</param>
     [IntegrationEvent(true, false)]
-
     procedure OnCopyAddressbyBranch(var WHTHeader: Record "YVS WHT Header"; CustomerVendorBranch: Record "YVS Customer & Vendor Branch")
     begin
 
