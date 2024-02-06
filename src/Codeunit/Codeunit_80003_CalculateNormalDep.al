@@ -381,7 +381,7 @@ codeunit 80003 "YVS Calculate Normal Dep"
         EXIT(DBAmount)
     end;
 
-    local procedure "YVS CalcUserDefinedAmount"(EndingDate: Date): Decimal
+    local procedure "YVS CalcUserDefinedAmount"(pEndingDate: Date): Decimal
     var
         TableDeprCalc: Codeunit "YVS Table Depr. Calculation";
     begin
@@ -390,7 +390,7 @@ codeunit 80003 "YVS Calculate Normal Dep"
 
         EXIT(
           -TableDeprCalc."YVS GetTablePercent"(DeprBook.Code, DeprTableCode,
-            FirstUserDefinedDeprDate, FirstDeprDate, EndingDate) *
+            FirstUserDefinedDeprDate, FirstDeprDate, pEndingDate) *
           DeprBasis * Factor);
     end;
 
