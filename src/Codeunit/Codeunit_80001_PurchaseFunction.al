@@ -32,11 +32,17 @@ codeunit 80001 "YVS Purchase Function"
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Quote to Order", 'OnBeforeDeletePurchQuote', '', false, false)]
     local procedure OnBeforeDeletePurchQuote(var QuotePurchHeader: Record "Purchase Header"; var IsHandled: Boolean; var OrderPurchHeader: Record "Purchase Header")
+    var
+        IsHandle: Boolean;
     begin
-        IsHandled := true;
-        QuotePurchHeader."YVS Purchase Order No." := OrderPurchHeader."No.";
-        QuotePurchHeader.Modify();
-        MESSAGE('Create to Document No. ' + OrderPurchHeader."No.");
+        IsHandle := false;
+        YVSOnBeforeDeletePurchQuote(IsHandle);
+        if not IsHandle then begin
+            IsHandled := true;
+            QuotePurchHeader."YVS Purchase Order No." := OrderPurchHeader."No.";
+            QuotePurchHeader.Modify();
+            MESSAGE('Create to Document No. ' + OrderPurchHeader."No.");
+        end;
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Quote to Order", 'OnCreatePurchHeaderOnBeforePurchOrderHeaderInsert', '', false, false)]
@@ -55,46 +61,50 @@ codeunit 80001 "YVS Purchase Function"
         PurchaseLine: Record "Purchase Line";
         WHTAppEntry: Record "YVS WHT Applied Entry";
         LastLineNo: Integer;
+        IsHandle: Boolean;
     begin
         LastLineNo := 0;
-
-        if PurchHeader."Document Type" in [PurchHeader."Document Type"::Invoice, PurchHeader."Document Type"::"Credit Memo"] then begin
-            PurchaseLine.reset();
-            PurchaseLine.SetRange("Document Type", PurchHeader."Document Type");
-            PurchaseLine.SetRange("Document No.", PurchHeader."No.");
-            PurchaseLine.SetFilter("YVS WHT %", '<>%1', 0);
-            OnbeforInsertWHTAPPLY(PurchHeader, PurchaseLine);
-            if PurchaseLine.FindSet() then
-                repeat
-                    LastLineNo := LastLineNo + 10000;
-                    WHTAppEntry.init();
-                    WHTAppEntry."Document No." := PurchaseLine."Document No.";
-                    WHTAppEntry."Document Line No." := PurchaseLine."Line No.";
-                    WHTAppEntry."Entry Type" := WHTAppEntry."Entry Type"::Initial;
-                    WHTAppEntry."Line No." := LastLineNo;
-                    WHTAppEntry."WHT Bus. Posting Group" := PurchaseLine."YVS WHT Business Posting Group";
-                    WHTAppEntry."WHT Prod. Posting Group" := PurchaseLine."YVS WHT Product Posting Group";
-                    WHTAppEntry.Description := PurchaseLine.Description;
-                    WHTAppEntry."WHT %" := PurchaseLine."YVS WHT %";
-                    WHTAppEntry."WHT Base" := PurchaseLine."YVS WHT Base";
-                    WHTAppEntry."WHT Amount" := PurchaseLine."YVS WHT Amount";
-                    WHTAppEntry."WHT Name" := PurchHeader."Buy-from Vendor Name";
-                    WHTAppEntry."WHT Name 2" := PurchHeader."Buy-from Vendor Name 2";
-                    WHTAppEntry."WHT Address" := PurchHeader."Buy-from Address";
-                    WHTAppEntry."WHT Address 2" := PurchHeader."Buy-from Address 2";
-                    WHTAppEntry."WHT City" := PurchHeader."Buy-from City";
-                    WHTAppEntry."VAT Registration No." := PurchHeader."VAT Registration No.";
-                    WHTAppEntry."WHT Option" := PurchaseLine."YVS WHT Option";
-                    WHTAppEntry."VAT Branch Code" := PurchHeader."YVS VAT Branch Code";
-                    WHTAppEntry."Head Office" := PurchHeader."YVS Head Office";
-                    WHTAppEntry."WHT Post Code" := PurchHeader."Buy-from Post Code";
-                    if PurchaseLine."Document Type" = PurchaseLine."Document Type"::Invoice then
-                        WHTAppEntry."WHT Document Type" := WHTAppEntry."WHT Document Type"::Invoice;
-                    if PurchaseLine."Document Type" = PurchaseLine."Document Type"::"Credit Memo" then
-                        WHTAppEntry."WHT Document Type" := WHTAppEntry."WHT Document Type"::"Credit Memo";
-                    WHTAppEntry.Insert(true);
-                until PurchaseLine.Next() = 0;
-        end;
+        IsHandle := false;
+        "YVS OnBeforInsertWHTEntryAfterPosting"(PurchHeader, IsHandle);
+        if not IsHandle then
+            if PurchHeader."Document Type" in [PurchHeader."Document Type"::Invoice, PurchHeader."Document Type"::"Credit Memo"] then begin
+                PurchaseLine.reset();
+                PurchaseLine.SetRange("Document Type", PurchHeader."Document Type");
+                PurchaseLine.SetRange("Document No.", PurchHeader."No.");
+                PurchaseLine.SetFilter("YVS WHT %", '<>%1', 0);
+                OnbeforInsertWHTAPPLY(PurchHeader, PurchaseLine);
+                if PurchaseLine.FindSet() then
+                    repeat
+                        LastLineNo := LastLineNo + 10000;
+                        WHTAppEntry.init();
+                        WHTAppEntry."Document No." := PurchaseLine."Document No.";
+                        WHTAppEntry."Document Line No." := PurchaseLine."Line No.";
+                        WHTAppEntry."Entry Type" := WHTAppEntry."Entry Type"::Initial;
+                        WHTAppEntry."Line No." := LastLineNo;
+                        WHTAppEntry."WHT Bus. Posting Group" := PurchaseLine."YVS WHT Business Posting Group";
+                        WHTAppEntry."WHT Prod. Posting Group" := PurchaseLine."YVS WHT Product Posting Group";
+                        WHTAppEntry.Description := PurchaseLine.Description;
+                        WHTAppEntry."WHT %" := PurchaseLine."YVS WHT %";
+                        WHTAppEntry."WHT Base" := PurchaseLine."YVS WHT Base";
+                        WHTAppEntry."WHT Amount" := PurchaseLine."YVS WHT Amount";
+                        WHTAppEntry."WHT Name" := PurchHeader."Buy-from Vendor Name";
+                        WHTAppEntry."WHT Name 2" := PurchHeader."Buy-from Vendor Name 2";
+                        WHTAppEntry."WHT Address" := PurchHeader."Buy-from Address";
+                        WHTAppEntry."WHT Address 2" := PurchHeader."Buy-from Address 2";
+                        WHTAppEntry."WHT City" := PurchHeader."Buy-from City";
+                        WHTAppEntry."VAT Registration No." := PurchHeader."VAT Registration No.";
+                        WHTAppEntry."WHT Option" := PurchaseLine."YVS WHT Option";
+                        WHTAppEntry."VAT Branch Code" := PurchHeader."YVS VAT Branch Code";
+                        WHTAppEntry."Head Office" := PurchHeader."YVS Head Office";
+                        WHTAppEntry."WHT Post Code" := PurchHeader."Buy-from Post Code";
+                        if PurchaseLine."Document Type" = PurchaseLine."Document Type"::Invoice then
+                            WHTAppEntry."WHT Document Type" := WHTAppEntry."WHT Document Type"::Invoice;
+                        if PurchaseLine."Document Type" = PurchaseLine."Document Type"::"Credit Memo" then
+                            WHTAppEntry."WHT Document Type" := WHTAppEntry."WHT Document Type"::"Credit Memo";
+                        "YVS OnBeforInsertWHTAPPLY"(WHTAppEntry, PurchHeader, PurchaseLine);
+                        WHTAppEntry.Insert(true);
+                    until PurchaseLine.Next() = 0;
+            end;
     end;
 
 
@@ -173,6 +183,7 @@ codeunit 80001 "YVS Purchase Function"
             PurchaseLine."Outstanding Qty. (Base)" := PurchaseLine."Quantity (Base)" - PurchaseLine."Qty. Received (Base)" - PurchaseLine."YVS Qty. to Cancel (Base)";
             if PurchaseLine."Document Type" in [PurchaseLine."Document Type"::Quote, PurchaseLine."Document Type"::"YVS Purchase Request"] then begin
                 POLine.reset();
+                POLine.ReadIsolation := IsolationLevel::ReadCommitted;
                 POLine.SetRange("Document Type", POLine."Document Type"::Order);
                 POLine.SetRange("YVS Ref. PQ No.", PurchaseLine."Document No.");
                 POLine.SetRange("YVS Ref. PQ Line No.", PurchaseLine."Line No.");
@@ -392,6 +403,11 @@ codeunit 80001 "YVS Purchase Function"
     end;
 
     [BusinessEvent(false)]
+    local procedure "YVS OnBeforInsertWHTAPPLY"(var pWHTAppentry: Record "YVS WHT Applied Entry"; pPurchaseHeader: Record "Purchase Header"; pPurchaseLine: Record "Purchase Line")
+    begin
+    end;
+
+    [BusinessEvent(false)]
     local procedure OnbeforInsertWHTAPPLY(var PurchaseHeader: Record "Purchase Header"; var PurchaseLine: Record "Purchase Line")
     begin
     end;
@@ -401,6 +417,14 @@ codeunit 80001 "YVS Purchase Function"
     begin
     end;
 
+    [IntegrationEvent(false, false)]
+    local procedure YVSOnBeforeDeletePurchQuote(var pIsHandle: Boolean)
+    begin
+    end;
 
+    [IntegrationEvent(false, false)]
+    local procedure "YVS OnBeforInsertWHTEntryAfterPosting"(PurchaseHeader: Record "Purchase Header"; var pIsHandle: Boolean)
+    begin
+    end;
 
 }
