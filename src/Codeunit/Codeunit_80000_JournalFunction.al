@@ -17,6 +17,7 @@ codeunit 80000 "YVS Journal Function"
         if GenLine.FindSet() then
             repeat
                 GeneralLedgerEntry.reset();
+                GeneralLedgerEntry.ReadIsolation := IsolationLevel::ReadCommitted;
                 GeneralLedgerEntry.SetRange("Document No.", GenLine."Document No.");
                 if not GeneralLedgerEntry.IsEmpty then
                     error(DocumentNoAlreadyExistsErr, GenLine."Document No.");
