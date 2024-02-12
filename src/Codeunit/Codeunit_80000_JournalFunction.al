@@ -3,6 +3,26 @@
 /// </summary>
 codeunit 80000 "YVS Journal Function"
 {
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Gen. Jnl.-Post", 'OnBeforeCode', '', false, false)]
+    local procedure OnBeforeCode(var GenJournalLine: Record "Gen. Journal Line")
+    var
+        GenLine: Record "Gen. Journal Line";
+        GeneralLedgerEntry: record "G/L Entry";
+        DocumentNoAlreadyExistsErr: Label 'Document No. %1 already exists for this G/l Entry.', Locked = true;
+    begin
+        GenLine.ReadIsolation := IsolationLevel::ReadCommitted;
+        GenLine.CopyFilters(GenJournalLine);
+        GenLine.SetRange("Journal Template Name", GenJournalLine."Journal Template Name");
+        GenLine.SetRange("Journal Batch Name", GenJournalLine."Journal Batch Name");
+        if GenLine.FindSet() then
+            repeat
+                GeneralLedgerEntry.reset();
+                GeneralLedgerEntry.SetRange("Document No.", GenLine."Document No.");
+                if not GeneralLedgerEntry.IsEmpty then
+                    error(DocumentNoAlreadyExistsErr, GenLine."Document No.");
+            until GenLine.Next() = 0;
+    end;
+
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"TransferOrder-Post Shipment", 'OnAfterCreateItemJnlLine', '', false, false)]
     local procedure OnAfterCreateItemJnlLineTransferShip(var ItemJournalLine: Record "Item Journal Line"; TransferLine: Record "Transfer Line")
     begin
