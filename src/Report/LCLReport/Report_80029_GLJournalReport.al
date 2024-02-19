@@ -15,6 +15,10 @@ report 80029 "YVS GL Journal Report"
         {
             DataItemTableView = SORTING("G/L Account No.", "Document No.", "Posting Date") ORDER(Ascending);
             RequestFilterFields = "Document No.", "Posting Date";
+            column(DimThaiCaption1; DimThaiCaption1) { }
+            column(DimThaiCaption2; DimThaiCaption2) { }
+            column(DimEngCaption1; DimEngCaption1) { }
+            column(DimEngCaption2; DimEngCaption2) { }
             column(Global_Dimension_1_Code; "Global Dimension 1 Code") { }
             column(Global_Dimension_2_Code; "Global Dimension 2 Code") { }
             column(Posting_Date; format("Posting Date", 0, '<Day,2>/<Month,2>/<Year4>')) { }
@@ -42,5 +46,6 @@ report 80029 "YVS GL Journal Report"
     var
         CompanyInfor: Record "Company Information";
         FilterDescription: Text;
+        DimThaiCaption1, DimThaiCaption2, DimEngCaption1, DimEngCaption2 : text;
 
 }

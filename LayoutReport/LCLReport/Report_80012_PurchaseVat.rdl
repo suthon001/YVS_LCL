@@ -25,10 +25,10 @@
                   <Width>0.59259in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.62578in</Width>
+                  <Width>0.80286in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.6944in</Width>
+                  <Width>0.85065in</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.91499in</Width>
@@ -1137,7 +1137,6 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="TaxInvoiceNo_TaxReportLine">
-                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -1181,7 +1180,6 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="VoucherNo_TaxReportLine">
-                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -1996,7 +1994,7 @@
             <Top>0.075in</Top>
             <Left>0.16056in</Left>
             <Height>1.4335in</Height>
-            <Width>7.45517in</Width>
+            <Width>7.7885in</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -2012,7 +2010,7 @@
           </Border>
         </Style>
       </Body>
-      <Width>19.37042cm</Width>
+      <Width>20.27531cm</Width>
       <Page>
         <PageHeader>
           <Height>5.07683cm</Height>
@@ -2070,7 +2068,7 @@
               </Paragraphs>
               <rd:DefaultName>TotalPages</rd:DefaultName>
               <Top>0.21125in</Top>
-              <Left>6.63831in</Left>
+              <Left>7.01331in</Left>
               <Height>0.36111in</Height>
               <Width>0.94826in</Width>
               <ZIndex>1</ZIndex>
@@ -2380,7 +2378,7 @@
               </Paragraphs>
               <rd:DefaultName>Textbox13</rd:DefaultName>
               <Top>0.96736in</Top>
-              <Left>5.9113in</Left>
+              <Left>6.2863in</Left>
               <Height>0.25in</Height>
               <Width>1.67527in</Width>
               <ZIndex>10</ZIndex>
@@ -2484,7 +2482,7 @@
               </Paragraphs>
               <rd:DefaultName>VATRegistrationNo_CompanyInformation</rd:DefaultName>
               <Top>1.21736in</Top>
-              <Left>5.9113in</Left>
+              <Left>6.2863in</Left>
               <Height>0.25in</Height>
               <Width>1.67527in</Width>
               <ZIndex>13</ZIndex>
@@ -2531,7 +2529,7 @@
               </Paragraphs>
               <rd:DefaultName>VATRegistrationNo_CompanyInformation</rd:DefaultName>
               <Top>1.46736in</Top>
-              <Left>5.9113in</Left>
+              <Left>6.2863in</Left>
               <Height>0.40291in</Height>
               <Width>1.67527in</Width>
               <ZIndex>14</ZIndex>
@@ -2594,7 +2592,7 @@
               </Paragraphs>
               <rd:DefaultName>Textbox69</rd:DefaultName>
               <Top>1.78654cm</Top>
-              <Left>18.33093cm</Left>
+              <Left>19.28343cm</Left>
               <Height>0.6cm</Height>
               <Width>0.93896cm</Width>
               <ZIndex>16</ZIndex>

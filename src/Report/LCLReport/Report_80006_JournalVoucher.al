@@ -21,6 +21,10 @@ report 80006 "YVS Journal Voucher"
 
                 UseTemporary = true;
                 CalcFields = "G/L Account Name";
+                column(DimThaiCaption1; DimThaiCaption1) { }
+                column(DimThaiCaption2; DimThaiCaption2) { }
+                column(DimEngCaption1; DimEngCaption1) { }
+                column(DimEngCaption2; DimEngCaption2) { }
                 column(JournalDescriptionEng; JournalDescriptionEng) { }
                 column(Journal_Batch_Name; "Journal Batch Name") { }
                 column(JournalDescriptionThai; JournalDescriptionThai) { }
@@ -129,7 +133,7 @@ report 80006 "YVS Journal Voucher"
 
                 JournalDescriptionThai := ltGenjournalTemplate."YVS Description Thai";
                 JournalDescriptionEng := ltGenjournalTemplate."YVS Description Eng";
-
+                FunctionCenter.GetGlobalDimCaption(DimThaiCaption1, DimEngCaption1, DimThaiCaption2, DimEngCaption2);
             end;
 
         }
@@ -226,5 +230,6 @@ report 80006 "YVS Journal Voucher"
         glAccount: Record "G/L Account";
         UserName: Code[50];
         gvGenLine: Record "Gen. Journal Line";
+        DimThaiCaption1, DimThaiCaption2, DimEngCaption1, DimEngCaption2 : text;
 
 }

@@ -11,6 +11,28 @@ codeunit 80004 "YVS Function Center"
     /// </summary>
     /// <param name="pShipNo">code[20].</param>
     /// <param name="pShipLineNo">integer.</param>
+    procedure GetGlobalDimCaption(var DimCaptionThai1: text; var DimCaptionEng1: text; var DimCaptionThai2: text; var DimCaptionEng2: text)
+    var
+        GeneralSetup: Record "General Ledger Setup";
+        ltDimension: Record Dimension;
+    begin
+
+        GeneralSetup.GET();
+        if not ltDimension.GET(GeneralSetup."Global Dimension 1 Code") then
+            ltDimension.Init();
+        DimCaptionEng1 := ltDimension.Description;
+        DimCaptionThai1 := ltDimension."Thai Description";
+
+        if not ltDimension.GET(GeneralSetup."Global Dimension 2 Code") then
+            ltDimension.Init();
+        DimCaptionEng2 := ltDimension.Description;
+        DimCaptionThai2 := ltDimension."Thai Description";
+    end;
+    /// <summary>
+    /// SetDefualtGetInvoiceSales.
+    /// </summary>
+    /// <param name="pShipNo">code[20].</param>
+    /// <param name="pShipLineNo">integer.</param>
     procedure SetDefualtGetInvoiceSales(pShipNo: code[20]; pShipLineNo: integer)
     var
         SalesShipmentLine: record "Sales Shipment Line";
@@ -620,7 +642,7 @@ codeunit 80004 "YVS Function Center"
             Text[4] := 'โทร : ' + VATBusinessPostingGroup."YVS Phone No.";
             if VATBusinessPostingGroup."YVS Fax No." <> '' then
                 Text[4] += ' แฟกซ์ : ' + VATBusinessPostingGroup."YVS Fax No.";
-            Text[5] := 'อีเมลล์ : ' + VATBusinessPostingGroup."YVS Email";
+            Text[5] := 'อีเมล : ' + VATBusinessPostingGroup."YVS Email";
             Text[6] := 'เลขประจำตัวผู้เสียภาษี : ' + VATBusinessPostingGroup."YVS VAT Registration No.";
             if VATBusinessPostingGroup."YVS Head Office" then
                 Text[6] += ' (สำนักงานใหญ่)'

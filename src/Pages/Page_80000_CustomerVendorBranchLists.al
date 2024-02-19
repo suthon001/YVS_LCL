@@ -23,6 +23,18 @@ page 80000 "YVS Cust. & Vendor BranchLists"
                     Caption = 'Source No.';
                     ToolTip = 'Specifies the value of the Source No. field.';
                 }
+                field("Head Office"; Rec."Head Office")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Head Office';
+                    ToolTip = 'Specifies the value of the Head Office field.';
+                }
+                field("VAT Branch Code"; Rec."VAT Branch Code")
+                {
+                    ApplicationArea = All;
+                    Caption = 'VAT Branch Code';
+                    ToolTip = 'Specifies the value of the VAT Branch Code field.';
+                }
                 field("Title Name"; Rec."Title Name")
                 {
                     ApplicationArea = All;
@@ -133,18 +145,7 @@ page 80000 "YVS Cust. & Vendor BranchLists"
                     Caption = 'Contact';
                     ToolTip = 'Specifies the value of the Contact field.';
                 }
-                field("Head Office"; Rec."Head Office")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Head Office';
-                    ToolTip = 'Specifies the value of the Head Office field.';
-                }
-                field("VAT Branch Code"; Rec."VAT Branch Code")
-                {
-                    ApplicationArea = All;
-                    Caption = 'VAT Branch Code';
-                    ToolTip = 'Specifies the value of the VAT Branch Code field.';
-                }
+
                 field("Vat Registration No."; Rec."Vat Registration No.")
                 {
                     ApplicationArea = all;

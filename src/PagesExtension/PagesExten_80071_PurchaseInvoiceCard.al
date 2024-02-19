@@ -89,6 +89,10 @@ pageextension 80071 "YVS Purchase Invoice Card" extends "Purchase Invoice"
         {
             Visible = true;
         }
+        addafter("Posting Description")
+        {
+            field("YVS Purchase Order No."; rec."YVS Purchase Order No.") { ApplicationArea = all; Editable = true; }
+        }
 
 
 

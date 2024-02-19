@@ -156,4 +156,10 @@ table 80000 "YVS Customer & Vendor Branch"
             Clustered = true;
         }
     }
+    trigger OnInsert()
+    begin
+        if (not rec."Head Office") and (rec."VAT Branch Code" = '') then
+            ERROR('Head Office and Branh code must spacifies');
+
+    end;
 }

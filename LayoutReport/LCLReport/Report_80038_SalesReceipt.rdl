@@ -299,14 +299,14 @@
                                     <TablixCells>
                                       <TablixCell>
                                         <CellContents>
-                                          <Textbox Name="Textbox3">
+                                          <Textbox Name="LineNo">
                                             <CanGrow>true</CanGrow>
                                             <KeepTogether>true</KeepTogether>
                                             <Paragraphs>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value>=RowNumber(Nothing)</Value>
+                                                    <Value>=Fields!LineNo.Value</Value>
                                                     <Style>
                                                       <FontFamily>Tahoma</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -318,7 +318,7 @@
                                                 </Style>
                                               </Paragraph>
                                             </Paragraphs>
-                                            <rd:DefaultName>Textbox3</rd:DefaultName>
+                                            <rd:DefaultName>LineNo</rd:DefaultName>
                                             <Style>
                                               <Border>
                                                 <Style>None</Style>
@@ -702,7 +702,7 @@
               </Paragraphs>
               <rd:DefaultName>Textbox42</rd:DefaultName>
               <Top>1.65346in</Top>
-              <Left>4.52163in</Left>
+              <Left>4.53413in</Left>
               <Height>0.25in</Height>
               <Width>1.74653in</Width>
               <ZIndex>3</ZIndex>
@@ -737,7 +737,7 @@
               </Paragraphs>
               <rd:DefaultName>Textbox42</rd:DefaultName>
               <Top>1.90902in</Top>
-              <Left>4.52163in</Left>
+              <Left>4.53413in</Left>
               <Height>0.25in</Height>
               <Width>1.74653in</Width>
               <ZIndex>4</ZIndex>
@@ -772,7 +772,7 @@
               </Paragraphs>
               <rd:DefaultName>Textbox42</rd:DefaultName>
               <Top>2.4118in</Top>
-              <Left>4.52163in</Left>
+              <Left>4.53413in</Left>
               <Height>0.25in</Height>
               <Width>1.74653in</Width>
               <ZIndex>5</ZIndex>
@@ -806,9 +806,9 @@
               </Paragraphs>
               <rd:DefaultName>Textbox42</rd:DefaultName>
               <Top>1.65068in</Top>
-              <Left>6.28206in</Left>
+              <Left>6.30983in</Left>
               <Height>0.25in</Height>
-              <Width>1.25534in</Width>
+              <Width>1.22757in</Width>
               <ZIndex>6</ZIndex>
               <Style>
                 <Border>
@@ -840,9 +840,9 @@
               </Paragraphs>
               <rd:DefaultName>Textbox42</rd:DefaultName>
               <Top>1.90624in</Top>
-              <Left>6.28206in</Left>
+              <Left>6.30983in</Left>
               <Height>0.25in</Height>
-              <Width>1.25534in</Width>
+              <Width>1.22757in</Width>
               <ZIndex>7</ZIndex>
               <Style>
                 <Border>
@@ -874,9 +874,9 @@
               </Paragraphs>
               <rd:DefaultName>Textbox42</rd:DefaultName>
               <Top>2.40902in</Top>
-              <Left>6.28206in</Left>
+              <Left>6.30983in</Left>
               <Height>0.25in</Height>
-              <Width>1.25534in</Width>
+              <Width>1.22757in</Width>
               <ZIndex>8</ZIndex>
               <Style>
                 <Border>
@@ -942,7 +942,7 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>=First(Fields!CustVend_1.Value, "DataSet_Result") + " " + "( " + First(Fields!CustVend_9.Value, "DataSet_Result") + ")"</Value>
+                      <Value>=First(Fields!CustVend_1.Value, "DataSet_Result")</Value>
                       <Style>
                         <FontFamily>Tahoma</FontFamily>
                         <FontSize>8pt</FontSize>
@@ -958,7 +958,7 @@
               <Top>1.65346in</Top>
               <Left>2.09364in</Left>
               <Height>0.25in</Height>
-              <Width>2.35855in</Width>
+              <Width>2.47565in</Width>
               <ZIndex>11</ZIndex>
               <Style>
                 <Border>
@@ -1143,7 +1143,7 @@
               </Paragraphs>
               <rd:DefaultName>Textbox42</rd:DefaultName>
               <Top>2.15624in</Top>
-              <Left>4.22207in</Left>
+              <Left>4.23457in</Left>
               <Height>0.25in</Height>
               <Width>2.0461in</Width>
               <ZIndex>16</ZIndex>
@@ -1177,9 +1177,9 @@
               </Paragraphs>
               <rd:DefaultName>Textbox42</rd:DefaultName>
               <Top>2.15346in</Top>
-              <Left>6.28206in</Left>
+              <Left>6.30983in</Left>
               <Height>0.25in</Height>
-              <Width>1.25534in</Width>
+              <Width>1.22757in</Width>
               <ZIndex>17</ZIndex>
               <Style>
                 <Border>
@@ -1609,12 +1609,12 @@
           </Style>
         </PageHeader>
         <PageFooter>
-          <Height>6.88157cm</Height>
+          <Height>7.18783cm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
             <Line Name="Line2">
-              <Top>0.65616cm</Top>
+              <Top>0.33866cm</Top>
               <Left>0.635cm</Left>
               <Height>0cm</Height>
               <Width>18.51978cm</Width>
@@ -1700,7 +1700,7 @@
                 </Textbox>
               </ReportItems>
               <KeepTogether>true</KeepTogether>
-              <Top>0.375in</Top>
+              <Top>0.5in</Top>
               <Left>0.22554in</Left>
               <Height>1.42708in</Height>
               <Width>4.41603in</Width>
@@ -1713,7 +1713,7 @@
             </Rectangle>
             <Rectangle Name="Rectangle2">
               <KeepTogether>true</KeepTogether>
-              <Top>0.375in</Top>
+              <Top>0.5in</Top>
               <Left>4.64157in</Left>
               <Height>1.42708in</Height>
               <Width>2.88705in</Width>
@@ -1744,7 +1744,7 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox25</rd:DefaultName>
-              <Top>0.46409in</Top>
+              <Top>0.58909in</Top>
               <Left>0.35054in</Left>
               <Height>0.21875in</Height>
               <Width>0.26042in</Width>
@@ -1798,7 +1798,7 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox25</rd:DefaultName>
-              <Top>0.46409in</Top>
+              <Top>0.58909in</Top>
               <Left>0.6804in</Left>
               <Height>0.21875in</Height>
               <Width>0.42014in</Width>
@@ -1833,7 +1833,7 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox25</rd:DefaultName>
-              <Top>0.46409in</Top>
+              <Top>0.58909in</Top>
               <Left>1.26373in</Left>
               <Height>0.21875in</Height>
               <Width>0.26042in</Width>
@@ -1887,7 +1887,7 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox25</rd:DefaultName>
-              <Top>0.46409in</Top>
+              <Top>0.58909in</Top>
               <Left>1.59359in</Left>
               <Height>0.21875in</Height>
               <Width>0.42014in</Width>
@@ -1922,7 +1922,7 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox25</rd:DefaultName>
-              <Top>0.75228in</Top>
+              <Top>0.87728in</Top>
               <Left>0.35054in</Left>
               <Height>0.21875in</Height>
               <Width>0.26042in</Width>
@@ -1976,7 +1976,7 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox25</rd:DefaultName>
-              <Top>0.75228in</Top>
+              <Top>0.87728in</Top>
               <Left>0.6804in</Left>
               <Height>0.21875in</Height>
               <Width>0.67014in</Width>
@@ -2008,7 +2008,7 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox25</rd:DefaultName>
-              <Top>1.24048in</Top>
+              <Top>1.36548in</Top>
               <Left>0.35054in</Left>
               <Height>0.26042in</Height>
               <Width>1.43056in</Width>
@@ -2024,7 +2024,7 @@
               </Style>
             </Textbox>
             <Line Name="Line3">
-              <Top>1.43492in</Top>
+              <Top>1.55992in</Top>
               <Left>1.84012in</Left>
               <Height>0in</Height>
               <Width>1.29167in</Width>
@@ -2052,7 +2052,7 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox25</rd:DefaultName>
-              <Top>1.24048in</Top>
+              <Top>1.36548in</Top>
               <Left>3.21422in</Left>
               <Height>0.26042in</Height>
               <Width>0.31597in</Width>
@@ -2068,7 +2068,7 @@
               </Style>
             </Textbox>
             <Line Name="Line4">
-              <Top>1.43492in</Top>
+              <Top>1.55992in</Top>
               <Left>3.58054in</Left>
               <Height>0in</Height>
               <Width>0.98875in</Width>
@@ -2080,7 +2080,7 @@
               </Style>
             </Line>
             <Line Name="Line5">
-              <Top>1.00634in</Top>
+              <Top>1.13134in</Top>
               <Left>1.84012in</Left>
               <Height>0in</Height>
               <Width>1.29167in</Width>
@@ -2108,7 +2108,7 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox25</rd:DefaultName>
-              <Top>0.8119in</Top>
+              <Top>0.9369in</Top>
               <Left>3.21422in</Left>
               <Height>0.26042in</Height>
               <Width>0.31597in</Width>
@@ -2124,7 +2124,7 @@
               </Style>
             </Textbox>
             <Line Name="Line6">
-              <Top>1.00634in</Top>
+              <Top>1.13134in</Top>
               <Left>3.58054in</Left>
               <Height>0in</Height>
               <Width>0.98875in</Width>
@@ -2154,7 +2154,7 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox25</rd:DefaultName>
-              <Top>0.46409in</Top>
+              <Top>0.58909in</Top>
               <Left>4.71679in</Left>
               <Height>0.21875in</Height>
               <Width>0.42014in</Width>
@@ -2188,7 +2188,7 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox25</rd:DefaultName>
-              <Top>0.46409in</Top>
+              <Top>0.58909in</Top>
               <Left>5.19248in</Left>
               <Height>0.21875in</Height>
               <Width>2.20472in</Width>
@@ -2222,7 +2222,7 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox25</rd:DefaultName>
-              <Top>1.36548in</Top>
+              <Top>1.49048in</Top>
               <Left>4.96679in</Left>
               <Height>0.27083in</Height>
               <Width>2.43042in</Width>
@@ -2238,7 +2238,7 @@
               </Style>
             </Textbox>
             <Line Name="Line9">
-              <Top>1.28343in</Top>
+              <Top>1.40843in</Top>
               <Left>5.34179in</Left>
               <Height>0in</Height>
               <Width>1.74354in</Width>
@@ -2268,7 +2268,7 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox25</rd:DefaultName>
-              <Top>1.87152in</Top>
+              <Top>1.99652in</Top>
               <Left>0.35054in</Left>
               <Height>0.27083in</Height>
               <Width>7.04666in</Width>
@@ -2302,7 +2302,7 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox25</rd:DefaultName>
-              <Top>2.07985in</Top>
+              <Top>2.20485in</Top>
               <Left>0.35054in</Left>
               <Height>0.27083in</Height>
               <Width>7.04666in</Width>
@@ -2319,7 +2319,7 @@
             </Textbox>
             <Rectangle Name="Rectangle4">
               <KeepTogether>true</KeepTogether>
-              <Top>1.80208in</Top>
+              <Top>1.92708in</Top>
               <Left>0.22554in</Left>
               <Height>0.66319in</Height>
               <Width>7.30308in</Width>
@@ -2330,6 +2330,75 @@
                 </Border>
               </Style>
             </Rectangle>
+            <Textbox Name="Textbox59">
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>จำนวนเงิน/Amount</Value>
+                      <Style>
+                        <FontFamily>Tahoma</FontFamily>
+                        <FontSize>8pt</FontSize>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Left</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>Textbox25</rd:DefaultName>
+              <Top>0.175in</Top>
+              <Left>0.21893in</Left>
+              <Height>0.21875in</Height>
+              <Width>1.30522in</Width>
+              <ZIndex>23</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Textbox Name="Textbox62">
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>=First(Fields!AmtText.Value, "DataSet_Result")</Value>
+                      <Style>
+                        <FontFamily>Tahoma</FontFamily>
+                        <FontSize>8pt</FontSize>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Left</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>Textbox25</rd:DefaultName>
+              <Top>0.175in</Top>
+              <Left>1.56582in</Left>
+              <Height>0.21875in</Height>
+              <Width>5.93173in</Width>
+              <ZIndex>24</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
           </ReportItems>
           <Style>
             <Border>
@@ -2551,6 +2620,9 @@ End Function
         </Field>
         <Field Name="Source_Document_No_">
           <DataField>Source_Document_No_</DataField>
+        </Field>
+        <Field Name="LineNo">
+          <DataField>LineNo</DataField>
         </Field>
       </Fields>
       <Query>

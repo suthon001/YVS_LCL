@@ -155,7 +155,10 @@ report 80013 "YVS WHT PND 03"
                 var_WHTNo: Code[20];
                 var_WHTRegisNo: Code[20];
             begin
-
+                CalcFields("Total Base Amount", "Total VAT Amount");
+                var_Amount := "Total Base Amount";
+                var_WHTAmount := "Total VAT Amount";
+                var_WHTTotalAmount := var_WHTAmount;
                 YesrPS := "Year No." + 543;
 
                 Rec_WHTBusinessPostingGroup.GET('WHT03');
@@ -179,19 +182,19 @@ report 80013 "YVS WHT PND 03"
 
                 Month_No["Month No."] := '/';
 
-                TaxReportLine.RESET();
-                TaxReportLine.SETFILTER("Tax Type", '%1', "Tax Type");
-                TaxReportLine.SETFILTER("Document No.", '%1', "Document No.");
-                if DateFilter <> '' then
-                    TaxReportLine.SETFILTER("Posting Date", DateFilter);
-                IF TaxReportLine.FindFirst() THEN
-                    REPEAT
+                // TaxReportLine.RESET();
+                // TaxReportLine.SETFILTER("Tax Type", '%1', "Tax Type");
+                // TaxReportLine.SETFILTER("Document No.", '%1', "Document No.");
+                // if DateFilter <> '' then
+                //     TaxReportLine.SETFILTER("Posting Date", DateFilter);
+                // IF TaxReportLine.FindFirst() THEN
+                //     REPEAT
 
-                        var_Amount := var_Amount + TaxReportLine."Base Amount";
-                        var_WHTAmount := var_WHTAmount + TaxReportLine."VAT Amount";
-                        var_WHTTotalAmount := var_WHTTotalAmount + TaxReportLine."VAT Amount";
+                //         var_Amount := var_Amount + TaxReportLine."Base Amount";
+                //         var_WHTAmount := var_WHTAmount + TaxReportLine."VAT Amount";
+                //         var_WHTTotalAmount := var_WHTTotalAmount + TaxReportLine."VAT Amount";
 
-                    UNTIL TaxReportLine.NEXT() = 0;
+                //     UNTIL TaxReportLine.NEXT() = 0;
 
                 TaxReportLine.RESET();
                 TaxReportLine.SETCURRENTKEY("WHT Registration No.");

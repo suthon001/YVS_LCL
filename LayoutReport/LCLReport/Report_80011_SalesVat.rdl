@@ -25,10 +25,10 @@
                   <Width>0.62333in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.66708in</Width>
+                  <Width>0.87541in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.81534in</Width>
+                  <Width>1.69034in</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>0.85859in</Width>
@@ -46,7 +46,7 @@
                   <Width>0.72539in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.81249in</Width>
+                  <Width>0.70832in</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -1061,7 +1061,6 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox6">
-                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -1105,7 +1104,6 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox8">
-                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -1862,7 +1860,7 @@
             <Top>0.06597in</Top>
             <Left>0.10137in</Left>
             <Height>1.38978in</Height>
-            <Width>7.56199in</Width>
+            <Width>7.54117in</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1907,7 +1905,7 @@
               <Top>0.18625in</Top>
               <Left>6.55561in</Left>
               <Height>0.33333in</Height>
-              <Width>0.96193in</Width>
+              <Width>1.08693in</Width>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -2320,7 +2318,7 @@
               <Top>1.03223in</Top>
               <Left>5.74158in</Left>
               <Height>0.25in</Height>
-              <Width>1.77596in</Width>
+              <Width>1.90096in</Width>
               <ZIndex>12</ZIndex>
               <Style>
                 <Border>
@@ -2353,7 +2351,7 @@
               <Top>1.28223in</Top>
               <Left>5.74158in</Left>
               <Height>0.25in</Height>
-              <Width>1.77596in</Width>
+              <Width>1.90096in</Width>
               <ZIndex>13</ZIndex>
               <Style>
                 <Border>
@@ -2400,7 +2398,7 @@
               <Top>1.53223in</Top>
               <Left>5.74158in</Left>
               <Height>0.37513in</Height>
-              <Width>1.77596in</Width>
+              <Width>1.90096in</Width>
               <ZIndex>14</ZIndex>
               <Style>
                 <Border>
@@ -2465,7 +2463,7 @@
               <Top>1.98659cm</Top>
               <Left>18.15559cm</Left>
               <Height>0.6cm</Height>
-              <Width>0.93896cm</Width>
+              <Width>1.25645cm</Width>
               <ZIndex>16</ZIndex>
               <Visibility>
                 <Hidden>=Code.SetData(Cstr(Globals!PageNumber+1)

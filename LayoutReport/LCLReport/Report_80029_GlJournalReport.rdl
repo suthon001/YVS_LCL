@@ -1961,6 +1961,18 @@ End Function
   <DataSets>
     <DataSet Name="DataSet_Result">
       <Fields>
+        <Field Name="DimThaiCaption1">
+          <DataField>DimThaiCaption1</DataField>
+        </Field>
+        <Field Name="DimThaiCaption2">
+          <DataField>DimThaiCaption2</DataField>
+        </Field>
+        <Field Name="DimEngCaption1">
+          <DataField>DimEngCaption1</DataField>
+        </Field>
+        <Field Name="DimEngCaption2">
+          <DataField>DimEngCaption2</DataField>
+        </Field>
         <Field Name="Global_Dimension_1_Code">
           <DataField>Global_Dimension_1_Code</DataField>
         </Field>

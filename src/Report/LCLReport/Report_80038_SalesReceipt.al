@@ -66,6 +66,11 @@ report 80038 "YVS Sales Receipt"
                     column(Source_Description; "Source Description") { }
                     column(Source_Amount__LCY_; Amount) { }
                     column(Source_Document_No_; "Source Document No.") { }
+                    column(LineNo; LineNo) { }
+                    trigger OnAfterGetRecord()
+                    begin
+                        LineNo := LineNo + 1;
+                    end;
 
                 }
                 trigger OnPreDataItem()
@@ -75,6 +80,7 @@ report 80038 "YVS Sales Receipt"
 
                 trigger OnAfterGetRecord()
                 begin
+                    LineNo := 0;
                     if Number = 1 then
                         OriginalCaption := 'Original'
                     else
@@ -191,7 +197,7 @@ report 80038 "YVS Sales Receipt"
         PaymentTerm: Record "Payment Terms";
         PaymentMethodMark: array[3] of text[50];
 
-        NoOfCopies: Integer;
+        NoOfCopies, LineNo : Integer;
         CaptionOptionEng, CaptionOptionThai : Text[50];
 
 }

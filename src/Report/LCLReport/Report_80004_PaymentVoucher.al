@@ -20,6 +20,10 @@ report 80004 "YVS Payment Voucher"
                 DataItemTableView = sorting("Entry No.") where(Amount = filter(<> 0));
                 UseTemporary = true;
                 CalcFields = "G/L Account Name";
+                column(DimThaiCaption1; DimThaiCaption1) { }
+                column(DimThaiCaption2; DimThaiCaption2) { }
+                column(DimEngCaption1; DimEngCaption1) { }
+                column(DimEngCaption2; DimEngCaption2) { }
                 column(JournalDescriptionEng; JournalDescriptionEng) { }
                 column(Journal_Batch_Name; "Journal Batch Name") { }
                 column(JournalDescriptionThai; JournalDescriptionThai) { }
@@ -62,7 +66,6 @@ report 80004 "YVS Payment Voucher"
                 column(HaveBankAccount; HaveBankAccount) { }
                 column(GenjournalTemplate_DescThai; GenJournalBatchName.Description) { }
                 trigger OnAfterGetRecord()
-
                 begin
                     if not glAccount.GET("G/L Account No.") then
                         glAccount.Init();
@@ -217,6 +220,7 @@ report 80004 "YVS Payment Voucher"
                 companyInfor.get();
                 companyInfor.CalcFields(Picture);
                 FunctionCenter.CompanyInformation(ComText, false);
+
             end;
 
             trigger OnAfterGetRecord()
@@ -258,6 +262,7 @@ report 80004 "YVS Payment Voucher"
                 FunctionCenter.JnlFindApplyEntries(GenJournalLine."Journal Template Name", GenJournalLine."Journal Batch Name", GenJournalLine."Posting Date",
                 GenJournalLine."Document No.", CVBufferEntry);
                 HaveApply := CVBufferEntry.Count <> 0;
+                FunctionCenter.GetGlobalDimCaption(DimThaiCaption1, DimEngCaption1, DimThaiCaption2, DimEngCaption2);
             end;
         }
 
@@ -381,6 +386,7 @@ report 80004 "YVS Payment Voucher"
         glAccount: Record "G/L Account";
         UserName: Code[50];
         gvGenLine: Record "Gen. Journal Line";
+        DimThaiCaption1, DimThaiCaption2, DimEngCaption1, DimEngCaption2 : text;
 
 
 }

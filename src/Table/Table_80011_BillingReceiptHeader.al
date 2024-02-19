@@ -490,6 +490,7 @@ Table 80011 "YVS Billing Receipt Header"
         if rec."Document Type" = rec."Document Type"::"Sales Receipt" then begin
             "Bank Fee Acc." := SalesSetup."YVS Default Bank Fee Acc.";
             "Prepaid WHT Acc." := SalesSetup."YVS Default Prepaid WHT Acc.";
+            "Journal Template Name" := SalesSetup."YVS Default Cash Rec. Template";
             if "Prepaid WHT Acc." <> '' then
                 "Prepaid WHT Date" := Today();
             "Diff Amount Acc." := SalesSetup."YVS Default Diff Amount Acc.";

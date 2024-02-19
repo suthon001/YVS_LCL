@@ -55,6 +55,10 @@ page 80031 "YVS Sales Receipt Subform"
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Amount field.';
+                    trigger OnValidate()
+                    begin
+                        CurrPage.Update();
+                    end;
                 }
             }
         }

@@ -27,6 +27,7 @@ pageextension 80063 "YVS Sales Order Card" extends "Sales Order"
         modify("VAT Registration No.")
         {
             Visible = true;
+            Editable = true;
         }
         moveafter("VAT Branch Code"; "VAT Registration No.")
         modify("No.")

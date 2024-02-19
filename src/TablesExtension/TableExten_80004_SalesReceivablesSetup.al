@@ -37,5 +37,11 @@ tableextension 80004 "YVS ExtenSales&ReceivableSetup" extends "Sales & Receivabl
             TableRelation = "G/L Account"."No." where(Blocked = const(false), "Account Type" = const(Posting));
             DataClassification = CustomerContent;
         }
+        field(80005; "YVS Default Cash Rec. Template"; code[10])
+        {
+            Caption = 'Default Default Cash Receipt Template';
+            TableRelation = "Gen. Journal Template".Name;
+            DataClassification = CustomerContent;
+        }
     }
 }

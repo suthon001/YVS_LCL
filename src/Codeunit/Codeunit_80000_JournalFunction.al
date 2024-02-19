@@ -405,7 +405,6 @@ codeunit 80000 "YVS Journal Function"
 
     end;
 
-
     [EventSubscriber(ObjectType::Table, Database::"Gen. Journal Line", 'OnAfterCopyGenJnlLineFromPurchHeader', '', true, true)]
     /// <summary> 
     /// Description for CopyHeaderFromPurchaseHeader.
@@ -526,7 +525,10 @@ codeunit 80000 "YVS Journal Function"
     /// <param name="GLEntry">Parameter of type Record "G/L Entry".</param>
     local procedure "AfterCopyGLEntryFromGenJnlLine"(var GenJournalLine: Record "Gen. Journal Line"; var GLEntry: Record "G/L Entry")
     begin
-        GLEntry."YVS Journal Description" := GenJournalLine."YVS Journal Description";
+        if GenJournalLine."YVS Description Line" <> '' then
+            GLEntry."YVS Journal Description" := GenJournalLine."YVS Description Line"
+        else
+            GLEntry."YVS Journal Description" := GenJournalLine."YVS Journal Description";
         if GenJournalLine."YVS Document Line No." <> 0 then
             GLEntry."YVS Document Line No." := GenJournalLine."YVS Document Line No."
         else

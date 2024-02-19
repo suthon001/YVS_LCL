@@ -35,6 +35,10 @@ pageextension 80068 "YVS Purchase Order Lists" extends "Purchase Order List"
             Visible = true;
         }
         moveafter("No."; Status)
+        addafter(Status)
+        {
+            field("Completely Received"; rec."Completely Received") { ApplicationArea = all; }
+        }
     }
     actions
     {
