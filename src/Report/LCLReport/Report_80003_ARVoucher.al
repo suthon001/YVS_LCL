@@ -66,7 +66,7 @@ report 80003 "YVS AR Voucher"
                 else
                     FunctionCenter."CompanyinformationByVat"(ComText, SalesHeader."VAT Bus. Posting Group", true);
 
-                FunctionCenter."SalesInformation"(SalesHeader."Document Type", SalesHeader."No.", CustText, 0);
+                FunctionCenter."SalesInformation"(SalesHeader."Document Type", SalesHeader."No.", CustText, 1);
                 FunctionCenter."ConvExchRate"(SalesHeader."Currency Code", SalesHeader."Currency Factor", ExchangeRate);
                 if SalesHeader."Currency Code" = '' then
                     AmtText := '(' + FunctionCenter."NumberThaiToText"(TempAmt) + ')'

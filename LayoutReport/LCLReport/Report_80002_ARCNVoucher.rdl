@@ -3214,7 +3214,7 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>เลขที่เอกสารอ้างอิง/Ext. Document No.</Value>
+                      <Value>เลขที่เอกสารอ้างอิง/Ext. Doc. No.</Value>
                       <Style>
                         <FontStyle>Normal</FontStyle>
                         <FontFamily>Tahoma</FontFamily>
@@ -3234,7 +3234,7 @@
               <Top>3.21894cm</Top>
               <Left>12.27747cm</Left>
               <Height>0.70583cm</Height>
-              <Width>5.26568cm</Width>
+              <Width>4.44547cm</Width>
               <ZIndex>7</ZIndex>
               <Style>
                 <Border>
@@ -3408,9 +3408,9 @@
               </Paragraphs>
               <rd:DefaultName>Textbox3</rd:DefaultName>
               <Top>3.21894cm</Top>
-              <Left>17.57843cm</Left>
+              <Left>16.72294cm</Left>
               <Height>0.70583cm</Height>
-              <Width>2.31871cm</Width>
+              <Width>3.1742cm</Width>
               <ZIndex>12</ZIndex>
               <Style>
                 <Border>

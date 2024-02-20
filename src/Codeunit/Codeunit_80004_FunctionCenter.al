@@ -696,10 +696,14 @@ codeunit 80004 "YVS Function Center"
                     if (PurchHeader."YVS VAT Branch Code" <> '') AND (NOT PurchHeader."YVS Head Office") then begin
                         if not VandorBranch.GET(VandorBranch."Source Type"::Vendor, PurchHeader."Buy-from Vendor No.", PurchHeader."YVS Head Office", PurchHeader."YVS VAT Branch Code") then
                             VandorBranch.Init();
-                        Text[1] := VandorBranch."Name";
-                        Text[2] := VandorBranch."Address";
-                        Text[3] := VandorBranch."Province" + ' ' + VandorBranch."Post Code";
-                        Text[4] := VandorBranch."Phone No." + ' ';
+                        if VandorBranch."Name" <> '' then
+                            Text[1] := VandorBranch."Name";
+                        if VandorBranch."Address" <> '' then begin
+                            Text[2] := VandorBranch."Address";
+                            Text[3] := VandorBranch."Province" + ' ' + VandorBranch."Post Code";
+                        end;
+                        if VandorBranch."Phone No." <> '' then
+                            Text[4] := VandorBranch."Phone No." + ' ';
                         if PurchHeader."Currency Code" = '' then begin
                             IF VandorBranch."Fax No." <> '' THEN
                                 Text[4] += 'แฟกซ์ : ' + VandorBranch."Fax No.";
@@ -731,10 +735,14 @@ codeunit 80004 "YVS Function Center"
                     if (PurchHeader."YVS VAT Branch Code" <> '') AND (NOT PurchHeader."YVS Head Office") then begin
                         if not VandorBranch.GET(VandorBranch."Source Type"::Vendor, PurchHeader."Buy-from Vendor No.", PurchHeader."YVS Head Office", PurchHeader."YVS VAT Branch Code") then
                             VandorBranch.Init();
-                        Text[1] := VandorBranch."Name";
-                        Text[2] := VandorBranch."Address";
-                        Text[3] := VandorBranch."Province" + ' ' + VandorBranch."Post Code";
-                        Text[4] := VandorBranch."Phone No." + ' ';
+                        if VandorBranch."Name" <> '' then
+                            Text[1] := VandorBranch."Name";
+                        if VandorBranch."Address" <> '' then begin
+                            Text[2] := VandorBranch."Address";
+                            Text[3] := VandorBranch."Province" + ' ' + VandorBranch."Post Code";
+                        end;
+                        if VandorBranch."Phone No." <> '' then
+                            Text[4] := VandorBranch."Phone No." + ' ';
                         if PurchHeader."Currency Code" = '' then begin
                             IF VandorBranch."Fax No." <> '' THEN
                                 Text[4] += 'แฟกซ์ : ' + VandorBranch."Fax No.";
@@ -1207,10 +1215,14 @@ codeunit 80004 "YVS Function Center"
                     if (SalesHeader."YVS VAT Branch Code" <> '') AND (NOT SalesHeader."YVS Head Office") then begin
                         if not CustBranch.GET(CustBranch."Source Type"::Customer, SalesHeader."Sell-to Customer No.", SalesHeader."YVS Head Office", SalesHeader."YVS VAT Branch Code") then
                             CustBranch.Init();
-                        Text[1] := CustBranch."Name";
-                        Text[2] := CustBranch."Address";
-                        Text[3] := CustBranch."Province" + ' ' + CustBranch."Post Code";
-                        Text[4] := CustBranch."Phone No." + ' ';
+                        if CustBranch."Name" <> '' then
+                            Text[1] := CustBranch."Name";
+                        if CustBranch."Address" <> '' then begin
+                            Text[2] := CustBranch."Address";
+                            Text[3] := CustBranch."Province" + ' ' + CustBranch."Post Code";
+                        end;
+                        if CustBranch."Phone No." <> '' then
+                            Text[4] := CustBranch."Phone No." + ' ';
                         if SalesHeader."Currency Code" = '' then begin
                             IF CustBranch."Fax No." <> '' THEN
                                 Text[4] += 'แฟกซ์ : ' + Cust."Fax No.";
@@ -1241,16 +1253,20 @@ codeunit 80004 "YVS Function Center"
                     if (SalesHeader."YVS VAT Branch Code" <> '') AND (NOT SalesHeader."YVS Head Office") then begin
                         if not CustBranch.GET(CustBranch."Source Type"::Customer, SalesHeader."Sell-to Customer No.", SalesHeader."YVS Head Office", SalesHeader."YVS VAT Branch Code") then
                             CustBranch.Init();
-                        Text[1] := CustBranch."Name";
-                        Text[2] := CustBranch."Address";
-                        Text[3] := CustBranch."Province" + ' ' + CustBranch."Post Code";
-                        Text[4] := CustBranch."Phone No." + ' ';
+                        if CustBranch."Name" <> '' then
+                            Text[1] := CustBranch."Name";
+                        if CustBranch."Address" <> '' then begin
+                            Text[2] := CustBranch."Address";
+                            Text[3] := CustBranch."Province" + ' ' + CustBranch."Post Code";
+                        end;
+                        if CustBranch."Phone No." <> '' then
+                            Text[4] := CustBranch."Phone No." + ' ';
                         if SalesHeader."Currency Code" = '' then begin
                             IF CustBranch."Fax No." <> '' THEN
-                                Text[4] += 'แฟกซ์ : ' + CustBranch."Fax No.";
+                                Text[4] += 'แฟกซ์ : ' + Cust."Fax No.";
                         end else
                             IF CustBranch."Fax No." <> '' THEN
-                                Text[4] += 'Fax. : ' + CustBranch."Fax No.";
+                                Text[4] += 'Fax. : ' + Cust."Fax No.";
                     end;
                     Text[9] := SalesHeader."Bill-to Customer No.";
                 END;

@@ -66,7 +66,7 @@ report 80000 "YVS AP CN Voucher"
                     FunctionCenter."CompanyinformationByVat"(ComText, PurHeader."VAT Bus. Posting Group", false)
                 else
                     FunctionCenter."CompanyinformationByVat"(ComText, PurHeader."VAT Bus. Posting Group", true);
-                FunctionCenter."PurchaseInformation"(PurHeader."Document Type", PurHeader."No.", VendText, 0);
+                FunctionCenter."PurchaseInformation"(PurHeader."Document Type", PurHeader."No.", VendText, 1);
                 FunctionCenter."ConvExchRate"(PurHeader."Currency Code", PurHeader."Currency Factor", ExchangeRate);
 
                 if PurHeader."Currency Code" = '' then

@@ -4984,9 +4984,9 @@
               </Paragraphs>
               <rd:DefaultName>Textbox3</rd:DefaultName>
               <Top>2.73565cm</Top>
-              <Left>12.25276cm</Left>
+              <Left>12.19984cm</Left>
               <Height>0.70583cm</Height>
-              <Width>5.10661cm</Width>
+              <Width>5.15953cm</Width>
               <ZIndex>10</ZIndex>
               <Style>
                 <Border>
@@ -5005,7 +5005,7 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>เลขที่เอกสารอ้างอิง/Ext. Document No.</Value>
+                      <Value>เลขที่เอกสารอ้างอิง/Ext. Doc. No.</Value>
                       <Style>
                         <FontStyle>Normal</FontStyle>
                         <FontFamily>Tahoma</FontFamily>
@@ -5023,9 +5023,9 @@
               </Paragraphs>
               <rd:DefaultName>Textbox3</rd:DefaultName>
               <Top>3.47676cm</Top>
-              <Left>12.25276cm</Left>
+              <Left>12.19984cm</Left>
               <Height>0.70583cm</Height>
-              <Width>5.10661cm</Width>
+              <Width>4.4187cm</Width>
               <ZIndex>11</ZIndex>
               <Style>
                 <Border>
@@ -5058,9 +5058,9 @@
               </Paragraphs>
               <rd:DefaultName>Textbox3</rd:DefaultName>
               <Top>4.21787cm</Top>
-              <Left>12.25276cm</Left>
+              <Left>12.19984cm</Left>
               <Height>0.70583cm</Height>
-              <Width>2.69922cm</Width>
+              <Width>2.75214cm</Width>
               <ZIndex>12</ZIndex>
               <Style>
                 <Border>
@@ -5199,9 +5199,9 @@
               </Paragraphs>
               <rd:DefaultName>Textbox3</rd:DefaultName>
               <Top>3.47676cm</Top>
-              <Left>17.35936cm</Left>
+              <Left>16.61854cm</Left>
               <Height>0.70583cm</Height>
-              <Width>2.64552cm</Width>
+              <Width>3.38634cm</Width>
               <ZIndex>16</ZIndex>
               <Style>
                 <Border>
@@ -5378,9 +5378,9 @@
               </Paragraphs>
               <rd:DefaultName>Textbox3</rd:DefaultName>
               <Top>1.35874cm</Top>
-              <Left>12.23389cm</Left>
+              <Left>12.18097cm</Left>
               <Height>0.70583cm</Height>
-              <Width>3.76638cm</Width>
+              <Width>3.8193cm</Width>
               <ZIndex>21</ZIndex>
               <Style>
                 <Border>
@@ -5413,9 +5413,9 @@
               </Paragraphs>
               <rd:DefaultName>Textbox3</rd:DefaultName>
               <Top>0.70583cm</Top>
-              <Left>12.23389cm</Left>
+              <Left>12.18097cm</Left>
               <Height>0.70583cm</Height>
-              <Width>3.76638cm</Width>
+              <Width>3.8193cm</Width>
               <ZIndex>22</ZIndex>
               <Style>
                 <Border>
@@ -5522,9 +5522,9 @@
               </Paragraphs>
               <rd:DefaultName>Textbox3</rd:DefaultName>
               <Top>2.09985cm</Top>
-              <Left>12.2339cm</Left>
+              <Left>12.18098cm</Left>
               <Height>0.70583cm</Height>
-              <Width>3.76638cm</Width>
+              <Width>3.8193cm</Width>
               <ZIndex>25</ZIndex>
               <Style>
                 <Border>
