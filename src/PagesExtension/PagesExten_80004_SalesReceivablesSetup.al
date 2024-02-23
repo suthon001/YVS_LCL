@@ -39,6 +39,11 @@ pageextension 80004 "YVS ExtenSales & ReceSetup" extends "Sales & Receivables Se
                     ApplicationArea = all;
                     ToolTip = 'Specifies the value of the Default Diff Amount Acc. field.';
                 }
+                field("YVS Default Cash Rec. Template"; rec."YVS Default Cash Rec. Template")
+                {
+                    ApplicationArea = all;
+                    ToolTip = 'Specifies the value of the Default Cash Rec. Template field.';
+                }
             }
         }
     }

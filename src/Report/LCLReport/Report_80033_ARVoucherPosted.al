@@ -182,6 +182,10 @@ report 80033 "YVS AR Voucher (Post)"
                 }
             }
         }
+        trigger OnInit()
+        begin
+            groupping := true;
+        end;
 
     }
 

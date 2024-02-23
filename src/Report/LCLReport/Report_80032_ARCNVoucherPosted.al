@@ -171,6 +171,10 @@ report 80032 "YVS AR CN Voucher (Post)"
                 }
             }
         }
+        trigger OnInit()
+        begin
+            groupping := true;
+        end;
 
     }
 

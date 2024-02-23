@@ -4935,7 +4935,7 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>รหัส/ชื่อเจ้าหนี้/No.</Value>
+                      <Value>รหัสเจ้าหนี้/No.</Value>
                       <Style>
                         <FontFamily>Tahoma</FontFamily>
                         <FontSize>8pt</FontSize>
@@ -5005,7 +5005,7 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>เลขที่เอกสารอ้างอิง/Ext. Document No.</Value>
+                      <Value>เลขที่เอกสารอ้างอิง/Ext. Doc. No.</Value>
                       <Style>
                         <FontStyle>Normal</FontStyle>
                         <FontFamily>Tahoma</FontFamily>
@@ -5025,7 +5025,7 @@
               <Top>3.47676cm</Top>
               <Left>12.25276cm</Left>
               <Height>0.70583cm</Height>
-              <Width>5.10661cm</Width>
+              <Width>4.41869cm</Width>
               <ZIndex>11</ZIndex>
               <Style>
                 <Border>
@@ -5199,9 +5199,9 @@
               </Paragraphs>
               <rd:DefaultName>Textbox3</rd:DefaultName>
               <Top>3.47676cm</Top>
-              <Left>17.35936cm</Left>
+              <Left>16.67145cm</Left>
               <Height>0.70583cm</Height>
-              <Width>2.64552cm</Width>
+              <Width>3.33343cm</Width>
               <ZIndex>16</ZIndex>
               <Style>
                 <Border>

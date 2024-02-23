@@ -158,7 +158,15 @@ table 80012 "YVS Billing Receipt Line"
 
                     TOtalAmt := TOtalAmt + rec.Amount;
 
-                    SalesReceiptHeader."Receive & Payment Amount" := TOtalAmt;
+
+                    SalesReceipt.reset();
+                    SalesReceipt.ReadIsolation := IsolationLevel::ReadCommitted;
+                    SalesReceipt.SetRange("Document Type", rec."Document Type");
+                    SalesReceipt.SetRange("Document No.", rec."Document No.");
+                    SalesReceipt.SetFilter("Line No.", '<>%1', rec."Line No.");
+                    SalesReceipt.CalcSums("Amount");
+
+                    SalesReceiptHeader."Receive & Payment Amount" := SalesReceipt.Amount + rec.Amount;
                     SalesReceiptHeader.Modify();
 
                 end;

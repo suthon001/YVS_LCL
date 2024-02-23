@@ -58,12 +58,7 @@ report 80030 "YVS AP CN Voucher (Post)"
             var
                 NewDate: Date;
             begin
-                if not glAccount.GET("G/L Account No.") then
-                    glAccount.Init();
-                AccountName := glAccount.Name;
 
-                if AccountName = '' then
-                    AccountName := COPYSTR("YVS Journal Description", 1, 100);
 
                 FunctionCenter.SetReportGLEntryPosted(PurHeader."No.", PurHeader."Posting Date", GLEntry, TempAmt, groupping);
                 companyInfor.get();
@@ -85,6 +80,16 @@ report 80030 "YVS AP CN Voucher (Post)"
                 SplitDate[3] := Format(NewDate, 0, '<Year4>');
                 "CheckLineData"();
                 FunctionCenter.GetGlobalDimCaption(DimThaiCaption1, DimEngCaption1, DimThaiCaption2, DimEngCaption2);
+            end;
+
+            trigger OnAfterGetRecord()
+            begin
+                if not glAccount.GET("G/L Account No.") then
+                    glAccount.Init();
+                AccountName := glAccount.Name;
+
+                if AccountName = '' then
+                    AccountName := COPYSTR("YVS Journal Description", 1, 100);
             end;
         }
         dataitem("Purch. Cr. Memo Line"; "Purch. Cr. Memo Line")
@@ -197,6 +202,10 @@ report 80030 "YVS AP CN Voucher (Post)"
                 }
             }
         }
+        trigger OnInit()
+        begin
+            groupping := true;
+        end;
 
     }
 

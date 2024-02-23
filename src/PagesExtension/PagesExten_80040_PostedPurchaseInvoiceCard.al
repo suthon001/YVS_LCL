@@ -58,6 +58,10 @@ pageextension 80040 "YVS PostedInvoiceCard" extends "Posted Purchase Invoice"
                 ToolTip = 'Specifies the identifier of the vendor that you bought the items from.';
             }
         }
+        addafter("Due Date")
+        {
+            field("YVS Purchase Order No."; rec."YVS Purchase Order No.") { ApplicationArea = all; }
+        }
     }
     actions
     {

@@ -66,6 +66,10 @@ pageextension 80039 "YVS PostedInvoiceList" extends "Posted Purchase Invoices"
                 ToolTip = 'Specifies the value of the VAT Registration No. field.';
             }
         }
+        addafter("Due Date")
+        {
+            field("YVS Purchase Order No."; rec."YVS Purchase Order No.") { ApplicationArea = all; }
+        }
     }
     actions
     {

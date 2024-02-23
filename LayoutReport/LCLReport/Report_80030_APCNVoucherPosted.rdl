@@ -4060,37 +4060,12 @@
                 <PaddingBottom>2pt</PaddingBottom>
               </Style>
             </Textbox>
-            <Line Name="Line1">
-              <Top>5.02231cm</Top>
-              <Left>0.40821cm</Left>
-              <Height>0cm</Height>
-              <Width>19.38502cm</Width>
-              <ZIndex>1</ZIndex>
-              <Style>
-                <Border>
-                  <Color>DimGray</Color>
-                  <Style>Solid</Style>
-                </Border>
-                <TopBorder>
-                  <Color>DimGray</Color>
-                </TopBorder>
-                <BottomBorder>
-                  <Color>DimGray</Color>
-                </BottomBorder>
-                <LeftBorder>
-                  <Color>DimGray</Color>
-                </LeftBorder>
-                <RightBorder>
-                  <Color>DimGray</Color>
-                </RightBorder>
-              </Style>
-            </Line>
             <Line Name="Line6">
               <Top>0cm</Top>
               <Left>12.15101cm</Left>
               <Height>5.02231cm</Height>
               <Width>0cm</Width>
-              <ZIndex>2</ZIndex>
+              <ZIndex>1</ZIndex>
               <Style>
                 <Border>
                   <Color>DimGray</Color>
@@ -4151,7 +4126,7 @@
               <Left>0.42017cm</Left>
               <Height>3.26429cm</Height>
               <Width>6.68316cm</Width>
-              <ZIndex>3</ZIndex>
+              <ZIndex>2</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -4187,7 +4162,7 @@
               <Left>7.17389cm</Left>
               <Height>1.68533cm</Height>
               <Width>4.80073cm</Width>
-              <ZIndex>4</ZIndex>
+              <ZIndex>3</ZIndex>
               <Visibility>
                 <Hidden>true</Hidden>
               </Visibility>
@@ -4226,7 +4201,7 @@
               <Left>7.17389cm</Left>
               <Height>1.68533cm</Height>
               <Width>4.80073cm</Width>
-              <ZIndex>5</ZIndex>
+              <ZIndex>4</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -4261,7 +4236,7 @@
               <Left>12.27571cm</Left>
               <Height>0.70583cm</Height>
               <Width>5.10661cm</Width>
-              <ZIndex>6</ZIndex>
+              <ZIndex>5</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -4279,7 +4254,7 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>เลขที่เอกสารอ้างอิง/Ext. Document No.</Value>
+                      <Value>เลขที่เอกสารอ้างอิง/Ext. Doc. No.</Value>
                       <Style>
                         <FontStyle>Normal</FontStyle>
                         <FontFamily>Tahoma</FontFamily>
@@ -4299,8 +4274,8 @@
               <Top>3.47676cm</Top>
               <Left>12.27571cm</Left>
               <Height>0.70583cm</Height>
-              <Width>5.10661cm</Width>
-              <ZIndex>7</ZIndex>
+              <Width>4.39224cm</Width>
+              <ZIndex>6</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -4335,7 +4310,7 @@
               <Left>12.27571cm</Left>
               <Height>0.70583cm</Height>
               <Width>2.69922cm</Width>
-              <ZIndex>8</ZIndex>
+              <ZIndex>7</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -4370,7 +4345,7 @@
               <Left>14.97493cm</Left>
               <Height>0.70583cm</Height>
               <Width>4.85358cm</Width>
-              <ZIndex>9</ZIndex>
+              <ZIndex>8</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -4406,7 +4381,7 @@
               <Left>17.38231cm</Left>
               <Height>0.70583cm</Height>
               <Width>2.44619cm</Width>
-              <ZIndex>10</ZIndex>
+              <ZIndex>9</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -4438,10 +4413,10 @@
               </Paragraphs>
               <rd:DefaultName>Textbox3</rd:DefaultName>
               <Top>3.47676cm</Top>
-              <Left>17.38231cm</Left>
+              <Left>16.66795cm</Left>
               <Height>0.70583cm</Height>
-              <Width>2.44619cm</Width>
-              <ZIndex>11</ZIndex>
+              <Width>3.16056cm</Width>
+              <ZIndex>10</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -4476,7 +4451,7 @@
               <Left>15.99676cm</Left>
               <Height>0.70583cm</Height>
               <Width>3.83174cm</Width>
-              <ZIndex>12</ZIndex>
+              <ZIndex>11</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -4512,7 +4487,7 @@
               <Left>15.99676cm</Left>
               <Height>0.70583cm</Height>
               <Width>3.83174cm</Width>
-              <ZIndex>13</ZIndex>
+              <ZIndex>12</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -4550,7 +4525,7 @@
               <Left>12.25684cm</Left>
               <Height>0.70583cm</Height>
               <Width>3.76638cm</Width>
-              <ZIndex>14</ZIndex>
+              <ZIndex>13</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -4585,7 +4560,7 @@
               <Left>12.25684cm</Left>
               <Height>0.70583cm</Height>
               <Width>3.76638cm</Width>
-              <ZIndex>15</ZIndex>
+              <ZIndex>14</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -4620,7 +4595,7 @@
               <Left>15.99676cm</Left>
               <Height>0.70583cm</Height>
               <Width>3.83174cm</Width>
-              <ZIndex>16</ZIndex>
+              <ZIndex>15</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -4656,7 +4631,7 @@
               <Left>15.99677cm</Left>
               <Height>0.70583cm</Height>
               <Width>3.83174cm</Width>
-              <ZIndex>17</ZIndex>
+              <ZIndex>16</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -4694,7 +4669,7 @@
               <Left>12.25685cm</Left>
               <Height>0.70583cm</Height>
               <Width>3.76638cm</Width>
-              <ZIndex>18</ZIndex>
+              <ZIndex>17</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -4711,7 +4686,7 @@
               <Left>0.35343cm</Left>
               <Height>0cm</Height>
               <Width>19.3774cm</Width>
-              <ZIndex>19</ZIndex>
+              <ZIndex>18</ZIndex>
               <Style>
                 <Border>
                   <Color>DimGray</Color>
@@ -4736,7 +4711,7 @@
               <Left>0.42017cm</Left>
               <Height>0cm</Height>
               <Width>19.3063cm</Width>
-              <ZIndex>20</ZIndex>
+              <ZIndex>19</ZIndex>
               <Style>
                 <Border>
                   <Color>DimGray</Color>
@@ -4779,7 +4754,7 @@
               <Left>0.42017cm</Left>
               <Height>0.70583cm</Height>
               <Width>3.69531cm</Width>
-              <ZIndex>21</ZIndex>
+              <ZIndex>20</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -4814,7 +4789,7 @@
               <Left>4.25277cm</Left>
               <Height>0.70583cm</Height>
               <Width>15.47806cm</Width>
-              <ZIndex>22</ZIndex>
+              <ZIndex>21</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -4832,7 +4807,7 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>รหัส/ชื่อเจ้าหนี้/No.</Value>
+                      <Value>รหัสเจ้าหนี้/No.</Value>
                       <Style>
                         <FontFamily>Tahoma</FontFamily>
                         <FontSize>8pt</FontSize>
@@ -4849,7 +4824,7 @@
               <Left>0.43296cm</Left>
               <Height>0.70583cm</Height>
               <Width>2.65452cm</Width>
-              <ZIndex>23</ZIndex>
+              <ZIndex>22</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -4884,7 +4859,7 @@
               <Left>3.12276cm</Left>
               <Height>0.70583cm</Height>
               <Width>16.60371cm</Width>
-              <ZIndex>24</ZIndex>
+              <ZIndex>23</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -4919,7 +4894,7 @@
               <Left>3.12276cm</Left>
               <Height>0.70583cm</Height>
               <Width>16.60807cm</Width>
-              <ZIndex>25</ZIndex>
+              <ZIndex>24</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -4954,7 +4929,7 @@
               <Left>0.43296cm</Left>
               <Height>0.70583cm</Height>
               <Width>2.65452cm</Width>
-              <ZIndex>26</ZIndex>
+              <ZIndex>25</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -4989,7 +4964,7 @@
               <Left>0.43296cm</Left>
               <Height>0.70583cm</Height>
               <Width>2.65452cm</Width>
-              <ZIndex>27</ZIndex>
+              <ZIndex>26</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -5024,7 +4999,7 @@
               <Left>3.12276cm</Left>
               <Height>0.70583cm</Height>
               <Width>16.60807cm</Width>
-              <ZIndex>28</ZIndex>
+              <ZIndex>27</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -5059,7 +5034,7 @@
               <Left>0.43296cm</Left>
               <Height>0.70583cm</Height>
               <Width>3.9165cm</Width>
-              <ZIndex>29</ZIndex>
+              <ZIndex>28</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -5094,7 +5069,7 @@
               <Left>4.52203cm</Left>
               <Height>0.70583cm</Height>
               <Width>15.2088cm</Width>
-              <ZIndex>30</ZIndex>
+              <ZIndex>29</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>

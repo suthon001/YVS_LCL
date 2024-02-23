@@ -221,6 +221,10 @@ report 80031 "YVS AP Voucher (Post)"
                 }
             }
         }
+        trigger OnInit()
+        begin
+            groupping := true;
+        end;
 
     }
 
