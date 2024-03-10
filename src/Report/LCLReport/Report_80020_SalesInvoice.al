@@ -105,6 +105,7 @@ report 80020 "YVS Report Sales Invoice"
             trigger OnAfterGetRecord()
             var
                 NewDate: Date;
+                salesCommentDocType: Enum "Sales Comment Document Type";
             begin
 
                 if "Currency Code" = '' then
@@ -115,6 +116,7 @@ report 80020 "YVS Report Sales Invoice"
                 FunctionCenter.SalesStatistic("Document Type", "No.", TotalAmt, VatText);
                 FunctionCenter.SalesInformation("Document Type", "No.", CustText, 1);
                 FunctionCenter.SalesInformation("Document Type", "No.", CustTextShipment, 2);
+                FunctionCenter.GetSalesComment(salesCommentDocType::Invoice, "No.", 0, CommentText);
                 if "Currency Code" = '' then
                     AmtText := '(' + FunctionCenter."NumberThaiToText"(TotalAmt[5]) + ')'
                 else

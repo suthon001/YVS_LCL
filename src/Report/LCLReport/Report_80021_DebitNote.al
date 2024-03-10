@@ -107,6 +107,7 @@ report 80021 "YVS Debit Note"
                 NewDate: Date;
                 RecReturnReason: Record "Return Reason";
                 RecSaleLine: Record "Sales Line";
+                salesCommentDocType: Enum "Sales Comment Document Type";
             begin
                 if "Currency Code" = '' then
                     FunctionCenter."CompanyinformationByVat"(ComText, "VAT Bus. Posting Group", false)
@@ -114,7 +115,7 @@ report 80021 "YVS Debit Note"
                     FunctionCenter."CompanyinformationByVat"(ComText, "VAT Bus. Posting Group", true);
 
                 FunctionCenter.SalesStatistic("Document Type", "No.", TotalAmt, VatText);
-                FunctionCenter.GetSalesComment("Document Type", "No.", 0, CommentText);
+                FunctionCenter.GetSalesComment(salesCommentDocType::Invoice, "No.", 0, CommentText);
                 FunctionCenter.SalesInformation("Document Type", "No.", CustText, 0);
                 FunctionCenter."ConvExchRate"("Currency Code", "Currency Factor", ExchangeRate);
                 IF NOT PaymentTerm.GET(SalesHeader."Payment Terms Code") then
@@ -133,7 +134,7 @@ report 80021 "YVS Debit Note"
 
 
                 TotalAmt[100] := "YVS Ref. Tax Invoice Amount";
-                TotalAmt[99] := TotalAmt[100] - TotalAmt[1];
+                TotalAmt[99] := TotalAmt[100] + TotalAmt[1];
                 var_RefDocumentDate := "YVS Ref. Tax Invoice Date";
                 RefDocumentNo := "YVS Ref. Tax Invoice No.";
 

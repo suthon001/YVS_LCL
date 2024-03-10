@@ -117,7 +117,7 @@ report 80023 "YVS PurchaseQuotes"
             trigger OnAfterGetRecord()
             var
                 NewDate: Date;
-
+                PurchaseCommentDocType: Enum "Purchase Comment Document Type";
             begin
 
                 if "Currency Code" = '' then
@@ -128,7 +128,7 @@ report 80023 "YVS PurchaseQuotes"
                 FunctionCenter."PurchaseInformation"("Document Type", "No.", VendText, 0);
                 FunctionCenter."ConvExchRate"("Currency Code", "Currency Factor", ExchangeRate);
                 FunctionCenter."PurchStatistic"("Document Type", "No.", TotalAmt, VatText);
-                FunctionCenter."GetPurchaseComment"("Document Type", "No.", 0, CommentText);
+                FunctionCenter."GetPurchaseComment"(PurchaseCommentDocType::Quote, "No.", 0, CommentText);
                 if "Currency Code" = '' then
                     AmtText := '(' + FunctionCenter."NumberThaiToText"(TotalAmt[5]) + ')'
                 else

@@ -108,14 +108,14 @@ report 80018 "YVS Sales Credit Memo (Post)"
                 RecCustLedgEntry: Record "Cust. Ledger Entry";
                 RecReturnReason: Record "Return Reason";
                 RecSaleLine: Record "Sales Cr.Memo Line";
-                ltDocumentType: Enum "Sales Comment Document Type";
+                salesCommentDocType: Enum "Sales Comment Document Type";
             begin
                 if "Currency Code" = '' then
                     FunctionCenter."CompanyinformationByVat"(ComText, "VAT Bus. Posting Group", false)
                 else
                     FunctionCenter."CompanyinformationByVat"(ComText, "VAT Bus. Posting Group", true);
                 FunctionCenter.PostedSalesCrMemoStatistics("No.", TotalAmt, VatText);
-                FunctionCenter.GetSalesComment(ltDocumentType::"Posted Credit Memo", "No.", 0, CommentText);
+                FunctionCenter.GetSalesComment(salesCommentDocType::"Posted Credit Memo", "No.", 0, CommentText);
                 FunctionCenter.SalesPostedCustomerInformation(3, "No.", CustText, 1);
                 FunctionCenter."ConvExchRate"("Currency Code", "Currency Factor", ExchangeRate);
                 IF NOT PaymentTerm.GET(SalesHeader."Payment Terms Code") then

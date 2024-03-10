@@ -108,6 +108,7 @@ report 80024 "YVS PurchaseOrder"
             trigger OnAfterGetRecord()
             var
                 NewDate: Date;
+                PurchaseCommentDocType: Enum "Purchase Comment Document Type";
             begin
                 if "Currency Code" = '' then
                     FunctionCenter."CompanyinformationByVat"(ComText, "VAT Bus. Posting Group", false)
@@ -117,7 +118,7 @@ report 80024 "YVS PurchaseOrder"
                 FunctionCenter."PurchaseInformation"("Document Type", "No.", VendText, 0);
                 FunctionCenter."ConvExchRate"("Currency Code", "Currency Factor", ExchangeRate);
                 FunctionCenter."PurchStatistic"("Document Type", "No.", TotalAmt, VatText);
-                FunctionCenter."GetPurchaseComment"("Document Type", "No.", 0, CommentText);
+                FunctionCenter."GetPurchaseComment"(PurchaseCommentDocType::Order, "No.", 0, CommentText);
 
 
                 if "Currency Code" = '' then

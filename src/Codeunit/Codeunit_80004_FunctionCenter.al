@@ -222,7 +222,7 @@ codeunit 80004 "YVS Function Center"
         if not ltIshandle then begin
             TempGLEntry.reset();
             TempGLEntry.SetCurrentKey("G/L Account No.", Amount);
-            if not IsNOTFilterCostGL then
+            if IsFilterCostGL then
                 TempGLEntry.SetFilter("Document Type", '<>%1', TempGLEntry."Document Type"::" ");
             TempGLEntry.SetFilter(Amount, '>%1', 0);
             if TempGLEntry.FindFirst() then
@@ -262,7 +262,7 @@ codeunit 80004 "YVS Function Center"
                 until TempGLEntry.next() = 0;
             TempGLEntry.reset();
             TempGLEntry.SetCurrentKey("G/L Account No.", Amount);
-            if not IsNOTFilterCostGL then
+            if IsFilterCostGL then
                 TempGLEntry.SetFilter("Document Type", '<>%1', TempGLEntry."Document Type"::" ");
             TempGLEntry.SetFilter(Amount, '<%1', 0);
             if TempGLEntry.FindFirst() then
@@ -327,7 +327,7 @@ codeunit 80004 "YVS Function Center"
         if not ltIshandle then begin
             TempGLEntry.reset();
             TempGLEntry.SetCurrentKey("G/L Account No.", Amount);
-            if not IsNOTFilterCostGL then
+            if IsFilterCostGL then
                 TempGLEntry.SetFilter("Document Type", '<>%1', TempGLEntry."Document Type"::" ");
             TempGLEntry.SetFilter(Amount, '>%1', 0);
             if TempGLEntry.FindFirst() then
@@ -367,7 +367,7 @@ codeunit 80004 "YVS Function Center"
                 until TempGLEntry.next() = 0;
             TempGLEntry.reset();
             TempGLEntry.SetCurrentKey("G/L Account No.", Amount);
-            if not IsNOTFilterCostGL then
+            if IsFilterCostGL then
                 TempGLEntry.SetFilter("Document Type", '<>%1', TempGLEntry."Document Type"::" ");
             TempGLEntry.SetFilter(Amount, '<%1', 0);
             if TempGLEntry.FindFirst() then
@@ -1891,7 +1891,7 @@ codeunit 80004 "YVS Function Center"
     /// <param name="DocumentNo">Code[30].</param>
     /// <param name="LineNo">Integer.</param>
     /// <param name="SalesComment">VAR array[100] of text[250].</param>
-    procedure GetSalesComment(DocumentType: Enum "Sales Comment Document Type"; DocumentNo: Code[30];
+    procedure GetSalesComment(DocumentType: Enum "Sales Comment Document Type"; DocumentNo: Code[20];
                                                 LineNo: Integer; var SalesComment: array[100] of text[250])
     var
         SalesCommentLine: Record "Sales Comment Line";
@@ -1908,7 +1908,7 @@ codeunit 80004 "YVS Function Center"
         IF SalesCommentLine.FINDSET() THEN
             REPEAT
                 i += 1;
-                if i <= 100 then
+                if i <= 99 then
                     SalesComment[i] := SalesCommentLine.Comment;
             UNTIL SalesCommentLine.NEXT() = 0;
 
@@ -1921,7 +1921,7 @@ codeunit 80004 "YVS Function Center"
     /// <param name="DocumentNo">Code[30].</param>
     /// <param name="LineNo">Integer.</param>
     /// <param name="PurchCommentLine">VAR array[100] of text[250].</param>
-    procedure GetPurchaseComment(DocumentType: Enum "Purchase Comment Document Type"; DocumentNo: Code[30];
+    procedure GetPurchaseComment(DocumentType: Enum "Purchase Comment Document Type"; DocumentNo: Code[20];
                                                    LineNo: Integer; var PurchCommentLine: array[100] of text[250])
     var
         PurchaseCommentLine: Record "Purch. Comment Line";
@@ -1937,7 +1937,7 @@ codeunit 80004 "YVS Function Center"
         IF PurchaseCommentLine.FINDSET() THEN
             REPEAT
                 i += 1;
-                if i <= 100 then
+                if i <= 99 then
                     PurchCommentLine[i] := PurchaseCommentLine.Comment;
             UNTIL PurchaseCommentLine.NEXT() = 0;
 
@@ -2966,7 +2966,7 @@ codeunit 80004 "YVS Function Center"
     /// <param name="ISNOTCostGL">Boolean.</param>
     procedure "YVS IsNOTFilterCostGL"(ISNOTCostGL: Boolean)
     begin
-        IsNOTFilterCostGL := ISNOTCostGL;
+        IsFilterCostGL := ISNOTCostGL;
     end;
 
     [IntegrationEvent(false, false)]
@@ -3010,6 +3010,6 @@ codeunit 80004 "YVS Function Center"
         TensText: array[10] of Text[50];
         ExponentText: array[5] of text[50];
         TempCurrencyPointInterger: array[20] of Integer;
-        IsNOTFilterCostGL: Boolean;
+        IsFilterCostGL: Boolean;
 
 }

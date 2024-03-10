@@ -2915,6 +2915,9 @@
               <Height>0.6cm</Height>
               <Width>2.38945cm</Width>
               <ZIndex>9</ZIndex>
+              <Visibility>
+                <Hidden>=Globals!PageNumber &lt;&gt; Globals!TotalPages</Hidden>
+              </Visibility>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -2951,6 +2954,9 @@
               <Height>0.6cm</Height>
               <Width>2.38945cm</Width>
               <ZIndex>10</ZIndex>
+              <Visibility>
+                <Hidden>=Globals!PageNumber &lt;&gt; Globals!TotalPages</Hidden>
+              </Visibility>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -2987,6 +2993,9 @@
               <Height>0.6cm</Height>
               <Width>2.38945cm</Width>
               <ZIndex>11</ZIndex>
+              <Visibility>
+                <Hidden>=Globals!PageNumber &lt;&gt; Globals!TotalPages</Hidden>
+              </Visibility>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -3023,6 +3032,9 @@
               <Height>0.6cm</Height>
               <Width>2.38945cm</Width>
               <ZIndex>12</ZIndex>
+              <Visibility>
+                <Hidden>=Globals!PageNumber &lt;&gt; Globals!TotalPages</Hidden>
+              </Visibility>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -3059,6 +3071,9 @@
               <Height>0.6cm</Height>
               <Width>2.38945cm</Width>
               <ZIndex>13</ZIndex>
+              <Visibility>
+                <Hidden>=Globals!PageNumber &lt;&gt; Globals!TotalPages</Hidden>
+              </Visibility>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -3127,6 +3142,9 @@
               <Height>0.6cm</Height>
               <Width>10.90613cm</Width>
               <ZIndex>15</ZIndex>
+              <Visibility>
+                <Hidden>=Globals!PageNumber &lt;&gt; Globals!TotalPages</Hidden>
+              </Visibility>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -3299,6 +3317,9 @@
               <Height>0.6cm</Height>
               <Width>2.38945cm</Width>
               <ZIndex>20</ZIndex>
+              <Visibility>
+                <Hidden>=Globals!PageNumber &lt;&gt; Globals!TotalPages</Hidden>
+              </Visibility>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -3335,6 +3356,9 @@
               <Height>0.6cm</Height>
               <Width>2.38945cm</Width>
               <ZIndex>21</ZIndex>
+              <Visibility>
+                <Hidden>=Globals!PageNumber &lt;&gt; Globals!TotalPages</Hidden>
+              </Visibility>
               <Style>
                 <Border>
                   <Style>None</Style>

@@ -108,6 +108,7 @@ report 80022 "YVS Report Sales Credit Memo"
                 RecCustLedgEntry: Record "Cust. Ledger Entry";
                 RecReturnReason: Record "Return Reason";
                 RecSaleLine: Record "Sales Line";
+                salesCommentDocType: Enum "Sales Comment Document Type";
             begin
                 if "Currency Code" = '' then
                     FunctionCenter."CompanyinformationByVat"(ComText, "VAT Bus. Posting Group", false)
@@ -115,7 +116,7 @@ report 80022 "YVS Report Sales Credit Memo"
                     FunctionCenter."CompanyinformationByVat"(ComText, "VAT Bus. Posting Group", true);
 
                 FunctionCenter.SalesStatistic("Document Type", "No.", TotalAmt, VatText);
-                FunctionCenter.GetSalesComment("Document Type", "No.", 0, CommentText);
+                FunctionCenter.GetSalesComment(salesCommentDocType::"Credit Memo", "No.", 0, CommentText);
                 FunctionCenter.SalesInformation("Document Type", "No.", CustText, 1);
                 FunctionCenter."ConvExchRate"("Currency Code", "Currency Factor", ExchangeRate);
                 IF NOT PaymentTerm.GET(SalesHeader."Payment Terms Code") then
@@ -179,13 +180,17 @@ report 80022 "YVS Report Sales Credit Memo"
                 //     var_RefDocumentNo := "YVS Ref. Tax Invoice No.";
                 // end;
 
+                // if NOT RecReturnReason.Get("Reason Code") then
+                //     RecReturnReason.init();
+
+                // ReturnReasonDescFirstLine := RecReturnReason.Description;
+
                 ReturnReasonDescFirstLine := '';
                 RecSaleLine.Reset();
                 RecSaleLine.SetRange("Document Type", SalesHeader."Document Type");
                 RecSaleLine.SetRange("Document No.", SalesHeader."No.");
                 RecSaleLine.SetFilter("Return Reason Code", '<>%1', '');
                 if RecSaleLine.FindFirst() then begin
-
                     if NOT RecReturnReason.Get(RecSaleLine."Return Reason Code") then
                         RecReturnReason.init();
                     ReturnReasonDescFirstLine := RecReturnReason.Description;

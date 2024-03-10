@@ -105,7 +105,7 @@ report 80025 "YVS Sales Invoice (Post)"
             trigger OnAfterGetRecord()
             var
                 NewDate: Date;
-
+                salesCommentDocType: Enum "Sales Comment Document Type";
             begin
                 if "Currency Code" = '' then
                     FunctionCenter."CompanyinformationByVat"(ComText, "VAT Bus. Posting Group", false)
@@ -115,6 +115,7 @@ report 80025 "YVS Sales Invoice (Post)"
                 FunctionCenter.PostedSalesInvoiceStatistics("No.", TotalAmt, VatText);
                 FunctionCenter.SalesPostedCustomerInformation(2, "No.", CustText, 1);
                 FunctionCenter.SalesPostedCustomerInformation(2, "No.", CustTextShipment, 2);
+                FunctionCenter.GetSalesComment(salesCommentDocType::"Posted Invoice", "No.", 0, CommentText);
                 if "Currency Code" = '' then
                     AmtText := '(' + FunctionCenter."NumberThaiToText"(TotalAmt[5]) + ')'
                 else
