@@ -398,6 +398,45 @@ table 80006 "YVS WHT Header"
                 UpdateAddress();
             end;
         }
+        field(39; "On Behalf for"; Option)
+        {
+            OptionCaption = 'Vendor,Custoemr';
+            OptionMembers = "Vendor","Customer";
+            DataClassification = CustomerContent;
+            trigger OnValidate()
+            begin
+                if xrec."On Behalf for" <> rec."On Behalf for" then begin
+                    rec."On Behalf Name" := '';
+                    rec."On Behalf No." := '';
+                end
+            end;
+        }
+        field(40; "On Behalf No."; code[20])
+        {
+            Caption = 'On Behalf No.';
+            TableRelation = IF ("On Behalf for" = const(Vendor)) Vendor."No." else
+            Customer."No.";
+            trigger OnValidate()
+            var
+                Vend: Record Vendor;
+                Cust: Record Customer;
+            begin
+                if rec."On Behalf for" = rec."On Behalf for"::Vendor then begin
+                    if not Vend.GET(rec."On Behalf No.") then
+                        Vend.Init();
+                    rec."On Behalf Name" := Vend.Name;
+                end;
+                if rec."On Behalf for" = rec."On Behalf for"::Customer then begin
+                    if not Cust.GET(rec."On Behalf No.") then
+                        Cust.Init();
+                    rec."On Behalf Name" := Cust.Name;
+                end;
+            end;
+        }
+        field(41; "On Behalf Name"; text[100])
+        {
+            Editable = false;
+        }
     }
     keys
     {

@@ -60,7 +60,11 @@ pageextension 80040 "YVS PostedInvoiceCard" extends "Posted Purchase Invoice"
         }
         addafter("Due Date")
         {
-            field("YVS Purchase Order No."; rec."YVS Purchase Order No.") { ApplicationArea = all; }
+            field("YVS Purchase Order No."; rec."YVS Purchase Order No.")
+            {
+                ApplicationArea = all;
+                ToolTip = 'Specifies the value of the Purchase Order No. field.';
+            }
         }
     }
     actions
