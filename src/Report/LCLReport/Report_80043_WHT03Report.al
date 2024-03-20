@@ -104,6 +104,7 @@ report 80043 "YVS WHT03 Report"
                     WHTEntry.RESET();
                     WHTEntry.SETRANGE("Tax Type", "Tax Type");
                     WHTEntry.SetRange("Document No.", "Document No.");
+                    WHTEntry.SetRange("WHT Document No.", "WHT Document No.");
                     WHTEntry.SETFILTER("VAT Amount", '<>%1', 0);
                     IF WHTEntry.FindSet() THEN
                         REPEAT
