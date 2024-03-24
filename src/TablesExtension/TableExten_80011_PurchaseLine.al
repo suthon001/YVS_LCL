@@ -267,6 +267,20 @@ tableextension 80011 "YVS ExtenPurchase Line" extends "Purchase Line"
                 CalWhtAmount();
             end;
         }
+        modify(Description)
+        {
+            trigger OnAfterValidate()
+            begin
+                rec.TestStatusOpen();
+            end;
+        }
+        modify("Description 2")
+        {
+            trigger OnAfterValidate()
+            begin
+                rec.TestStatusOpen();
+            end;
+        }
 
     }
     /// <summary>
