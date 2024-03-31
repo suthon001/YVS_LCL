@@ -256,11 +256,12 @@ report 80035 "YVS Payment Voucher (Post)"
                 JournalDescriptionThai := ltGenjournalTemplate."YVS Description Thai";
                 JournalDescriptionEng := ltGenjournalTemplate."YVS Description Eng";
 
-
-                CVBufferEntry.Reset();
-                CVBufferEntry.DeleteAll();
-                FunctionCenter.PostedJnlFindApplyEntries(GenJournalLine."Journal Template Name", GenJournalLine."Journal Batch Name", GenJournalLine."Posting Date",
-                GenJournalLine."Document No.", CVBufferEntry);
+                if ShowVendLdgr then begin
+                    CVBufferEntry.Reset();
+                    CVBufferEntry.DeleteAll();
+                    FunctionCenter.PostedJnlFindApplyEntries(GenJournalLine."Journal Template Name", GenJournalLine."Journal Batch Name", GenJournalLine."Posting Date",
+                    GenJournalLine."Document No.", CVBufferEntry);
+                end;
                 HaveApply := CVBufferEntry.Count <> 0;
                 FunctionCenter.GetGlobalDimCaption(DimThaiCaption1, DimEngCaption1, DimThaiCaption2, DimEngCaption2);
             end;
@@ -279,11 +280,18 @@ report 80035 "YVS Payment Voucher (Post)"
                     ToolTip = 'Grouping data';
                     Caption = 'Grouping G/L Account';
                 }
+                field(gvShowVendLdgr; ShowVendLdgr)
+                {
+                    Caption = 'Show Vendor Apply';
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Show Vendor Apply field.';
+                }
             }
         }
         trigger OnInit()
         begin
             groupping := true;
+            ShowVendLdgr := true;
         end;
     }
     /// <summary> 
@@ -378,7 +386,7 @@ report 80035 "YVS Payment Voucher (Post)"
         JournalDescriptionThai: Text[250];
         JournalDescriptionEng: Text[250];
         GenJournalBatchName: Record "Gen. Journal Batch";
-        HaveWHT: Boolean;
+        HaveWHT, ShowVendLdgr : Boolean;
         HaveItemVAT: Boolean;
         HaveBankAccount: Boolean;
         HaveApply: Boolean;
