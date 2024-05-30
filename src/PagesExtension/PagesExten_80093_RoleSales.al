@@ -120,9 +120,16 @@ pageextension 80093 "YVS Role Sales" extends "Order Processor Role Center"
                         ToolTip = 'Executes the WHT Transaction action.';
                     }
                 }
-                group("Sales Receipt")
+                group("Billing & Receipt")
                 {
-                    Caption = 'Sales Receipt';
+                    Caption = 'Billing & Receipt';
+                    action("Sales Billing List")
+                    {
+                        Caption = 'Sales Billing';
+                        ApplicationArea = all;
+                        RunObject = page "YVS Sales Billing List";
+                        ToolTip = 'Executes the Sales Billing action.';
+                    }
                     action("Sales Receipt List")
                     {
                         Caption = 'Sales Receipt';

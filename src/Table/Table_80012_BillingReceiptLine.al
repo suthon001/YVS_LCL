@@ -120,7 +120,7 @@ table 80012 "YVS Billing Receipt Line"
             trigger OnValidate()
             var
                 CustLedger: Record "Cust. Ledger Entry";
-                SalesReceipt: Record "YVS Billing Receipt Line";
+                SalesBillingReceipt: Record "YVS Billing Receipt Line";
                 SalesReceiptHeader: Record "YVS Billing Receipt Header";
                 TOtalAmt: Decimal;
             begin
@@ -132,24 +132,24 @@ table 80012 "YVS Billing Receipt Line"
                         CustLedger.Init();
                     CustLedger.CalcFields("Remaining Amount");
 
-                    SalesReceipt.reset();
-                    SalesReceipt.ReadIsolation := IsolationLevel::ReadCommitted;
-                    SalesReceipt.SetRange("Document Type", rec."Document Type");
-                    SalesReceipt.SetRange("Document No.", rec."Document No.");
-                    SalesReceipt.SetFilter("Line No.", '<>%1', rec."Line No.");
-                    SalesReceipt.setrange("Source Ledger Entry No.", rec."Source Ledger Entry No.");
-                    SalesReceipt.CalcSums("Amount");
+                    SalesBillingReceipt.reset();
+                    SalesBillingReceipt.ReadIsolation := IsolationLevel::ReadCommitted;
+                    SalesBillingReceipt.SetRange("Document Type", rec."Document Type");
+                    SalesBillingReceipt.SetRange("Document No.", rec."Document No.");
+                    SalesBillingReceipt.SetFilter("Line No.", '<>%1', rec."Line No.");
+                    SalesBillingReceipt.setrange("Source Ledger Entry No.", rec."Source Ledger Entry No.");
+                    SalesBillingReceipt.CalcSums("Amount");
 
-                    TOtalAmt := SalesReceipt."Amount";
+                    TOtalAmt := SalesBillingReceipt."Amount";
 
-                    SalesReceipt.reset();
-                    SalesReceipt.ReadIsolation := IsolationLevel::ReadCommitted;
-                    SalesReceipt.SetRange("Document Type", rec."Document Type");
-                    SalesReceipt.SetFilter("Document No.", '<>%1', rec."Document No.");
-                    SalesReceipt.setrange("Source Ledger Entry No.", rec."Source Ledger Entry No.");
-                    SalesReceipt.SetFilter("Status", '<>%1', SalesReceipt."Status"::"Posted");
-                    SalesReceipt.CalcSums("Amount");
-                    TOtalAmt := TOtalAmt + SalesReceipt."Amount";
+                    SalesBillingReceipt.reset();
+                    SalesBillingReceipt.ReadIsolation := IsolationLevel::ReadCommitted;
+                    SalesBillingReceipt.SetRange("Document Type", rec."Document Type");
+                    SalesBillingReceipt.SetFilter("Document No.", '<>%1', rec."Document No.");
+                    SalesBillingReceipt.setrange("Source Ledger Entry No.", rec."Source Ledger Entry No.");
+                    SalesBillingReceipt.SetFilter("Status", '<>%1', SalesBillingReceipt."Status"::"Posted");
+                    SalesBillingReceipt.CalcSums("Amount");
+                    TOtalAmt := TOtalAmt + SalesBillingReceipt."Amount";
 
 
                     if (ABS(CustLedger."Remaining Amount") - ABS((TOtalAmt + rec."Amount"))) < 0 then
@@ -159,15 +159,40 @@ table 80012 "YVS Billing Receipt Line"
                     TOtalAmt := TOtalAmt + rec.Amount;
 
 
-                    SalesReceipt.reset();
-                    SalesReceipt.ReadIsolation := IsolationLevel::ReadCommitted;
-                    SalesReceipt.SetRange("Document Type", rec."Document Type");
-                    SalesReceipt.SetRange("Document No.", rec."Document No.");
-                    SalesReceipt.SetFilter("Line No.", '<>%1', rec."Line No.");
-                    SalesReceipt.CalcSums("Amount");
+                    SalesBillingReceipt.reset();
+                    SalesBillingReceipt.ReadIsolation := IsolationLevel::ReadCommitted;
+                    SalesBillingReceipt.SetRange("Document Type", rec."Document Type");
+                    SalesBillingReceipt.SetRange("Document No.", rec."Document No.");
+                    SalesBillingReceipt.SetFilter("Line No.", '<>%1', rec."Line No.");
+                    SalesBillingReceipt.CalcSums("Amount");
 
-                    SalesReceiptHeader."Receive & Payment Amount" := SalesReceipt.Amount + rec.Amount;
+                    SalesReceiptHeader."Receive & Payment Amount" := SalesBillingReceipt.Amount + rec.Amount;
                     SalesReceiptHeader.Modify();
+
+                end;
+                if rec."Document Type" = rec."Document Type"::"Sales Billing" then begin
+                    if not CustLedger.GET(rec."Source Ledger Entry No.") then
+                        CustLedger.Init();
+                    CustLedger.CalcFields("Remaining Amount");
+
+                    SalesBillingReceipt.reset();
+                    SalesBillingReceipt.SetRange("Document Type", rec."Document Type");
+                    SalesBillingReceipt.SetRange("Document No.", rec."Document No.");
+                    SalesBillingReceipt.SetFilter("Line No.", '<>%1', rec."Line No.");
+                    SalesBillingReceipt.setrange("Source Ledger Entry No.", rec."Source Ledger Entry No.");
+                    SalesBillingReceipt.CalcSums("Amount");
+                    TOtalAmt := SalesBillingReceipt."Amount";
+
+
+                    SalesBillingReceipt.reset();
+                    SalesBillingReceipt.SetRange("Document Type", rec."Document Type");
+                    SalesBillingReceipt.SetFilter("Document No.", '<>%1', rec."Document No.");
+                    SalesBillingReceipt.setrange("Source Ledger Entry No.", rec."Source Ledger Entry No.");
+                    SalesBillingReceipt.CalcSums("Amount");
+                    TOtalAmt := TOtalAmt + SalesBillingReceipt."Amount";
+
+                    if (ABS(CustLedger."Remaining Amount") - ABS((TOtalAmt + rec."Amount"))) < 0 then
+                        CustLedger.FieldError("Remaining Amount", strsubstno('remaining amount is %1', ABS(CustLedger."Remaining Amount" - TOtalAmt)));
 
                 end;
                 OnAfterValidateAmount(Rec, SalesReceiptHeader);

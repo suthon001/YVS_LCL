@@ -82,9 +82,11 @@ page 80028 "YVS Get Cus. Ledger Entry"
 
     trigger OnAfterGetRecord()
     begin
-        Rec.CalcFields("Remaining Amount", "Original Amount", Amount, "YVS Receipt Amount");
+        Rec.CalcFields("Remaining Amount", "Original Amount", Amount, "YVS Receipt Amount", "YVS Billing Amount");
         if BillRcptHeader."Document Type" = BillRcptHeader."Document Type"::"Sales Receipt" then
             BillingReceiptAmount := rec."YVS Receipt Amount";
+        if BillRcptHeader."Document Type" = BillRcptHeader."Document Type"::"Sales Billing" then
+            BillingReceiptAmount := rec."YVS Billing Amount";
         YVSOnAfterGetRecord(BillRcptHeader, BillingReceiptAmount, rec);
     end;
 
@@ -209,6 +211,25 @@ page 80028 "YVS Get Cus. Ledger Entry"
                             rec."YVS Remaining Amt." := (ABS(CustLedger."Remaining Amount") - abs(CustLedger."YVS Receipt Amount"))
                         else
                             rec."YVS Remaining Amt." := -(ABS(CustLedger."Remaining Amount") - abs(CustLedger."YVS Receipt Amount"));
+                        rec.Insert();
+                    end;
+                until CustLedger.Next() = 0;
+        end;
+        if pDocumentType = pDocumentType::"Sales Billing" then begin
+            CustLedger.reset();
+            CustLedger.SetRange("Customer No.", pCustomerNo);
+            CustLedger.SetFilter("Document Type", '%1|%2', CustLedger."Document Type"::Invoice, CustLedger."Document Type"::"Credit Memo");
+            CustLedger.setrange(Open, true);
+            if CustLedger.FindSet() then
+                repeat
+                    CustLedger.CalcFields("Remaining Amount", "YVS Billing Amount");
+                    if (ABS(CustLedger."Remaining Amount") - abs(CustLedger."YVS Billing Amount")) > 0 then begin
+                        rec.Init();
+                        rec.TransferFields(CustLedger);
+                        if CustLedger."Document Type" = CustLedger."Document Type"::Invoice then
+                            rec."YVS Remaining Amt." := (ABS(CustLedger."Remaining Amount") - abs(CustLedger."YVS Billing Amount"))
+                        else
+                            rec."YVS Remaining Amt." := -(ABS(CustLedger."Remaining Amount") - abs(CustLedger."YVS Billing Amount"));
                         rec.Insert();
                     end;
                 until CustLedger.Next() = 0;

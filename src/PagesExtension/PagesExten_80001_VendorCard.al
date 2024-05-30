@@ -42,11 +42,11 @@ pageextension 80001 "YVS ExtenVendor Card" extends "Vendor Card"
         moveafter("VAT Branch Code"; "VAT Registration No.")
         modify("Currency Code")
         {
-            Visible = CheckDisableLCL;
+            Visible = true;
         }
         modify("No.")
         {
-            Visible = CheckDisableLCL;
+            Visible = true;
             Importance = Promoted;
         }
         addafter(General)

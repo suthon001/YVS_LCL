@@ -1,0 +1,246 @@
+/// <summary>
+/// Page YVS Sales Billing Card (ID 80039).
+/// </summary>
+page 80039 "YVS Sales Billing Card"
+{
+    PageType = Document;
+    SourceTable = "YVS Billing Receipt Header";
+    PromotedActionCategories = 'New,Process,Print,Release';
+    RefreshOnActivate = true;
+    Caption = 'Sales Billing Card';
+    SourceTableView = where("Document Type" = filter('Sales Billing'));
+    UsageCategory = None;
+    layout
+    {
+        area(content)
+        {
+            group(General)
+            {
+                Editable = rec.Status = rec.Status::Open;
+                field("No."; Rec."No.")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the No. field.';
+                    trigger OnAssistEdit()
+                    begin
+                        if Rec."AssistEdit"(Xrec) then
+                            CurrPage.Update();
+                    end;
+                }
+
+                field("Bill/Pay-to Cust/Vend No."; Rec."Bill/Pay-to Cust/Vend No.")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Bill/Pay-to Cust/Vend No. field.';
+                }
+                field("Bill/Pay-to Cust/Vend Name"; Rec."Bill/Pay-to Cust/Vend Name")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Bill/Pay-to Cust/Vend Name field.';
+                }
+
+                field("Bill/Pay-to Contact"; Rec."Bill/Pay-to Contact")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Bill/Pay-to Contact field.';
+                }
+                field("Bill/Pay-to Address"; Rec."Bill/Pay-to Address")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Bill/Pay-to Cust/Vend Address field.';
+                }
+                field("Bill/Pay-to Address 2"; Rec."Bill/Pay-to Address 2")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Bill/Pay-to Cust/Vend Address 2 field.';
+                }
+                field("Bill/Pay-to Cust/Vend Name 2"; Rec."Bill/Pay-to Cust/Vend Name 2")
+                {
+                    ApplicationArea = All;
+                    Visible = false;
+                    ToolTip = 'Specifies the value of the Bill/Pay-to Cus/Vend Name2 field.';
+                }
+                field("Bill/Pay-to City"; Rec."Bill/Pay-to City")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Bill/Pay-to City field.';
+                }
+                field("Bill/Pay-to Post Code"; Rec."Bill/Pay-to Post Code")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Bill/Pay-to Post Code field.';
+                }
+                field("Head Office"; Rec."Head Office")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Head Office field.';
+                }
+                field("VAT Branch Code"; Rec."VAT Branch Code")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the VAT Branch Code field.';
+                }
+                field("Vat Registration No."; Rec."Vat Registration No.")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Vat Registration No. field.';
+                }
+                field("Posting Date"; Rec."Posting Date")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Posting Date field.';
+                }
+                field("Document Date"; Rec."Document Date")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Document Date field.';
+                }
+                field("Payment Terms Code"; Rec."Payment Terms Code")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Payment Terms Code field.';
+                }
+                field("Due Date"; Rec."Due Date")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Due Date field.';
+                }
+                field("Payment Method Code"; Rec."Payment Method Code")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Payment Method Code field.';
+                }
+                field("Posting Description"; Rec."Posting Description")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Posting Description field.';
+                }
+
+                field("Currency Code"; Rec."Currency Code")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Currency Code field.';
+                }
+                field("Amount"; Rec."Amount")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Amount field.';
+                }
+                field("Amount (LCY)"; Rec."Amount (LCY)")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Amount (LCY) field.';
+                }
+                field("VAT Bus. Posting Group"; Rec."VAT Bus. Posting Group")
+                {
+
+                    ApplicationArea = all;
+                    ToolTip = 'Specifies the value of the VAT Bus. Posting Group field.';
+                }
+                field("Status"; Rec."Status")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Status field.';
+                    ValuesAllowed = 0, 2;
+                }
+            }
+            part("SalesBillingLine"; "YVS Sales Billing Subform")
+            {
+                ApplicationArea = all;
+                SubPageView = sorting("Document Type", "Document No.", "Line No.");
+                SubPageLink = "Document Type" = field("Document Type"), "Document No." = field("No.");
+                UpdatePropagation = Both;
+                Editable = rec.Status = rec.Status::Open;
+            }
+        }
+
+
+    }
+    actions
+    {
+        area(Reporting)
+        {
+            action("Sales Billing")
+            {
+                Caption = 'Sales Billing';
+                Image = PrintReport;
+                ApplicationArea = all;
+                PromotedCategory = Report;
+                Promoted = true;
+                PromotedIsBig = true;
+                ToolTip = 'Executes the Sales Billing action.';
+                trigger OnAction()
+                var
+
+                    BillingReceiptHeader: Record "YVS Billing Receipt Header";
+                begin
+                    BillingReceiptHeader.reset();
+                    BillingReceiptHeader.SetRange("Document Type", rec."Document Type");
+                    BillingReceiptHeader.SetRange("No.", rec."No.");
+                    REPORT.RunModal(REPORT::"YVS Sales Billing", true, true, BillingReceiptHeader);
+                end;
+            }
+        }
+        area(Processing)
+        {
+            group("GetLines")
+            {
+                Caption = 'GetLine';
+                action("Get Posted Document")
+                {
+                    Caption = 'Get Posted Document';
+                    Image = GetEntries;
+                    Promoted = true;
+                    ApplicationArea = all;
+                    PromotedCategory = Process;
+                    PromotedIsBig = true;
+                    PromotedOnly = true;
+                    ToolTip = 'Executes the Get Posted Document action.';
+                    trigger OnAction()
+                    begin
+                        CODEUNIT.RUN(Codeunit::"YVS Get Cust/Vend Ledger Entry", Rec);
+
+                    end;
+                }
+            }
+            group("ReleaseReOpen")
+            {
+                Caption = 'Release&ReOpen';
+                action("Release")
+                {
+                    Caption = 'Release';
+                    Image = ReleaseDoc;
+                    ApplicationArea = all;
+                    Promoted = true;
+                    PromotedIsBig = true;
+                    PromotedCategory = Category4;
+                    ToolTip = 'Executes the Release action.';
+                    trigger OnAction()
+                    var
+                        ReleaseBillDoc: Codeunit "YVS Function Center";
+                    begin
+                        ReleaseBillDoc.RereleaseBilling(Rec);
+                        CurrPage.Update();
+                    end;
+                }
+                action("Open")
+                {
+                    Caption = 'Open';
+                    Image = ReOpen;
+                    ApplicationArea = all;
+                    Promoted = true;
+                    PromotedIsBig = true;
+                    PromotedCategory = Category4;
+                    ToolTip = 'Executes the Open action.';
+                    trigger OnAction()
+                    var
+                        ReleaseBillDoc: Codeunit "YVS Function Center";
+                    begin
+                        ReleaseBillDoc."ReopenBilling"(Rec);
+                        CurrPage.Update();
+                    end;
+                }
+            }
+        }
+    }
+}

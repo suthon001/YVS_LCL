@@ -14,6 +14,12 @@ pageextension 80004 "YVS ExtenSales & ReceSetup" extends "Sales & Receivables Se
                 ToolTip = 'Specifies the value of the Sales VAT Nos. field.';
                 Visible = CheckDisableLCL;
             }
+            field("YVS Sales Billing Nos."; rec."YVS Sales Billing Nos.")
+            {
+                ApplicationArea = all;
+                ToolTip = 'Specifies the value of the YVS Sales Billing Nos. field.';
+                Visible = CheckDisableLCL;
+            }
             field("YVS Sale Receipt Nos."; rec."YVS Sale Receipt Nos.")
             {
                 ApplicationArea = all;

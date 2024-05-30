@@ -88,5 +88,13 @@ tableextension 80036 "YVS ExtenCustLedger Entry" extends "Cust. Ledger Entry"
             Caption = 'Aging Due Date';
             DataClassification = CustomerContent;
         }
+        field(80014; "YVS Billing Amount"; Decimal)
+        {
+            FieldClass = FlowField;
+            Caption = 'Billing Amount';
+            Editable = false;
+            CalcFormula = Sum("YVS Billing Receipt Line"."Amount" WHERE("Document Type" = filter('Sales Billing'),
+             "Source Ledger Entry No." = FIELD("Entry No."), "Status" = filter(<> "Posted")));
+        }
     }
 }

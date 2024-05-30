@@ -41,7 +41,7 @@ pageextension 80000 "YVS ExtenCustomer Card" extends "Customer Card"
         moveafter("VAT Branch Code"; "VAT Registration No.")
         modify("No.")
         {
-            Visible = CheckDisableLCL;
+            Visible = true;
             Importance = Promoted;
         }
         modify(Control10)

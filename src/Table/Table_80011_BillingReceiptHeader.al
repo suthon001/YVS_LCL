@@ -559,6 +559,11 @@ Table 80011 "YVS Billing Receipt Header"
                     SalesSetup.TestField("YVS Sale Receipt Nos.");
                     EXIT(SalesSetup."YVS Sale Receipt Nos.");
                 end;
+            "Document Type"::"Sales Billing":
+                begin
+                    SalesSetup.TestField("YVS Sales Billing Nos.");
+                    EXIT(SalesSetup."YVS Sales Billing Nos.");
+                end;
             else begin
                 OnAfterGetNoSeries(rec, ltNoSeries);
                 exit(ltNoSeries);

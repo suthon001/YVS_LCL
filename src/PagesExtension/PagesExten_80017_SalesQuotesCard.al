@@ -116,6 +116,38 @@ pageextension 80017 "YVS Sales Quote Card" extends "Sales Quote"
         }
 
     }
+    actions
+    {
+        modify(Print)
+        {
+            Visible = false;
+        }
+        addlast(Reporting)
+        {
+
+            action("Print_Sales_Quotes")
+            {
+                ApplicationArea = All;
+                Caption = 'Sales Quote';
+                Image = PrintReport;
+                Promoted = true;
+                PromotedIsBig = true;
+                PromotedCategory = Report;
+                ToolTip = 'Executes the Sales Quote action.';
+                Visible = CheckDisableLCL;
+                trigger OnAction()
+                var
+                    RecSalesHeader: Record "Sales Header";
+                begin
+                    RecSalesHeader.RESET();
+                    RecSalesHeader.SetRange("Document Type", rec."Document Type");
+                    RecSalesHeader.SetRange("No.", rec."No.");
+                    Report.Run(Report::"YVS Report Sales Quotes", TRUE, TRUE, RecSalesHeader);
+                end;
+            }
+
+        }
+    }
     trigger OnOpenPage()
     begin
         CheckDisableLCL := FuncenterYVS.CheckDisableLCL();
