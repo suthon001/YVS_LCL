@@ -110,12 +110,12 @@ tableextension 80012 "YVS ExtenSales Header" extends "Sales Header"
             trigger OnLookup()
             var
                 SalesSetup: Record "Sales & Receivables Setup";
-                NoseriesMgt: Codeunit NoSeriesManagement;
+                NoseriesMgt: Codeunit "No. Series";
                 newNoseries: code[20];
             begin
                 SalesSetup.GET();
                 SalesSetup.TestField("Order Nos.");
-                if NoseriesMgt.SelectSeries(SalesSetup."Order Nos.", "No. Series", newNoseries) then
+                if NoseriesMgt.LookupRelatedNoSeries(SalesSetup."Order Nos.", "No. Series", newNoseries) then
                     "YVS Make Order No. Series" := newNoseries;
             end;
         }
@@ -131,7 +131,10 @@ tableextension 80012 "YVS ExtenSales Header" extends "Sales Header"
             trigger OnAfterValidate()
             var
                 Cust: Record Customer;
+                FuncenterYVS: Codeunit "YVS Function Center";
             begin
+                if not FuncenterYVS.CheckDisableLCL() then
+                    exit;
                 if not Cust.get("Sell-to Customer No.") then
                     Cust.init();
 
@@ -146,7 +149,11 @@ tableextension 80012 "YVS ExtenSales Header" extends "Sales Header"
     }
 
     trigger OnInsert()
+    var
+        FuncenterYVS: Codeunit "YVS Function Center";
     begin
+        if not FuncenterYVS.CheckDisableLCL() then
+            exit;
         TestField("No.");
         "YVS Create By" := COPYSTR(UserId, 1, 50);
         "YVS Create DateTime" := CurrentDateTime;

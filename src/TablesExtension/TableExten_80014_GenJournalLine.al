@@ -515,7 +515,10 @@ tableextension 80014 "YVS GenJournal Lines" extends "Gen. Journal Line"
             trigger OnAfterValidate()
             var
                 IsHandle: Boolean;
+                FuncenterYVS: Codeunit "YVS Function Center";
             begin
+                if not FuncenterYVS.CheckDisableLCL() then
+                    exit;
                 IsHandle := false;
                 "YVS OnbeforUpdateExternalToCheque"(IsHandle);
                 if not IsHandle then
@@ -537,7 +540,10 @@ tableextension 80014 "YVS GenJournal Lines" extends "Gen. Journal Line"
                 BankAccount: Record "Bank Account";
                 Cust: Record Customer;
                 Vend: record Vendor;
+                FuncenterYVS: Codeunit "YVS Function Center";
             begin
+                if not FuncenterYVS.CheckDisableLCL() then
+                    exit;
                 if not GLAccount.GET("Account No.") then
                     GLAccount.init();
 
@@ -569,7 +575,11 @@ tableextension 80014 "YVS GenJournal Lines" extends "Gen. Journal Line"
         modify("Account Type")
         {
             trigger OnAfterValidate()
+            var
+                FuncenterYVS: Codeunit "YVS Function Center";
             begin
+                if not FuncenterYVS.CheckDisableLCL() then
+                    exit;
                 if xRec."Account Type" <> "Account Type" then begin
                     validate("YVS Require Screen Detail", "YVS Require Screen Detail"::" ");
                     "YVS Head Office" := false;
@@ -580,13 +590,21 @@ tableextension 80014 "YVS GenJournal Lines" extends "Gen. Journal Line"
         modify(Description)
         {
             trigger OnAfterValidate()
+            var
+                FuncenterYVS: Codeunit "YVS Function Center";
             begin
+                if not FuncenterYVS.CheckDisableLCL() then
+                    exit;
                 rec."YVS Journal Description" := rec.Description;
             end;
         }
     }
     trigger OnInsert()
+    var
+        FuncenterYVS: Codeunit "YVS Function Center";
     begin
+        if not FuncenterYVS.CheckDisableLCL() then
+            exit;
         "YVS Create By" := COPYSTR(USERID, 1, 50);
         "YVS Create DateTime" := CurrentDateTime;
     end;
@@ -600,15 +618,15 @@ tableextension 80014 "YVS GenJournal Lines" extends "Gen. Journal Line"
     var
         GenJnlLine: Record "Gen. Journal Line";
         GenJnlBatch: Record "Gen. Journal Batch";
-        NoSeriesMgt: Codeunit NoSeriesManagement;
+        NoSeriesMgt: Codeunit "No. Series";
     begin
         // WITH GenJnlLine DO BEGIN
         GenJnlLine.COPY(Rec);
         GenJnlBatch.GET(GenJnlLine."Journal Template Name", GenJnlLine."Journal Batch Name");
         GenJnlBatch.TESTFIELD("YVS Document No. Series");
-        IF NoSeriesMgt.SelectSeries(GenJnlBatch."YVS Document No. Series", OldGenJnlLine."YVS Document No. Series",
+        IF NoSeriesMgt.LookupRelatedNoSeries(GenJnlBatch."YVS Document No. Series", OldGenJnlLine."YVS Document No. Series",
             GenJnlLine."YVS Document No. Series") THEN BEGIN
-            NoSeriesMgt.SetSeries(GenJnlLine."Document No.");
+            GenJnlLine."Document No." := NoSeriesMgt.GetNextNo(GenJnlLine."YVS Document No. Series");
             Rec := GenJnlLine;
             EXIT(TRUE);
         END;

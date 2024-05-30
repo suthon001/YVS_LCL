@@ -79,7 +79,11 @@ tableextension 80015 "YVS ExtenItem Journal Line" extends "Item Journal Line"
 
 
     trigger OnInsert()
+    var
+        FuncenterYVS: Codeunit "YVS Function Center";
     begin
+        if not FuncenterYVS.CheckDisableLCL() then
+            exit;
         "YVS Create By" := COPYSTR(USERID, 1, 50);
         "YVS Create DateTime" := CurrentDateTime;
     end;
@@ -93,20 +97,18 @@ tableextension 80015 "YVS ExtenItem Journal Line" extends "Item Journal Line"
     var
         ItemJournalLine: Record "Item Journal Line";
         ItemJournalBatch: Record "Item Journal Batch";
-        NoSeriesMgt: Codeunit NoSeriesManagement;
+        NoSeriesMgt: Codeunit "No. Series";
     begin
-
         ItemJournalLine.COPY(Rec);
         ItemJournalBatch.GET(ItemJournalLine."Journal Template Name", ItemJournalLine."Journal Batch Name");
         ItemJournalBatch.TESTFIELD("YVS Document No. Series");
-        IF NoSeriesMgt.SelectSeries(ItemJournalBatch."YVS Document No. Series", OldItemJournalLine."YVS Document No. Series",
+        IF NoSeriesMgt.LookupRelatedNoSeries(ItemJournalBatch."YVS Document No. Series", OldItemJournalLine."YVS Document No. Series",
             ItemJournalLine."YVS Document No. Series") THEN BEGIN
-            NoSeriesMgt.SetSeries(ItemJournalLine."Document No.");
+            ItemJournalLine."Document No." := NoSeriesMgt.GetNextNo(ItemJournalLine."YVS Document No. Series");
             Rec := ItemJournalLine;
             EXIT(TRUE);
         END;
     end;
-
     /// <summary>
     /// GetLastLine.
     /// </summary>

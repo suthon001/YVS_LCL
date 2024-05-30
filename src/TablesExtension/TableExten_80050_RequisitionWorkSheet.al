@@ -37,16 +37,17 @@ tableextension 80049 "YVS Requisition WorkSheet" extends "Requisition Line"
     /// <returns>Return variable "Boolean".</returns>
     procedure "AssistEdit"(OldReqLines: Record "Requisition Line"): Boolean
     var
-        NoSeriesMgt: Codeunit NoSeriesManagement;
+
         ReqWhs: Record "Requisition Wksh. Name";
         RequsitionLine: Record "Requisition Line";
+        NoSeriesMgt: Codeunit "No. Series";
     begin
         //  with RequsitionLine do begin
         RequsitionLine.Copy(Rec);
         ReqWhs.GET(RequsitionLine."Worksheet Template Name", RequsitionLine."Journal Batch Name");
         ReqWhs.TestField("YVS Document No. Series");
-        IF NoSeriesMgt.SelectSeries(ReqWhs."YVS Document No. Series", OldReqLines."No. Series", RequsitionLine."No. Series") THEN BEGIN
-            NoSeriesMgt.SetSeries(RequsitionLine."YVS Document No.");
+        IF NoSeriesMgt.LookupRelatedNoSeries(ReqWhs."YVS Document No. Series", OldReqLines."No. Series", RequsitionLine."No. Series") THEN BEGIN
+            RequsitionLine."YVS Document No." := NoSeriesMgt.GetNextNo(RequsitionLine."No. Series");
             rec := RequsitionLine;
             EXIT(TRUE);
         END;
@@ -54,7 +55,11 @@ tableextension 80049 "YVS Requisition WorkSheet" extends "Requisition Line"
     end;
 
     trigger OnInsert()
+    var
+        FuncenterYVS: Codeunit "YVS Function Center";
     begin
+        if not FuncenterYVS.CheckDisableLCL() then
+            exit;
         TestField("No.");
         "YVS Create By" := COPYSTR(UserId, 1, 50);
         "YVS Create DateTime" := CurrentDateTime();

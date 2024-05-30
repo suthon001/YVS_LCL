@@ -19,7 +19,7 @@ table 80001 "YVS Tax & WHT Header"
             DataClassification = CustomerContent;
             trigger OnValidate()
             var
-                NoSeriesMgt: Codeunit NoSeriesManagement;
+                NoSeriesMgt: Codeunit "No. Series";
             begin
                 if rec."Document No." <> xRec."Document No." then begin
                     NoSeriesMgt.TestManual(GetNoSeriesCode());
@@ -239,12 +239,12 @@ table 80001 "YVS Tax & WHT Header"
     procedure AssistEdit(OldVatHeader: Record "YVS Tax & WHT Header"): Boolean
     var
         VatHeader: Record "YVS Tax & WHT Header";
-        NoSeriesMgt: Codeunit NoSeriesManagement;
+        NoSeriesMgt: Codeunit "No. Series";
     begin
         VatHeader.COPY(Rec);
-        IF NoSeriesMgt.SelectSeries(GetNoSeriesCode(), OldVatHeader."No. Series",
+        IF NoSeriesMgt.LookupRelatedNoSeries(GetNoSeriesCode(), OldVatHeader."No. Series",
           VatHeader."No. Series") THEN BEGIN
-            NoSeriesMgt.SetSeries(VatHeader."Document No.");
+            VatHeader."Document No." := NoSeriesMgt.GetNextNo(VatHeader."No. Series");
             Rec := VatHeader;
             EXIT(TRUE);
         END;

@@ -21,8 +21,11 @@ tableextension 80053 "YVS FA Depreciation Book" extends "FA Depreciation Book"
         modify("Depreciation Starting Date")
         {
             trigger OnAfterValidate()
-
+            var
+                FuncenterYVS: Codeunit "YVS Function Center";
             begin
+                if not FuncenterYVS.CheckDisableLCL() then
+                    exit;
                 "YVS CalcDeprPeriod"();
                 IF "Depreciation Starting Date" <> xRec."Depreciation Starting Date" THEN
                     IF "YVS No. of Years" <> 0 THEN
@@ -33,14 +36,22 @@ tableextension 80053 "YVS FA Depreciation Book" extends "FA Depreciation Book"
         modify("No. of Depreciation Years")
         {
             trigger OnAfterValidate()
+            var
+                FuncenterYVS: Codeunit "YVS Function Center";
             begin
+                if not FuncenterYVS.CheckDisableLCL() then
+                    exit;
                 rec.Validate("YVS No. of Years", rec."No. of Depreciation Years");
             end;
         }
         Modify("Depreciation Book Code")
         {
             trigger OnBeforeValidate()
+            var
+                FuncenterYVS: Codeunit "YVS Function Center";
             begin
+                if not FuncenterYVS.CheckDisableLCL() then
+                    exit;
                 if rec."Depreciation Book Code" <> '' then
                     if rec."Depreciation Starting Date" = 0D then
                         rec."Depreciation Starting Date" := WorkDate();

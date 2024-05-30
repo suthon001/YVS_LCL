@@ -101,14 +101,14 @@ tableextension 80010 "YVS ExtenPurchase Header" extends "Purchase Header"
             var
 
                 PayableSetup: Record "Purchases & Payables Setup";
-                NoseriesMgt: Codeunit NoSeriesManagement;
+                NoseriesMgt: Codeunit "No. Series";
                 newNoseries: code[20];
 
 
             begin
                 PayableSetup.GET();
                 PayableSetup.TestField("Order Nos.");
-                if NoseriesMgt.SelectSeries(PayableSetup."Order Nos.", "No. Series", newNoseries) then
+                if NoseriesMgt.LookupRelatedNoSeries(PayableSetup."Order Nos.", "No. Series", newNoseries) then
                     "YVS Make PO No. Series" := newNoseries;
             end;
         }
@@ -134,7 +134,11 @@ tableextension 80010 "YVS ExtenPurchase Header" extends "Purchase Header"
         }
     }
     trigger OnInsert()
+    var
+        FuncenterYVS: Codeunit "YVS Function Center";
     begin
+        if not FuncenterYVS.CheckDisableLCL() then
+            exit;
         TestField("No.");
         "YVS Create By" := COPYSTR(UserId(), 1, 50);
         "YVS Create DateTime" := CurrentDateTime;

@@ -239,7 +239,11 @@ tableextension 80011 "YVS ExtenPurchase Line" extends "Purchase Line"
             trigger OnAfterValidate()
             var
                 Item: Record Item;
+                FuncenterYVS: Codeunit "YVS Function Center";
             begin
+                if not FuncenterYVS.CheckDisableLCL() then
+                    exit;
+
                 if Type = Type::Item then begin
                     if not Item.Get("No.") then
                         Item.init();
@@ -250,7 +254,11 @@ tableextension 80011 "YVS ExtenPurchase Line" extends "Purchase Line"
         modify(Quantity)
         {
             trigger OnAfterValidate()
+            var
+                FuncenterYVS: Codeunit "YVS Function Center";
             begin
+                if not FuncenterYVS.CheckDisableLCL() then
+                    exit;
                 CheckQtyPR();
                 CalWhtAmount();
                 if rec."Document Type" <> rec."Document Type"::Order then
@@ -401,7 +409,10 @@ tableextension 80011 "YVS ExtenPurchase Line" extends "Purchase Line"
     local procedure CalWhtAmount()
     var
         WHTPostingSetup: Record "YVS WHT Posting Setup";
+        FuncenterYVS: Codeunit "YVS Function Center";
     begin
+        if not FuncenterYVS.CheckDisableLCL() then
+            exit;
         IF WHTPostingSetup.GET(rec."YVS WHT Business Posting Group", rec."YVS WHT Product Posting Group") THEN BEGIN
             "YVS WHT Base" := rec."Line Amount";
             "YVS WHT %" := WHTPostingSetup."WHT %";
@@ -420,7 +431,10 @@ tableextension 80011 "YVS ExtenPurchase Line" extends "Purchase Line"
     var
         POLine: Record "Purchase Line";
         TempQty: Decimal;
+        FuncenterYVS: Codeunit "YVS Function Center";
     begin
+        if not FuncenterYVS.CheckDisableLCL() then
+            exit;
         POLine.reset();
         POLine.ReadIsolation := IsolationLevel::ReadCommitted;
         POLine.SetRange("Document Type", POLine."Document Type"::Order);

@@ -206,7 +206,10 @@ tableextension 80001 "YVS ExtenVendor" extends Vendor
         VenCust: RecordRef;
         MyFieldRef: FieldRef;
         tempHeadOffice: Boolean;
+        FuncenterYVS: Codeunit "YVS Function Center";
     begin
+        if not FuncenterYVS.CheckDisableLCL() then
+            exit;
 
         CLEAR(tempHeadOffice);
 
@@ -285,7 +288,10 @@ tableextension 80001 "YVS ExtenVendor" extends Vendor
     trigger OnDelete()
     var
         VendorCustBranch: Record "YVS Customer & Vendor Branch";
+        FuncenterYVS: Codeunit "YVS Function Center";
     begin
+        if not FuncenterYVS.CheckDisableLCL() then
+            exit;
         VendorCustBranch.reset();
         VendorCustBranch.SetRange("Source Type", VendorCustBranch."Source Type"::Vendor);
         VendorCustBranch.SetRange("Source No.", rec."No.");

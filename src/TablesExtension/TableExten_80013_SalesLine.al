@@ -74,7 +74,11 @@ tableextension 80013 "YVS ExtenSales Line" extends "Sales Line"
         modify("No.")
         {
             trigger OnAfterValidate()
+            var
+                FuncenterYVS: Codeunit "YVS Function Center";
             begin
+                if not FuncenterYVS.CheckDisableLCL() then
+                    exit;
                 if type = Type::"G/L Account" then
                     if "No." = '' then
                         Validate("Gen. Prod. Posting Group", '')

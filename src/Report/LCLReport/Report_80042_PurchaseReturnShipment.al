@@ -556,10 +556,10 @@ report 80042 "YVS Purchase - Return Shipment"
         ShptBuyFromAddr: array[8] of Text[100];
         CompanyAddr: array[8] of Text[100];
         PurchaserText: Text[50];
-        ReferenceText: Text[80];
+        ReferenceText: Text;
         CopyText: Text[30];
-        DimText: Text[120];
-        OldDimText: Text[75];
+        DimText: Text;
+        OldDimText: Text;
         NoOfCopies: Integer;
         NoOfLoops: Integer;
         ShowInternalInfo: Boolean;
@@ -571,7 +571,7 @@ report 80042 "YVS Purchase - Return Shipment"
         TypeInt: Integer;
         PayToVendorNo: Code[20];
         BuyFromVendorNo: Code[20];
-        PayToCaption: Text[30];
+        PayToCaption: Text;
 
         LogInteractionEnable: Boolean;
         CompanyInfoPhoneNoCaptionLbl: Label 'Phone No.';
@@ -630,7 +630,7 @@ report 80042 "YVS Purchase - Return Shipment"
     begin
         FormatDocument.SetPurchaser(SalesPurchPerson, ReturnShipmentHeader."Purchaser Code", PurchaserText);
 
-        ReferenceText := FormatDocument.SetText(ReturnShipmentHeader."Your Reference" <> '', ReturnShipmentHeader.FieldCaption("Your Reference"));
+        ReferenceText := FormatDocument.SetText(ReturnShipmentHeader."Your Reference" <> '', COPYSTR(ReturnShipmentHeader.FieldCaption("Your Reference"), 1, 80));
     end;
 
     [IntegrationEvent(TRUE, false)]
