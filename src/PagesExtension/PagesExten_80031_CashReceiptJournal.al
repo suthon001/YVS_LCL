@@ -20,6 +20,7 @@ pageextension 80031 "YVS Receipt Journal" extends "Cash Receipt Journal"
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the Require Screen Detail field.';
+                Visible = CheckDisableLCL;
             }
 
         }
@@ -30,6 +31,7 @@ pageextension 80031 "YVS Receipt Journal" extends "Cash Receipt Journal"
                 ApplicationArea = all;
                 Caption = 'Journal Description';
                 ToolTip = 'Specifies the value of the Journal Description field.';
+                Visible = CheckDisableLCL;
             }
 
             field("Pay Name"; Rec."YVS Pay Name")
@@ -37,6 +39,7 @@ pageextension 80031 "YVS Receipt Journal" extends "Cash Receipt Journal"
                 ApplicationArea = all;
                 Caption = 'Pay Name';
                 ToolTip = 'Specifies the value of the Pay Name field.';
+                Visible = CheckDisableLCL;
             }
         }
 
@@ -85,6 +88,7 @@ pageextension 80031 "YVS Receipt Journal" extends "Cash Receipt Journal"
                 PromotedCategory = Category6;
                 Promoted = true;
                 PromotedIsBig = true;
+                Visible = CheckDisableLCL;
                 trigger OnAction()
                 var
                     GenJnlPost: Codeunit "Gen. Jnl.-Post";
@@ -104,7 +108,7 @@ pageextension 80031 "YVS Receipt Journal" extends "Cash Receipt Journal"
 
         modify(Preview)
         {
-            Visible = false;
+            Visible = not CheckDisableLCL;
         }
 
 
@@ -118,6 +122,7 @@ pageextension 80031 "YVS Receipt Journal" extends "Cash Receipt Journal"
                 PromotedCategory = Report;
                 Promoted = true;
                 PromotedIsBig = true;
+                Visible = CheckDisableLCL;
                 ToolTip = 'Executes the Receipt Voucher action.';
                 trigger OnAction()
                 var
@@ -138,6 +143,7 @@ pageextension 80031 "YVS Receipt Journal" extends "Cash Receipt Journal"
                 Promoted = true;
                 PromotedIsBig = true;
                 PromotedCategory = Report;
+                Visible = CheckDisableLCL;
                 ToolTip = 'Executes the Receipt Invoice (Apply) action.';
                 trigger OnAction()
                 var
@@ -161,6 +167,7 @@ pageextension 80031 "YVS Receipt Journal" extends "Cash Receipt Journal"
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
+                Visible = CheckDisableLCL;
                 ToolTip = 'Executes the Show Detail VAT & Cheque & WHT action.';
                 trigger OnAction()
                 var
@@ -234,6 +241,7 @@ pageextension 80031 "YVS Receipt Journal" extends "Cash Receipt Journal"
 
     trigger OnOpenPage()
     begin
+        CheckDisableLCL := FuncenterYVS.CheckDisableLCL();
         if gvDocument <> '' then
             rec.SetRange("Document No.", gvDocument);
     end;
@@ -258,6 +266,10 @@ pageextension 80031 "YVS Receipt Journal" extends "Cash Receipt Journal"
         gvDocument := pDocument;
     end;
 
+
+
     var
+        CheckDisableLCL: Boolean;
+        FuncenterYVS: Codeunit "YVS Function Center";
         gvDocument: Code[20];
 }

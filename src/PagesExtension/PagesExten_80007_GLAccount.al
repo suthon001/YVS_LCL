@@ -11,15 +11,24 @@ pageextension 80007 "YVS ExtenGLAccount" extends "G/L Account Card"
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the Require Screen Detail field.';
+                Visible = CheckDisableLCL;
             }
 
         }
         modify("Direct Posting")
         {
-            Visible = true;
+            Visible = NOT CheckDisableLCL;
         }
         moveafter(Name; "Direct Posting")
 
 
     }
+    trigger OnOpenPage()
+    begin
+        CheckDisableLCL := FuncenterYVS.CheckDisableLCL();
+    end;
+
+    var
+        CheckDisableLCL: Boolean;
+        FuncenterYVS: Codeunit "YVS Function Center";
 }

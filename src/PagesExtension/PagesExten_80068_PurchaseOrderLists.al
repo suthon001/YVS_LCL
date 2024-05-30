@@ -16,18 +16,21 @@ pageextension 80068 "YVS Purchase Order Lists" extends "Purchase Order List"
                 ApplicationArea = all;
                 Caption = 'Head Office';
                 ToolTip = 'Specifies the value of the Head Office field.';
+                Visible = CheckDisableLCL;
             }
             field("VAT Branch Code"; Rec."YVS VAT Branch Code")
             {
                 ApplicationArea = all;
                 Caption = 'VAT Branch Code';
                 ToolTip = 'Specifies the value of the VAT Branch Code field.';
+                Visible = CheckDisableLCL;
             }
             field("VAT Registration No."; Rec."VAT Registration No.")
             {
                 ApplicationArea = all;
                 Caption = 'VAT Registration No.';
                 ToolTip = 'Specifies the value of the VAT Registration No. field.';
+                Visible = CheckDisableLCL;
             }
         }
         modify(Status)
@@ -57,6 +60,7 @@ pageextension 80068 "YVS Purchase Order Lists" extends "Purchase Order List"
                 Promoted = true;
                 PromotedIsBig = true;
                 ToolTip = 'Executes the Purchase Order action.';
+                Visible = CheckDisableLCL;
                 trigger OnAction()
                 var
 
@@ -70,4 +74,12 @@ pageextension 80068 "YVS Purchase Order Lists" extends "Purchase Order List"
             }
         }
     }
+    trigger OnOpenPage()
+    begin
+        CheckDisableLCL := FuncenterYVS.CheckDisableLCL();
+    end;
+
+    var
+        CheckDisableLCL: Boolean;
+        FuncenterYVS: Codeunit "YVS Function Center";
 }

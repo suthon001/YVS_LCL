@@ -45,27 +45,32 @@ pageextension 80016 "YVS Sales Quotes Lists" extends "Sales Quotes"
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies value of the field.';
+                Visible = CheckDisableLCL;
             }
             field("Head Office"; Rec."YVS Head Office")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies value of the field.';
+                Visible = CheckDisableLCL;
             }
             field("VAT Branch Code"; Rec."YVS VAT Branch Code")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies value of the field.';
+                Visible = CheckDisableLCL;
             }
             field("VAT Registration No."; Rec."VAT Registration No.")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies value of the field.';
+                Visible = CheckDisableLCL;
 
             }
             field("Sales Order No."; rec."YVS Sales Order No.")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies value of the field.';
+                Visible = CheckDisableLCL;
             }
         }
         addafter(Status)
@@ -75,8 +80,17 @@ pageextension 80016 "YVS Sales Quotes Lists" extends "Sales Quotes"
                 ApplicationArea = all;
                 ToolTip = 'Specifies value of the field.';
                 Caption = 'Completely';
+                Visible = CheckDisableLCL;
             }
         }
 
     }
+    trigger OnOpenPage()
+    begin
+        CheckDisableLCL := FuncenterYVS.CheckDisableLCL();
+    end;
+
+    var
+        CheckDisableLCL: Boolean;
+        FuncenterYVS: Codeunit "YVS Function Center";
 }

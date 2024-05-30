@@ -11,21 +11,23 @@ pageextension 80009 "YVS Posted Sales Credit Memo" extends "Posted Sales Credit 
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies value of the field.';
+                Visible = CheckDisableLCL;
             }
             field("VAT Branch Code"; Rec."YVS VAT Branch Code")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies value of the field.';
+                Visible = CheckDisableLCL;
             }
         }
         modify("VAT Registration No.")
         {
-            Visible = true;
+            Visible = NOT CheckDisableLCL;
         }
         moveafter("VAT Branch Code"; "VAT Registration No.")
         modify("No.")
         {
-            Visible = true;
+            Visible = NOT CheckDisableLCL;
         }
         addafter("Applies-to Doc. No.")
         {
@@ -33,16 +35,19 @@ pageextension 80009 "YVS Posted Sales Credit Memo" extends "Posted Sales Credit 
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the Applies-to ID. field.';
+                Visible = CheckDisableLCL;
             }
             field("YVS Ref. Tax Invoice Date"; rec."YVS Ref. Tax Invoice Date")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the Ref. Tax Invoice Amount field.';
+                Visible = CheckDisableLCL;
             }
             field("YVS Ref. Tax Invoice Amount"; rec."YVS Ref. Tax Invoice Amount")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the Ref. Tax Invoice Amount field.';
+                Visible = CheckDisableLCL;
             }
         }
         moveafter("External Document No."; "Salesperson Code", "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code")
@@ -61,6 +66,7 @@ pageextension 80009 "YVS Posted Sales Credit Memo" extends "Posted Sales Credit 
                 PromotedCategory = Report;
                 Promoted = true;
                 PromotedIsBig = true;
+                Visible = CheckDisableLCL;
                 ToolTip = 'Executes the AR CN Voucher action.';
                 trigger OnAction()
                 var
@@ -76,6 +82,7 @@ pageextension 80009 "YVS Posted Sales Credit Memo" extends "Posted Sales Credit 
             action("Print_Sales_CreditMemo")
             {
                 ApplicationArea = All;
+                Visible = CheckDisableLCL;
                 Caption = 'Sales Credit Memo';
                 Image = PrintReport;
                 Promoted = true;
@@ -94,6 +101,13 @@ pageextension 80009 "YVS Posted Sales Credit Memo" extends "Posted Sales Credit 
             }
         }
     }
+    trigger OnOpenPage()
+    begin
+        CheckDisableLCL := FuncenterYVS.CheckDisableLCL();
+    end;
 
+    var
+        CheckDisableLCL: Boolean;
+        FuncenterYVS: Codeunit "YVS Function Center";
 
 }

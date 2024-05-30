@@ -13,18 +13,21 @@ pageextension 80077 "YVS Sales Creidt Lists" extends "Sales Credit Memos"
                 ApplicationArea = all;
                 Caption = 'Head Office';
                 ToolTip = 'Specifies value of the field.';
+                Visible = CheckDisableLCL;
             }
             field("VAT Branch Code"; Rec."YVS VAT Branch Code")
             {
                 ApplicationArea = all;
                 Caption = 'VAT Branch Code';
                 ToolTip = 'Specifies value of the field.';
+                Visible = CheckDisableLCL;
             }
             field("VAT Registration No."; Rec."VAT Registration No.")
             {
                 ApplicationArea = all;
                 Caption = 'VAT Registration No.';
                 ToolTip = 'Specifies the customer''s VAT registration number for customers.';
+                Visible = CheckDisableLCL;
             }
         }
         modify(Status)
@@ -45,6 +48,7 @@ pageextension 80077 "YVS Sales Creidt Lists" extends "Sales Credit Memos"
                 PromotedCategory = Report;
                 Promoted = true;
                 PromotedIsBig = true;
+                Visible = CheckDisableLCL;
                 ToolTip = 'Executes the AR CN Voucher action.';
                 trigger OnAction()
                 var
@@ -66,6 +70,7 @@ pageextension 80077 "YVS Sales Creidt Lists" extends "Sales Credit Memos"
                 PromotedIsBig = true;
                 PromotedCategory = Report;
                 ToolTip = 'Executes the Sales Credit Memo action.';
+                Visible = CheckDisableLCL;
                 trigger OnAction()
                 var
                     RecSalesHeader: Record "Sales Header";
@@ -78,4 +83,12 @@ pageextension 80077 "YVS Sales Creidt Lists" extends "Sales Credit Memos"
             }
         }
     }
+    trigger OnOpenPage()
+    begin
+        CheckDisableLCL := FuncenterYVS.CheckDisableLCL();
+    end;
+
+    var
+        CheckDisableLCL: Boolean;
+        FuncenterYVS: Codeunit "YVS Function Center";
 }

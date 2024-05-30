@@ -7,7 +7,7 @@ pageextension 80013 "YVS Purchase Quotes Subpage" extends "Purchase Quote Subfor
     {
         modify("Description 2")
         {
-            Visible = true;
+            Visible = NOT CheckDisableLCL;
         }
         modify(Type)
         {
@@ -16,16 +16,16 @@ pageextension 80013 "YVS Purchase Quotes Subpage" extends "Purchase Quote Subfor
         }
         modify(FilteredTypeField)
         {
-            Visible = false;
+            Visible = NOT CheckDisableLCL;
         }
-        modify("Qty. to Assign") { Visible = false; }
-        modify("Qty. Assigned") { Visible = false; }
-        modify("Expected Receipt Date") { Visible = false; }
-        modify("Item Reference No.") { Visible = false; }
-        modify("VAT Bus. Posting Group") { Visible = true; }
-        modify("VAT Prod. Posting Group") { Visible = true; }
-        modify("Gen. Bus. Posting Group") { Visible = true; }
-        modify("Gen. Prod. Posting Group") { Visible = true; }
+        modify("Qty. to Assign") { Visible = NOT CheckDisableLCL; }
+        modify("Qty. Assigned") { Visible = NOT CheckDisableLCL; }
+        modify("Expected Receipt Date") { Visible = NOT CheckDisableLCL; }
+        modify("Item Reference No.") { Visible = NOT CheckDisableLCL; }
+        modify("VAT Bus. Posting Group") { Visible = NOT CheckDisableLCL; }
+        modify("VAT Prod. Posting Group") { Visible = NOT CheckDisableLCL; }
+        modify("Gen. Bus. Posting Group") { Visible = NOT CheckDisableLCL; }
+        modify("Gen. Prod. Posting Group") { Visible = NOT CheckDisableLCL; }
         moveafter(Description; "Description 2")
         movefirst(Control1; Type, "No.", Description, "Description 2", "Location Code", "Gen. Bus. Posting Group", "Gen. Prod. Posting Group", "VAT Bus. Posting Group", "VAT Prod. Posting Group", Quantity, "Unit of Measure Code", "Direct Unit Cost", "Line Discount %", "Line Discount Amount", "Line Amount",
         "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code", ShortcutDimCode3, ShortcutDimCode4, ShortcutDimCode5, ShortcutDimCode6, ShortcutDimCode7, ShortcutDimCode8)
@@ -35,8 +35,17 @@ pageextension 80013 "YVS Purchase Quotes Subpage" extends "Purchase Quote Subfor
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the Qty. to Cancel field.';
+                Visible = CheckDisableLCL;
             }
         }
 
     }
+    trigger OnOpenPage()
+    begin
+        CheckDisableLCL := FuncenterYVS.CheckDisableLCL();
+    end;
+
+    var
+        CheckDisableLCL: Boolean;
+        FuncenterYVS: Codeunit "YVS Function Center";
 }

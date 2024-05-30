@@ -23,28 +23,39 @@ pageextension 80000 "YVS ExtenCustomer Card" extends "Customer Card"
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the WHT Business Posting Group field.';
                 ShowMandatory = true;
+                Visible = CheckDisableLCL;
             }
             field("Head Office"; rec."YVS Head Office")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the Head Office field.';
+                Visible = CheckDisableLCL;
             }
             field("VAT Branch Code"; rec."YVS VAT Branch Code")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the VAT Branch Code field.';
+                Visible = CheckDisableLCL;
             }
         }
         moveafter("VAT Branch Code"; "VAT Registration No.")
         modify("No.")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
             Importance = Promoted;
         }
         modify(Control10)
         {
-            Visible = true;
+            Visible = NOT CheckDisableLCL;
         }
 
     }
+    trigger OnOpenPage()
+    begin
+        CheckDisableLCL := FuncenterYVS.CheckDisableLCL();
+    end;
+
+    var
+        CheckDisableLCL: Boolean;
+        FuncenterYVS: Codeunit "YVS Function Center";
 }

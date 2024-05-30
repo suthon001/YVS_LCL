@@ -20,6 +20,7 @@ pageextension 80008 "YVS Asset G/L Journal" extends "Fixed Asset G/L Journal"
             {
                 ApplicationArea = All;
                 ToolTip = 'Specifies the value of the Journal Description field.';
+                Visible = CheckDisableLCL;
             }
         }
     }
@@ -38,6 +39,7 @@ pageextension 80008 "YVS Asset G/L Journal" extends "Fixed Asset G/L Journal"
                 PromotedCategory = Process;
                 Promoted = true;
                 PromotedIsBig = true;
+                Visible = CheckDisableLCL;
                 trigger OnAction()
                 var
                     GenJnlPost: Codeunit "Gen. Jnl.-Post";
@@ -54,7 +56,7 @@ pageextension 80008 "YVS Asset G/L Journal" extends "Fixed Asset G/L Journal"
         }
         modify(Preview)
         {
-            Visible = false;
+            Visible = NOT CheckDisableLCL;
         }
 
         addlast("F&unctions")
@@ -67,6 +69,7 @@ pageextension 80008 "YVS Asset G/L Journal" extends "Fixed Asset G/L Journal"
                 PromotedCategory = Process;
                 PromotedIsBig = true;
                 Image = NewSum;
+                Visible = CheckDisableLCL;
                 ToolTip = 'Executes the Set Net Balance action.';
                 trigger OnAction()
                 var
@@ -99,6 +102,7 @@ pageextension 80008 "YVS Asset G/L Journal" extends "Fixed Asset G/L Journal"
                 PromotedCategory = Report;
                 Promoted = true;
                 PromotedIsBig = true;
+                Visible = CheckDisableLCL;
                 ToolTip = 'Executes the FA G/L Voucher action.';
                 trigger OnAction()
                 var
@@ -113,4 +117,12 @@ pageextension 80008 "YVS Asset G/L Journal" extends "Fixed Asset G/L Journal"
             }
         }
     }
+    trigger OnOpenPage()
+    begin
+        CheckDisableLCL := FuncenterYVS.CheckDisableLCL();
+    end;
+
+    var
+        CheckDisableLCL: Boolean;
+        FuncenterYVS: Codeunit "YVS Function Center";
 }

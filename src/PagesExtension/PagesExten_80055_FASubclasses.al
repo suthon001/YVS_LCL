@@ -11,7 +11,16 @@ pageextension 80055 "YVS FA Subclasses" extends "FA Subclasses"
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the No. of Depreciation Years field.';
+                Visible = CheckDisableLCL;
             }
         }
     }
+    trigger OnOpenPage()
+    begin
+        CheckDisableLCL := FuncenterYVS.CheckDisableLCL();
+    end;
+
+    var
+        CheckDisableLCL: Boolean;
+        FuncenterYVS: Codeunit "YVS Function Center";
 }

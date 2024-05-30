@@ -18,6 +18,7 @@ pageextension 80002 "YVS ExtenPostPostedGenLine" extends "Posted General Journal
                 ApplicationArea = all;
                 Caption = 'Require Screen Detail';
                 ToolTip = 'Specifies the value of the Require Screen Detail field.';
+                Visible = CheckDisableLCL;
             }
         }
     }
@@ -34,6 +35,7 @@ pageextension 80002 "YVS ExtenPostPostedGenLine" extends "Posted General Journal
                 PromotedCategory = Report;
                 Promoted = true;
                 PromotedIsBig = true;
+                Visible = CheckDisableLCL;
                 ToolTip = 'Executes the Posted Voucher action.';
                 trigger OnAction()
                 var
@@ -67,6 +69,7 @@ pageextension 80002 "YVS ExtenPostPostedGenLine" extends "Posted General Journal
                 Promoted = true;
                 PromotedCategory = Category5;
                 PromotedIsBig = true;
+                Visible = CheckDisableLCL;
                 ToolTip = 'Executes the Show Details action.';
                 trigger OnAction()
                 var
@@ -120,4 +123,12 @@ pageextension 80002 "YVS ExtenPostPostedGenLine" extends "Posted General Journal
 
         }
     }
+    trigger OnOpenPage()
+    begin
+        CheckDisableLCL := FuncenterYVS.CheckDisableLCL();
+    end;
+
+    var
+        CheckDisableLCL: Boolean;
+        FuncenterYVS: Codeunit "YVS Function Center";
 }

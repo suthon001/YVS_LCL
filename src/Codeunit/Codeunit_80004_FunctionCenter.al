@@ -2999,6 +2999,17 @@ codeunit 80004 "YVS Function Center"
     begin
     end;
 
+    /// <summary>
+    /// CheckDisableLCL.
+    /// </summary>
+    /// <returns>Return value of type Boolean.</returns>
+    procedure CheckDisableLCL(): Boolean
+    var
+        CompanyInfor: Record "Company Information";
+    begin
+        CompanyInfor.GET();
+        exit(NOT CompanyInfor."YVS Disable LCL");
+    end;
 
 
     var

@@ -11,7 +11,16 @@ pageextension 80056 "YVS Item Card" extends "Item Card"
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the WHT Product Posting Group field.';
+                Visible = CheckDisableLCL;
             }
         }
     }
+    trigger OnOpenPage()
+    begin
+        CheckDisableLCL := FuncenterYVS.CheckDisableLCL();
+    end;
+
+    var
+        CheckDisableLCL: Boolean;
+        FuncenterYVS: Codeunit "YVS Function Center";
 }

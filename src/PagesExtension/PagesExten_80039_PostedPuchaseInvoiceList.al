@@ -54,16 +54,19 @@ pageextension 80039 "YVS PostedInvoiceList" extends "Posted Purchase Invoices"
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the Head Office field.';
+                Visible = CheckDisableLCL;
             }
             field("VAT Branch Code"; Rec."YVS VAT Branch Code")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the VAT Branch Code field.';
+                Visible = CheckDisableLCL;
             }
             field("VAT Registration No."; Rec."VAT Registration No.")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the VAT Registration No. field.';
+                Visible = CheckDisableLCL;
             }
         }
         addafter("Due Date")
@@ -72,6 +75,7 @@ pageextension 80039 "YVS PostedInvoiceList" extends "Posted Purchase Invoices"
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the Purchase Order No. field.';
+                Visible = CheckDisableLCL;
             }
         }
     }
@@ -93,6 +97,7 @@ pageextension 80039 "YVS PostedInvoiceList" extends "Posted Purchase Invoices"
                 PromotedCategory = Report;
                 Promoted = true;
                 PromotedIsBig = true;
+                Visible = CheckDisableLCL;
                 ToolTip = 'Executes the AP Voucher action.';
                 trigger OnAction()
                 var
@@ -108,4 +113,12 @@ pageextension 80039 "YVS PostedInvoiceList" extends "Posted Purchase Invoices"
         }
 
     }
+    trigger OnOpenPage()
+    begin
+        CheckDisableLCL := FuncenterYVS.CheckDisableLCL();
+    end;
+
+    var
+        CheckDisableLCL: Boolean;
+        FuncenterYVS: Codeunit "YVS Function Center";
 }

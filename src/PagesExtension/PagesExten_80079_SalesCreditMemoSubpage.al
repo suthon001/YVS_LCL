@@ -41,20 +41,30 @@ pageextension 80079 "YVS Sales Credit Memo Subpage" extends "Sales Cr. Memo Subf
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies value of the field.';
+                Visible = CheckDisableLCL;
             }
             field("WHT Product Posting Group"; rec."YVS WHT Product Posting Group")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies value of the field.';
+                Visible = CheckDisableLCL;
             }
         }
         modify("Tax Group Code")
         {
-            Visible = false;
+            Visible = not CheckDisableLCL;
         }
         modify("Tax Area Code")
         {
-            Visible = false;
+            Visible = not CheckDisableLCL;
         }
     }
+    trigger OnOpenPage()
+    begin
+        CheckDisableLCL := FuncenterYVS.CheckDisableLCL();
+    end;
+
+    var
+        CheckDisableLCL: Boolean;
+        FuncenterYVS: Codeunit "YVS Function Center";
 }

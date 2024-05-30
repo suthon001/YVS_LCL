@@ -6,12 +6,16 @@ codeunit 80002 "YVS Sales Function"
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Post", 'OnBeforeSalesCrMemoHeaderInsert', '', false, false)]
     local procedure OnBeforeSalesCrMemoHeaderInsert(var SalesCrMemoHeader: Record "Sales Cr.Memo Header"; var SalesHeader: Record "Sales Header")
     begin
+        if CheckDisableLCL() then
+            exit;
         SalesCrMemoHeader."YVS Applies-to ID" := SalesHeader."Applies-to ID";
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Post", 'OnBeforeSalesInvHeaderInsert', '', false, false)]
     local procedure OnBeforeSalesInvHeaderInsert(var SalesInvHeader: Record "Sales Invoice Header"; var SalesHeader: Record "Sales Header")
     begin
+        if CheckDisableLCL() then
+            exit;
         SalesInvHeader."YVS Requested Delivery Date" := SalesHeader."Requested Delivery Date";
         SalesInvHeader."YVS Applies-to ID" := SalesHeader."Applies-to ID";
     end;
@@ -20,6 +24,8 @@ codeunit 80002 "YVS Sales Function"
     [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnBeforeValidateSellToCustomerName', '', false, false)]
     local procedure OnBeforeValidateSellToCustomerName(var IsHandled: Boolean)
     begin
+        if CheckDisableLCL() then
+            exit;
         IsHandled := true;
     end;
 
@@ -27,6 +33,8 @@ codeunit 80002 "YVS Sales Function"
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Quote to Order", 'OnBeforeDeleteSalesQuote', '', false, false)]
     local procedure "OnBeferDeleteSalesQuote"(var IsHandled: Boolean; var QuoteSalesHeader: Record "Sales Header"; var OrderSalesHeader: Record "Sales Header")
     begin
+        if CheckDisableLCL() then
+            exit;
         IsHandled := true;
         QuoteSalesHeader."YVS Sales Order No." := OrderSalesHeader."No.";
         QuoteSalesHeader.Modify();
@@ -41,6 +49,8 @@ codeunit 80002 "YVS Sales Function"
     var
 
     begin
+        if CheckDisableLCL() then
+            exit;
         if SalesHeader."YVS Sales Order No." <> '' then begin
             MESSAGE('Document has been convers to Order %1', SalesHeader."YVS Sales Order No.");
             IsHandled := true;
@@ -52,7 +62,8 @@ codeunit 80002 "YVS Sales Function"
     var
         NoSeriesMgt: Codeunit NoSeriesManagement;
     begin
-
+        if CheckDisableLCL() then
+            exit;
         SalesQuoteHeader.TestField("YVS Make Order No. Series");
         SalesOrderHeader."No." := NoseriesMgt.GetNextNo(SalesQuoteHeader."YVS Make Order No. Series", WorkDate(), True);
         SalesOrderHeader."No. Series" := SalesQuoteHeader."YVS Make Order No. Series";
@@ -61,6 +72,8 @@ codeunit 80002 "YVS Sales Function"
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Blanket Sales Order to Order", 'OnBeforeInsertSalesOrderLine', '', false, false)]
     local procedure OnBeforeInsertSalesOrderLineBlanket(var SalesOrderLine: Record "Sales Line"; SalesOrderHeader: Record "Sales Header"; BlanketOrderSalesLine: Record "Sales Line"; BlanketOrderSalesHeader: Record "Sales Header");
     begin
+        if CheckDisableLCL() then
+            exit;
         SalesOrderLine."YVS Ref. SQ No." := BlanketOrderSalesLine."Document No.";
         SalesOrderLine."YVS Ref. SQ Line No." := BlanketOrderSalesLine."Line No.";
     end;
@@ -68,6 +81,8 @@ codeunit 80002 "YVS Sales Function"
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Quote to Order", 'OnBeforeInsertSalesOrderLine', '', false, false)]
     local procedure OnBeforeInsertSalesOrderLine(var SalesOrderLine: Record "Sales Line"; SalesOrderHeader: Record "Sales Header"; SalesQuoteLine: Record "Sales Line"; SalesQuoteHeader: Record "Sales Header");
     begin
+        if CheckDisableLCL() then
+            exit;
         SalesOrderLine."YVS Ref. SQ No." := SalesQuoteLine."Document No.";
         SalesOrderLine."YVS Ref. SQ Line No." := SalesQuoteLine."Line No.";
     end;
@@ -75,7 +90,8 @@ codeunit 80002 "YVS Sales Function"
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Quote to Order", 'OnAfterInsertSalesOrderLine', '', false, false)]
     local procedure OnAfterInsertSalesOrderLine(SalesQuoteLine: Record "Sales Line");
     begin
-
+        if CheckDisableLCL() then
+            exit;
         SalesQuoteLine."Outstanding Qty. (Base)" := 0;
         SalesQuoteLine."Outstanding Quantity" := 0;
         SalesQuoteLine."Completely Shipped" := (SalesQuoteLine.Quantity <> 0) and (SalesQuoteLine."Outstanding Quantity" = 0);
@@ -94,6 +110,8 @@ codeunit 80002 "YVS Sales Function"
     [EventSubscriber(ObjectType::Table, Database::"Sales Line", 'OnAfterInitOutstandingQty', '', false, false)]
     local procedure "OnAfterInitOutstandingQty"(var SalesLine: Record "Sales Line")
     begin
+        if CheckDisableLCL() then
+            exit;
         if SalesLine."Document Type" IN [SalesLine."Document Type"::Quote, SalesLine."Document Type"::Order] then begin
             SalesLine."Outstanding Quantity" := SalesLine.Quantity - SalesLine."Quantity Shipped" - SalesLine."YVS Qty. to Cancel";
             SalesLine."Outstanding Qty. (Base)" := SalesLine."Quantity (Base)" - SalesLine."Qty. Shipped (Base)" - SalesLine."YVS Qty. to Cancel (Base)";
@@ -112,6 +130,8 @@ codeunit 80002 "YVS Sales Function"
         SalesHeader: Record "Sales Header";
         VendCust: Record "YVS Customer & Vendor Branch";
     begin
+        if CheckDisableLCL() then
+            exit;
         IF SalesHeader.GET(SalesLine."Document Type", SalesLine."Document No.") THEN BEGIN
             InvoicePostingBuffer."YVS Tax Invoice No." := SalesHeader."No.";
             InvoicePostingBuffer."YVS Head Office" := SalesHeader."YVS Head Office";
@@ -159,6 +179,8 @@ codeunit 80002 "YVS Sales Function"
         SalesHeader: Record "Sales Header";
         VendCust: Record "YVS Customer & Vendor Branch";
     begin
+        if CheckDisableLCL() then
+            exit;
         IF SalesHeader.GET(SalesLine."Document Type", SalesLine."Document No.") THEN BEGIN
 
             InvoicePostBuffer."YVS Tax Invoice No." := SalesHeader."No.";
@@ -207,6 +229,8 @@ codeunit 80002 "YVS Sales Function"
         SalesLine: Record "Sales Line";
         Item: Record Item;
     begin
+        if CheckDisableLCL() then
+            exit;
         SalesLine.reset();
         SalesLine.SetRange("Document Type", SalesHeader."Document Type");
         SalesLine.SetRange("Document No.", SalesHeader."No.");
@@ -225,6 +249,8 @@ codeunit 80002 "YVS Sales Function"
     var
         text001Msg: Label 'this document has been order no. %1', Locked = true;
     begin
+        if CheckDisableLCL() then
+            exit;
         SalesHeader.TestField(Status, SalesHeader.Status::Released);
         if SalesHeader."YVS Sales Order No." <> '' then begin
             MESSAGE(StrSubstNo(text001Msg, SalesHeader."YVS Sales Order No."));
@@ -233,4 +259,11 @@ codeunit 80002 "YVS Sales Function"
         end;
     end;
 
+    local procedure CheckDisableLCL(): Boolean
+    var
+        CompanyInfor: Record "Company Information";
+    begin
+        CompanyInfor.GET();
+        exit(CompanyInfor."YVS Disable LCL");
+    end;
 }

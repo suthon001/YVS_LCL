@@ -12,6 +12,7 @@ pageextension 80042 "YVS PostedPurchCreditMemoCard" extends "Posted Purchase Cre
                 ApplicationArea = all;
                 Caption = 'Gen. Bus. Posting Group';
                 ToolTip = 'Specifies the value of the Gen. Bus. Posting Group field.';
+                Visible = CheckDisableLCL;
             }
 
             field("Head Office"; Rec."YVS Head Office")
@@ -19,18 +20,21 @@ pageextension 80042 "YVS PostedPurchCreditMemoCard" extends "Posted Purchase Cre
                 ApplicationArea = all;
                 Caption = 'Head Office';
                 ToolTip = 'Specifies the value of the Head Office field.';
+                Visible = CheckDisableLCL;
             }
             field("VAT Branch Code"; Rec."YVS VAT Branch Code")
             {
                 ApplicationArea = all;
                 Caption = 'VAT Branch Code';
                 ToolTip = 'Specifies the value of the VAT Branch Code field.';
+                Visible = CheckDisableLCL;
             }
             field("VAT Registration No."; Rec."VAT Registration No.")
             {
                 ApplicationArea = all;
                 Caption = 'VAT Registration No.';
                 ToolTip = 'Specifies the value of the VAT Registration No. field.';
+                Visible = CheckDisableLCL;
             }
         }
         modify(Cancelled)
@@ -55,6 +59,7 @@ pageextension 80042 "YVS PostedPurchCreditMemoCard" extends "Posted Purchase Cre
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the name of the vendor who delivered the items.';
+                Visible = CheckDisableLCL;
             }
         }
         addafter("Buy-from Contact")
@@ -63,6 +68,7 @@ pageextension 80042 "YVS PostedPurchCreditMemoCard" extends "Posted Purchase Cre
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the Posting Description field.';
+                Visible = CheckDisableLCL;
             }
         }
     }
@@ -78,6 +84,7 @@ pageextension 80042 "YVS PostedPurchCreditMemoCard" extends "Posted Purchase Cre
                 PromotedCategory = Report;
                 Promoted = true;
                 PromotedIsBig = true;
+                Visible = CheckDisableLCL;
                 ToolTip = 'Executes the AP Voucher action.';
                 trigger OnAction()
                 var
@@ -92,4 +99,12 @@ pageextension 80042 "YVS PostedPurchCreditMemoCard" extends "Posted Purchase Cre
             }
         }
     }
+    trigger OnOpenPage()
+    begin
+        CheckDisableLCL := FuncenterYVS.CheckDisableLCL();
+    end;
+
+    var
+        CheckDisableLCL: Boolean;
+        FuncenterYVS: Codeunit "YVS Function Center";
 }

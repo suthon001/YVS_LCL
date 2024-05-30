@@ -60,5 +60,10 @@ tableextension 80009 "YVS CompanyInformation" extends "Company Information"
             Caption = 'City (Eng)';
             DataClassification = CustomerContent;
         }
+        field(80007; "YVS Disable LCL"; Boolean)
+        {
+            Caption = 'Disable LCL';
+            DataClassification = CustomerContent;
+        }
     }
 }

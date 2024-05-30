@@ -11,11 +11,13 @@ pageextension 80070 "YVS Purchase Order Subpage" extends "Purchase Order Subform
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the Ref. PR No. field.';
+                Visible = CheckDisableLCL;
             }
             field("Ref. PQ Line No."; rec."YVS Ref. PQ Line No.")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the Ref. PR Line No. field.';
+                Visible = CheckDisableLCL;
             }
         }
         modify("Description 2")
@@ -78,6 +80,7 @@ pageextension 80070 "YVS Purchase Order Subpage" extends "Purchase Order Subform
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the Qty. to Cancel field.';
+                Visible = CheckDisableLCL;
             }
         }
 
@@ -92,6 +95,7 @@ pageextension 80070 "YVS Purchase Order Subpage" extends "Purchase Order Subform
                 Image = GetLines;
                 ApplicationArea = all;
                 ToolTip = 'Executes the Get Purchase Lines action.';
+                Visible = CheckDisableLCL;
                 trigger OnAction()
                 var
                     PurchaseHeader: Record "Purchase Header";
@@ -107,19 +111,28 @@ pageextension 80070 "YVS Purchase Order Subpage" extends "Purchase Order Subform
     var
         PQLine: Record "Purchase Line";
     begin
-        if rec."YVS Ref. PQ No." <> '' then
-            if PQLine.GET(PQLine."Document Type"::Quote, rec."YVS Ref. PQ No.", rec."YVS Ref. PQ Line No.") then begin
-                PQLine."Outstanding Quantity" := PQLine."Outstanding Quantity" + rec.Quantity;
-                PQLine."Outstanding Qty. (Base)" := PQLine."Outstanding Qty. (Base)" + rec."Quantity (Base)";
-                PQLine."Completely Received" := PQLine."Outstanding Quantity" = 0;
-                PQLine.Modify();
-            end else
-                if PQLine.GET(PQLine."Document Type"::"YVS Purchase Request", rec."YVS Ref. PQ No.", rec."YVS Ref. PQ Line No.") then begin
+        if CheckDisableLCL then
+            if rec."YVS Ref. PQ No." <> '' then
+                if PQLine.GET(PQLine."Document Type"::Quote, rec."YVS Ref. PQ No.", rec."YVS Ref. PQ Line No.") then begin
                     PQLine."Outstanding Quantity" := PQLine."Outstanding Quantity" + rec.Quantity;
                     PQLine."Outstanding Qty. (Base)" := PQLine."Outstanding Qty. (Base)" + rec."Quantity (Base)";
                     PQLine."Completely Received" := PQLine."Outstanding Quantity" = 0;
                     PQLine.Modify();
-                end;
+                end else
+                    if PQLine.GET(PQLine."Document Type"::"YVS Purchase Request", rec."YVS Ref. PQ No.", rec."YVS Ref. PQ Line No.") then begin
+                        PQLine."Outstanding Quantity" := PQLine."Outstanding Quantity" + rec.Quantity;
+                        PQLine."Outstanding Qty. (Base)" := PQLine."Outstanding Qty. (Base)" + rec."Quantity (Base)";
+                        PQLine."Completely Received" := PQLine."Outstanding Quantity" = 0;
+                        PQLine.Modify();
+                    end;
     end;
 
+    trigger OnOpenPage()
+    begin
+        CheckDisableLCL := FuncenterYVS.CheckDisableLCL();
+    end;
+
+    var
+        CheckDisableLCL: Boolean;
+        FuncenterYVS: Codeunit "YVS Function Center";
 }

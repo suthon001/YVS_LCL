@@ -34,26 +34,28 @@ pageextension 80067 "YVS Sales Invoice Subpage" extends "Sales Invoice Subform"
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies value of the field.';
+                Visible = CheckDisableLCL;
             }
             field("WHT Product Posting Group"; rec."YVS WHT Product Posting Group")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies value of the field.';
+                Visible = CheckDisableLCL;
             }
         }
         modify("Depr. until FA Posting Date")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
         moveafter(Quantity; "Depr. until FA Posting Date")
 
         modify("Tax Group Code")
         {
-            Visible = false;
+            Visible = not CheckDisableLCL;
         }
         modify("Tax Area Code")
         {
-            Visible = false;
+            Visible = not CheckDisableLCL;
         }
         // modify(Quantity)
         // {
@@ -70,8 +72,17 @@ pageextension 80067 "YVS Sales Invoice Subpage" extends "Sales Invoice Subform"
     var
         YVSFunctionCenter: Codeunit "YVS Function Center";
     begin
-        if rec."Shipment No." <> '' then
-            YVSFunctionCenter.SetDefualtGetInvoiceSales(rec."Shipment No.", Rec."Shipment Line No.");
+        if CheckDisableLCL then
+            if rec."Shipment No." <> '' then
+                YVSFunctionCenter.SetDefualtGetInvoiceSales(rec."Shipment No.", Rec."Shipment Line No.");
     end;
 
+    trigger OnOpenPage()
+    begin
+        CheckDisableLCL := FuncenterYVS.CheckDisableLCL();
+    end;
+
+    var
+        CheckDisableLCL: Boolean;
+        FuncenterYVS: Codeunit "YVS Function Center";
 }

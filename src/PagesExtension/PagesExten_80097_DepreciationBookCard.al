@@ -12,12 +12,14 @@ pageextension 80097 "YVS Depreciation Book Card" extends "Depreciation Book Card
                 Caption = 'Fiscal Year 366 Days';
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the Fiscal Year 366 Days field.';
+                Visible = CheckDisableLCL;
             }
             field("YVS No. of Days in Fiscal Year"; Rec."No. of Days in Fiscal Year")
             {
                 ApplicationArea = all;
                 Caption = 'No. of Days in Fiscal Year';
                 ToolTip = 'Specifies the value of the No. of Days in Fiscal Year field.';
+                Visible = CheckDisableLCL;
             }
         }
     }
@@ -34,6 +36,7 @@ pageextension 80097 "YVS Depreciation Book Card" extends "Depreciation Book Card
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
+                Visible = CheckDisableLCL;
                 trigger OnAction()
                 begin
                     rec."No. of Days in Fiscal Year" := 0;
@@ -42,4 +45,12 @@ pageextension 80097 "YVS Depreciation Book Card" extends "Depreciation Book Card
             }
         }
     }
+    trigger OnOpenPage()
+    begin
+        CheckDisableLCL := FuncenterYVS.CheckDisableLCL();
+    end;
+
+    var
+        CheckDisableLCL: Boolean;
+        FuncenterYVS: Codeunit "YVS Function Center";
 }

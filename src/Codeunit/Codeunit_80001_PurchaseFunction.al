@@ -10,6 +10,8 @@ codeunit 80001 "YVS Purchase Function"
     var
         PurchSetup: Record "Purchases & Payables Setup";
     begin
+        if CheckDisableLCL() then
+            exit;
         PurchSetup.GET();
         if PurchaseHeader."Document Type" = PurchaseHeader."Document Type"::"YVS Purchase Request" then
             PurchSetup.TestField("YVS Purchase Request Nos.");
@@ -18,6 +20,8 @@ codeunit 80001 "YVS Purchase Function"
     [EventSubscriber(ObjectType::Table, Database::"Purchase Header", 'OnBeforeGetNoSeriesCode', '', false, false)]
     local procedure OnBeforeGetNoSeriesCodePurch(var PurchaseHeader: Record "Purchase Header"; var IsHandled: Boolean; var NoSeriesCode: Code[20]; PurchSetup: Record "Purchases & Payables Setup")
     begin
+        if CheckDisableLCL() then
+            exit;
         if PurchaseHeader."Document Type" = PurchaseHeader."Document Type"::"YVS Purchase Request" then begin
             NoSeriesCode := PurchSetup."YVS Purchase Request Nos.";
             IsHandled := true;
@@ -27,6 +31,8 @@ codeunit 80001 "YVS Purchase Function"
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Req. Wksh.-Make Order", 'OnAfterInitPurchOrderLine', '', false, false)]
     local procedure OnAfterInitPurchOrderLine(var PurchaseLine: Record "Purchase Line")
     begin
+        if CheckDisableLCL() then
+            exit;
         PurchaseLine."YVS Original Quantity" := PurchaseLine.Quantity;
     end;
 
@@ -35,6 +41,8 @@ codeunit 80001 "YVS Purchase Function"
     var
         IsHandle: Boolean;
     begin
+        if CheckDisableLCL() then
+            exit;
         IsHandle := false;
         YVSOnBeforeDeletePurchQuote(IsHandle);
         if not IsHandle then begin
@@ -50,6 +58,8 @@ codeunit 80001 "YVS Purchase Function"
     var
         NoseriesMgt: Codeunit NoSeriesManagement;
     begin
+        if CheckDisableLCL() then
+            exit;
         PurchHeader.TestField("YVS Make PO No. Series");
         PurchOrderHeader."No." := NoseriesMgt.GetNextNo(PurchHeader."YVS Make PO No. Series", WorkDate(), True);
         PurchOrderHeader."No. Series" := PurchHeader."YVS Make PO No. Series";
@@ -63,6 +73,8 @@ codeunit 80001 "YVS Purchase Function"
         LastLineNo: Integer;
         IsHandle: Boolean;
     begin
+        if CheckDisableLCL() then
+            exit;
         LastLineNo := 0;
         IsHandle := false;
         "YVS OnBeforInsertWHTEntryAfterPosting"(PurchHeader, IsHandle);
@@ -113,6 +125,8 @@ codeunit 80001 "YVS Purchase Function"
     var
         FaDepBook: Record "FA Depreciation Book";
     begin
+        if CheckDisableLCL() then
+            exit;
         if PurchLine.Type = PurchLine.Type::"Fixed Asset" then begin
             FaDepBook.reset();
             FaDepBook.SetRange("FA No.", PurchLine."No.");
@@ -128,6 +142,8 @@ codeunit 80001 "YVS Purchase Function"
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Quote to Order", 'OnAfterInsertPurchOrderLine', '', false, false)]
     local procedure OnAfterInsertPurchOrderLine(var PurchaseQuoteLine: Record "Purchase Line")
     begin
+        if CheckDisableLCL() then
+            exit;
         PurchaseQuoteLine."Outstanding Qty. (Base)" := 0;
         PurchaseQuoteLine."Outstanding Quantity" := 0;
         PurchaseQuoteLine."Completely Received" := (PurchaseQuoteLine.Quantity <> 0) and (PurchaseQuoteLine."Outstanding Quantity" = 0);
@@ -138,6 +154,8 @@ codeunit 80001 "YVS Purchase Function"
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Quote to Order", 'OnBeforeInsertPurchOrderLine', '', false, false)]
     local procedure OnBeforeInsertPurchOrderLine(PurchQuoteLine: Record "Purchase Line"; var PurchOrderLine: Record "Purchase Line")
     begin
+        if CheckDisableLCL() then
+            exit;
         PurchOrderLine."YVS Ref. PQ No." := PurchQuoteLine."Document No.";
         PurchOrderLine."YVS Ref. PQ Line No." := PurchQuoteLine."Line No.";
         PurchOrderLine."YVS Make Order By" := COPYSTR(UserId, 1, 50);
@@ -153,6 +171,8 @@ codeunit 80001 "YVS Purchase Function"
         PurchaseLine: Record "Purchase Line";
         ReceiptHeader: Record "Purch. Rcpt. Header";
     begin
+        if CheckDisableLCL() then
+            exit;
         PurchaseLine.reset();
         PurchaseLine.SetRange("Document Type", PurchHeader."Document Type");
         PurchaseLine.SetRange("Document No.", PurchHeader."No.");
@@ -178,6 +198,8 @@ codeunit 80001 "YVS Purchase Function"
         POLine: Record "Purchase Line";
         TempQty, TempQtyBase : Decimal;
     begin
+        if CheckDisableLCL() then
+            exit;
         if PurchaseLine."Document Type" IN [PurchaseLine."Document Type"::Quote, PurchaseLine."Document Type"::"YVS Purchase Request", PurchaseLine."Document Type"::Order] then begin
             PurchaseLine."Outstanding Quantity" := PurchaseLine.Quantity - PurchaseLine."Quantity Received" - PurchaseLine."YVS Qty. to Cancel";
             PurchaseLine."Outstanding Qty. (Base)" := PurchaseLine."Quantity (Base)" - PurchaseLine."Qty. Received (Base)" - PurchaseLine."YVS Qty. to Cancel (Base)";
@@ -206,7 +228,8 @@ codeunit 80001 "YVS Purchase Function"
         VendCust: Record "YVS Customer & Vendor Branch";
         Vend: Record Vendor;
     begin
-        //with InvoicePostBuffer do begin
+        if CheckDisableLCL() then
+            exit;
 
         PurchHeader.GET(PurchaseLine."Document Type", PurchaseLine."Document No.");
         Vend.GET(PurchHeader."Buy-from Vendor No.");
@@ -293,7 +316,8 @@ codeunit 80001 "YVS Purchase Function"
         VendCust: Record "YVS Customer & Vendor Branch";
         Vend: Record Vendor;
     begin
-        //with InvoicePostBuffer do begin
+        if CheckDisableLCL() then
+            exit;
 
         PurchHeader.GET(PurchaseLine."Document Type", PurchaseLine."Document No.");
         PurchHeader.CALCFIELDS(Amount, "Amount Including VAT");
@@ -378,6 +402,8 @@ codeunit 80001 "YVS Purchase Function"
         PurchaseLine: Record "Purchase Line";
         Item: Record Item;
     begin
+        if CheckDisableLCL() then
+            exit;
         PurchaseLine.reset();
         PurchaseLine.SetRange("Document Type", PurchaseHeader."Document Type");
         PurchaseLine.SetRange("Document No.", PurchaseHeader."No.");
@@ -395,6 +421,8 @@ codeunit 80001 "YVS Purchase Function"
     var
         text001Msg: Label 'this document has been order no. %1', Locked = true;
     begin
+        if CheckDisableLCL() then
+            exit;
         PurchaseHeader.TestField(Status, PurchaseHeader.Status::Released);
         if PurchaseHeader."YVS Purchase Order No." <> '' then begin
             MESSAGE(StrSubstNo(text001Msg, PurchaseHeader."YVS Purchase Order No."));
@@ -427,4 +455,11 @@ codeunit 80001 "YVS Purchase Function"
     begin
     end;
 
+    local procedure CheckDisableLCL(): Boolean
+    var
+        CompanyInfor: Record "Company Information";
+    begin
+        CompanyInfor.GET();
+        exit(CompanyInfor."YVS Disable LCL");
+    end;
 }

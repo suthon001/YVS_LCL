@@ -11,14 +11,22 @@ pageextension 80003 "YVS ExtenItem Journal Batches" extends "Item Journal Batche
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the Document No. Series field.';
+                Visible = CheckDisableLCL;
             }
 
         }
         modify("No. Series")
         {
-            Visible = false;
+            Visible = NOT CheckDisableLCL;
         }
 
     }
+    trigger OnOpenPage()
+    begin
+        CheckDisableLCL := FuncenterYVS.CheckDisableLCL();
+    end;
 
+    var
+        CheckDisableLCL: Boolean;
+        FuncenterYVS: Codeunit "YVS Function Center";
 }

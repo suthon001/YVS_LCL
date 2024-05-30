@@ -8,15 +8,15 @@ pageextension 80037 "YVS PostedReceiptCard" extends "Posted Purchase Receipt"
     {
         modify("Order Address Code")
         {
-            Visible = false;
+            Visible = not CheckDisableLCL;
         }
         modify("No. Printed")
         {
-            Visible = false;
+            Visible = not CheckDisableLCL;
         }
         modify("Promised Receipt Date")
         {
-            Visible = false;
+            Visible = not CheckDisableLCL;
         }
         addafter("Vendor Order No.")
         {
@@ -24,8 +24,17 @@ pageextension 80037 "YVS PostedReceiptCard" extends "Posted Purchase Receipt"
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the Vendor Invoice No. field.';
+                Visible = CheckDisableLCL;
             }
         }
 
     }
+    trigger OnOpenPage()
+    begin
+        CheckDisableLCL := FuncenterYVS.CheckDisableLCL();
+    end;
+
+    var
+        CheckDisableLCL: Boolean;
+        FuncenterYVS: Codeunit "YVS Function Center";
 }

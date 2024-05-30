@@ -21,6 +21,7 @@ pageextension 80030 "YVS Payment Journal" extends "Payment Journal"
                 ApplicationArea = all;
                 Caption = 'Require Screen Detail';
                 ToolTip = 'Specifies the value of the Require Screen Detail field.';
+                Visible = CheckDisableLCL;
             }
         }
         addafter(Description)
@@ -31,12 +32,14 @@ pageextension 80030 "YVS Payment Journal" extends "Payment Journal"
                 ApplicationArea = all;
                 Caption = 'Pay Name';
                 ToolTip = 'Specifies the value of the Pay Name field.';
+                Visible = CheckDisableLCL;
             }
             field("Journal Description"; Rec."YVS Journal Description")
             {
                 ApplicationArea = all;
                 Caption = 'Journal Description';
                 ToolTip = 'Specifies the value of the Journal Description field.';
+                Visible = CheckDisableLCL;
             }
         }
 
@@ -82,6 +85,7 @@ pageextension 80030 "YVS Payment Journal" extends "Payment Journal"
                 PromotedIsBig = true;
                 Caption = 'WHT Certificate';
                 ToolTip = 'Executes the WHT Certificate action.';
+                Visible = CheckDisableLCL;
                 trigger OnAction()
                 begin
                     // TestField("Require Screen Detail", "Require Screen Detail"::WHT);
@@ -95,6 +99,7 @@ pageextension 80030 "YVS Payment Journal" extends "Payment Journal"
                 ApplicationArea = all;
                 Promoted = true;
                 PromotedCategory = Process;
+                Visible = CheckDisableLCL;
                 PromotedIsBig = true;
                 ToolTip = 'Executes the Show Detail VAT & Cheque action.';
                 trigger OnAction()
@@ -137,6 +142,7 @@ pageextension 80030 "YVS Payment Journal" extends "Payment Journal"
                 PromotedCategory = Report;
                 Promoted = true;
                 PromotedIsBig = true;
+                Visible = CheckDisableLCL;
                 ToolTip = 'Executes the Payment Voucher action.';
                 trigger OnAction()
                 var
@@ -158,6 +164,7 @@ pageextension 80030 "YVS Payment Journal" extends "Payment Journal"
                 PromotedCategory = Report;
                 Promoted = true;
                 PromotedIsBig = true;
+                Visible = CheckDisableLCL;
                 ToolTip = 'Executes the Cheque action.';
                 trigger OnAction()
                 var
@@ -184,6 +191,7 @@ pageextension 80030 "YVS Payment Journal" extends "Payment Journal"
                 PromotedCategory = Category8;
                 Promoted = true;
                 PromotedIsBig = true;
+                Visible = CheckDisableLCL;
                 trigger OnAction()
                 var
                     GenJnlPost: Codeunit "Gen. Jnl.-Post";
@@ -200,25 +208,25 @@ pageextension 80030 "YVS Payment Journal" extends "Payment Journal"
         }
         modify(Preview)
         {
-            Visible = false;
+            Visible = not CheckDisableLCL;
         }
 
 
         modify(PrintCheck)
         {
-            Visible = false;
+            Visible = not CheckDisableLCL;
         }
         modify("Void Check")
         {
-            Visible = false;
+            Visible = not CheckDisableLCL;
         }
         modify("Void &All Checks")
         {
-            Visible = false;
+            Visible = not CheckDisableLCL;
         }
         modify(PreCheck)
         {
-            Visible = false;
+            Visible = not CheckDisableLCL;
         }
 
     }
@@ -313,20 +321,22 @@ pageextension 80030 "YVS Payment Journal" extends "Payment Journal"
 
         WHTEader: Record "YVS WHT Header";
     begin
-
-        WHTEader.reset();
-        WHTEader.SetRange("Gen. Journal Template Code", Rec."Journal Template Name");
-        WHTEader.SetRange("Gen. Journal Batch Code", Rec."Journal Batch Name");
-        WHTEader.SetRange("Gen. Journal Line No.", Rec."Line No.");
-        WHTEader.SetRange(Posted, false);
-        if WHTEader.FindFirst() then
-            WHTEader.Delete(True);
+        if CheckDisableLCL then begin
+            WHTEader.reset();
+            WHTEader.SetRange("Gen. Journal Template Code", Rec."Journal Template Name");
+            WHTEader.SetRange("Gen. Journal Batch Code", Rec."Journal Batch Name");
+            WHTEader.SetRange("Gen. Journal Line No.", Rec."Line No.");
+            WHTEader.SetRange(Posted, false);
+            if WHTEader.FindFirst() then
+                WHTEader.Delete(True);
+        end;
     end;
 
 
 
     trigger OnOpenPage()
     begin
+        CheckDisableLCL := FuncenterYVS.CheckDisableLCL();
         if gvDocument <> '' then
             rec.SetRange("Document No.", gvDocument);
     end;
@@ -350,6 +360,10 @@ pageextension 80030 "YVS Payment Journal" extends "Payment Journal"
 
     end;
 
+
+
     var
+        CheckDisableLCL: Boolean;
+        FuncenterYVS: Codeunit "YVS Function Center";
         gvDocument: Code[20];
 }

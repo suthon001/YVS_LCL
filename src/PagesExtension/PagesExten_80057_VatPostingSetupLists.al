@@ -11,12 +11,22 @@ pageextension 80057 "YVS VatPostingSetupLists" extends "VAT Posting Setup"
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the Generate Purch. Vat Report field.';
+                Visible = CheckDisableLCL;
             }
             field("YVS Allow to Sales Vat"; rec."YVS Allow to Sales Vat")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the Generate Sales Vat Report field.';
+                Visible = CheckDisableLCL;
             }
         }
     }
+    trigger OnOpenPage()
+    begin
+        CheckDisableLCL := FuncenterYVS.CheckDisableLCL();
+    end;
+
+    var
+        CheckDisableLCL: Boolean;
+        FuncenterYVS: Codeunit "YVS Function Center";
 }

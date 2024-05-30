@@ -62,6 +62,7 @@ pageextension 80041 "YVS ExtenPostPurchCreditLists" extends "Posted Purchase Cre
                 PromotedCategory = Report;
                 Promoted = true;
                 PromotedIsBig = true;
+                Visible = CheckDisableLCL;
                 ToolTip = 'Executes the AP Voucher action.';
                 trigger OnAction()
                 var
@@ -76,4 +77,12 @@ pageextension 80041 "YVS ExtenPostPurchCreditLists" extends "Posted Purchase Cre
             }
         }
     }
+    trigger OnOpenPage()
+    begin
+        CheckDisableLCL := FuncenterYVS.CheckDisableLCL();
+    end;
+
+    var
+        CheckDisableLCL: Boolean;
+        FuncenterYVS: Codeunit "YVS Function Center";
 }

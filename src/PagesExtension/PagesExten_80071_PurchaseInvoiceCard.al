@@ -13,6 +13,7 @@ pageextension 80071 "YVS Purchase Invoice Card" extends "Purchase Invoice"
                 ApplicationArea = all;
                 Caption = 'Gen. Bus. Posting Group';
                 ToolTip = 'Specifies the value of the Gen. Bus. Posting Group field.';
+                Visible = CheckDisableLCL;
             }
 
             field("Head Office"; Rec."YVS Head Office")
@@ -20,18 +21,21 @@ pageextension 80071 "YVS Purchase Invoice Card" extends "Purchase Invoice"
                 ApplicationArea = all;
                 Caption = 'Head Office';
                 ToolTip = 'Specifies the value of the Head Office field.';
+                Visible = CheckDisableLCL;
             }
             field("VAT Branch Code"; Rec."YVS VAT Branch Code")
             {
                 ApplicationArea = all;
                 Caption = 'VAT Branch Code';
                 ToolTip = 'Specifies the value of the VAT Branch Code field.';
+                Visible = CheckDisableLCL;
             }
             field("VAT Registration No."; Rec."VAT Registration No.")
             {
                 ApplicationArea = all;
                 Caption = 'VAT Registration No.';
                 ToolTip = 'Specifies the value of the VAT Registration No. field.';
+                Visible = CheckDisableLCL;
             }
 
         }
@@ -96,6 +100,7 @@ pageextension 80071 "YVS Purchase Invoice Card" extends "Purchase Invoice"
                 ApplicationArea = all;
                 Editable = true;
                 ToolTip = 'Specifies the value of the Purchase Order No. field.';
+                Visible = CheckDisableLCL;
             }
         }
 
@@ -115,6 +120,7 @@ pageextension 80071 "YVS Purchase Invoice Card" extends "Purchase Invoice"
                 PromotedCategory = Report;
                 Promoted = true;
                 PromotedIsBig = true;
+                Visible = CheckDisableLCL;
                 ToolTip = 'Executes the AP Voucher action.';
                 trigger OnAction()
                 var
@@ -129,5 +135,12 @@ pageextension 80071 "YVS Purchase Invoice Card" extends "Purchase Invoice"
             }
         }
     }
+    trigger OnOpenPage()
+    begin
+        CheckDisableLCL := FuncenterYVS.CheckDisableLCL();
+    end;
 
+    var
+        CheckDisableLCL: Boolean;
+        FuncenterYVS: Codeunit "YVS Function Center";
 }

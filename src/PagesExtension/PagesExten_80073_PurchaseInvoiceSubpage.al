@@ -35,11 +35,13 @@ pageextension 80073 "YVS Purchase Invoice Subpage" extends "Purch. Invoice Subfo
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies value of the field.';
+                Visible = CheckDisableLCL;
             }
             field("WHT Product Posting Group"; rec."YVS WHT Product Posting Group")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies value of the field.';
+                Visible = CheckDisableLCL;
             }
         }
 
@@ -49,53 +51,61 @@ pageextension 80073 "YVS Purchase Invoice Subpage" extends "Purch. Invoice Subfo
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies value of the field.';
+                Visible = CheckDisableLCL;
             }
             field("Tax Invoice No."; Rec."YVS Tax Invoice No.")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies value of the field.';
+                Visible = CheckDisableLCL;
             }
             field("Tax Vendor No."; Rec."YVS Tax Vendor No.")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies value of the field.';
+                Visible = CheckDisableLCL;
             }
             field("Tax Invoice Name"; Rec."YVS Tax Invoice Name")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies value of the field.';
+                Visible = CheckDisableLCL;
             }
             field("Tax Invoice Base"; Rec."YVS Tax Invoice Base")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies value of the field.';
+                Visible = CheckDisableLCL;
             }
 
             field("Head Office"; Rec."YVS Head Office")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies value of the field.';
+                Visible = CheckDisableLCL;
             }
             field("VAT Branch Code"; Rec."YVS VAT Branch Code")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies value of the field.';
+                Visible = CheckDisableLCL;
             }
             field("Vat Registration No."; Rec."YVS Vat Registration No.")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies value of the field.';
+                Visible = CheckDisableLCL;
             }
         }
 
 
         modify("Tax Area Code")
         {
-            Visible = false;
+            Visible = not CheckDisableLCL;
         }
         modify("Tax Group Code")
         {
-            Visible = false;
+            Visible = not CheckDisableLCL;
         }
         // modify(Quantity)
         // {
@@ -113,9 +123,18 @@ pageextension 80073 "YVS Purchase Invoice Subpage" extends "Purch. Invoice Subfo
         YVSFunctionCenter: Codeunit "YVS Function Center";
 
     begin
-        if rec."Receipt No." <> '' then
-            YVSFunctionCenter.SetDefualtGetInvoicePurch(rec."Receipt No.", Rec."Receipt Line No.");
+        if CheckDisableLCL then
+            if rec."Receipt No." <> '' then
+                YVSFunctionCenter.SetDefualtGetInvoicePurch(rec."Receipt No.", Rec."Receipt Line No.");
     end;
 
+    trigger OnOpenPage()
+    begin
+        CheckDisableLCL := FuncenterYVS.CheckDisableLCL();
+    end;
+
+    var
+        CheckDisableLCL: Boolean;
+        FuncenterYVS: Codeunit "YVS Function Center";
 
 }

@@ -19,6 +19,7 @@ pageextension 80025 "YVS PurchaseJournal" extends "Purchase Journal"
             {
                 ApplicationArea = All;
                 ToolTip = 'Specifies the value of the Journal Description field.';
+                Visible = CheckDisableLCL;
             }
         }
     }
@@ -33,7 +34,7 @@ pageextension 80025 "YVS PurchaseJournal" extends "Purchase Journal"
                 Image = ViewPostedOrder;
                 ShortCutKey = 'Ctrl+Alt+F9';
                 ToolTip = 'Review the different types of entries that will be created when you post the document or journal.';
-
+                Visible = CheckDisableLCL;
                 trigger OnAction()
                 var
                     GenJnlPost: Codeunit "Gen. Jnl.-Post";
@@ -54,8 +55,16 @@ pageextension 80025 "YVS PurchaseJournal" extends "Purchase Journal"
         }
         modify(Preview)
         {
-            Visible = false;
+            Visible = not CheckDisableLCL;
         }
 
     }
+    trigger OnOpenPage()
+    begin
+        CheckDisableLCL := FuncenterYVS.CheckDisableLCL();
+    end;
+
+    var
+        CheckDisableLCL: Boolean;
+        FuncenterYVS: Codeunit "YVS Function Center";
 }

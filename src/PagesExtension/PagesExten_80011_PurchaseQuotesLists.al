@@ -12,22 +12,26 @@ pageextension 80011 "YVS Purchase Quotes Lists" extends "Purchase Quotes"
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the Head Office field.';
+                Visible = CheckDisableLCL;
             }
             field("VAT Branch Code"; Rec."YVS VAT Branch Code")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the VAT Branch Code field.';
+                Visible = CheckDisableLCL;
             }
             field("VAT Registration No."; Rec."VAT Registration No.")
             {
                 ApplicationArea = all;
                 Caption = 'VAT Registration No.';
                 ToolTip = 'Specifies the value of the VAT Registration No. field.';
+                Visible = CheckDisableLCL;
             }
             field("Purchase Order No."; rec."YVS Purchase Order No.")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the Purchase Order No. field.';
+                Visible = CheckDisableLCL;
             }
         }
         addafter("Buy-from Vendor Name")
@@ -36,11 +40,12 @@ pageextension 80011 "YVS Purchase Quotes Lists" extends "Purchase Quotes"
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies value of the field.';
+
             }
         }
         modify(Status)
         {
-            Visible = true;
+            Visible = NOT CheckDisableLCL;
         }
         moveafter("No."; Status)
         addafter(Status)
@@ -57,7 +62,7 @@ pageextension 80011 "YVS Purchase Quotes Lists" extends "Purchase Quotes"
     {
         modify(Print)
         {
-            Visible = false;
+            Visible = NOT CheckDisableLCL;
         }
         addlast(Reporting)
         {
@@ -67,6 +72,7 @@ pageextension 80011 "YVS Purchase Quotes Lists" extends "Purchase Quotes"
                 Image = PrintReport;
                 ApplicationArea = all;
                 PromotedCategory = Category6;
+                Visible = CheckDisableLCL;
                 Promoted = true;
                 PromotedIsBig = true;
                 ToolTip = 'Executes the Purchase Quote action.';
@@ -83,4 +89,12 @@ pageextension 80011 "YVS Purchase Quotes Lists" extends "Purchase Quotes"
             }
         }
     }
+    trigger OnOpenPage()
+    begin
+        CheckDisableLCL := FuncenterYVS.CheckDisableLCL();
+    end;
+
+    var
+        CheckDisableLCL: Boolean;
+        FuncenterYVS: Codeunit "YVS Function Center";
 }

@@ -10,7 +10,7 @@ pageextension 80006 "YVS ExtenGeneralSetup" extends "General Ledger Setup"
             group("WHT Information")
             {
                 Caption = 'WHT Information';
-
+                Visible = CheckDisableLCL;
                 field("No. of Copy WHT Cert."; Rec."YVS No. of Copy WHT Cert.")
                 {
                     ApplicationArea = all;
@@ -56,4 +56,12 @@ pageextension 80006 "YVS ExtenGeneralSetup" extends "General Ledger Setup"
 
         }
     }
+    trigger OnOpenPage()
+    begin
+        CheckDisableLCL := FuncenterYVS.CheckDisableLCL();
+    end;
+
+    var
+        CheckDisableLCL: Boolean;
+        FuncenterYVS: Codeunit "YVS Function Center";
 }

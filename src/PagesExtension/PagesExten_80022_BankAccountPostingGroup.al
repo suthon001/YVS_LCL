@@ -11,8 +11,17 @@ pageextension 80022 "YVS BankAccountPostingGroup" extends "Bank Account Posting 
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the Description field.';
+                Visible = CheckDisableLCL;
             }
         }
 
     }
+    trigger OnOpenPage()
+    begin
+        CheckDisableLCL := FuncenterYVS.CheckDisableLCL();
+    end;
+
+    var
+        CheckDisableLCL: Boolean;
+        FuncenterYVS: Codeunit "YVS Function Center";
 }

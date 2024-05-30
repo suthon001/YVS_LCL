@@ -11,11 +11,13 @@ pageextension 80063 "YVS Sales Order Card" extends "Sales Order"
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies value of the field.';
+                Visible = CheckDisableLCL;
             }
             field("VAT Branch Code"; Rec."YVS VAT Branch Code")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies value of the field.';
+                Visible = CheckDisableLCL;
             }
             field("Shipping No. Series"; Rec."Shipping No. Series")
             {
@@ -70,4 +72,12 @@ pageextension 80063 "YVS Sales Order Card" extends "Sales Order"
         }
 
     }
+    trigger OnOpenPage()
+    begin
+        CheckDisableLCL := FuncenterYVS.CheckDisableLCL();
+    end;
+
+    var
+        CheckDisableLCL: Boolean;
+        FuncenterYVS: Codeunit "YVS Function Center";
 }

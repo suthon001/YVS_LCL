@@ -12,11 +12,13 @@ pageextension 80078 "YVS Sales Credit Memo Card" extends "Sales Credit Memo"
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies value of the field.';
+                Visible = CheckDisableLCL;
             }
             field("VAT Branch Code"; Rec."YVS VAT Branch Code")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies value of the field.';
+                Visible = CheckDisableLCL;
             }
 
         }
@@ -41,11 +43,13 @@ pageextension 80078 "YVS Sales Credit Memo Card" extends "Sales Credit Memo"
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the Ref. Tax Invoice Amount field.';
+                Visible = CheckDisableLCL;
             }
             field("YVS Ref. Tax Invoice Amount"; rec."YVS Ref. Tax Invoice Amount")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the Ref. Tax Invoice Amount field.';
+                Visible = CheckDisableLCL;
             }
 
         }
@@ -63,6 +67,7 @@ pageextension 80078 "YVS Sales Credit Memo Card" extends "Sales Credit Memo"
                 Promoted = true;
                 PromotedIsBig = true;
                 ToolTip = 'Show Report';
+                Visible = CheckDisableLCL;
                 trigger OnAction()
                 var
                     ARCNVoucher: Report "YVS AR CN Voucher";
@@ -83,6 +88,7 @@ pageextension 80078 "YVS Sales Credit Memo Card" extends "Sales Credit Memo"
                 PromotedIsBig = true;
                 PromotedCategory = Report;
                 ToolTip = 'Show Report';
+                Visible = CheckDisableLCL;
                 trigger OnAction()
                 var
                     RecSalesHeader: Record "Sales Header";
@@ -95,4 +101,12 @@ pageextension 80078 "YVS Sales Credit Memo Card" extends "Sales Credit Memo"
             }
         }
     }
+    trigger OnOpenPage()
+    begin
+        CheckDisableLCL := FuncenterYVS.CheckDisableLCL();
+    end;
+
+    var
+        CheckDisableLCL: Boolean;
+        FuncenterYVS: Codeunit "YVS Function Center";
 }

@@ -8,8 +8,9 @@ codeunit 80005 "YVS EventFunction"
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Gen. Jnl.-Post Batch", 'OnBeforeCheckGenPostingType', '', false, false)]
     local procedure OnBeforeCheckGenPostingType(var IsHandled: Boolean; GenJnlLine: Record "Gen. Journal Line"; AccountType: Enum "Gen. Journal Account Type")
     var
-
     begin
+        if CheckDisableLCL() then
+            exit;
         if (AccountType = AccountType::Customer) and
            (GenJnlLine."Gen. Posting Type" = GenJnlLine."Gen. Posting Type"::Purchase) or
            (AccountType = AccountType::Vendor) and
@@ -25,6 +26,8 @@ codeunit 80005 "YVS EventFunction"
         GEnJnlCheckLine: Codeunit "Gen. Jnl.-Check Line";
         Text003: Label 'must have the same sign as %1';
     begin
+        if CheckDisableLCL() then
+            exit;
         case GenJnlLine."Account Type" of
             GenJnlLine."Account Type"::Customer, GenJnlLine."Account Type"::Vendor, GenJnlLine."Account Type"::Employee:
                 begin
@@ -56,6 +59,8 @@ codeunit 80005 "YVS EventFunction"
         ICPartner: Record "IC Partner";
         Employee: Record Employee;
     begin
+        if CheckDisableLCL() then
+            exit;
         if not GenJnlTemplate.GET(GenJnlLine."Journal Template Name") then
             GenJnlTemplate.Init();
 
@@ -86,6 +91,8 @@ codeunit 80005 "YVS EventFunction"
     var
         Text010: Label '%1 %2 and %3 %4 is not allowed.';
     begin
+        if CheckDisableLCL() then
+            exit;
         if ((GenJnlLine."Account Type" = GenJnlLine."Account Type"::Customer) and
             (GenJnlLine."Bal. Gen. Posting Type" = GenJnlLine."Bal. Gen. Posting Type"::Purchase)) or
            ((GenJnlLine."Account Type" = GenJnlLine."Account Type"::Vendor) and
@@ -104,12 +111,16 @@ codeunit 80005 "YVS EventFunction"
     [EventSubscriber(ObjectType::Table, Database::"Gen. Journal Line", 'OnBeforeValidateGenPostingType', '', false, false)]
     local procedure OnBeforeValidateGenPostingType(var CheckIfFieldIsEmpty: Boolean)
     begin
+        if CheckDisableLCL() then
+            exit;
         CheckIfFieldIsEmpty := false;
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Gen. Jnl.-Post Line", 'OnBeforePostFixedAsset', '', false, false)]
     local procedure OnBeforePostFixedAsset(var GenJournalLine: Record "Gen. Journal Line"; var IsHandled: Boolean; sender: Codeunit "Gen. Jnl.-Post Line")
     begin
+        if CheckDisableLCL() then
+            exit;
         PostFixedAsset(GenJournalLine, sender);
         IsHandled := true;
     end;
@@ -131,6 +142,8 @@ codeunit 80005 "YVS EventFunction"
         DimensionSetID: Integer;
         VATEntryGLEntryNo: Integer;
     begin
+        if CheckDisableLCL() then
+            exit;
         GenJnlPostLine.GetGLReg(GLReg);
         GenJnlPostLine.InitGLEntry(GenJnlLine, GLEntry, '', GenJnlLine."Amount (LCY)", GenJnlLine."Source Currency Amount", true, GenJnlLine."System-Created Entry");
         GLEntry."Gen. Posting Type" := GenJnlLine."Gen. Posting Type";
@@ -324,6 +337,8 @@ codeunit 80005 "YVS EventFunction"
         FixedAsset: Record "Fixed Asset";
         ltFASubclass: Record "FA Subclass";
     begin
+        if CheckDisableLCL() then
+            exit;
         if FixedAsset.Get(FixedAssetNo) then begin
             IsHandled := true;
             if not ltFASubclass.GET(FixedAsset."FA Subclass Code") then
@@ -351,6 +366,8 @@ codeunit 80005 "YVS EventFunction"
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Get Shipment", 'OnRunAfterFilterSalesShpLine', '', false, false)]
     local procedure OnRunAfterFilterSalesShpLine(var SalesShptLine: Record "Sales Shipment Line")
     begin
+        if CheckDisableLCL() then
+            exit;
         SalesShptLine.SetRange("YVS Get to Invoice", false);
     end;
 
@@ -358,37 +375,44 @@ codeunit 80005 "YVS EventFunction"
     [EventSubscriber(ObjectType::Table, Database::"Sales Shipment Line", 'OnAfterInsertInvLineFromShptLine', '', false, false)]
     local procedure OnAfterInsertInvLineFromShptLine(SalesShipmentLine: Record "Sales Shipment Line")
     begin
+        if CheckDisableLCL() then
+            exit;
         SalesShipmentLine."YVS Get to Invoice" := true;
         SalesShipmentLine.Modify();
     end;
 
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Get Receipt", 'OnAfterInsertLines', '', false, false)]
-    local procedure OnAfterInsertLines(var PurchHeader: Record "Purchase Header")
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Get Receipt", 'OnAfterCreateInvLines', '', false, false)]
+    local procedure OnAfterCreateInvLinesPur(var PurchaseHeader: Record "Purchase Header")
     var
         ReceiptHeader: Record "Purch. Rcpt. Header";
         PurchaseLine: Record "Purchase Line";
     begin
+        if CheckDisableLCL() then
+            exit;
         PurchaseLine.reset();
-        PurchaseLine.SetRange("Document Type", PurchHeader."Document Type");
-        PurchaseLine.SetRange("Document No.", PurchHeader."No.");
+        PurchaseLine.SetRange("Document Type", PurchaseHeader."Document Type");
+        PurchaseLine.SetRange("Document No.", PurchaseHeader."No.");
         PurchaseLine.SetFilter("Receipt No.", '<>%1', '');
         if PurchaseLine.FindFirst() then
             if ReceiptHeader.GET(PurchaseLine."Receipt No.") then begin
-                PurchHeader."Vendor Invoice No." := ReceiptHeader."YVS Vendor Invoice No.";
-                PurchHeader.Modify();
+                PurchaseHeader."Vendor Invoice No." := ReceiptHeader."YVS Vendor Invoice No.";
+                PurchaseHeader.Modify();
             end;
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Get Receipt", 'OnAfterPurchRcptLineSetFilters', '', false, false)]
     local procedure OnAfterPurchRcptLineSetFilters(var PurchRcptLine: Record "Purch. Rcpt. Line")
     begin
+        if CheckDisableLCL() then
+            exit;
         PurchRcptLine.SetRange("YVS Get to Invoice", false);
     end;
 
     [EventSubscriber(ObjectType::Table, Database::"Purch. Rcpt. Line", 'OnAfterInsertInvLineFromRcptLine', '', false, false)]
     local procedure OnAfterInsertInvLineFromRcptLine(PurchRcptLine: Record "Purch. Rcpt. Line")
     begin
-
+        if CheckDisableLCL() then
+            exit;
         PurchRcptLine."YVS Get to Invoice" := true;
         PurchRcptLine.Modify();
     end;
@@ -396,6 +420,8 @@ codeunit 80005 "YVS EventFunction"
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Get Return Shipments", 'OnRunOnAfterSetReturnShptLineFilters', '', false, false)]
     local procedure OnRunOnAfterSetReturnShptLineFilters(var ReturnShipmentLine: Record "Return Shipment Line")
     begin
+        if CheckDisableLCL() then
+            exit;
         ReturnShipmentLine.SetRange("YVS Get to CN", false);
     end;
 
@@ -405,6 +431,8 @@ codeunit 80005 "YVS EventFunction"
         ReturnShipment: Record "Return Shipment Header";
         PurchaseLine: Record "Purchase Line";
     begin
+        if CheckDisableLCL() then
+            exit;
         PurchaseLine.reset();
         PurchaseLine.SetRange("Document Type", PurchaseHeader."Document Type");
         PurchaseLine.SetRange("Document No.", PurchaseHeader."No.");
@@ -419,6 +447,8 @@ codeunit 80005 "YVS EventFunction"
     [EventSubscriber(ObjectType::Table, Database::"Return Shipment Line", 'OnBeforeInsertInvLineFromRetShptLine', '', false, false)]
     local procedure OnBeforeInsertInvLineFromRetShptLine(var ReturnShipmentLine: Record "Return Shipment Line")
     begin
+        if CheckDisableLCL() then
+            exit;
         ReturnShipmentLine."YVS Get to CN" := true;
         ReturnShipmentLine.Modify();
     end;
@@ -426,18 +456,24 @@ codeunit 80005 "YVS EventFunction"
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post", 'OnBeforePurchRcptHeaderInsert', '', false, false)]
     local procedure OnBeforePurchRcptHeaderInsert(var PurchRcptHeader: Record "Purch. Rcpt. Header"; var PurchaseHeader: Record "Purchase Header")
     begin
+        if CheckDisableLCL() then
+            exit;
         PurchRcptHeader."YVS Vendor Invoice No." := PurchaseHeader."Vendor Invoice No.";
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post", 'OnBeforeInsertReturnShipmentHeader', '', false, false)]
     local procedure OnBeforeInsertReturnShipmentHeader(var PurchHeader: Record "Purchase Header"; var ReturnShptHeader: Record "Return Shipment Header")
     begin
+        if CheckDisableLCL() then
+            exit;
         ReturnShptHeader."YVS Vendor Cr. Memo No." := PurchHeader."Vendor Cr. Memo No.";
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post (Yes/No)", 'OnBeforeOnRun', '', false, false)]
     local procedure OnBeforeOnRunPurchasePostYesNo(var PurchaseHeader: Record "Purchase Header")
     begin
+        if CheckDisableLCL() then
+            exit;
         if PurchaseHeader."Document Type" = PurchaseHeader."Document Type"::Order then
             PurchaseHeader.TestField(Status, PurchaseHeader.Status::Released);
     end;
@@ -451,6 +487,8 @@ codeunit 80005 "YVS EventFunction"
         BusUnitFilter: Text;
         CostBudgetFilter2: Text;
     begin
+        if CheckDisableLCL() then
+            exit;
         if TempFinancialReport.Name <> '' then
             AccSched.SetFinancialReportName(TempFinancialReport.Name);
         if TempFinancialReport."Financial Report Row Group" <> '' then
@@ -473,6 +511,8 @@ codeunit 80005 "YVS EventFunction"
         GenJnlLine: Record "Gen. Journal Line";
         GenJnlTemplate: Record "Gen. Journal Template";
     begin
+        if CheckDisableLCL() then
+            exit;
         GenJnlLine.Copy(NewGenJnlLine);
         GenJnlTemplate.Get(GenJnlLine."Journal Template Name");
         if GenJnlTemplate.Type = GenJnlTemplate.Type::Assets then begin
@@ -488,6 +528,8 @@ codeunit 80005 "YVS EventFunction"
     var
         AccountSchedule: Report "YVS Account Schedule";
     begin
+        if CheckDisableLCL() then
+            exit;
         CLEAR(AccountSchedule);
         AccountSchedule.SetFinancialReportName(FinancialReport.Name);
         AccountSchedule.Run();
@@ -506,6 +548,8 @@ codeunit 80005 "YVS EventFunction"
         ltSelectCaptionReport: Record "YVS Caption Report Setup";
         ltCaptionReport: Page "YVS Caption Report List";
     begin
+        if CheckDisableLCL() then
+            exit;
         CLEAR(ltCaptionReport);
         ltSelectCaptionReport.reset();
         ltSelectCaptionReport.SetRange("Document Type", pDocumentType);
@@ -523,12 +567,16 @@ codeunit 80005 "YVS EventFunction"
     [EventSubscriber(ObjectType::Table, Database::"FA Depreciation Book", 'OnBeforeValidateNoOfDepreYears', '', false, false)]
     local procedure OnBeforeValidateNoOfDepreYears(var IsHandled: Boolean)
     begin
+        if CheckDisableLCL() then
+            exit;
         IsHandled := true;
     end;
 
     [EventSubscriber(ObjectType::Table, Database::"FA Depreciation Book", 'OnBeforeModifyFADeprBook', '', false, false)]
     local procedure OnBeforeModifyFADeprBook(var IsHandled: Boolean)
     begin
+        if CheckDisableLCL() then
+            exit;
         IsHandled := true;
     end;
 
@@ -536,7 +584,8 @@ codeunit 80005 "YVS EventFunction"
     local procedure AppliesToDocNo(var Rec: Record "Gen. Journal Line"; var xRec: Record "Gen. Journal Line")
 
     begin
-
+        if CheckDisableLCL() then
+            exit;
         if rec."Applies-to Doc. No." <> xRec."Applies-to Doc. No." then
             if (rec."Applies-to Doc. No." <> '') and (rec."Account Type" = rec."Account Type"::Vendor) then
                 InsertWHTCertificate(Rec, rec."Applies-to Doc. No.");
@@ -551,6 +600,8 @@ codeunit 80005 "YVS EventFunction"
         VendLdgEntry: Record "Vendor Ledger Entry";
         InvoiceNo: Text;
     begin
+        if CheckDisableLCL() then
+            exit;
         if GenJournalLine."Document No." <> '' then begin
 
             VendLdgEntry.reset();
@@ -590,7 +641,8 @@ codeunit 80005 "YVS EventFunction"
 
     begin
 
-
+        if CheckDisableLCL() then
+            exit;
         ltWHTAppliedEntry.reset();
         ltWHTAppliedEntry.SetFilter("Document No.", pInvoiceNo);
         if ltWHTAppliedEntry.FindFirst() then begin
@@ -689,6 +741,8 @@ codeunit 80005 "YVS EventFunction"
         WHTEntry: Record "YVS WHT Line";
         SumAmt: Decimal;
     begin
+        if CheckDisableLCL() then
+            exit;
         if WHTHeader."WHT Certificate No." <> '' then begin
             WHTHeader.TESTfield("WHT Business Posting Group");
 
@@ -752,6 +806,8 @@ codeunit 80005 "YVS EventFunction"
     [EventSubscriber(ObjectType::Codeunit, Codeunit::ReportManagement, 'OnAfterSubstituteReport', '', true, true)]
     local procedure "OnAfterSubstituteReport"(ReportId: Integer; var NewReportId: Integer)
     begin
+        if CheckDisableLCL() then
+            exit;
         if ReportId = 4 then
             NewReportId := 80050;
         if ReportId = 6 then
@@ -830,6 +886,8 @@ codeunit 80005 "YVS EventFunction"
         RecRef: RecordRef;
         TempErrorMessage: Record "Error Message" temporary;
     begin
+        if CheckDisableLCL() then
+            exit;
         ErrorMessageMgt.Activate(ErrorMessageHandler);
         BindSubscription(SalesPostYesNo);
         GenJnlPostPreview.SetContext(SalesPostYesNo, SalesHeader);
@@ -852,6 +910,8 @@ codeunit 80005 "YVS EventFunction"
         RecRef: RecordRef;
         TempErrorMessage: Record "Error Message" temporary;
     begin
+        if CheckDisableLCL() then
+            exit;
         ErrorMessageMgt.Activate(ErrorMessageHandler);
         BindSubscription(PurchasePostYesNo);
         GenJnlPostPreview.SetContext(PurchasePostYesNo, PurchaseHeader);
@@ -877,6 +937,8 @@ codeunit 80005 "YVS EventFunction"
         RecRef, RecRefVat : RecordRef;
         TempErrorMessage: Record "Error Message" temporary;
     begin
+        if CheckDisableLCL() then
+            exit;
         ltGenLine.Reset();
         ltGenLine.SetRange("Journal Template Name", GenJournalLine."Journal Template Name");
         ltGenLine.SetRange("Journal Batch Name", GenJournalLine."Journal Batch Name");
@@ -904,6 +966,8 @@ codeunit 80005 "YVS EventFunction"
     /// <param name="TempGLEntry">Parameter of type Record "G/L Entry" temporary.</param>
     local procedure InsertToTempGL(RecRef2: RecordRef; var TempGLEntry: Record "G/L Entry" temporary)
     begin
+        if CheckDisableLCL() then
+            exit;
         if NOT TempGLEntry.IsTemporary then
             Error('GL Entry must be Temporary Table!');
         TempGLEntry.reset();
@@ -918,6 +982,8 @@ codeunit 80005 "YVS EventFunction"
 
     local procedure InsertToTempVAT(RecRef2: RecordRef; var pTempVATEntry: Record "VAT Entry" temporary)
     begin
+        if CheckDisableLCL() then
+            exit;
         if RecRef2.FindSet() then
             repeat
                 RecRef2.SetTable(pTempVATEntry);
@@ -1303,7 +1369,13 @@ codeunit 80005 "YVS EventFunction"
 
     end;
 
-
+    local procedure CheckDisableLCL(): Boolean
+    var
+        CompanyInfor: Record "Company Information";
+    begin
+        CompanyInfor.GET();
+        exit(CompanyInfor."YVS Disable LCL");
+    end;
 
     var
         GenJnlPostPreview: Codeunit "Gen. Jnl.-Post Preview";

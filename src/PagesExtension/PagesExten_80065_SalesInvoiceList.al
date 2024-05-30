@@ -12,17 +12,20 @@ pageextension 80065 "YVS Sales Invoice Lists" extends "Sales Invoice List"
                 ApplicationArea = all;
                 Caption = 'Head Office';
                 ToolTip = 'Specifies value of the field.';
+                Visible = CheckDisableLCL;
             }
             field("VAT Branch Code"; Rec."YVS VAT Branch Code")
             {
                 ApplicationArea = all;
                 Caption = 'VAT Branch Code';
                 ToolTip = 'Specifies value of the field.';
+                Visible = CheckDisableLCL;
             }
             field("VAT Registration No."; Rec."VAT Registration No.")
             {
                 ApplicationArea = all;
                 Caption = 'VAT Registration No.';
+                Visible = CheckDisableLCL;
                 ToolTip = 'Specifies the customer''s VAT registration number for customers.';
             }
         }
@@ -45,6 +48,7 @@ pageextension 80065 "YVS Sales Invoice Lists" extends "Sales Invoice List"
                 PromotedCategory = Report;
                 Promoted = true;
                 PromotedIsBig = true;
+                Visible = CheckDisableLCL;
                 ToolTip = 'Executes the AR Voucher action.';
                 trigger OnAction()
                 var
@@ -64,6 +68,7 @@ pageextension 80065 "YVS Sales Invoice Lists" extends "Sales Invoice List"
                 Image = PrintReport;
                 Promoted = true;
                 PromotedIsBig = true;
+                Visible = CheckDisableLCL;
                 PromotedCategory = Report;
                 ToolTip = 'Executes the Sales Invoice action.';
                 trigger OnAction()
@@ -84,6 +89,7 @@ pageextension 80065 "YVS Sales Invoice Lists" extends "Sales Invoice List"
                 Promoted = true;
                 PromotedIsBig = true;
                 PromotedCategory = Report;
+                Visible = CheckDisableLCL;
                 ToolTip = 'Executes the Debit Note action.';
                 trigger OnAction()
                 var
@@ -97,4 +103,12 @@ pageextension 80065 "YVS Sales Invoice Lists" extends "Sales Invoice List"
             }
         }
     }
+    trigger OnOpenPage()
+    begin
+        CheckDisableLCL := FuncenterYVS.CheckDisableLCL();
+    end;
+
+    var
+        CheckDisableLCL: Boolean;
+        FuncenterYVS: Codeunit "YVS Function Center";
 }

@@ -7,39 +7,45 @@ pageextension 80017 "YVS Sales Quote Card" extends "Sales Quote"
     {
         addbefore(Status)
         {
+
             field("Head Office"; Rec."YVS Head Office")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies value of the field.';
+                Visible = CheckDisableLCL;
             }
             field("VAT Branch Code"; Rec."YVS VAT Branch Code")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies value of the field.';
+                Visible = CheckDisableLCL;
             }
             field("VAT Registration No."; Rec."VAT Registration No.")
             {
                 ApplicationArea = all;
                 Caption = 'VAT Registration No.';
                 ToolTip = 'Specifies the customer''s VAT registration number for customers.';
+                Visible = CheckDisableLCL;
             }
             field("Sales Order No."; Rec."YVS Sales Order No.")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies value of the field.';
+                Visible = CheckDisableLCL;
             }
             field("Make Order No. Series"; Rec."YVS Make Order No. Series")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the Make Order No. Series field.';
+                Visible = CheckDisableLCL;
                 trigger OnAssistEdit()
                 var
                     SalesSetup: Record "Sales & Receivables Setup";
-                    Noseriesmgt: Codeunit NoSeriesManagement;
+                    Noseriesmgt: Codeunit "No. Series";
                 begin
                     SalesSetup.get();
                     SalesSetup.TestField("Order Nos.");
-                    Noseriesmgt.SelectSeries(SalesSetup."Order Nos.", Rec."No. Series", Rec."YVS Make Order No. Series");
+                    Noseriesmgt.LookupRelatedNoSeries(SalesSetup."Order Nos.", Rec."No. Series", Rec."YVS Make Order No. Series");
                 end;
             }
         }
@@ -73,6 +79,7 @@ pageextension 80017 "YVS Sales Quote Card" extends "Sales Quote"
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the Gen. Bus. Posting Group field.';
+                Visible = CheckDisableLCL;
             }
         }
         addbefore("Document Date")
@@ -81,6 +88,7 @@ pageextension 80017 "YVS Sales Quote Card" extends "Sales Quote"
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the date when the sales document was posted.';
+                Visible = CheckDisableLCL;
             }
         }
         addafter("Sell-to City")
@@ -89,6 +97,7 @@ pageextension 80017 "YVS Sales Quote Card" extends "Sales Quote"
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the telephone number of the contact person that the sales document will be sent to.';
+                Visible = CheckDisableLCL;
             }
         }
         addafter(Status)
@@ -98,12 +107,21 @@ pageextension 80017 "YVS Sales Quote Card" extends "Sales Quote"
                 ApplicationArea = all;
                 ToolTip = 'Specifies value of the field.';
                 Caption = 'Completely';
+                Visible = CheckDisableLCL;
             }
         }
         modify(Control105)
         {
-            Visible = true;
+            Visible = not CheckDisableLCL;
         }
 
     }
+    trigger OnOpenPage()
+    begin
+        CheckDisableLCL := FuncenterYVS.CheckDisableLCL();
+    end;
+
+    var
+        CheckDisableLCL: Boolean;
+        FuncenterYVS: Codeunit "YVS Function Center";
 }

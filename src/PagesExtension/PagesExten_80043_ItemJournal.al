@@ -15,16 +15,16 @@ pageextension 80043 "YVS Item Journal" extends "Item Journal"
         }
         modify("Gen. Bus. Posting Group")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
         modify("Gen. Prod. Posting Group")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
         moveafter("Unit of Measure Code"; "Gen. Bus. Posting Group", "Gen. Prod. Posting Group")
         modify("Lot No.")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
 
     }
@@ -32,12 +32,13 @@ pageextension 80043 "YVS Item Journal" extends "Item Journal"
     {
         addafter("&Print")
         {
-            action("MRCPrint")
+            action("YVSPrint")
             {
                 ApplicationArea = Basic, Suite;
                 Caption = '&Print';
                 Ellipsis = true;
                 Image = Print;
+                Visible = CheckDisableLCL;
                 ToolTip = 'Prepare to print the document. A report request window for the document opens where you can specify what to include on the print-out.';
 
                 trigger OnAction()
@@ -53,8 +54,16 @@ pageextension 80043 "YVS Item Journal" extends "Item Journal"
         }
         modify("&Print")
         {
-            Visible = false;
+            Visible = not CheckDisableLCL;
         }
     }
+    trigger OnOpenPage()
+    begin
+        CheckDisableLCL := FuncenterYVS.CheckDisableLCL();
+    end;
+
+    var
+        CheckDisableLCL: Boolean;
+        FuncenterYVS: Codeunit "YVS Function Center";
 
 }

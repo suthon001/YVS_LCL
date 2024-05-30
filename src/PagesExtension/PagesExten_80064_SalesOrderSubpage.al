@@ -23,6 +23,7 @@ pageextension 80064 "YVS Sales Order Subpage" extends "Sales Order Subform"
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies value of the field.';
+                Visible = CheckDisableLCL;
             }
         }
         modify("Tax Group Code")
@@ -68,11 +69,13 @@ pageextension 80064 "YVS Sales Order Subpage" extends "Sales Order Subform"
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies value of the field.';
+                Visible = CheckDisableLCL;
             }
             field("WHT Product Posting Group"; rec."YVS WHT Product Posting Group")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies value of the field.';
+                Visible = CheckDisableLCL;
             }
         }
         addafter("Quantity Invoiced")
@@ -81,8 +84,17 @@ pageextension 80064 "YVS Sales Order Subpage" extends "Sales Order Subform"
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies value of the field.';
+                Visible = CheckDisableLCL;
             }
         }
 
     }
+    trigger OnOpenPage()
+    begin
+        CheckDisableLCL := FuncenterYVS.CheckDisableLCL();
+    end;
+
+    var
+        CheckDisableLCL: Boolean;
+        FuncenterYVS: Codeunit "YVS Function Center";
 }

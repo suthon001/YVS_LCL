@@ -15,6 +15,7 @@ pageextension 80028 "YVS ExtenCustomerLists" extends "Customer List"
                 Editable = false;
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the Available Credit (LCY) field.';
+                Visible = CheckDisableLCL;
             }
         }
         modify("Credit Limit (LCY)")
@@ -80,11 +81,13 @@ pageextension 80028 "YVS ExtenCustomerLists" extends "Customer List"
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the VAT Branch Code field.';
+                Visible = CheckDisableLCL;
             }
             field("Head Office"; rec."YVS Head Office")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the Head Office field.';
+                Visible = CheckDisableLCL;
             }
         }
     }
@@ -96,6 +99,14 @@ pageextension 80028 "YVS ExtenCustomerLists" extends "Customer List"
             AvalibleCreditAmt := Rec."Credit Limit (LCY)" - Rec.GetTotalAmountLCY();
     end;
 
-    Var
+    trigger OnOpenPage()
+    begin
+        CheckDisableLCL := FuncenterYVS.CheckDisableLCL();
+    end;
+
+    var
+        CheckDisableLCL: Boolean;
+        FuncenterYVS: Codeunit "YVS Function Center";
+
         AvalibleCreditAmt: Decimal;
 }

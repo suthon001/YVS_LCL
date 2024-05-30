@@ -44,6 +44,7 @@ pageextension 80069 "YVS Purchase Order Card" extends "Purchase Order"
                 Caption = 'Head Office';
                 ToolTip = 'Specifies the value of the Head Office field.';
                 Editable = Rec.Status = Rec.Status::Open;
+                Visible = CheckDisableLCL;
             }
             field("VAT Branch Code"; Rec."YVS VAT Branch Code")
             {
@@ -51,6 +52,7 @@ pageextension 80069 "YVS Purchase Order Card" extends "Purchase Order"
                 Caption = 'VAT Branch Code';
                 ToolTip = 'Specifies the value of the VAT Branch Code field.';
                 Editable = Rec.Status = Rec.Status::Open;
+                Visible = CheckDisableLCL;
             }
             field("VAT Registration No."; Rec."VAT Registration No.")
             {
@@ -58,6 +60,7 @@ pageextension 80069 "YVS Purchase Order Card" extends "Purchase Order"
                 Caption = 'VAT Registration No.';
                 ToolTip = 'Specifies the value of the VAT Registration No. field.';
                 Editable = Rec.Status = Rec.Status::Open;
+                Visible = CheckDisableLCL;
             }
         }
         modify("No.")
@@ -190,6 +193,7 @@ pageextension 80069 "YVS Purchase Order Card" extends "Purchase Order"
                 Promoted = true;
                 PromotedIsBig = true;
                 ToolTip = 'Executes the Purchase Order action.';
+                Visible = CheckDisableLCL;
                 trigger OnAction()
                 var
 
@@ -209,13 +213,15 @@ pageextension 80069 "YVS Purchase Order Card" extends "Purchase Order"
         PurchaseReceipt: Record "Purch. Rcpt. Header";
         CheckbeforDelete: Boolean;
     begin
-        CheckbeforDelete := true;
-        "OnBeforDeletePurchaseHeader"(CheckbeforDelete);
-        if CheckbeforDelete then begin
-            PurchaseReceipt.reset();
-            PurchaseReceipt.SetRange("Order No.", Rec."No.");
-            if not PurchaseReceipt.IsEmpty() then
-                ERROR('Cannot Delete this document has been Posted');
+        if CheckDisableLCL then begin
+            CheckbeforDelete := true;
+            "OnBeforDeletePurchaseHeader"(CheckbeforDelete);
+            if CheckbeforDelete then begin
+                PurchaseReceipt.reset();
+                PurchaseReceipt.SetRange("Order No.", Rec."No.");
+                if not PurchaseReceipt.IsEmpty() then
+                    ERROR('Cannot Delete this document has been Posted');
+            end;
         end;
     end;
 
@@ -228,5 +234,13 @@ pageextension 80069 "YVS Purchase Order Card" extends "Purchase Order"
     begin
     end;
 
+    trigger OnOpenPage()
+    begin
+        CheckDisableLCL := FuncenterYVS.CheckDisableLCL();
+    end;
+
+    var
+        CheckDisableLCL: Boolean;
+        FuncenterYVS: Codeunit "YVS Function Center";
 
 }

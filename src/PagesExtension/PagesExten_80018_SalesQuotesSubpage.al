@@ -7,59 +7,56 @@ pageextension 80018 "YVS Sales Quotes Subpage" extends "Sales Quote Subform"
     {
         modify("Description 2")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
         moveafter(Description; "Description 2", "Location Code")
 
         modify("Tax Group Code")
         {
-            Visible = false;
+            Visible = not CheckDisableLCL;
+
         }
         modify("Tax Area Code")
         {
-            Visible = false;
+            Visible = not CheckDisableLCL;
+
         }
 
-        modify("Unit Price")
-        {
-            Visible = true;
-        }
         modify("Line Discount Amount")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
-        modify("Line Amount")
-        {
-            Visible = true;
-        }
+
         modify("Qty. to Assemble to Order")
         {
-            Visible = false;
+            Visible = not CheckDisableLCL;
+
         }
         modify("Qty. to Assign")
         {
-            Visible = false;
+            Visible = not CheckDisableLCL;
+
         }
         modify("Qty. Assigned")
         {
-            Visible = false;
+            Visible = not CheckDisableLCL;
         }
 
         modify("Gen. Bus. Posting Group")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
         modify("VAT Bus. Posting Group")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
         modify("Gen. Prod. Posting Group")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
         modify("VAT Prod. Posting Group")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
         moveafter("Location Code"; "Gen. Bus. Posting Group", "Gen. Prod. Posting Group", "VAT Bus. Posting Group", "VAT Prod. Posting Group")
         moveafter(Quantity; "Unit of Measure Code", "Unit Price", "Line Discount %", "Line Discount Amount", "Line Amount", "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code",
@@ -67,4 +64,12 @@ pageextension 80018 "YVS Sales Quotes Subpage" extends "Sales Quote Subform"
 
 
     }
+    trigger OnOpenPage()
+    begin
+        CheckDisableLCL := FuncenterYVS.CheckDisableLCL();
+    end;
+
+    var
+        CheckDisableLCL: Boolean;
+        FuncenterYVS: Codeunit "YVS Function Center";
 }

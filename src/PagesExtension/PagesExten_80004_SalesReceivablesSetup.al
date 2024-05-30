@@ -12,11 +12,13 @@ pageextension 80004 "YVS ExtenSales & ReceSetup" extends "Sales & Receivables Se
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the Sales VAT Nos. field.';
+                Visible = CheckDisableLCL;
             }
             field("YVS Sale Receipt Nos."; rec."YVS Sale Receipt Nos.")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the Sales Receipt Nos. field.';
+                Visible = CheckDisableLCL;
             }
         }
         addafter("Number Series")
@@ -24,6 +26,7 @@ pageextension 80004 "YVS ExtenSales & ReceSetup" extends "Sales & Receivables Se
             group(SalesReceiptInformation)
             {
                 Caption = 'Sales Receipt Information';
+                Visible = CheckDisableLCL;
                 field("YVS Default Prepaid WHT Acc."; rec."YVS Default Prepaid WHT Acc.")
                 {
                     ApplicationArea = all;
@@ -47,4 +50,12 @@ pageextension 80004 "YVS ExtenSales & ReceSetup" extends "Sales & Receivables Se
             }
         }
     }
+    trigger OnOpenPage()
+    begin
+        CheckDisableLCL := FuncenterYVS.CheckDisableLCL();
+    end;
+
+    var
+        CheckDisableLCL: Boolean;
+        FuncenterYVS: Codeunit "YVS Function Center";
 }

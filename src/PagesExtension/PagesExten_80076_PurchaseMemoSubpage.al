@@ -40,6 +40,7 @@ pageextension 80076 "YVS Purch. Credit Memo Subpage" extends "Purch. Cr. Memo Su
                 ApplicationArea = All;
                 Caption = 'WHT Product Posting Group';
                 ToolTip = 'Specifies value of the field.';
+                Visible = CheckDisableLCL;
             }
         }
     }
@@ -47,7 +48,17 @@ pageextension 80076 "YVS Purch. Credit Memo Subpage" extends "Purch. Cr. Memo Su
     var
         YVSFunctionCenter: Codeunit "YVS Function Center";
     begin
-        if rec."Return Shipment No." <> '' then
-            YVSFunctionCenter.SetDefualtGetPurchCN(rec."Return Shipment No.", Rec."Return Shipment Line No.");
+        if CheckDisableLCL then
+            if rec."Return Shipment No." <> '' then
+                YVSFunctionCenter.SetDefualtGetPurchCN(rec."Return Shipment No.", Rec."Return Shipment Line No.");
     end;
+
+    trigger OnOpenPage()
+    begin
+        CheckDisableLCL := FuncenterYVS.CheckDisableLCL();
+    end;
+
+    var
+        CheckDisableLCL: Boolean;
+        FuncenterYVS: Codeunit "YVS Function Center";
 }

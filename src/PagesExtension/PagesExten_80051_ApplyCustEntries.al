@@ -12,8 +12,4 @@ pageextension 80051 "YVS ApplyCustEntries" extends "Apply Customer Entries"
         moveafter("Document No."; "External Document No.")
 
     }
-
-
-    var
-        SalesBillingDocNo: Code[20];
 }

@@ -38,6 +38,7 @@ pageextension 80072 "YVS Purchase Invoice Lists" extends "Purchase Invoices"
                 ApplicationArea = all;
                 Caption = 'Posting Description';
                 ToolTip = 'Specifies additional posting information for the document. After you post the document, the description can add detail to vendor and customer ledger entries.';
+                Visible = CheckDisableLCL;
             }
         }
         addafter(Amount)
@@ -47,6 +48,7 @@ pageextension 80072 "YVS Purchase Invoice Lists" extends "Purchase Invoices"
                 ApplicationArea = all;
                 Caption = 'Amount Including VAT';
                 ToolTip = 'Specifies the total of the amounts, including VAT, on all the lines on the document.';
+                Visible = CheckDisableLCL;
             }
         }
         addafter("Assigned User ID")
@@ -56,18 +58,21 @@ pageextension 80072 "YVS Purchase Invoice Lists" extends "Purchase Invoices"
                 ApplicationArea = all;
                 Caption = 'Head Office';
                 ToolTip = 'Specifies the value of the Head Office field.';
+                Visible = CheckDisableLCL;
             }
             field("VAT Branch Code"; Rec."YVS VAT Branch Code")
             {
                 ApplicationArea = all;
                 Caption = 'VAT Branch Code';
                 ToolTip = 'Specifies the value of the VAT Branch Code field.';
+                Visible = CheckDisableLCL;
             }
             field("VAT Registration No."; Rec."VAT Registration No.")
             {
                 ApplicationArea = all;
                 Caption = 'VAT Registration No.';
                 ToolTip = 'Specifies the value of the VAT Registration No. field.';
+                Visible = CheckDisableLCL;
             }
         }
     }
@@ -83,6 +88,7 @@ pageextension 80072 "YVS Purchase Invoice Lists" extends "Purchase Invoices"
                 PromotedCategory = Report;
                 Promoted = true;
                 PromotedIsBig = true;
+                Visible = CheckDisableLCL;
                 ToolTip = 'Executes the AP Voucher action.';
                 trigger OnAction()
                 var
@@ -97,4 +103,12 @@ pageextension 80072 "YVS Purchase Invoice Lists" extends "Purchase Invoices"
             }
         }
     }
+    trigger OnOpenPage()
+    begin
+        CheckDisableLCL := FuncenterYVS.CheckDisableLCL();
+    end;
+
+    var
+        CheckDisableLCL: Boolean;
+        FuncenterYVS: Codeunit "YVS Function Center";
 }

@@ -20,6 +20,7 @@ pageextension 80029 "YVS General Journal" extends "General Journal"
                 ApplicationArea = all;
                 Caption = 'Require Screen Detail';
                 ToolTip = 'Specifies the value of the Require Screen Detail field.';
+                Visible = CheckDisableLCL;
             }
 
         }
@@ -42,6 +43,7 @@ pageextension 80029 "YVS General Journal" extends "General Journal"
                 ApplicationArea = All;
                 Caption = 'Journal Description';
                 ToolTip = 'Specifies the value of the Journal Description field.';
+                Visible = CheckDisableLCL;
             }
         }
         modify("Document Date")
@@ -64,6 +66,7 @@ pageextension 80029 "YVS General Journal" extends "General Journal"
                 PromotedCategory = Category9;
                 Promoted = true;
                 PromotedIsBig = true;
+                Visible = CheckDisableLCL;
                 trigger OnAction()
                 var
                     GenJnlPost: Codeunit "Gen. Jnl.-Post";
@@ -80,7 +83,7 @@ pageextension 80029 "YVS General Journal" extends "General Journal"
         }
         modify(Preview)
         {
-            Visible = false;
+            Visible = not CheckDisableLCL;
         }
 
         addfirst(processing)
@@ -92,6 +95,7 @@ pageextension 80029 "YVS General Journal" extends "General Journal"
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
+                Visible = CheckDisableLCL;
                 Caption = 'WHT Certificate';
                 ToolTip = 'Executes the WHT Certificate action.';
                 trigger OnAction()
@@ -110,6 +114,7 @@ pageextension 80029 "YVS General Journal" extends "General Journal"
                 Image = LineDescription;
                 ApplicationArea = all;
                 Promoted = true;
+                Visible = CheckDisableLCL;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
                 ToolTip = 'Executes the Show Detail VAT & Cheque & WHT action.';
@@ -188,6 +193,7 @@ pageextension 80029 "YVS General Journal" extends "General Journal"
                 ApplicationArea = all;
                 PromotedCategory = Report;
                 Promoted = true;
+                Visible = CheckDisableLCL;
                 PromotedIsBig = true;
                 ToolTip = 'Executes the Journal Voucher action.';
                 trigger OnAction()
@@ -282,12 +288,14 @@ pageextension 80029 "YVS General Journal" extends "General Journal"
     var
         WHTEader: Record "YVS WHT Header";
     begin
-        WHTEader.reset();
-        WHTEader.SetRange("Gen. Journal Template Code", rec."Journal Template Name");
-        WHTEader.SetRange("Gen. Journal Batch Code", rec."Journal Batch Name");
-        WHTEader.SetRange("Gen. Journal Line No.", rec."Line No.");
-        if WHTEader.FindFirst() then
-            WHTEader.Delete(True);
+        if CheckDisableLCL then begin
+            WHTEader.reset();
+            WHTEader.SetRange("Gen. Journal Template Code", rec."Journal Template Name");
+            WHTEader.SetRange("Gen. Journal Batch Code", rec."Journal Batch Name");
+            WHTEader.SetRange("Gen. Journal Line No.", rec."Line No.");
+            if WHTEader.FindFirst() then
+                WHTEader.Delete(True);
+        end;
     end;
 
     [IntegrationEvent(true, false)]
@@ -301,4 +309,12 @@ pageextension 80029 "YVS General Journal" extends "General Journal"
 
     end;
 
+    trigger OnOpenPage()
+    begin
+        CheckDisableLCL := FuncenterYVS.CheckDisableLCL();
+    end;
+
+    var
+        CheckDisableLCL: Boolean;
+        FuncenterYVS: Codeunit "YVS Function Center";
 }

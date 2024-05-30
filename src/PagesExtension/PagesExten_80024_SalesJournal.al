@@ -19,6 +19,7 @@ pageextension 80024 "YVS SalesJournal" extends "Sales Journal"
             {
                 ApplicationArea = All;
                 ToolTip = 'Specifies the value of the Journal Description field.';
+                Visible = CheckDisableLCL;
             }
         }
     }
@@ -31,6 +32,7 @@ pageextension 80024 "YVS SalesJournal" extends "Sales Journal"
                 ApplicationArea = Basic, Suite;
                 Caption = 'Preview Posting';
                 Image = ViewPostedOrder;
+                Visible = CheckDisableLCL;
                 ShortCutKey = 'Ctrl+Alt+F9';
                 ToolTip = 'Review the different types of entries that will be created when you post the document or journal.';
 
@@ -55,8 +57,16 @@ pageextension 80024 "YVS SalesJournal" extends "Sales Journal"
         }
         modify(Preview)
         {
-            Visible = false;
+            Visible = not CheckDisableLCL;
         }
 
     }
+    trigger OnOpenPage()
+    begin
+        CheckDisableLCL := FuncenterYVS.CheckDisableLCL();
+    end;
+
+    var
+        CheckDisableLCL: Boolean;
+        FuncenterYVS: Codeunit "YVS Function Center";
 }

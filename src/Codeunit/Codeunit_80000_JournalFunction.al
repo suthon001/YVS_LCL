@@ -10,6 +10,8 @@ codeunit 80000 "YVS Journal Function"
         GeneralLedgerEntry: record "G/L Entry";
         DocumentNoAlreadyExistsErr: Label 'Document No. %1 already exists for this G/l Entry.', Locked = true;
     begin
+        if CheckDisableLCL() then
+            exit;
         GenLine.ReadIsolation := IsolationLevel::ReadCommitted;
         GenLine.CopyFilters(GenJournalLine);
         GenLine.SetRange("Journal Template Name", GenJournalLine."Journal Template Name");
@@ -27,6 +29,8 @@ codeunit 80000 "YVS Journal Function"
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"TransferOrder-Post Shipment", 'OnAfterCreateItemJnlLine', '', false, false)]
     local procedure OnAfterCreateItemJnlLineTransferShip(var ItemJournalLine: Record "Item Journal Line"; TransferLine: Record "Transfer Line")
     begin
+        if CheckDisableLCL() then
+            exit;
         ItemJournalLine."YVS Temp. Bin Code" := TransferLine."Transfer-from Bin Code";
         ItemJournalLine."YVS Temp. New Bin Code" := TransferLine."Transfer-To Bin Code";
     end;
@@ -34,6 +38,8 @@ codeunit 80000 "YVS Journal Function"
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"TransferOrder-Post Receipt", 'OnBeforePostItemJournalLine', '', false, false)]
     local procedure OnBeforePostItemJournalLineReceipt(var ItemJournalLine: Record "Item Journal Line"; TransLine: Record "Transfer Line")
     begin
+        if CheckDisableLCL() then
+            exit;
         ItemJournalLine."YVS Temp. Bin Code" := TransLine."Transfer-from Bin Code";
         ItemJournalLine."YVS Temp. New Bin Code" := TransLine."Transfer-To Bin Code";
     end;
@@ -41,12 +47,16 @@ codeunit 80000 "YVS Journal Function"
     [EventSubscriber(ObjectType::Table, Database::"Gen. Journal Line", 'OnAfterCopyGenJnlLineFromPurchHeaderPrepmtPost', '', false, false)]
     local procedure OnAfterCopyGenJnlLineFromPurchHeaderPrepmtPost(var GenJournalLine: Record "Gen. Journal Line"; PurchaseHeader: Record "Purchase Header")
     begin
+        if CheckDisableLCL() then
+            exit;
         GenJournalLine."YVS Ref. Prepayment PO No." := PurchaseHeader."No.";
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Gen. Jnl.-Post Line", 'OnAfterInitVendLedgEntry', '', false, false)]
     local procedure OnAfterInitVendLedgEntry(var VendorLedgerEntry: Record "Vendor Ledger Entry"; GenJournalLine: Record "Gen. Journal Line")
     begin
+        if CheckDisableLCL() then
+            exit;
         if VendorLedgerEntry.Prepayment then
             VendorLedgerEntry."YVS Ref. Prepayment PO No." := GenJournalLine."YVS Ref. Prepayment PO No.";
     end;
@@ -68,6 +78,8 @@ codeunit 80000 "YVS Journal Function"
         GenJournalTemplate: Record "Gen. Journal Template";
         LastLineNo: Integer;
     begin
+        if CheckDisableLCL() then
+            exit;
         if not PreviewMode then begin
             if not GenJournalTemplate.GET(GenJournalLine."Journal Template Name") then
                 GenJournalLine.Init();
@@ -144,7 +156,8 @@ codeunit 80000 "YVS Journal Function"
     [EventSubscriber(ObjectType::Table, Database::"Gen. Journal Line", 'OnAfterCopyGenJnlLineFromSalesHeaderPrepmt', '', true, true)]
     local procedure "YVS CopyHeaderFromPropmtInvoiceBuff"(SalesHeader: Record "Sales Header"; var GenJournalLine: Record "Gen. Journal Line")
     begin
-
+        if CheckDisableLCL() then
+            exit;
         GenJournalLine."YVS Head Office" := SalesHeader."YVS Head Office";
         GenJournalLine."YVS VAT Branch Code" := SalesHeader."YVS VAT Branch Code";
         GenJournalLine."YVS Tax Invoice No." := SalesHeader."No.";
@@ -164,6 +177,8 @@ codeunit 80000 "YVS Journal Function"
     [EventSubscriber(ObjectType::Table, Database::"Gen. Journal Line", 'OnAfterCopyGenJnlLineFromPrepmtInvBuffer', '', false, false)]
     local procedure OnAfterCopyGenJnlLineFromPrepmtInvBuffer(PrepmtInvLineBuffer: Record "Prepayment Inv. Line Buffer"; var GenJournalLine: Record "Gen. Journal Line")
     begin
+        if CheckDisableLCL() then
+            exit;
         if PrepmtInvLineBuffer."YVS Tax Invoice No." <> '' then
             GenJournalLine."YVS Tax Invoice No." := PrepmtInvLineBuffer."YVS Tax Invoice No.";
         GenJournalLine."VAT Registration No." := PrepmtInvLineBuffer."YVS Vat Registration No.";
@@ -185,6 +200,8 @@ codeunit 80000 "YVS Journal Function"
     var
         SalesHeader: Record "Sales Header";
     begin
+        if CheckDisableLCL() then
+            exit;
         SalesHeader.GET(SalesLine."Document Type", SalesLine."Document No.");
         PrepaymentInvLineBuffer."YVS Tax Invoice No." := SalesHeader."Prepayment No.";
         PrepaymentInvLineBuffer."YVS Tax Invoice Name" := SalesHeader."Sell-to Customer Name";
@@ -204,6 +221,8 @@ codeunit 80000 "YVS Journal Function"
     var
         PurchHeader: Record "Purchase Header";
     begin
+        if CheckDisableLCL() then
+            exit;
         PurchHeader.GET(PurchaseLine."Document Type", PurchaseLine."Document No.");
         PrepaymentInvLineBuffer."YVS Tax Invoice No." := PurchHeader."Prepayment No.";
         PrepaymentInvLineBuffer."YVS Tax Invoice Name" := PurchHeader."Buy-from Vendor Name";
@@ -233,6 +252,8 @@ codeunit 80000 "YVS Journal Function"
     /// <param name="VATEntry">Parameter of type Record "VAT Entry".</param>
     local procedure "PostUnrealVatEntry"(GenJournalLine: Record "Gen. Journal Line"; var VATEntry: Record "VAT Entry")
     begin
+        if CheckDisableLCL() then
+            exit;
         VATEntry."YVS Tax Invoice Base" := VATEntry.Base;
         VATEntry."YVS Tax Invoice Amount" := VATEntry.Amount;
         VATEntry."YVS Tax Invoice No." := GenJournalLine."YVS Tax Invoice No.";
@@ -256,7 +277,8 @@ codeunit 80000 "YVS Journal Function"
     /// </summary>
     local procedure "CopyHeaderFromInvoiceBuff"(InvoicePostingBuffer: Record "Invoice Posting Buffer" temporary; var GenJnlLine: Record "Gen. Journal Line")
     begin
-
+        if CheckDisableLCL() then
+            exit;
         GenJnlLine."YVS Tax Invoice No." := InvoicePostingBuffer."YVS Tax Invoice No.";
         GenJnlLine."YVS Tax Invoice Date" := InvoicePostingBuffer."YVS Tax Invoice Date";
         GenJnlLine."YVS Tax Invoice Base" := InvoicePostingBuffer."YVS Tax Invoice Base";
@@ -286,7 +308,8 @@ codeunit 80000 "YVS Journal Function"
     /// </summary>
     local procedure OnAfterCopyToGenJnlLine(InvoicePostBuffer: Record "Invoice Post. Buffer" temporary; var GenJnlLine: Record "Gen. Journal Line")
     begin
-        // with GenJournalLine do begin
+        if CheckDisableLCL() then
+            exit;
         GenJnlLine."YVS Tax Invoice No." := InvoicePostBuffer."YVS Tax Invoice No.";
         GenJnlLine."YVS Tax Invoice Date" := InvoicePostBuffer."YVS Tax Invoice Date";
         GenJnlLine."YVS Tax Invoice Base" := InvoicePostBuffer."YVS Tax Invoice Base";
@@ -319,7 +342,8 @@ codeunit 80000 "YVS Journal Function"
     local procedure "CopyVatFromGenLine"(GenJournalLine: Record "Gen. Journal Line"; var VATEntry: Record "VAT Entry")
 
     begin
-
+        if CheckDisableLCL() then
+            exit;
         VATEntry."YVS Head Office" := GenJournalLine."YVS Head Office";
         VATEntry."YVS VAT Branch Code" := GenJournalLine."YVS VAT Branch Code";
         VATEntry."YVS Tax Invoice No." := GenJournalLine."YVS Tax Invoice No.";
@@ -352,6 +376,8 @@ codeunit 80000 "YVS Journal Function"
         TaxJurisdiction: Record "Tax Jurisdiction";
         UnrealizedVAT: Boolean;
     begin
+        if CheckDisableLCL() then
+            exit;
         VATPostingSetup.GET(VATEntry."VAT Bus. Posting Group", VATEntry."VAT Prod. Posting Group");
         if VATEntry."Tax Jurisdiction Code" <> '' then
             TaxJurisdiction.Get(VATEntry."Tax Jurisdiction Code");
@@ -378,6 +404,8 @@ codeunit 80000 "YVS Journal Function"
     var
         GLSetup: Record "General Ledger Setup";
     begin
+        if CheckDisableLCL() then
+            exit;
         GLSetup.GET();
         UnrealizedVAT :=
             (((VATPostingSetup."Unrealized VAT Type" > 0) and
@@ -398,6 +426,8 @@ codeunit 80000 "YVS Journal Function"
 
     local procedure IsNotPayment(DocumentType: Enum "Gen. Journal Document Type") Result: Boolean
     begin
+        if CheckDisableLCL() then
+            exit;
         Result := DocumentType in [DocumentType::Invoice,
                               DocumentType::"Credit Memo",
                               DocumentType::"Finance Charge Memo",
@@ -415,7 +445,8 @@ codeunit 80000 "YVS Journal Function"
     var
         VendCust: Record "YVS Customer & Vendor Branch";
     begin
-
+        if CheckDisableLCL() then
+            exit;
         GenJournalLine."YVS Description Line" := PurchaseHeader."Posting Description";
         GenJournalLine."YVS Journal Description" := PurchaseHeader."Posting Description";
         GenJournalLine."YVS Tax Invoice Name" := PurchaseHeader."Pay-to Name";
@@ -466,6 +497,8 @@ codeunit 80000 "YVS Journal Function"
     var
         VendCust: Record "YVS Customer & Vendor Branch";
     begin
+        if CheckDisableLCL() then
+            exit;
         GenJournalLine."YVS Tax Invoice No." := SalesHeader."No.";
         GenJournalLine."YVS Description Line" := SalesHeader."Posting Description";
         GenJournalLine."YVS Head Office" := SalesHeader."YVS Head Office";
@@ -508,6 +541,8 @@ codeunit 80000 "YVS Journal Function"
     var
         VATEntryReport: Record "YVS VAT Transections";
     begin
+        if CheckDisableLCL() then
+            exit;
         if rec.IsTemporary then
             exit;
 
@@ -525,6 +560,8 @@ codeunit 80000 "YVS Journal Function"
     /// <param name="GLEntry">Parameter of type Record "G/L Entry".</param>
     local procedure "AfterCopyGLEntryFromGenJnlLine"(var GenJournalLine: Record "Gen. Journal Line"; var GLEntry: Record "G/L Entry")
     begin
+        if CheckDisableLCL() then
+            exit;
         if GenJournalLine."YVS Description Line" <> '' then
             GLEntry."YVS Journal Description" := GenJournalLine."YVS Description Line"
         else
@@ -546,6 +583,8 @@ codeunit 80000 "YVS Journal Function"
     /// <param name="LastGenJournalLine">Parameter of type Record "Gen. Journal Line".</param>
     local procedure "OnsetUpNewLine"(var GenJournalLine: Record "Gen. Journal Line"; LastGenJournalLine: Record "Gen. Journal Line")
     begin
+        if CheckDisableLCL() then
+            exit;
         GenJournalLine."Document No." := LastGenJournalLine."Document No.";
     end;
 
@@ -557,6 +596,8 @@ codeunit 80000 "YVS Journal Function"
     /// <param name="BankAccountLedgerEntry">Parameter of type Record "Bank Account Ledger Entry".</param>
     local procedure "AfterCopyFromGen"(GenJournalLine: Record "Gen. Journal Line"; var BankAccountLedgerEntry: Record "Bank Account Ledger Entry")
     begin
+        if CheckDisableLCL() then
+            exit;
         //   with BankAccountLedgerEntry do begin
         BankAccountLedgerEntry."YVS Bank Branch No." := GenJournalLine."YVS Bank Branch No.";
         BankAccountLedgerEntry."YVS Bank Code" := GenJournalLine."YVS Bank Code";
@@ -577,6 +618,8 @@ codeunit 80000 "YVS Journal Function"
         DocNoMustBeEnteredErr: Label 'Document No. must be entered when Bank Payment Type is %1.', Comment = '%1 - option value';
         CheckAlreadyExistsErr: Label 'Check %1 already exists for this Bank Account.', Comment = '%1 - document no.';
     begin
+        if CheckDisableLCL() then
+            exit;
         if ((GenJournalLine.Amount < 0) and (GenJournalLine."Bank Payment Type" = "Bank Payment Type"::" ") and (GenJournalLine."YVS Cheque No." <> ''))
      then begin
             if GenJournalLine."Document No." = '' then
@@ -620,6 +663,8 @@ codeunit 80000 "YVS Journal Function"
     /// <param name="CheckLedgerEntry">Parameter of type Record "Check Ledger Entry".</param>
     local procedure "CopyFromBankLedger"(BankAccountLedgerEntry: Record "Bank Account Ledger Entry"; var CheckLedgerEntry: Record "Check Ledger Entry")
     begin
+        if CheckDisableLCL() then
+            exit;
         // with CheckLedgerEntry do begin
         CheckLedgerEntry."Check No." := COPYSTR(BankAccountLedgerEntry."External Document No.", 1, 20);
         CheckLedgerEntry."Check Date" := BankAccountLedgerEntry."Document Date";
@@ -647,6 +692,8 @@ codeunit 80000 "YVS Journal Function"
     var
         GenLine: Record "Gen. Journal Line";
     begin
+        if CheckDisableLCL() then
+            exit;
         // with VendorLedgerEntry do begin
         GenLine.reset();
         GenLine.SetRange("Journal Template Name", GenJournalLine."Journal Template Name");
@@ -675,7 +722,8 @@ codeunit 80000 "YVS Journal Function"
     var
         GenLine: Record "Gen. Journal Line";
     begin
-
+        if CheckDisableLCL() then
+            exit;
 
 
         GenLine.reset();
@@ -703,6 +751,8 @@ codeunit 80000 "YVS Journal Function"
     /// <param name="CustLedgerEntry">Parameter of type Record "Cust. Ledger Entry".</param>
     local procedure "OnAfterCopyCustLedgerEntryFromGenJnlLine"(GenJournalLine: Record "Gen. Journal Line"; var CustLedgerEntry: Record "Cust. Ledger Entry")
     begin
+        if CheckDisableLCL() then
+            exit;
         CustLedgerEntry."YVS Head Office" := GenJournalLine."YVS Head Office";
         CustLedgerEntry."YVS VAT Branch Code" := GenJournalLine."YVS VAT Branch Code";
     end;
@@ -715,6 +765,8 @@ codeunit 80000 "YVS Journal Function"
     /// <param name="VendorLedgerEntry">Parameter of type Record "Vendor Ledger Entry".</param>
     local procedure "OnAfterCopyVendLedgerEntryFromGenJnlLine"(GenJournalLine: Record "Gen. Journal Line"; var VendorLedgerEntry: Record "Vendor Ledger Entry")
     begin
+        if CheckDisableLCL() then
+            exit;
         VendorLedgerEntry."YVS Head Office" := GenJournalLine."YVS Head Office";
         VendorLedgerEntry."YVS VAT Branch Code" := GenJournalLine."YVS VAT Branch Code";
     end;
@@ -725,6 +777,8 @@ codeunit 80000 "YVS Journal Function"
     [EventSubscriber(ObjectType::Table, Database::"Item Journal Line", 'OnAfterSetupNewLine', '', True, true)]
     local procedure "AfterSetupNewLine"(var ItemJournalLine: Record "Item Journal Line"; var LastItemJournalLine: Record "Item Journal Line")
     begin
+        if CheckDisableLCL() then
+            exit;
         ItemJournalLine."YVS Document No. Series" := LastItemJournalLine."YVS Document No. Series";
     end;
 
@@ -739,7 +793,8 @@ codeunit 80000 "YVS Journal Function"
     /// <param name="NewItemLedgEntry">Parameter of type Record "Item Ledger Entry".</param>
     local procedure "AfterInitItemLedgEntry"(ItemJournalLine: Record "Item Journal Line"; var NewItemLedgEntry: Record "Item Ledger Entry")
     begin
-
+        if CheckDisableLCL() then
+            exit;
         NewItemLedgEntry."YVS Gen. Bus. Posting Group" := ItemJournalLine."Gen. Bus. Posting Group";
         NewItemLedgEntry."YVS Vat Bus. Posting Group" := ItemJournalLine."YVS Vat Bus. Posting Group";
         NewItemLedgEntry."YVS Vendor/Customer Name" := ItemJournalLine."YVS Vendor/Customer Name";
@@ -757,6 +812,8 @@ codeunit 80000 "YVS Journal Function"
     /// <param name="ItemJnlLine">Parameter of type Record "Item Journal Line".</param>
     local procedure "AfterCopyItemJnlLineFromSalesHeader"(SalesHeader: Record "Sales Header"; var ItemJnlLine: Record "Item Journal Line")
     begin
+        if CheckDisableLCL() then
+            exit;
         if SalesHeader."Document Type" = SalesHeader."Document Type"::Invoice then
             ItemJnlLine."Invoice No." := SalesHeader."No.";
         ItemJnlLine."YVS Vendor/Customer Name" := SalesHeader."Sell-to Customer Name";
@@ -771,6 +828,8 @@ codeunit 80000 "YVS Journal Function"
     /// <param name="ItemJnlLine">Parameter of type Record "Item Journal Line".</param>
     local procedure "AfterCopyItemJnlLineFromPurchHeader"(PurchHeader: Record "Purchase Header"; var ItemJnlLine: Record "Item Journal Line")
     begin
+        if CheckDisableLCL() then
+            exit;
         if PurchHeader."Document Type" = PurchHeader."Document Type"::Invoice then
             ItemJnlLine."Invoice No." := PurchHeader."No.";
         ItemJnlLine."YVS Vendor/Customer Name" := PurchHeader."Buy-from Vendor Name";
@@ -784,6 +843,8 @@ codeunit 80000 "YVS Journal Function"
     /// <param name="SalesLine">Parameter of type Record "Sales Line".</param>
     local procedure "OnCopyFromSalesLine"(var ItemJnlLine: Record "Item Journal Line"; SalesLine: Record "Sales Line")
     begin
+        if CheckDisableLCL() then
+            exit;
         ItemJnlLine."YVS Vat Bus. Posting Group" := SalesLine."VAT Bus. Posting Group";
         ItemJnlLine."Gen. Prod. Posting Group" := SalesLine."Gen. Prod. Posting Group";
         ItemJnlLine."Gen. Bus. Posting Group" := SalesLine."Gen. Bus. Posting Group";
@@ -800,6 +861,8 @@ codeunit 80000 "YVS Journal Function"
     /// <param name="PurchLine">Parameter of type Record "Purchase Line".</param>
     local procedure "OnCopyFromPurchLine"(var ItemJnlLine: Record "Item Journal Line"; PurchLine: Record "Purchase Line")
     begin
+        if CheckDisableLCL() then
+            exit;
         ItemJnlLine."YVS Vat Bus. Posting Group" := PurchLine."VAT Bus. Posting Group";
         ItemJnlLine."Gen. Prod. Posting Group" := PurchLine."Gen. Prod. Posting Group";
         ItemJnlLine."Gen. Bus. Posting Group" := PurchLine."Gen. Bus. Posting Group";
@@ -880,5 +943,15 @@ codeunit 80000 "YVS Journal Function"
     local procedure "YVS OnAfterCopyFromPrepaymentInvoice"(PrepaymentInvoiceBuffer: Record "Prepayment Inv. Line Buffer"; var GenLine: Record "Gen. Journal Line")
     begin
     end;
+
+    local procedure CheckDisableLCL(): Boolean
+    var
+        CompanyInfor: Record "Company Information";
+    begin
+        CompanyInfor.GET();
+        exit(CompanyInfor."YVS Disable LCL");
+    end;
+
+
 
 }

@@ -9,14 +9,23 @@ pageextension 80020 "YVS JounralBatch" extends "FA Journal Batches"
         {
             field("Document No. Series"; Rec."YVS Document No. Series")
             {
+                Visible = CheckDisableLCL;
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the Document No. Series field.';
             }
         }
         modify("No. Series")
         {
-            Visible = false;
+            Visible = NOT CheckDisableLCL;
         }
 
     }
+    trigger OnOpenPage()
+    begin
+        CheckDisableLCL := FuncenterYVS.CheckDisableLCL();
+    end;
+
+    var
+        CheckDisableLCL: Boolean;
+        FuncenterYVS: Codeunit "YVS Function Center";
 }

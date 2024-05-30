@@ -25,6 +25,7 @@ pageextension 80023 "YVS ReCurringGenJournal" extends "Recurring General Journal
                 Image = ViewPostedOrder;
                 ShortCutKey = 'Ctrl+Alt+F9';
                 ToolTip = 'Review the different types of entries that will be created when you post the document or journal.';
+                Visible = CheckDisableLCL;
                 trigger OnAction()
                 var
                     GenJnlPost: Codeunit "Gen. Jnl.-Post";
@@ -41,7 +42,7 @@ pageextension 80023 "YVS ReCurringGenJournal" extends "Recurring General Journal
         }
         modify(Preview)
         {
-            Visible = false;
+            Visible = not CheckDisableLCL;
         }
         addafter(Preview_Promoted)
         {
@@ -49,4 +50,12 @@ pageextension 80023 "YVS ReCurringGenJournal" extends "Recurring General Journal
         }
 
     }
+    trigger OnOpenPage()
+    begin
+        CheckDisableLCL := FuncenterYVS.CheckDisableLCL();
+    end;
+
+    var
+        CheckDisableLCL: Boolean;
+        FuncenterYVS: Codeunit "YVS Function Center";
 }

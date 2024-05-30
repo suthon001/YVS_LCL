@@ -11,29 +11,38 @@ pageextension 80015 "YVS GLEntry" extends "General Ledger Entries"
             {
                 ApplicationArea = All;
                 ToolTip = 'Specifies value of the field.';
+                Visible = CheckDisableLCL;
             }
 
         }
         modify("External Document No.")
         {
-            Visible = true;
+            Visible = NOT CheckDisableLCL;
         }
         modify("Gen. Bus. Posting Group")
         {
-            Visible = true;
+            Visible = NOT CheckDisableLCL;
         }
         modify("VAT Bus. Posting Group")
         {
-            Visible = true;
+            Visible = NOT CheckDisableLCL;
         }
         modify("Gen. Prod. Posting Group")
         {
-            Visible = true;
+            Visible = NOT CheckDisableLCL;
         }
         modify("VAT Prod. Posting Group")
         {
-            Visible = true;
+            Visible = NOT CheckDisableLCL;
         }
         moveafter("Journal Description"; "Gen. Bus. Posting Group", "Gen. Prod. Posting Group", "VAT Bus. Posting Group", "VAT Prod. Posting Group")
     }
+    trigger OnOpenPage()
+    begin
+        CheckDisableLCL := FuncenterYVS.CheckDisableLCL();
+    end;
+
+    var
+        CheckDisableLCL: Boolean;
+        FuncenterYVS: Codeunit "YVS Function Center";
 }

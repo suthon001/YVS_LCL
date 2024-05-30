@@ -12,6 +12,7 @@ pageextension 80005 "YVS ExtenPurchaPayablesSetup" extends "Purchases & Payables
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the Purchase VAT Nos. field.';
+                Visible = CheckDisableLCL;
             }
 
         }
@@ -21,7 +22,16 @@ pageextension 80005 "YVS ExtenPurchaPayablesSetup" extends "Purchases & Payables
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the Purchase Request Nos. field.';
+                Visible = CheckDisableLCL;
             }
         }
     }
+    trigger OnOpenPage()
+    begin
+        CheckDisableLCL := FuncenterYVS.CheckDisableLCL();
+    end;
+
+    var
+        CheckDisableLCL: Boolean;
+        FuncenterYVS: Codeunit "YVS Function Center";
 }

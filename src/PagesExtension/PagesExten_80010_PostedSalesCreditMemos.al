@@ -13,6 +13,7 @@ pageextension 80010 "YVS Posted Sales Credit Memos" extends "Posted Sales Credit
                 Image = PrintVoucher;
                 ApplicationArea = all;
                 PromotedCategory = Report;
+                Visible = CheckDisableLCL;
                 Promoted = true;
                 PromotedIsBig = true;
                 ToolTip = 'Executes the AR CN Voucher action.';
@@ -31,6 +32,7 @@ pageextension 80010 "YVS Posted Sales Credit Memos" extends "Posted Sales Credit
             {
                 ApplicationArea = All;
                 Caption = 'Sales Credit Memo';
+                Visible = CheckDisableLCL;
                 Image = PrintReport;
                 Promoted = true;
                 PromotedIsBig = true;
@@ -48,4 +50,12 @@ pageextension 80010 "YVS Posted Sales Credit Memos" extends "Posted Sales Credit
             }
         }
     }
+    trigger OnOpenPage()
+    begin
+        CheckDisableLCL := FuncenterYVS.CheckDisableLCL();
+    end;
+
+    var
+        CheckDisableLCL: Boolean;
+        FuncenterYVS: Codeunit "YVS Function Center";
 }
