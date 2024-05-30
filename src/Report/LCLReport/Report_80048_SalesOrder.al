@@ -5,7 +5,7 @@ report 80048 "YVS Report Sales Order"
 {
     Caption = 'Sales Order';
     DefaultLayout = RDLC;
-    RDLCLayout = './LayoutReport/Report_80048_SalesOrder.rdl';
+    RDLCLayout = './LayoutReport/LCLReport/Report_80048_SalesOrder.rdl';
     PreviewMode = PrintLayout;
     UsageCategory = None;
     dataset

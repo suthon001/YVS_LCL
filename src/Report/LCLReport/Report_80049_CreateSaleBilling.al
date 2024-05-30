@@ -185,7 +185,7 @@ report 81004 "YVS Create Sale Billing"
         SalesBillingLine: Record "YVS Billing Receipt Line";
 
         CustomerLedger: Record "Cust. Ledger Entry";
-        NoSeriesMgt: Codeunit NoSeriesManagement;
+        NoSeriesMgt: Codeunit "No. Series";
         DocumentNo, NoSeries : code[20];
         SalesBillingDate: Date;
         IsCreateBilling: Boolean;

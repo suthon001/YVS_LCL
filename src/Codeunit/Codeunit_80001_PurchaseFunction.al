@@ -56,7 +56,7 @@ codeunit 80001 "YVS Purchase Function"
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Quote to Order", 'OnCreatePurchHeaderOnBeforePurchOrderHeaderInsert', '', false, false)]
     local procedure OnCreatePurchHeaderOnBeforePurchOrderHeaderInsert(var PurchHeader: Record "Purchase Header"; var PurchOrderHeader: Record "Purchase Header")
     var
-        NoseriesMgt: Codeunit NoSeriesManagement;
+        NoseriesMgt: Codeunit "No. Series";
     begin
         if CheckDisableLCL() then
             exit;

@@ -5,7 +5,7 @@ report 80046 "YVS Sales Billing"
 {
     Caption = 'Sales Billing';
     DefaultLayout = RDLC;
-    RDLCLayout = './LayoutReport/Report_80046_SalesBilling.rdl';
+    RDLCLayout = './LayoutReport/LCLReport/Report_80046_SalesBilling.rdl';
     PreviewMode = PrintLayout;
     UsageCategory = None;
     dataset

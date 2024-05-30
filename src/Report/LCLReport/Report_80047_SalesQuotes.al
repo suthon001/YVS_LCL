@@ -5,7 +5,7 @@ report 80047 "YVS Report Sales Quotes"
 {
     Caption = 'Sales Quotes';
     DefaultLayout = RDLC;
-    RDLCLayout = './LayoutReport/Report_80047_SalesQuotes.rdl';
+    RDLCLayout = './LayoutReport/LCLReport/Report_80047_SalesQuotes.rdl';
     PreviewMode = PrintLayout;
     UsageCategory = None;
     dataset
