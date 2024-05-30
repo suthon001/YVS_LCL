@@ -631,10 +631,9 @@ codeunit 80005 "YVS EventFunction"
         GeneralSetup: Record "General Ledger Setup";
         ltGenJournalLine: Record "Gen. Journal Line";
         WHTHeader: Record "YVS WHT Header";
-        NosMgt: Codeunit NoSeriesManagement;
+        NosMgt: Codeunit "No. Series";
         Vendor: Record Vendor;
         WHTBusiness: Record "YVS WHT Business Posting Group";
-        NoSeriesMgt: Codeunit NoSeriesManagement;
         ltWHTAppliedEntry: Record "YVS WHT Applied Entry";
         ltWHTEntry: Record "YVS WHT Line";
         ltLineNo: Integer;
@@ -677,7 +676,7 @@ codeunit 80005 "YVS EventFunction"
                 WHTHeader.INSERT();
 
                 WHTHeader."WHT Type" := WHTBusiness."WHT Type";
-                WHTheader."WHT Certificate No." := NoSeriesMgt.GetNextNo(WHTBusiness."WHT Certificate No. Series", WorkDate(), true);
+                WHTheader."WHT Certificate No." := NosMgt.GetNextNo(WHTBusiness."WHT Certificate No. Series", WorkDate(), true);
                 WHTHeader."WHT Option" := ltWHTAppliedEntry."WHT Option";
                 if ltWHTAppliedEntry."WHT Bus. Posting Group" <> '' then
                     WHTHeader."WHT Business Posting Group" := ltWHTAppliedEntry."WHT Bus. Posting Group";

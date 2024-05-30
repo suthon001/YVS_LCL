@@ -229,7 +229,7 @@ report 80039 "YVS Recript to CashReceipt"
 
         GenTemplate: Record "Gen. Journal Template";
         GenBatch: Record "Gen. Journal Batch";
-        NosMgt: Codeunit NoSeriesManagement;
+        NosMgt: Codeunit "No. Series";
         GenJnlLine: Record "Gen. Journal Line";
         BillingLine: Record "YVS Billing Receipt Line";
 
