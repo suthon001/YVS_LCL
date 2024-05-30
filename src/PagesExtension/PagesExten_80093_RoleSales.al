@@ -19,7 +19,7 @@ pageextension 80093 "YVS Role Sales" extends "Order Processor Role Center"
         {
             group("Localized")
             {
-                Caption = 'Localized';
+                Caption = 'TH Localized';
                 group("WHT Posting Group")
                 {
                     Caption = 'VAT & WHT Posting Setup';

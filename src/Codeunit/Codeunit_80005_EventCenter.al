@@ -1117,9 +1117,10 @@ codeunit 80005 "YVS EventFunction"
                     RecRef.SetTable(BillingReceipts);
                     BillingReceipts.Status := BillingReceipts.Status::Released;
                     BillingReceipts.Modify();
+                    Handled := true;
                 end;
         end;
-        Handled := true;
+
     end;
 
 
@@ -1205,7 +1206,6 @@ codeunit 80005 "YVS EventFunction"
         workflowSetup: Codeunit "Workflow Setup";
     begin
         workflowSetup.InsertWorkflowCategory('BILLINGRECEIPT', 'Billing Receipt Workflow');
-
     end;
 
 
@@ -1281,8 +1281,6 @@ codeunit 80005 "YVS EventFunction"
     begin
         case EventFunctionName of
             RunWorkflowOnCancelBillingReceiptApprovalCode():
-
-
                 WorkflowEventHadning.AddEventPredecessor(RunWorkflowOnCancelBillingReceiptApprovalCode(), RunWorkflowOnSendBillingReceiptApprovalCode());
             WorkflowEventHadning.RunWorkflowOnApproveApprovalRequestCode():
                 WorkflowEventHadning.AddEventPredecessor(WorkflowEventHadning.RunWorkflowOnApproveApprovalRequestCode(), RunWorkflowOnSendBillingReceiptApprovalCode());

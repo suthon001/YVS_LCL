@@ -31,7 +31,7 @@ pageextension 80033 "YVS Business Manager Role" extends "Business Manager Role C
         {
             group("Localized")
             {
-                Caption = 'Localized';
+                Caption = 'TH Localized';
                 group("WHT Posting Group")
                 {
                     Caption = 'VAT & WHT Posting Setup';

@@ -11,11 +11,20 @@ pageextension 80096 "YVS FA Depreciation Books" extends "FA Depreciation Books"
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the No. of Years field.';
+                Visible = CheckDisableLCL;
             }
         }
         modify("No. of Depreciation Years")
         {
-            Visible = false;
+            Visible = NOT CheckDisableLCL;
         }
     }
+    trigger OnOpenPage()
+    begin
+        CheckDisableLCL := FuncenterYVS.CheckDisableLCL();
+    end;
+
+    var
+        CheckDisableLCL: Boolean;
+        FuncenterYVS: Codeunit "YVS Function Center";
 }

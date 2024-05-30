@@ -26,7 +26,7 @@ pageextension 80095 "YVS Role Finan" extends "Accountant Role Center"
         {
             group("Localized")
             {
-                Caption = 'Localized';
+                Caption = 'TH Localized';
                 group("WHT Posting Group")
                 {
                     Caption = 'VAT & WHT Posting Setup';

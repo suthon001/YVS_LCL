@@ -34,7 +34,7 @@ pageextension 80094 "YVS Role Purchase" extends "Purchasing Agent Role Center"
         {
             group("Localized")
             {
-                Caption = 'Localized';
+                Caption = 'TH Localized';
                 group("WHT Posting Group")
                 {
                     Caption = 'VAT & WHT Posting Setup';
