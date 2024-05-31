@@ -383,8 +383,20 @@ page 80008 "YVS WHT Certificate"
 
     trigger OnQueryClosePage(CloseAction: Action): Boolean
     begin
-        CreateWHTCertificate();
+        if FromJournal then
+            CreateWHTCertificate();
     end;
 
+    /// <summary>
+    /// RunformJournal.
+    /// </summary>
+    /// <param name="pFromJournal">Boolean.</param>
+    procedure RunformJournal(pFromJournal: Boolean)
+    begin
+        FromJournal := pFromJournal;
+    end;
+
+    var
+        FromJournal: Boolean;
 
 }

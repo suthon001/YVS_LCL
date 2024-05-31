@@ -29,13 +29,13 @@ report 80043 "YVS WHT03 Report"
                 DataItemTableView = sorting("Tax Type", "Document No.", "Entry No.");
                 DataItemLink = "Tax Type" = FIELD("Tax Type"),
                                "Document No." = FIELD("Document No.");
-
+                UseTemporary = true;
                 column(WHTDate; FORMAT(YearTxtLine)) { }
                 column(WHTNo; "WHT Certificate No.") { }
                 column(WHTName; format("Title Name") + ' ' + Name) { }
                 column(WHTAddress; Address) { }
                 column(WHTAddress2; "Address 2") { }
-                column(WHTAddress3; 'จังหวัด ' + City + ' ' + "Post Code") { }
+                column(WHTAddress3; '') { }
                 column(WHTID; "VAT Registration No.") { }
                 column(WHTHO; LineVATHO) { }
                 column(WHTBranch; WHTBranch) { }
@@ -120,14 +120,14 @@ report 80043 "YVS WHT03 Report"
                                     WHTAmount[2] := WHTEntry."VAT Amount";
                                     WhtPer[2] := WHTEntry."WHT %";
                                     IF WHTSetup.GET(WHTEntry."WHT Product Posting Group") THEN
-                                        WHTDesc[1] := WHTSetup.Description;
+                                        WHTDesc[2] := WHTSetup.Description;
                                 END ELSE
                                     IF CurrInt = 3 THEN BEGIN
                                         WHTBase[3] := WHTEntry."Base Amount";
                                         WHTAmount[3] := WHTEntry."VAT Amount";
                                         WhtPer[3] := WHTEntry."WHT %";
                                         IF WHTSetup.GET(WHTEntry."WHT Product Posting Group") THEN
-                                            WHTDesc[1] := WHTSetup.Description;
+                                            WHTDesc[3] := WHTSetup.Description;
                                     END;
                             IF SumValue THEN BEGIN
                                 BaseAmtPerPage += WHTEntry."Base Amount";
@@ -177,11 +177,29 @@ report 80043 "YVS WHT03 Report"
                     YearTxt := STRSUBSTNO('%1', "Year No.");
 
                     LineNo := 0;
+                    TaxReportLineFind.RESET();
+                    TaxReportLineFind.SetCurrentKey("Tax Type", "Document No.", "Entry No.");
+                    TaxReportLineFind.SETFILTER("Tax Type", '%1', "Tax Type");
+                    TaxReportLineFind.SETFILTER("Document No.", '%1', "Document No.");
+                    if TaxReportLineFind.FindSet() then
+                        repeat
+                            "WHT Transaction".reset();
+                            "WHT Transaction".SetRange("Tax Type", TaxReportLineFind."Tax Type");
+                            "WHT Transaction".SetRange("Document No.", TaxReportLineFind."Document No.");
+                            "WHT Transaction".SetFilter("WHT Document No.", TaxReportLineFind."WHT Document No.");
+                            if not "WHT Transaction".FindFirst() then begin
+                                "WHT Transaction".Init();
+                                "WHT Transaction".TransferFields(TaxReportLineFind);
+                                "WHT Transaction".insert();
+                            end;
+                        until TaxReportLineFind.Next() = 0;
+                    "WHT Transaction".reset();
                 end;
             end;
         }
     }
     var
+        TaxReportLineFind: Record "YVS Tax & WHT Line";
         LocalFunction: Codeunit "YVS Function Center";
         MonTxt: Text[250];
         YearTxt: Text[250];
