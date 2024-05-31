@@ -692,7 +692,9 @@ Table 80011 "YVS Billing Receipt Header"
     procedure CalDiffAmt()
     begin
         TestStatusOpen();
-        rec."Diff Amount (LCY)" := rec."Receive & Payment Amount" - rec."Bank Fee Amount (LCY)" - rec."Prepaid WHT Amount (LCY)" - rec.Amount;
+        rec.CalcFields(Amount);
+        //   rec."Diff Amount (LCY)" := rec."Receive & Payment Amount" - rec."Bank Fee Amount (LCY)" - rec."Prepaid WHT Amount (LCY)" - rec.Amount;
+        rec."Diff Amount (LCY)" := rec.Amount - (rec."Receive & Payment Amount" + rec."Prepaid WHT Amount (LCY)")
     end;
 
     var

@@ -309,6 +309,27 @@ tableextension 80050 "YVS ExtenPostedGenLines" extends "Posted Gen. Journal Line
             CalcFormula = lookup("Gen. Journal Template".Type where(Name = field("Journal Template Name")));
             Caption = 'Template Source Type';
         }
+        field(80053; "YVS Ref. Billing & Receipt No."; code[30])
+        {
+            Editable = false;
+            DataClassification = CustomerContent;
+            Caption = 'Ref. Billing & Receipt No.';
+
+        }
+        field(80055; "YVS Ref. Receipt WHT No."; code[20])
+        {
+            Editable = false;
+            DataClassification = CustomerContent;
+            Caption = 'Ref. Receipt WHT No.';
+
+        }
+        field(80056; "YVS Ref. Receipt WHT Date"; Date)
+        {
+            Editable = false;
+            DataClassification = CustomerContent;
+            Caption = 'Ref. Receipt WHT Date';
+
+        }
 
 
     }

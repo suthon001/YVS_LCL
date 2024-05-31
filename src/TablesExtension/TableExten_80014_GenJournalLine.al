@@ -510,6 +510,20 @@ tableextension 80014 "YVS GenJournal Lines" extends "Gen. Journal Line"
             Caption = 'Ref. Prepayment PO No.';
 
         }
+        field(80055; "YVS Ref. Receipt WHT No."; code[20])
+        {
+            Editable = false;
+            DataClassification = CustomerContent;
+            Caption = 'Ref. Receipt WHT No.';
+
+        }
+        field(80056; "YVS Ref. Receipt WHT Date"; Date)
+        {
+            Editable = false;
+            DataClassification = CustomerContent;
+            Caption = 'Ref. Receipt WHT Date';
+
+        }
         modify("External Document No.")
         {
             trigger OnAfterValidate()

@@ -176,6 +176,11 @@ page 80008 "YVS WHT Certificate"
                     ApplicationArea = all;
                     ToolTip = 'Specifies the value of the ชื่ออาคาร/หมู่บ้าน field.';
                 }
+                field("YVS WHT House No."; rec."WHT House No.")
+                {
+                    ApplicationArea = all;
+                    ToolTip = 'Specifies the value of the เลขที่ห้อง field.';
+                }
                 field("YVS WHT of No."; rec."WHT of No.")
                 {
                     ApplicationArea = all;
@@ -192,11 +197,7 @@ page 80008 "YVS WHT Certificate"
                     ToolTip = 'Specifies the value of the ชั้น field.';
                 }
 
-                field("YVS WHT House No."; rec."WHT House No.")
-                {
-                    ApplicationArea = all;
-                    ToolTip = 'Specifies the value of the เลขที่ห้อง field.';
-                }
+
                 field("YVS WHT Street"; rec."WHT Street")
                 {
                     ApplicationArea = all;

@@ -18,10 +18,8 @@ report 80039 "YVS Recript to CashReceipt"
             trigger OnAfterGetRecord()
             var
                 CustLedgEntry: Record "Cust. Ledger Entry";
-                DiffAmt: Decimal;
             begin
 
-                DiffAmt := 0;
                 BillingHeader.GET("Document Type", "No.");
                 TestField("Journal Template Name");
                 TestField("Journal Batch Name");
@@ -32,11 +30,13 @@ report 80039 "YVS Recript to CashReceipt"
                 GenTemplate.GET("Journal Template Name");
                 GenBatch.GET("Journal Template Name", "Journal Batch Name");
                 CALCFIELDS("Amount");
-                DiffAmt := "Receive & Payment Amount" - "Bank Fee Amount (LCY)" - "Prepaid WHT Amount (LCY)" - "Amount";
-                IF DiffAmt <> 0 THEN
+                IF "Diff Amount (LCY)" <> 0 THEN
                     TESTFIELD("Diff Amount Acc.");
-                IF "Prepaid WHT Amount (LCY)" <> 0 THEN
+                IF "Prepaid WHT Amount (LCY)" <> 0 THEN begin
                     TESTFIELD("Prepaid WHT Acc.");
+                    TestField("Prepaid WHT Date");
+                    TestField("Prepaid WHT No.");
+                end;
                 IF "Bank Fee Amount (LCY)" <> 0 THEN
                     TESTFIELD("Bank Fee Acc.");
 
@@ -108,6 +108,9 @@ report 80039 "YVS Recript to CashReceipt"
                     GenJnlLine.VALIDATE("Document Date", "Prepaid WHT Date");
                     GenJnlLine.VALIDATE("External Document No.", "Prepaid WHT No.");
                     GenJnlLine.VALIDATE("Amount", "Prepaid WHT Amount (LCY)");
+                    GenJnlLine."YVS Require Screen Detail" := GenJnlLine."YVS Require Screen Detail"::WHT;
+                    GenJnlLine."YVS Ref. Receipt WHT No." := "Prepaid WHT No.";
+                    GenJnlLine."YVS Ref. Receipt WHT Date" := "Prepaid WHT Date";
                     GenJnlLine."YVS Ref. Billing & Receipt No." := "No.";
                     GenJnlLine."YVS Create By" := COPYSTR(UserId(), 1, 50);
                     GenJnlLine."YVS Create DateTime" := CurrentDateTime();

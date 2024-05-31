@@ -194,7 +194,6 @@ pageextension 80031 "YVS Receipt Journal" extends "Cash Receipt Journal"
                                     ShowDetailCheque.RunModal();
                                     CLEAR(ShowDetailCheque);
                                 end;
-
                             rec."YVS Require Screen Detail"::VAT:
                                 begin
                                     ShowDetailVAT.SetTableView(GenLineDetail);
@@ -211,6 +210,11 @@ pageextension 80031 "YVS Receipt Journal" extends "Cash Receipt Journal"
                                         GenLine2.SetRange("Account Type", GenLine2."Account Type"::Customer);
                                         if GenLine2.FindFirst() then
                                             if Cust.get(GenLine2."Account No.") then begin
+                                                if rec."YVS Ref. Billing & Receipt No." <> '' then begin
+                                                    rec."YVS WHT Document No." := rec."YVS Ref. Receipt WHT No.";
+                                                    rec."YVS WHT Date" := rec."YVS Ref. Receipt WHT Date";
+                                                    rec."YVS WHT Amount" := abs(rec.Amount);
+                                                end;
                                                 Rec."YVS WHT Cust/Vend No." := Cust."No.";
                                                 Rec."YVS WHT Name" := Cust.Name;
                                                 Rec."YVS WHT Name 2" := Cust."Name 2";
@@ -250,12 +254,13 @@ pageextension 80031 "YVS Receipt Journal" extends "Cash Receipt Journal"
     var
         PurchaseBilling: Record "YVS Billing Receipt Header";
     begin
-        if rec."YVS Ref. Billing & Receipt No." <> '' then
-            if PurchaseBilling.GET(PurchaseBilling."Document Type"::"Sales Receipt", rec."YVS Ref. Billing & Receipt No.") then begin
-                PurchaseBilling."Status" := PurchaseBilling."Status"::Released;
-                PurchaseBilling."Create to Journal" := false;
-                PurchaseBilling.Modify();
-            end;
+        if CheckDisableLCL then
+            if rec."YVS Ref. Billing & Receipt No." <> '' then
+                if PurchaseBilling.GET(PurchaseBilling."Document Type"::"Sales Receipt", rec."YVS Ref. Billing & Receipt No.") then begin
+                    PurchaseBilling."Status" := PurchaseBilling."Status"::Released;
+                    PurchaseBilling."Create to Journal" := false;
+                    PurchaseBilling.Modify();
+                end;
     end;
     /// <summary>
     /// SetDocumnet.
