@@ -57,5 +57,10 @@ page 80002 "YVS WHT Product Posting Group"
             }
         }
     }
-
+    trigger OnOpenPage()
+    var
+        YVSFunctionCen: Codeunit "YVS Function Center";
+    begin
+        YVSFunctionCen.CheckLCLBeforOpenPage();
+    end;
 }

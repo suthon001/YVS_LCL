@@ -38,5 +38,10 @@ page 80003 "YVS WHT Posting Setup"
             }
         }
     }
-
+    trigger OnOpenPage()
+    var
+        YVSFunctionCen: Codeunit "YVS Function Center";
+    begin
+        YVSFunctionCen.CheckLCLBeforOpenPage();
+    end;
 }

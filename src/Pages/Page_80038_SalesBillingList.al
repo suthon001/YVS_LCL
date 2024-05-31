@@ -179,4 +179,10 @@ page 80038 "YVS Sales Billing List"
         }
 
     }
+    trigger OnOpenPage()
+    var
+        YVSFunctionCen: Codeunit "YVS Function Center";
+    begin
+        YVSFunctionCen.CheckLCLBeforOpenPage();
+    end;
 }

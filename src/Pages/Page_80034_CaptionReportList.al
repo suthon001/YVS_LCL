@@ -33,4 +33,10 @@ page 80034 "YVS Caption Report List"
             }
         }
     }
+    trigger OnOpenPage()
+    var
+        YVSFunctionCen: Codeunit "YVS Function Center";
+    begin
+        YVSFunctionCen.CheckLCLBeforOpenPage();
+    end;
 }

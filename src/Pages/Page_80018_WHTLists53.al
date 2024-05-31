@@ -55,5 +55,10 @@ page 80018 "YVS WHT53 Lists"
             }
         }
     }
-
+    trigger OnOpenPage()
+    var
+        YVSFunctionCen: Codeunit "YVS Function Center";
+    begin
+        YVSFunctionCen.CheckLCLBeforOpenPage();
+    end;
 }

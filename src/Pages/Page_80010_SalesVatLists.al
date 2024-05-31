@@ -61,5 +61,11 @@ page 80010 "YVS Sales Vat Lists"
             }
         }
     }
+    trigger OnOpenPage()
+    var
+        YVSFunctionCen: Codeunit "YVS Function Center";
+    begin
+        YVSFunctionCen.CheckLCLBeforOpenPage();
+    end;
 
 }

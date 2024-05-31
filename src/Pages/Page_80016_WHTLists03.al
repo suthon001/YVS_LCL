@@ -56,5 +56,10 @@ page 80016 "YVS WHT Lists"
             }
         }
     }
-
+    trigger OnOpenPage()
+    var
+        YVSFunctionCen: Codeunit "YVS Function Center";
+    begin
+        YVSFunctionCen.CheckLCLBeforOpenPage();
+    end;
 }

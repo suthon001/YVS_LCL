@@ -159,4 +159,10 @@ page 80032 "YVS Vat Transaction Entries"
             }
         }
     }
+    trigger OnOpenPage()
+    var
+        YVSFunctionCen: Codeunit "YVS Function Center";
+    begin
+        YVSFunctionCen.CheckLCLBeforOpenPage();
+    end;
 }

@@ -3011,6 +3011,17 @@ codeunit 80004 "YVS Function Center"
         exit(NOT CompanyInfor."YVS Disable LCL");
     end;
 
+    /// <summary>
+    /// CheckLCLBeforOpenPage.
+    /// </summary>
+    procedure CheckLCLBeforOpenPage()
+    var
+        CompanyInfor: Record "Company Information";
+    begin
+        CompanyInfor.GET();
+        CompanyInfor.TestField("YVS Disable LCL", false);
+    end;
+
 
     var
         BillingLine: Record "YVS Billing Receipt Line";

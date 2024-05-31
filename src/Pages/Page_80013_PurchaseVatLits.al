@@ -61,5 +61,10 @@ page 80013 "YVS Purchase Vat Lists"
             }
         }
     }
-
+    trigger OnOpenPage()
+    var
+        YVSFunctionCen: Codeunit "YVS Function Center";
+    begin
+        YVSFunctionCen.CheckLCLBeforOpenPage();
+    end;
 }

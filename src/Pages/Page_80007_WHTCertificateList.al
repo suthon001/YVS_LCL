@@ -93,4 +93,10 @@ page 80007 "YVS WHT Certificate List"
             }
         }
     }
+    trigger OnOpenPage()
+    var
+        YVSFunctionCen: Codeunit "YVS Function Center";
+    begin
+        YVSFunctionCen.CheckLCLBeforOpenPage();
+    end;
 }

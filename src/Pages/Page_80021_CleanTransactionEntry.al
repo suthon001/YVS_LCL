@@ -128,7 +128,9 @@ page 80021 "YVS Clean Transaction Entry"
     trigger OnOpenPage()
     var
         AccessControl: Record "Access Control";
+        YVSFunctionCen: Codeunit "YVS Function Center";
     begin
+        YVSFunctionCen.CheckLCLBeforOpenPage();
         company := CompanyName;
         AccessControl.reset();
         AccessControl.SetRange("User Name", UserId);

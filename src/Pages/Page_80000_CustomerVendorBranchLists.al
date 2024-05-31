@@ -155,4 +155,10 @@ page 80000 "YVS Cust. & Vendor BranchLists"
             }
         }
     }
+    trigger OnOpenPage()
+    var
+        YVSFunctionCen: Codeunit "YVS Function Center";
+    begin
+        YVSFunctionCen.CheckLCLBeforOpenPage();
+    end;
 }

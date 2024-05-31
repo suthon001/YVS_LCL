@@ -562,11 +562,16 @@ page 80035 "YVS Purchase Requests"
     end;
 
     trigger OnOpenPage()
+    var
+        YVSFunctionCen: Codeunit "YVS Function Center";
     begin
+        YVSFunctionCen.CheckLCLBeforOpenPage();
         rec.SetSecurityFilterOnRespCenter();
 
         rec.CopyBuyFromVendorFilter();
     end;
+
+
 
     var
         OpenApprovalEntriesExist: Boolean;

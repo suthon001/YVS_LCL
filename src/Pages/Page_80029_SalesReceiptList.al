@@ -151,27 +151,32 @@ page 80029 "YVS Sales Receipt List"
     {
         area(Reporting)
         {
-            // action("Sales Receipt")
-            // {
-            //     Caption = 'Sales Receipt';
-            //     Image = PrintReport;
-            //     ApplicationArea = all;
-            //     PromotedCategory = Report;
-            //     Promoted = true;
-            //     PromotedIsBig = true;
-            //     ToolTip = 'Executes the Sales Receipt action.';
-            //     trigger OnAction()
-            //     var
+            action("Sales Receipt")
+            {
+                Caption = 'Sales Receipt';
+                Image = PrintReport;
+                ApplicationArea = all;
+                PromotedCategory = Report;
+                Promoted = true;
+                PromotedIsBig = true;
+                ToolTip = 'Executes the Sales Receipt action.';
+                trigger OnAction()
+                var
 
-            //         BillingReceiptHeader: Record "YVS Billing Receipt Header";
-            //     begin
-            //         BillingReceiptHeader.reset();
-            //         BillingReceiptHeader.SetRange("Document Type", rec."Document Type");
-            //         BillingReceiptHeader.SetRange("No.", rec."No.");
-            //         REPORT.RunModal(REPORT::"YVS Sales Receipt", true, true, BillingReceiptHeader);
-            //     end;
-            // }
+                    BillingReceiptHeader: Record "YVS Billing Receipt Header";
+                begin
+                    BillingReceiptHeader.reset();
+                    BillingReceiptHeader.SetRange("Document Type", rec."Document Type");
+                    BillingReceiptHeader.SetRange("No.", rec."No.");
+                    REPORT.RunModal(REPORT::"YVS Sales Receipt", true, true, BillingReceiptHeader);
+                end;
+            }
         }
     }
-
+    trigger OnOpenPage()
+    var
+        YVSFunctionCen: Codeunit "YVS Function Center";
+    begin
+        YVSFunctionCen.CheckLCLBeforOpenPage();
+    end;
 }
