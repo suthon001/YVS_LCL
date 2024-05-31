@@ -88,7 +88,7 @@ tableextension 80001 "YVS ExtenVendor" extends Vendor
         }
         field(80009; "YVS WHT House No."; Text[50])
         {
-            Caption = 'เลขที่ห้อง';
+            Caption = 'บ้านเลขที่';
             DataClassification = CustomerContent;
         }
         field(80010; "YVS WHT Village No."; Text[15])
@@ -123,7 +123,7 @@ tableextension 80001 "YVS ExtenVendor" extends Vendor
         }
         field(80014; "YVS WHT No."; code[20])
         {
-            Caption = 'เลขที่';
+            Caption = 'เลขที่ห้อง';
             DataClassification = CustomerContent;
         }
         field(80015; "YVS WHT Name"; text[100])
