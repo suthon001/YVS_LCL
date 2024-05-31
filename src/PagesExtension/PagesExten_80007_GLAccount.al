@@ -17,7 +17,7 @@ pageextension 80007 "YVS ExtenGLAccount" extends "G/L Account Card"
         }
         modify("Direct Posting")
         {
-            Visible = NOT CheckDisableLCL;
+            Visible = true;
         }
         moveafter(Name; "Direct Posting")
 
