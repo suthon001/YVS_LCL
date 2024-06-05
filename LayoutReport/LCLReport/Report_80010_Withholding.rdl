@@ -1624,7 +1624,7 @@
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value>=Fields!Address_TaxReportLine.Value + " " + Fields!Address2_TaxReportLine.Value + " " + Fields!City_TaxReportLine.Value + " " + Fields!PostCode_TaxReportLine.Value + " " + Fields!County_TaxReportLine.Value</Value>
+                                  <Value>=Fields!Address_TaxReportLine.Value + " " + Fields!Address2_TaxReportLine.Value</Value>
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
                                     <FontSize>7pt</FontSize>
@@ -2374,7 +2374,7 @@
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value>=Fields!Address_TaxReportLine.Value + " " + Fields!Address2_TaxReportLine.Value + " " + Fields!City_TaxReportLine.Value + " " + Fields!PostCode_TaxReportLine.Value + " " + Fields!County_TaxReportLine.Value</Value>
+                                  <Value>=Fields!Address_TaxReportLine.Value + " " + Fields!Address2_TaxReportLine.Value</Value>
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
                                     <FontSize>7pt</FontSize>
