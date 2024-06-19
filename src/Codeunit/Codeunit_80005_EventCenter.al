@@ -1171,6 +1171,7 @@ codeunit 80005 "YVS EventFunction"
                         ApprovalEntryArgument.Amount := BillingReceipt.Amount;
                         ApprovalEntryArgument."Amount (LCY)" := BillingReceipt.Amount;
                     end;
+                    ApprovalEntryArgument."Document No." := BillingReceipt."No.";
                 end;
 
         end;
