@@ -1161,11 +1161,16 @@ codeunit 80005 "YVS EventFunction"
                 begin
                     RecRef.SetTable(BillingReceipt);
                     BillingReceipt.CalcFields(Amount);
-                    if BillingReceipt."Document Type" = BillingReceipt."Document Type"::"Sales Receipt" then
+                    if BillingReceipt."Document Type" = BillingReceipt."Document Type"::"Sales Receipt" then begin
                         ApprovalEntryArgument."Document Type" := ApprovalEntryArgument."Document Type"::"YVS Sales Receipt";
-                    if BillingReceipt."Document Type" = BillingReceipt."Document Type"::"Sales Billing" then
+                        ApprovalEntryArgument.Amount := BillingReceipt."Receive & Payment Amount";
+                        ApprovalEntryArgument."Amount (LCY)" := BillingReceipt."Receive & Payment Amount";
+                    end;
+                    if BillingReceipt."Document Type" = BillingReceipt."Document Type"::"Sales Billing" then begin
                         ApprovalEntryArgument."Document Type" := ApprovalEntryArgument."Document Type"::"YVS Sales Billing";
-                    ApprovalEntryArgument.Amount := BillingReceipt.Amount;
+                        ApprovalEntryArgument.Amount := BillingReceipt.Amount;
+                        ApprovalEntryArgument."Amount (LCY)" := BillingReceipt.Amount;
+                    end;
                 end;
 
         end;
