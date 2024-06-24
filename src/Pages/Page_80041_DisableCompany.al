@@ -95,7 +95,7 @@ page 80041 "YVS Disable Company"
     var
         CompanyInfomation: Record "Company Information";
     begin
-        CompanyInfomation.ChangeCompany(CompanyInfomation.Name);
+        CompanyInfomation.ChangeCompany(rec.Name);
         CompanyInfomation.GET();
         gvDisableLCL := CompanyInfomation."YVS Disable LCL";
     end;
