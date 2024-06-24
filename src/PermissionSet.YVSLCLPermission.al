@@ -67,6 +67,7 @@ permissionset 80000 "YVS LCL Permission"
         page "YVS Purchase Vat Card" = X,
         page "YVS Purchase Vat Subpage" = X,
         page "YVS WHT Lists" = X,
+        page "YVS Disable Company" = X,
         page "YVS WHT Card" = X,
         page "YVS WHT53 Lists" = X,
         page "YVS WHT53 Card" = X,
