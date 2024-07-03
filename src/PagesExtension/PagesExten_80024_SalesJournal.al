@@ -7,11 +7,21 @@ pageextension 80024 "YVS SalesJournal" extends "Sales Journal"
     {
         modify("Document No.")
         {
-            trigger OnAssistEdit()
-            begin
-                if Rec."AssistEdit"(xRec) then
-                    CurrPage.Update();
-            end;
+            Visible = NOT CheckDisableLCL;
+        }
+        addafter("Document No.")
+        {
+            field("YVS Document No."; rec."Document No.")
+            {
+                ApplicationArea = all;
+                Visible = CheckDisableLCL;
+                ToolTip = 'Specifies the value of the Document No. field.';
+                trigger OnAssistEdit()
+                begin
+                    if Rec."AssistEdit"(xRec) then
+                        CurrPage.Update();
+                end;
+            }
         }
         addafter(Description)
         {

@@ -7,11 +7,21 @@ pageextension 80043 "YVS Item Journal" extends "Item Journal"
     {
         modify("Document No.")
         {
-            trigger OnAssistEdit()
-            begin
-                if Rec."AssistEdit"(xRec) then
-                    CurrPage.Update();
-            end;
+            Visible = NOT CheckDisableLCL;
+        }
+        addafter("Document No.")
+        {
+            field("YVS Document No."; rec."Document No.")
+            {
+                ApplicationArea = all;
+                Visible = CheckDisableLCL;
+                ToolTip = 'Specifies the value of the Document No. field.';
+                trigger OnAssistEdit()
+                begin
+                    if Rec."AssistEdit"(xRec) then
+                        CurrPage.Update();
+                end;
+            }
         }
         modify("Gen. Bus. Posting Group")
         {

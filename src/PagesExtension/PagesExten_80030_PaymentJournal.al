@@ -8,14 +8,14 @@ pageextension 80030 "YVS Payment Journal" extends "Payment Journal"
     {
         modify("Document No.")
         {
-            Visible = CheckDisableLCL;
+            Visible = NOT CheckDisableLCL;
         }
         addafter("Document No.")
         {
             field("YVS Document No."; rec."Document No.")
             {
                 ApplicationArea = all;
-                Visible = NOT CheckDisableLCL;
+                Visible = CheckDisableLCL;
                 ToolTip = 'Specifies the value of the Document No. field.';
                 trigger OnAssistEdit()
                 begin
