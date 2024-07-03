@@ -7,11 +7,21 @@ pageextension 80029 "YVS General Journal" extends "General Journal"
     {
         modify("Document No.")
         {
-            trigger OnAssistEdit()
-            begin
-                if Rec."AssistEdit"(xRec) then
-                    CurrPage.Update();
-            end;
+            Visible = CheckDisableLCL;
+        }
+        addafter("Document No.")
+        {
+            field("YVS Document No."; rec."Document No.")
+            {
+                ApplicationArea = all;
+                Visible = NOT CheckDisableLCL;
+                ToolTip = 'Specifies the value of the Document No. field.';
+                trigger OnAssistEdit()
+                begin
+                    if Rec."AssistEdit"(xRec) then
+                        CurrPage.Update();
+                end;
+            }
         }
         addafter("VAT Amount")
         {
