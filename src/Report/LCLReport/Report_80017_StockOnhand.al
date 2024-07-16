@@ -15,7 +15,7 @@ report 80017 "YVS Stock On hand"
     {
         dataitem("Item Ledger Entry"; "Item Ledger Entry")
         {
-            DataItemTableView = SORTING("Item No.", "Location Code");
+            DataItemTableView = SORTING("Item No.", "Location Code") where("Remaining Quantity" = filter(<> 0), Open = const(true));
             RequestFilterFields = "Item No.", "Location Code", "Expiration Date";
             column(currDateTime; CurrentDateTime()) { }
             column(ItemNo_ItemLedgerEntry; "Item Ledger Entry"."Item No.")
@@ -27,7 +27,7 @@ report 80017 "YVS Stock On hand"
             column(LocationCode_ItemLedgerEntry; "Item Ledger Entry"."Location Code")
             {
             }
-            column(Quantity_ItemLedgerEntry; "Item Ledger Entry".Quantity)
+            column(Quantity_ItemLedgerEntry; "Item Ledger Entry"."Remaining Quantity")
             {
             }
             column(ExpirationDate_ItemLedgerEntry; "Item Ledger Entry"."Expiration Date")
