@@ -158,6 +158,20 @@ page 80017 "YVS WHT Card"
         area(Reporting)
         {
 
+            action("Export PND")
+            {
+                Caption = 'Export PND';
+                ApplicationArea = all;
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+                Image = ExportFile;
+                ToolTip = 'Executes the Export PND action.';
+                trigger OnAction()
+                begin
+                    rec."ExportPND"();
+                end;
+            }
 
             action("Wighholding Report")
             {
