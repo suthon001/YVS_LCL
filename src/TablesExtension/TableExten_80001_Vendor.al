@@ -131,6 +131,11 @@ tableextension 80001 "YVS ExtenVendor" extends Vendor
             Caption = 'ชื่อ';
             DataClassification = CustomerContent;
         }
+        field(80016; "YVS No. 2"; code[20])
+        {
+            Caption = 'No. 2';
+            DataClassification = CustomerContent;
+        }
         modify(Name)
         {
             trigger OnAfterValidate()

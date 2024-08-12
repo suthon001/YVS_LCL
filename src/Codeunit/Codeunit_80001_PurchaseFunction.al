@@ -430,12 +430,12 @@ codeunit 80001 "YVS Purchase Function"
         end;
     end;
 
-    [BusinessEvent(false)]
+    [IntegrationEvent(false, false)]
     local procedure "YVS OnBeforInsertWHTAPPLY"(var pWHTAppentry: Record "YVS WHT Applied Entry"; pPurchaseHeader: Record "Purchase Header"; pPurchaseLine: Record "Purchase Line")
     begin
     end;
 
-    [BusinessEvent(false)]
+    [IntegrationEvent(false, false)]
     local procedure OnbeforInsertWHTAPPLY(var PurchaseHeader: Record "Purchase Header"; var PurchaseLine: Record "Purchase Line")
     begin
     end;

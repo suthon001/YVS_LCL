@@ -871,8 +871,18 @@ codeunit 80005 "YVS EventFunction"
             NewReportId := report::"YVS Purchase Receipt";
         if ReportId = Report::"Purchase - Return Shipment" then
             NewReportId := report::"YVS Purchase - Return Shipment";
-
-
+        if ReportId = Report::"Phys. Inventory List" then
+            NewReportId := report::"YVS Phys. Inventory List";
+        if ReportId = Report::"Assembly Order" then
+            NewReportId := report::"YVS Assembly Order";
+        if ReportId = Report::"Posted Assembly Order" then
+            NewReportId := report::"YVS Posted Assembly Order";
+        if ReportId = Report::"Return Order" then
+            NewReportId := report::"YVS Return Order";
+        if ReportId = Report::"Sales - Shipment" then
+            NewReportId := report::"YVS Sales - Shipment";
+        if ReportId = Report::"Pick Instruction" then
+            NewReportId := report::"YVS Pick Instruction";
     end;
 
     /// <summary>

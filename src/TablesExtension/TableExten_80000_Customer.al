@@ -56,6 +56,11 @@ tableextension 80000 "YVS ExtenCustomer" extends Customer
             TableRelation = "YVS WHT Business Posting Group"."Code";
             DataClassification = CustomerContent;
         }
+        field(80003; "YVS No. 2"; code[20])
+        {
+            Caption = 'No. 2';
+            DataClassification = CustomerContent;
+        }
         modify(Name)
         {
             trigger OnAfterValidate()

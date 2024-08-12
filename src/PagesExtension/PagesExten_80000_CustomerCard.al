@@ -5,6 +5,7 @@ pageextension 80000 "YVS ExtenCustomer Card" extends "Customer Card"
 {
     layout
     {
+
         addlast(General)
         {
 
@@ -39,11 +40,21 @@ pageextension 80000 "YVS ExtenCustomer Card" extends "Customer Card"
             }
         }
         moveafter("VAT Branch Code"; "VAT Registration No.")
+        addafter("No.")
+        {
+            field("YVS No. 2"; rec."YVS No. 2")
+            {
+                ApplicationArea = all;
+                Visible = CheckDisableLCL;
+                ToolTip = 'Specifies the value of the No. 2 field.';
+            }
+        }
         modify("No.")
         {
             Visible = true;
             Importance = Promoted;
         }
+
         modify(Control10)
         {
             Visible = NOT CheckDisableLCL;

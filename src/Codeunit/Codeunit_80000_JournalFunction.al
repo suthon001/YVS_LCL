@@ -917,7 +917,7 @@ codeunit 80000 "YVS Journal Function"
     begin
     end;
 
-    [BusinessEvent(false)]
+    [IntegrationEvent(false, false)]
     local procedure OnBeforInsertWHTAPPLYGL()
     begin
     end;

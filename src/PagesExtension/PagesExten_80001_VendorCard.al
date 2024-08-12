@@ -126,6 +126,15 @@ pageextension 80001 "YVS ExtenVendor Card" extends "Vendor Card"
 
             }
         }
+        addafter("No.")
+        {
+            field("YVS No. 2"; rec."YVS No. 2")
+            {
+                ApplicationArea = all;
+                Visible = CheckDisableLCL;
+                ToolTip = 'Specifies the value of the No. 2 field.';
+            }
+        }
         modify(Control199)
         {
             Visible = NOT CheckDisableLCL;

@@ -6,11 +6,25 @@ codeunit 80004 "YVS Function Center"
 
     Permissions = tabledata "G/L Entry" = rimd, tabledata "Purch. Rcpt. Line" = imd, tabledata "Return Shipment Line" = imd, tabledata "Sales Shipment Line" = imd;
 
+    procedure GetUserName(pUserSecurityID: Guid): Text
+    var
+        User: Record User;
+    begin
+        User.GET(pUserSecurityID);
+        exit(user."User Name");
+    end;
+
+    procedure GetDateTime(pDateTime: DateTime): date
+    begin
+        exit(DT2Date(pDateTime));
+    end;
     /// <summary>
     /// SetDefualtGetInvoiceSales.
     /// </summary>
-    /// <param name="pShipNo">code[20].</param>
-    /// <param name="pShipLineNo">integer.</param>
+    /// <param name="DimCaptionThai1">VAR text.</param>
+    /// <param name="DimCaptionEng1">VAR text.</param>
+    /// <param name="DimCaptionThai2">VAR text.</param>
+    /// <param name="DimCaptionEng2">VAR text.</param>
     procedure GetGlobalDimCaption(var DimCaptionThai1: text; var DimCaptionEng1: text; var DimCaptionThai2: text; var DimCaptionEng2: text)
     var
         GeneralSetup: Record "General Ledger Setup";
