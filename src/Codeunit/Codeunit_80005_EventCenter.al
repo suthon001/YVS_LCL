@@ -4,6 +4,14 @@
 codeunit 80005 "YVS EventFunction"
 {
     Permissions = TableData "G/L Entry" = rimd, tabledata "Purch. Rcpt. Line" = imd, tabledata "Return Shipment Line" = imd, tabledata "Sales Shipment Line" = imd;
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Enum Assignment Management", 'OnGetPurchApprovalDocumentType', '', false, false)]
+    local procedure OnGetPurchApprovalDocumentType(PurchDocumentType: Enum "Purchase Document Type"; var ApprovalDocumentType: Enum "Approval Document Type"; var IsHandled: Boolean)
+    begin
+        if PurchDocumentType = PurchDocumentType::"YVS Purchase Request" then begin
+            ApprovalDocumentType := ApprovalDocumentType::"YVS Purchase Request";
+            IsHandled := true;
+        end;
+    end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Gen. Jnl.-Post Batch", 'OnBeforeCheckGenPostingType', '', false, false)]
     local procedure OnBeforeCheckGenPostingType(var IsHandled: Boolean; GenJnlLine: Record "Gen. Journal Line"; AccountType: Enum "Gen. Journal Account Type")

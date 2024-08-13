@@ -13,6 +13,10 @@ report 80024 "YVS PurchaseOrder"
         {
             DataItemTableView = sorting("Document Type", "No.");
             RequestFilterFields = "Document Type", "No.";
+            column(SplitApproveDate_1; ApproveDate[1]) { }
+            column(SplitApproveDate_2; ApproveDate[2]) { }
+            column(SplitApproveDate_3; ApproveDate[3]) { }
+            column(ApproveBy; ApproveBy) { }
             column(Shortcut_Dimension_1_Code; "Shortcut Dimension 1 Code") { }
             column(companyInfor_Picture; companyInfor.Picture) { }
             column(PostingDate; format("Posting Date", 0, '<Day,2>/<Month,2>/<Year4>')) { }
@@ -109,6 +113,7 @@ report 80024 "YVS PurchaseOrder"
             var
                 NewDate: Date;
                 PurchaseCommentDocType: Enum "Purchase Comment Document Type";
+                ApprovedEntry: Record "Approval Entry";
             begin
                 if "Currency Code" = '' then
                     FunctionCenter."CompanyinformationByVat"(ComText, "VAT Bus. Posting Group", false)
@@ -132,6 +137,21 @@ report 80024 "YVS PurchaseOrder"
                 SplitDate[3] := Format(NewDate, 0, '<Year4>');
                 if not PaymentTerm.GET("Payment Terms Code") then
                     PaymentTerm.init();
+
+                if Status = Status::Released then begin
+                    ApprovedEntry.reset();
+                    ApprovedEntry.SetCurrentKey("Entry No.");
+                    ApprovedEntry.SetRange("Document Type", "Document Type");
+                    ApprovedEntry.SetRange("Document No.", "No.");
+                    ApprovedEntry.SetRange(Status, ApprovedEntry.Status::Approved);
+                    if ApprovedEntry.FindLast() then begin
+                        ApproveBy := ApprovedEntry."Approver ID";
+                        NewDate := DT2Date(ApprovedEntry."Last Date-Time Modified");
+                        ApproveDate[1] := Format(NewDate, 0, '<Day,2>');
+                        ApproveDate[2] := Format(NewDate, 0, '<Month,2>');
+                        ApproveDate[3] := Format(NewDate, 0, '<Year4>');
+                    end;
+                end;
             end;
         }
     }
@@ -144,7 +164,7 @@ report 80024 "YVS PurchaseOrder"
         ExchangeRate: Text[30];
         ComText: array[10] Of Text[250];
         VendText: array[10] Of Text[250];
-        SplitDate: Array[3] of Text[20];
+        SplitDate, ApproveDate : Array[3] of Text[20];
         AmtText: Text[1024];
         TotalAmt: array[100] of Decimal;
         CommentText: Array[100] of Text[250];
@@ -152,6 +172,8 @@ report 80024 "YVS PurchaseOrder"
         LineNo: Integer;
         LotSeriesNo: Code[50];
         PaymentTerm: Record "Payment Terms";
+
+        ApproveBy: Text;
 
 
 }

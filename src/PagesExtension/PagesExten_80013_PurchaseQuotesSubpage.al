@@ -38,6 +38,16 @@ pageextension 80013 "YVS Purchase Quotes Subpage" extends "Purchase Quote Subfor
                 Visible = CheckDisableLCL;
             }
         }
+        addafter("Location Code")
+        {
+            field("Bin Code"; "Bin Code")
+            {
+                ApplicationArea = all;
+                ToolTip = 'Specifies the value of the Bin Code field.';
+            }
+        }
+
+
 
     }
     trigger OnOpenPage()

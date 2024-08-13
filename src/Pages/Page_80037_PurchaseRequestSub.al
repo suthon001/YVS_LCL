@@ -73,6 +73,12 @@ page 80037 "YVS Purchase Request Sub."
                     Enabled = NOT IsBlankNumber;
                     ToolTip = 'Specifies a code for the location where you want to receive the items.';
                 }
+                field("Bin Code"; Rec."Bin Code")
+                {
+                    ApplicationArea = Warehouse;
+                    ToolTip = 'Specifies the bin where the items are picked or put away.';
+                    Visible = true;
+                }
                 field("Gen. Bus. Posting Group"; Rec."Gen. Bus. Posting Group")
                 {
                     ApplicationArea = Suite;
