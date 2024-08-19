@@ -8,9 +8,8 @@ codeunit 80005 "YVS EventFunction"
     [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnAfterAppliesToDocNoOnLookup', '', false, false)]
     local procedure OnAfterAppliesToDocNoOnLookup(CustLedgerEntry: Record "Cust. Ledger Entry"; var SalesHeader: Record "Sales Header")
     begin
-        CustLedgerEntry.CalcFields(Amount);
         SalesHeader."YVS Ref. Tax Invoice Date" := CustLedgerEntry."Document Date";
-        SalesHeader."YVS Ref. Tax Invoice Amount" := CustLedgerEntry.Amount;
+        SalesHeader."YVS Ref. Tax Invoice Amount" := CustLedgerEntry."Sales (LCY)";
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Enum Assignment Management", 'OnGetPurchApprovalDocumentType', '', false, false)]
