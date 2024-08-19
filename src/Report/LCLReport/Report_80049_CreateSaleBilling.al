@@ -24,7 +24,7 @@ report 81004 "YVS Create Sale Billing"
                     ltRemainingAmt: Decimal;
 
                 begin
-                    if "Remaining Amount" > "YVS Billing Amount" then begin
+                    if ABS("Remaining Amount") > ABS("YVS Billing Amount") then begin
                         ltRemainingAmt := 0;
                         SalesBillingLine.Init();
                         SalesBillingLine."Document Type" := SalesBillingLine."Document Type"::"Sales Billing";

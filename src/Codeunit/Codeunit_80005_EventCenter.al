@@ -4,6 +4,15 @@
 codeunit 80005 "YVS EventFunction"
 {
     Permissions = TableData "G/L Entry" = rimd, tabledata "Purch. Rcpt. Line" = imd, tabledata "Return Shipment Line" = imd, tabledata "Sales Shipment Line" = imd;
+
+    [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnAfterAppliesToDocNoOnLookup', '', false, false)]
+    local procedure OnAfterAppliesToDocNoOnLookup(CustLedgerEntry: Record "Cust. Ledger Entry"; var SalesHeader: Record "Sales Header")
+    begin
+        CustLedgerEntry.CalcFields(Amount);
+        SalesHeader."YVS Ref. Tax Invoice Date" := CustLedgerEntry."Document Date";
+        SalesHeader."YVS Ref. Tax Invoice Amount" := CustLedgerEntry.Amount;
+    end;
+
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Enum Assignment Management", 'OnGetPurchApprovalDocumentType', '', false, false)]
     local procedure OnGetPurchApprovalDocumentType(PurchDocumentType: Enum "Purchase Document Type"; var ApprovalDocumentType: Enum "Approval Document Type"; var IsHandled: Boolean)
     begin
