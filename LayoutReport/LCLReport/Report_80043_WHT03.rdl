@@ -31,13 +31,13 @@
                   <Width>1.13654cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.62849cm</Width>
+                  <Width>1.36391cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.3982cm</Width>
+                  <Width>3.11616cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.0191cm</Width>
+                  <Width>0.80743cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.90677cm</Width>
@@ -858,7 +858,22 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>วันเดือนปีที่จ่าย</Value>
+                                  <Value>วันเดือนปี</Value>
+                                  <Style>
+                                    <FontFamily>Tahoma</FontFamily>
+                                    <FontSize>7pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>ที่จ่าย</Value>
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
                                     <FontSize>7pt</FontSize>
@@ -902,7 +917,22 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>ประภทเงินได้พึงประเมินจ่าย</Value>
+                                  <Value>ประเภทเงินได้พึง</Value>
+                                  <Style>
+                                    <FontFamily>Tahoma</FontFamily>
+                                    <FontSize>7pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>ประเมินจ่าย</Value>
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
                                     <FontSize>7pt</FontSize>
@@ -3897,7 +3927,7 @@
             <DataSetName>DataSet_Result</DataSetName>
             <Top>0.0125in</Top>
             <Height>7.40349cm</Height>
-            <Width>19.89236cm</Width>
+            <Width>20.13407cm</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -3913,7 +3943,7 @@
         <Height>7.43524cm</Height>
         <Style />
       </Body>
-      <Width>19.89236cm</Width>
+      <Width>20.27518cm</Width>
       <Page>
         <PageHeader>
           <Height>2.11724cm</Height>
@@ -4132,7 +4162,7 @@
               <Top>0.01042in</Top>
               <Left>14.82477cm</Left>
               <Height>0.6cm</Height>
-              <Width>5.06759cm</Width>
+              <Width>5.3093cm</Width>
               <ZIndex>5</ZIndex>
               <Style>
                 <Border>
@@ -4772,7 +4802,7 @@
               <Top>0cm</Top>
               <Left>12.46493cm</Left>
               <Height>6.72042cm</Height>
-              <Width>7.42743cm</Width>
+              <Width>7.66914cm</Width>
               <ZIndex>1</ZIndex>
               <Style>
                 <Border>
@@ -4811,7 +4841,7 @@
         <PageHeight>29.7cm</PageHeight>
         <PageWidth>21cm</PageWidth>
         <LeftMargin>0.6cm</LeftMargin>
-        <RightMargin>0.4cm</RightMargin>
+        <RightMargin>0cm</RightMargin>
         <TopMargin>1cm</TopMargin>
         <BottomMargin>1cm</BottomMargin>
         <ColumnSpacing>1.27cm</ColumnSpacing>

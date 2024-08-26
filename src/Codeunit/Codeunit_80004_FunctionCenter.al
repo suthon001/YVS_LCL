@@ -315,6 +315,7 @@ codeunit 80004 "YVS Function Center"
                     pTotalAmount := pTotalAmount + TempltGLEntry."Debit Amount";
                 until TempGLEntry.next() = 0;
             TempltGLEntry.reset();
+            TempltGLEntry.SetFilter(Amount, '<>%1', 0);
             pTempGLEntry.Copy(TempltGLEntry, true);
         end;
     end;
@@ -420,6 +421,7 @@ codeunit 80004 "YVS Function Center"
                     pTotalAmount := pTotalAmount + TempltGLEntry."Debit Amount";
                 until TempGLEntry.next() = 0;
             TempltGLEntry.reset();
+            TempltGLEntry.SetFilter(Amount, '<>%1', 0);
             pTempGLEntry.Copy(TempltGLEntry, true);
         end;
     end;
@@ -519,6 +521,7 @@ codeunit 80004 "YVS Function Center"
                     pTotalAmount := pTotalAmount + TempltGLEntry."Debit Amount";
                 until ltGlEntry.next() = 0;
             TempltGLEntry.reset();
+            TempltGLEntry.SetFilter(Amount, '<>%1', 0);
             pTempGLEntry.Copy(TempltGLEntry, true);
         end;
     end;

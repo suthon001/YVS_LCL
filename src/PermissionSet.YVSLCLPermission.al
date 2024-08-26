@@ -176,5 +176,6 @@ permissionset 80000 "YVS LCL Permission"
         report "YVS Sales - Shipment" = X,
         report "YVS Pick Instruction" = X,
         report "YVS Assembly Order" = X,
-        report "YVS Phys. Inventory List" = X;
+        report "YVS Phys. Inventory List" = X,
+        report "YVS Bank Account Statement" = X;
 }

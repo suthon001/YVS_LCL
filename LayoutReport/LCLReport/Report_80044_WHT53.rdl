@@ -31,13 +31,13 @@
                   <Width>1.13654cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.62849cm</Width>
+                  <Width>1.18399cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.3982cm</Width>
+                  <Width>3.05437cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.0191cm</Width>
+                  <Width>0.80743cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.90677cm</Width>
@@ -858,7 +858,22 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>วันเดือนปีที่จ่าย</Value>
+                                  <Value>วันเดือนปี</Value>
+                                  <Style>
+                                    <FontFamily>Tahoma</FontFamily>
+                                    <FontSize>7pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>ที่จ่าย</Value>
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
                                     <FontSize>7pt</FontSize>
@@ -902,7 +917,22 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>ประภทเงินได้พึงประเมินจ่าย</Value>
+                                  <Value>ประเภทเงินได้พึง</Value>
+                                  <Style>
+                                    <FontFamily>Tahoma</FontFamily>
+                                    <FontSize>7pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>ประเมินจ่าย</Value>
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
                                     <FontSize>7pt</FontSize>
@@ -3141,7 +3171,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value>3% ค่าบริการ (ค่าไรก็ไม่รู้)</Value>
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
                                     <FontSize>7pt</FontSize>
@@ -3913,7 +3943,7 @@
         <Height>7.43524cm</Height>
         <Style />
       </Body>
-      <Width>19.89236cm</Width>
+      <Width>19.93469cm</Width>
       <Page>
         <PageHeader>
           <Height>2.11724cm</Height>
@@ -4811,7 +4841,6 @@
         <PageHeight>29.7cm</PageHeight>
         <PageWidth>21cm</PageWidth>
         <LeftMargin>0.6cm</LeftMargin>
-        <RightMargin>0.4cm</RightMargin>
         <TopMargin>1cm</TopMargin>
         <BottomMargin>1cm</BottomMargin>
         <ColumnSpacing>1.27cm</ColumnSpacing>
