@@ -1,15 +1,18 @@
+/// <summary>
+/// Report YVS Calculate Depreciation (ID 80009).
+/// </summary>
 report 80009 "YVS Calculate Depreciation"
 {
     ApplicationArea = all;
     Caption = 'Calculate Depreciation';
     ProcessingOnly = true;
-    UsageCategory = Tasks;
+    UsageCategory = None;
     dataset
     {
 
         dataitem("Fixed Asset"; "Fixed Asset")
         {
-            RequestFilterFields = "No.", "FA Class Code", "FA Subclass Code", "Budgeted Asset";
+            RequestFilterFields = "No.", "FA Class Code", "FA Subclass Code", "Budgeted Asset", Acquired;
             trigger OnPreDataItem()
             begin
                 GeneralLedgerSetup.GET();
@@ -268,6 +271,11 @@ report 80009 "YVS Calculate Depreciation"
                 DeprBookCode := FASetup."Default Depr. Book";
             end;
         end;
+
+        trigger OnInit()
+        begin
+            "Fixed Asset".SetRange(Acquired, true);
+        end;
     }
 
     labels
@@ -337,6 +345,7 @@ report 80009 "YVS Calculate Depreciation"
        Text005);
     end;
 
+
     var
         GeneralLedgerSetup: Record "General Ledger Setup";
         Text000: Label 'You must specify %1.';
@@ -399,6 +408,17 @@ report 80009 "YVS Calculate Depreciation"
             ErrorMessageMgt.Activate(ErrorMessageHandler);
     end;
 
+    /// <summary>
+    /// InitializeRequest.
+    /// </summary>
+    /// <param name="DeprBookCodeFrom">Code[10].</param>
+    /// <param name="DeprUntilDateFrom">Date.</param>
+    /// <param name="UseForceNoOfDaysFrom">Boolean.</param>
+    /// <param name="DaysInPeriodFrom">Integer.</param>
+    /// <param name="PostingDateFrom">Date.</param>
+    /// <param name="DocumentNoFrom">Code[20].</param>
+    /// <param name="PostingDescriptionFrom">Text[100].</param>
+    /// <param name="BalAccountFrom">Boolean.</param>
     procedure InitializeRequest(DeprBookCodeFrom: Code[10]; DeprUntilDateFrom: Date; UseForceNoOfDaysFrom: Boolean; DaysInPeriodFrom: Integer; PostingDateFrom: Date; DocumentNoFrom: Code[20]; PostingDescriptionFrom: Text[100]; BalAccountFrom: Boolean)
     begin
         DeprBookCode := DeprBookCodeFrom;

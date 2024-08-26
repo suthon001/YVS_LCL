@@ -1992,7 +1992,7 @@
             </TablixRowHierarchy>
             <DataSetName>DataSet_Result</DataSetName>
             <Top>0.075in</Top>
-            <Left>0.16056in</Left>
+            <Left>0.12306in</Left>
             <Height>1.4335in</Height>
             <Width>7.82185in</Width>
             <Style>
@@ -2010,7 +2010,7 @@
           </Border>
         </Style>
       </Body>
-      <Width>20.30177cm</Width>
+      <Width>20.22239cm</Width>
       <Page>
         <PageHeader>
           <Height>5.07683cm</Height>
@@ -2038,7 +2038,7 @@
               </Paragraphs>
               <rd:DefaultName>Name_CompanyInformation</rd:DefaultName>
               <Top>0.91541in</Top>
-              <Left>1.50708in</Left>
+              <Left>1.48208in</Left>
               <Height>0.23958in</Height>
               <Width>4.33478in</Width>
               <Style>
@@ -2068,7 +2068,7 @@
               </Paragraphs>
               <rd:DefaultName>TotalPages</rd:DefaultName>
               <Top>0.21125in</Top>
-              <Left>7.01331in</Left>
+              <Left>6.98831in</Left>
               <Height>0.36111in</Height>
               <Width>0.94826in</Width>
               <ZIndex>1</ZIndex>
@@ -2101,7 +2101,7 @@
               </Paragraphs>
               <rd:DefaultName>Address_CompanyInformation</rd:DefaultName>
               <Top>1.43277in</Top>
-              <Left>1.50708in</Left>
+              <Left>1.48208in</Left>
               <Height>0.25in</Height>
               <Width>4.33478in</Width>
               <ZIndex>2</ZIndex>
@@ -2137,7 +2137,7 @@
               </Paragraphs>
               <rd:DefaultName>Textbox11</rd:DefaultName>
               <Top>0.18625in</Top>
-              <Left>1.51919in</Left>
+              <Left>1.49419in</Left>
               <Height>0.33333in</Height>
               <Width>4.5625in</Width>
               <ZIndex>3</ZIndex>
@@ -2171,7 +2171,7 @@
               </Paragraphs>
               <rd:DefaultName>Textbox13</rd:DefaultName>
               <Top>0.90499in</Top>
-              <Left>0.16056in</Left>
+              <Left>0.13556in</Left>
               <Height>0.25in</Height>
               <Width>1.33263in</Width>
               <ZIndex>4</ZIndex>
@@ -2204,7 +2204,7 @@
               </Paragraphs>
               <rd:DefaultName>Name_CompanyInformation1</rd:DefaultName>
               <Top>1.16888in</Top>
-              <Left>1.50708in</Left>
+              <Left>1.48208in</Left>
               <Height>0.25in</Height>
               <Width>4.33478in</Width>
               <ZIndex>5</ZIndex>
@@ -2238,7 +2238,7 @@
               </Paragraphs>
               <rd:DefaultName>Textbox13</rd:DefaultName>
               <Top>1.15499in</Top>
-              <Left>0.16056in</Left>
+              <Left>0.13556in</Left>
               <Height>0.25in</Height>
               <Width>1.33263in</Width>
               <ZIndex>6</ZIndex>
@@ -2272,7 +2272,7 @@
               </Paragraphs>
               <rd:DefaultName>Textbox13</rd:DefaultName>
               <Top>1.40499in</Top>
-              <Left>0.16056in</Left>
+              <Left>0.13556in</Left>
               <Height>0.25in</Height>
               <Width>1.33263in</Width>
               <ZIndex>7</ZIndex>
@@ -2308,7 +2308,7 @@
               </Paragraphs>
               <rd:DefaultName>Textbox13</rd:DefaultName>
               <Top>0.51958in</Top>
-              <Left>2.54225in</Left>
+              <Left>2.51725in</Left>
               <Height>0.25in</Height>
               <Width>0.59722in</Width>
               <ZIndex>8</ZIndex>
@@ -2344,7 +2344,7 @@
               </Paragraphs>
               <rd:DefaultName>Textbox13</rd:DefaultName>
               <Top>0.51958in</Top>
-              <Left>4.18189in</Left>
+              <Left>4.15689in</Left>
               <Height>0.25in</Height>
               <Width>0.35764in</Width>
               <ZIndex>9</ZIndex>
@@ -2378,7 +2378,7 @@
               </Paragraphs>
               <rd:DefaultName>Textbox13</rd:DefaultName>
               <Top>0.96736in</Top>
-              <Left>6.2863in</Left>
+              <Left>6.2613in</Left>
               <Height>0.25in</Height>
               <Width>1.67527in</Width>
               <ZIndex>10</ZIndex>
@@ -2414,7 +2414,7 @@
               </Paragraphs>
               <rd:DefaultName>YesrPS</rd:DefaultName>
               <Top>0.51958in</Top>
-              <Left>4.61607in</Left>
+              <Left>4.59107in</Left>
               <Height>0.25in</Height>
               <Width>0.48958in</Width>
               <ZIndex>11</ZIndex>
@@ -2449,7 +2449,7 @@
               </Paragraphs>
               <rd:DefaultName>MonthName_TaxReportHeader</rd:DefaultName>
               <Top>0.51958in</Top>
-              <Left>3.15336in</Left>
+              <Left>3.12836in</Left>
               <Height>0.25in</Height>
               <Width>1in</Width>
               <ZIndex>12</ZIndex>
@@ -2482,7 +2482,7 @@
               </Paragraphs>
               <rd:DefaultName>VATRegistrationNo_CompanyInformation</rd:DefaultName>
               <Top>1.21736in</Top>
-              <Left>6.2863in</Left>
+              <Left>6.2613in</Left>
               <Height>0.25in</Height>
               <Width>1.67527in</Width>
               <ZIndex>13</ZIndex>
@@ -2529,7 +2529,7 @@
               </Paragraphs>
               <rd:DefaultName>VATRegistrationNo_CompanyInformation</rd:DefaultName>
               <Top>1.46736in</Top>
-              <Left>6.2863in</Left>
+              <Left>6.2613in</Left>
               <Height>0.40291in</Height>
               <Width>1.67527in</Width>
               <ZIndex>14</ZIndex>
@@ -2562,7 +2562,7 @@
               </Paragraphs>
               <rd:DefaultName>Address_CompanyInformation</rd:DefaultName>
               <Top>1.62027in</Top>
-              <Left>1.50708in</Left>
+              <Left>1.48208in</Left>
               <Height>0.25in</Height>
               <Width>4.33478in</Width>
               <ZIndex>15</ZIndex>
