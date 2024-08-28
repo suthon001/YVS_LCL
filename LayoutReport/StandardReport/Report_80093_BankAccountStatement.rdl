@@ -8759,6 +8759,12 @@ End Function
         <Field Name="Outstanding_Check_AmountCaption">
           <DataField>Outstanding_Check_AmountCaption</DataField>
         </Field>
+        <Field Name="Statement_No_BnkAcStmtLine">
+          <DataField>Statement_No_BnkAcStmtLine</DataField>
+        </Field>
+        <Field Name="Statement_Line_No_BnkAcStmtLine">
+          <DataField>Statement_Line_No_BnkAcStmtLine</DataField>
+        </Field>
         <Field Name="TrnsctnDte_BnkAcStmtLin">
           <DataField>TrnsctnDte_BnkAcStmtLin</DataField>
         </Field>
