@@ -5,6 +5,21 @@ codeunit 80005 "YVS EventFunction"
 {
     Permissions = TableData "G/L Entry" = rimd, tabledata "Purch. Rcpt. Line" = imd, tabledata "Return Shipment Line" = imd, tabledata "Sales Shipment Line" = imd;
 
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Copy Document Mgt.", 'OnAfterCopySalesDocument', '', false, false)]
+    local procedure OnAfterCopySalesDocument(var ToSalesHeader: Record "Sales Header")
+    var
+        SalesInvoice: Record "Sales Invoice Header";
+    begin
+        if ToSalesHeader."Document Type" = ToSalesHeader."Document Type"::"Credit Memo" then
+            if ToSalesHeader."Applies-to Doc. No." <> '' then
+                if SalesInvoice.GET(ToSalesHeader."Applies-to Doc. No.") then begin
+                    SalesInvoice.CalcFields(Amount);
+                    ToSalesHeader."YVS Ref. Tax Invoice Date" := SalesInvoice."Document Date";
+                    ToSalesHeader."YVS Ref. Tax Invoice Amount" := SalesInvoice.Amount;
+                    ToSalesHeader.Modify();
+                end;
+    end;
+
     [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnAfterAppliesToDocNoOnLookup', '', false, false)]
     local procedure OnAfterAppliesToDocNoOnLookup(CustLedgerEntry: Record "Cust. Ledger Entry"; var SalesHeader: Record "Sales Header")
     var

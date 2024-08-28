@@ -145,6 +145,19 @@ tableextension 80012 "YVS ExtenSales Header" extends "Sales Header"
                     "YVS Head Office" := true;
             end;
         }
+        modify("Applies-to Doc. No.")
+        {
+            trigger OnAfterValidate()
+            var
+                SalesInvoice: Record "Sales Invoice Header";
+            begin
+                if not SalesInvoice.GET(rec."Applies-to Doc. No.") then
+                    SalesInvoice.Init();
+                SalesInvoice.CalcFields(Amount);
+                SalesHeader."YVS Ref. Tax Invoice Date" := SalesInvoice."Document Date";
+                SalesHeader."YVS Ref. Tax Invoice Amount" := SalesInvoice.Amount;
+            end;
+        }
 
     }
 
