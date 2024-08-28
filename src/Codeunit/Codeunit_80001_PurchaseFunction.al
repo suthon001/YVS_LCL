@@ -90,6 +90,7 @@ codeunit 80001 "YVS Purchase Function"
                         LastLineNo := LastLineNo + 10000;
                         WHTAppEntry.init();
                         WHTAppEntry."Document No." := PurchaseLine."Document No.";
+                        WHTAppEntry."WHT Document No." := PurchaseLine."Document No.";
                         WHTAppEntry."Document Line No." := PurchaseLine."Line No.";
                         WHTAppEntry."Entry Type" := WHTAppEntry."Entry Type"::Initial;
                         WHTAppEntry."Line No." := LastLineNo;

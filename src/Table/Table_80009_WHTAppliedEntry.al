@@ -122,10 +122,15 @@ table 80009 "YVS WHT Applied Entry"
             Editable = false;
 
         }
+        field(23; "WHT Document No."; Code[30])
+        {
+            Caption = 'WHT Document No.';
+            DataClassification = CustomerContent;
+        }
     }
     keys
     {
-        key(Key1; "Document No.", "Document Line No.", "Line No.")
+        key(Key1; "Document No.", "WHT Document No.", "Document Line No.", "Line No.")
         {
             Clustered = true;
         }

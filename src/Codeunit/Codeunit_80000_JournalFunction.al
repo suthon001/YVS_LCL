@@ -107,6 +107,7 @@ codeunit 80000 "YVS Journal Function"
                                 LastLineNo := LastLineNo + 10000;
                                 WHTAppEntry.init();
                                 WHTAppEntry."Document No." := GenJnlLine2."Document No.";
+                                WHTAppEntry."WHT Document No." := GenJnlLine2."YVS WHT Document No.";
                                 WHTAppEntry."Document Line No." := WHTLines."WHT Line No.";
                                 WHTAppEntry."Entry Type" := WHTAppEntry."Entry Type"::Applied;
                                 WHTAppEntry."Line No." := LastLineNo;

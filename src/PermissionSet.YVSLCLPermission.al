@@ -1,3 +1,6 @@
+/// <summary>
+/// Unknown YVS LCL Permission (ID 80000).
+/// </summary>
 permissionset 80000 "YVS LCL Permission"
 {
     Assignable = true;

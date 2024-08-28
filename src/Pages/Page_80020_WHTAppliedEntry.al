@@ -24,6 +24,11 @@ page 80020 "YVS WHT Applied Entry"
                     ApplicationArea = all;
                     ToolTip = 'Specifies the value of the Document No. field.';
                 }
+                field("WHT Document No."; rec."WHT Document No.")
+                {
+                    ApplicationArea = all;
+                    ToolTip = 'Specifies the value of the WHT Document No. field.';
+                }
                 field("Entry Type"; Rec."Entry Type")
                 {
                     ApplicationArea = all;
@@ -112,6 +117,11 @@ page 80020 "YVS WHT Applied Entry"
             }
         }
     }
+
+    /// <summary>
+    /// Set.
+    /// </summary>
+    /// <param name="TempWhtAppliedEntry">Temporary VAR Record "YVS WHT Applied Entry".</param>
     procedure Set(var TempWhtAppliedEntry: Record "YVS WHT Applied Entry" temporary)
     begin
         if TempWhtAppliedEntry.FindSet() then
