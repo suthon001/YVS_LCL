@@ -15,6 +15,10 @@ report 80038 "YVS Sales Receipt"
             DataItemTableView = sorting("Document Type", "No.");
             RequestFilterFields = "Document Type", "No.";
             CalcFields = "Amount (LCY)", "Amount";
+            column(SplitApproveDate_1; ApproveDate[1]) { }
+            column(SplitApproveDate_2; ApproveDate[2]) { }
+            column(SplitApproveDate_3; ApproveDate[3]) { }
+            column(ApproveBy; ApproveBy) { }
             column(companyInfor_Picture; companyInfor.Picture) { }
             column(PostingDate; format("Posting Date", 0, '<Day,2>/<Month,2>/<Year4>')) { }
             column(DocumentDate; format("Document Date", 0, '<Day,2>/<Month,2>/<Year4>')) { }
@@ -95,6 +99,7 @@ report 80038 "YVS Sales Receipt"
 
             trigger OnAfterGetRecord()
             var
+                ApprovedEntry: Record "Approval Entry";
                 NewDate: Date;
 
             begin
@@ -108,6 +113,22 @@ report 80038 "YVS Sales Receipt"
                 SplitDate[1] := Format(NewDate, 0, '<Day,2>');
                 SplitDate[2] := Format(NewDate, 0, '<Month,2>');
                 SplitDate[3] := Format(NewDate, 0, '<Year4>');
+
+                if Status = Status::Released then begin
+                    ApprovedEntry.reset();
+                    ApprovedEntry.SetCurrentKey("Entry No.");
+                    ApprovedEntry.SetRange("Document Type", ApprovedEntry."Document Type"::"YVS Sales Receipt");
+                    ApprovedEntry.SetRange("Document No.", "No.");
+                    ApprovedEntry.SetRange(Status, ApprovedEntry.Status::Approved);
+                    if ApprovedEntry.FindLast() then begin
+                        ApproveBy := ApprovedEntry."Approver ID";
+                        NewDate := DT2Date(ApprovedEntry."Last Date-Time Modified");
+                        ApproveDate[1] := Format(NewDate, 0, '<Day,2>');
+                        ApproveDate[2] := Format(NewDate, 0, '<Month,2>');
+                        ApproveDate[3] := Format(NewDate, 0, '<Year4>');
+                    end;
+                end;
+
                 if not PaymentTerm.GET("Payment Terms Code") then
                     PaymentTerm.init();
 
@@ -192,12 +213,13 @@ report 80038 "YVS Sales Receipt"
         companyInfor: Record "Company Information";
         ExchangeRate: Text[30];
         BankName, BankBranchNo : Text;
-        SplitDate: Array[3] of Text[20];
+        SplitDate, ApproveDate : Array[3] of Text[20];
         AmtText, OriginalCaption : Text;
         PaymentTerm: Record "Payment Terms";
         PaymentMethodMark: array[3] of text[50];
 
         NoOfCopies, LineNo : Integer;
         CaptionOptionEng, CaptionOptionThai : Text[50];
+        ApproveBy: Text;
 
 }

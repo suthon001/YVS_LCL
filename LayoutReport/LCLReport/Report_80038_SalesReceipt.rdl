@@ -2527,6 +2527,18 @@ End Function
   <DataSets>
     <DataSet Name="DataSet_Result">
       <Fields>
+        <Field Name="SplitApproveDate_1">
+          <DataField>SplitApproveDate_1</DataField>
+        </Field>
+        <Field Name="SplitApproveDate_2">
+          <DataField>SplitApproveDate_2</DataField>
+        </Field>
+        <Field Name="SplitApproveDate_3">
+          <DataField>SplitApproveDate_3</DataField>
+        </Field>
+        <Field Name="ApproveBy">
+          <DataField>ApproveBy</DataField>
+        </Field>
         <Field Name="companyInfor_Picture">
           <DataField>companyInfor_Picture</DataField>
         </Field>

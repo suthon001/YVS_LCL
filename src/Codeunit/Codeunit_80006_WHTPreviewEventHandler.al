@@ -42,7 +42,6 @@ codeunit 80006 "WHT Preview Event Handler"
             exit;
         if Rec.IsTemporary() then
             exit;
-        PostingPreviewEventHandler.PreventCommit();
         TempWHTApplied := Rec;
         TempWHTApplied.Insert();
     end;
