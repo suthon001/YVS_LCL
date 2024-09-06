@@ -66,6 +66,13 @@ pageextension 80093 "YVS Role Sales" extends "Order Processor Role Center"
                         RunObject = page "VAT Posting Setup";
                         ToolTip = 'Executes the VAT Posting Setup action.';
                     }
+                    action("LCL Wizard Setup")
+                    {
+                        Caption = 'LCL Wizard Setup';
+                        ApplicationArea = all;
+                        RunObject = page "YVS LCL Wizard Setup";
+                        ToolTip = 'Executes the LCL Wizard Setup action.';
+                    }
                 }
                 group("Tax Report")
                 {

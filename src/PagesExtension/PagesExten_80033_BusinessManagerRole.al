@@ -78,6 +78,13 @@ pageextension 80033 "YVS Business Manager Role" extends "Business Manager Role C
                         RunObject = page "VAT Posting Setup";
                         ToolTip = 'Executes the VAT Posting Setup action.';
                     }
+                    action("LCL Wizard Setup")
+                    {
+                        Caption = 'LCL Wizard Setup';
+                        ApplicationArea = all;
+                        RunObject = page "YVS LCL Wizard Setup";
+                        ToolTip = 'Executes the LCL Wizard Setup action.';
+                    }
                 }
                 group("Tax Report")
                 {
