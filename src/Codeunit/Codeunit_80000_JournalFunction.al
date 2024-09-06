@@ -193,6 +193,7 @@ codeunit 80000 "YVS Journal Function"
         GenJournalLine."YVS Tax Invoice Post Code" := PrepmtInvLineBuffer."YVS Post Code";
         GenJournalLine."YVS Tax Invoice Address" := PrepmtInvLineBuffer."YVS Address";
         GenJournalLine."YVS Tax Invoice Address 2" := PrepmtInvLineBuffer."YVS Address 2";
+        GenJournalLine."YVS Tax Invoice Date" := PrepmtInvLineBuffer."YVS Tax Invoice Date";
         "YVS OnAfterCopyFromPrepaymentInvoice"(PrepmtInvLineBuffer, GenJournalLine);
     end;
 
@@ -209,6 +210,7 @@ codeunit 80000 "YVS Journal Function"
         PrepaymentInvLineBuffer."YVS Tax Invoice Name 2" := SalesHeader."Sell-to Customer Name 2";
         PrepaymentInvLineBuffer."YVS Vat Registration No." := SalesHeader."VAT Registration No.";
         PrepaymentInvLineBuffer."YVS VAT Branch Code" := SalesHeader."YVS VAT Branch Code";
+        PrepaymentInvLineBuffer."YVS Tax Invoice Date" := SalesHeader."Document Date";
         PrepaymentInvLineBuffer."YVS Head Office" := SalesHeader."YVS Head Office";
         PrepaymentInvLineBuffer."YVS Address" := SalesHeader."Sell-to Address";
         PrepaymentInvLineBuffer."YVS Address 2" := SalesHeader."Sell-to Address 2";
@@ -231,6 +233,7 @@ codeunit 80000 "YVS Journal Function"
         PrepaymentInvLineBuffer."YVS Vat Registration No." := PurchHeader."VAT Registration No.";
         PrepaymentInvLineBuffer."YVS VAT Branch Code" := PurchHeader."YVS VAT Branch Code";
         PrepaymentInvLineBuffer."YVS Head Office" := PurchHeader."YVS Head Office";
+        PrepaymentInvLineBuffer."YVS Tax Invoice Date" := PurchHeader."Document Date";
         PrepaymentInvLineBuffer."YVS Tax Invoice Base" := PurchaseLine.Amount;
         PrepaymentInvLineBuffer."YVS Tax Invoice Amount" := PurchaseLine."Amount Including VAT" - PurchaseLine.Amount;
         if PurchaseLine."YVS Tax Invoice No." <> '' then begin
@@ -482,7 +485,7 @@ codeunit 80000 "YVS Journal Function"
             if PurchaseHeader."Vendor Cr. Memo No." <> '' then
                 GenJournalLine."YVS Tax Invoice No." := PurchaseHeader."Vendor Cr. Memo No.";
         if PurchaseHeader."Document Type" = PurchaseHeader."Document Type"::Invoice then
-            if PurchaseHeader."Vendor Cr. Memo No." <> '' then
+            if PurchaseHeader."Vendor Invoice No." <> '' then
                 GenJournalLine."YVS Tax Invoice No." := PurchaseHeader."Vendor Invoice No.";
 
         "YVS AfterCopyPuchaseHeaderToGenLine"(GenJournalLine, PurchaseHeader);

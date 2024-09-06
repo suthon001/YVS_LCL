@@ -1,5 +1,5 @@
 /// <summary>
-/// Page YVS Disable Company (ID 80041).
+/// Page YVS Disable Company (ID 80050).
 /// </summary>
 page 80041 "YVS Disable Company"
 {
