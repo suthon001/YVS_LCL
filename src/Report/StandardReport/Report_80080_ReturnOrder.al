@@ -924,12 +924,12 @@ report 80080 "YVS Return Order"
         VATNoText := FormatDocument.SetText(PurchaseHeader."VAT Registration No." <> '', COPYSTR(PurchaseHeader.FieldCaption("VAT Registration No."), 1, 80));
     end;
 
-    [IntegrationEvent(true, false)]
+    [IntegrationEvent(false, false)]
     local procedure OnAfterInitReport()
     begin
     end;
 
-    [IntegrationEvent(true, false)]
+    [IntegrationEvent(false, false)]
     local procedure OnAfterPostDataItem(var PurchaseHeader: Record "Purchase Header")
     begin
     end;

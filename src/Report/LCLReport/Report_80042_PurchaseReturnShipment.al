@@ -633,12 +633,12 @@ report 80042 "YVS Purchase - Return Shipment"
         ReferenceText := FormatDocument.SetText(ReturnShipmentHeader."Your Reference" <> '', COPYSTR(ReturnShipmentHeader.FieldCaption("Your Reference"), 1, 80));
     end;
 
-    [IntegrationEvent(TRUE, false)]
+    [IntegrationEvent(false, false)]
     local procedure OnAfterInitReport()
     begin
     end;
 
-    [IntegrationEvent(TRUE, false)]
+    [IntegrationEvent(false, false)]
     local procedure OnAfterPostDataItem(var ReturnShipmentHeader: Record "Return Shipment Header")
     begin
     end;

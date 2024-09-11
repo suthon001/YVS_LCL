@@ -1637,7 +1637,7 @@ page 80036 "YVS Purchase Request Card"
         OnAfterCalculateCurrentShippingAndPayToOption(ShipToOptions, PayToOptions, Rec);
     end;
 
-    [IntegrationEvent(true, false)]
+    [IntegrationEvent(false, false)]
     local procedure OnAfterActivateFields()
     begin
     end;
@@ -1649,7 +1649,7 @@ page 80036 "YVS Purchase Request Card"
 
 #if not CLEAN21
     [Obsolete('Replaced by event OnAfterPurchaseLineEditable() in table Purchase Header', '21.0')]
-    [IntegrationEvent(true, false)]
+    [IntegrationEvent(false, false)]
     local procedure OnAfterSetPurchaseLinesAvailability(var PurchaseHeader: Record "Purchase Header"; var PurchaseLinesAvailable: Boolean)
     begin
     end;

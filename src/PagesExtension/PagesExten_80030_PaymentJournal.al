@@ -360,7 +360,7 @@ pageextension 80030 "YVS Payment Journal" extends "Payment Journal"
         gvDocument := pDocument;
     end;
 
-    [IntegrationEvent(true, false)]
+    [IntegrationEvent(false, false)]
     /// <summary>
     /// OnbeforInsertWhtHeader.
     /// </summary>

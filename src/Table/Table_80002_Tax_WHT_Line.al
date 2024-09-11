@@ -596,7 +596,7 @@ table 80002 "YVS Tax & WHT Line"
                         WHTLine."Get to WHT" := true;
                         WHTLine.Modify();
                     UNTIL WHTLine.NEXT() = 0;
-
+                OnbeforInsertWHTHeader(WHTHeader);
                 WHTHeader."Get to WHT" := true;
                 WHTHeader.Modify();
             until WHTHeader.next() = 0
@@ -627,7 +627,7 @@ table 80002 "YVS Tax & WHT Line"
     /// </summary>
     /// <param name="TaxReportLine">VAR Record "YVS Tax  WHT Line".</param>
     /// <param name="VatTransaction">Record "YVS VAT Transections".</param>
-    [IntegrationEvent(true, false)]
+    [IntegrationEvent(false, false)]
     procedure OnBeforeInsertVatLine(var TaxReportLine: Record "YVS Tax & WHT Line"; VatTransaction: Record "YVS VAT Transections")
     begin
 
@@ -638,7 +638,7 @@ table 80002 "YVS Tax & WHT Line"
     /// </summary>
     /// <param name="TaxReportLine">VAR Record "YVS Tax WHT Line".</param>
     /// <param name="VatTransaction">Record "YVS VAT Transections".</param>
-    [IntegrationEvent(true, false)]
+    [IntegrationEvent(false, false)]
     procedure OnAftersetfilterVatLine(var TaxReportLine: Record "YVS Tax & WHT Line"; VatTransaction: Record "YVS VAT Transections")
     begin
 
@@ -650,7 +650,7 @@ table 80002 "YVS Tax & WHT Line"
     /// </summary>
     /// <param name="VatTransaction">VAR Record "YVS VAT Transections".</param>
     /// <param name="TaxWHT">Record "YVS Tax WHT Header".</param>
-    [IntegrationEvent(true, false)]
+    [IntegrationEvent(false, false)]
     procedure OnAftersetfilterVatTransaction(var VatTransaction: Record "YVS VAT Transections"; TaxWHT: Record "YVS Tax & WHT Header")
     begin
 
@@ -662,7 +662,7 @@ table 80002 "YVS Tax & WHT Line"
     /// </summary>
     /// <param name="WHTHeader">VAR Record "YVS WHT Header".</param>
     /// <param name="TaxWHT">Record "YVS Tax  WHT Header".</param>
-    [IntegrationEvent(true, false)]
+    [IntegrationEvent(false, false)]
     procedure OnAftersetfilterWHT(var WHTHeader: Record "YVS WHT Header"; TaxWHT: Record "YVS Tax & WHT Header")
     begin
 
@@ -674,7 +674,7 @@ table 80002 "YVS Tax & WHT Line"
     /// <param name="WHTLine">VAR Record "YVS WHT Line".</param>
     /// <param name="WHTHeader">Record "YVS WHT Header".</param>
     /// <param name="TaxWHT">Record "YVS Tax WHT Header".</param>
-    [IntegrationEvent(true, false)]
+    [IntegrationEvent(false, false)]
     procedure OnAftersetfilterWHTLine(var WHTLine: Record "YVS WHT Line"; WHTHeader: Record "YVS WHT Header"; TaxWHT: Record "YVS Tax & WHT Header")
     begin
 
@@ -687,8 +687,18 @@ table 80002 "YVS Tax & WHT Line"
     /// <param name="TaxWHTLine">VAR Record "YVS Tax WHT Line".</param>
     /// <param name="WHTHeader">Record "YVS WHT Header".</param>
     /// <param name="WHTLine">Record "YVS WHT Line".</param>
-    [IntegrationEvent(true, false)]
+    [IntegrationEvent(false, false)]
     procedure OnbeforInsertWHTLine(var TaxWHTLine: Record "YVS Tax & WHT Line"; WHTHeader: Record "YVS WHT Header"; WHTLine: Record "YVS WHT Line")
+    begin
+
+    end;
+
+    /// <summary>
+    /// OnbeforInsertWHTHeader.
+    /// </summary>
+    /// <param name="WHTHeader">VAR Record "YVS WHT Header".</param>
+    [IntegrationEvent(false, false)]
+    procedure OnbeforInsertWHTHeader(var WHTHeader: Record "YVS WHT Header")
     begin
 
     end;
