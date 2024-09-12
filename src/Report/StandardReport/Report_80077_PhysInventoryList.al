@@ -439,7 +439,7 @@ report 80077 "YVS Phys. Inventory List"
         PickItemTrackingFromItemledgerEntry(ItemJournalLine2);
     end;
 
-    [IntegrationEvent(true, false)]
+    [IntegrationEvent(false, false)]
     local procedure OnAfterInitialize(var ShowQtyCalculated: Boolean)
     begin
     end;

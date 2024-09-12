@@ -309,7 +309,7 @@ pageextension 80029 "YVS General Journal" extends "General Journal"
         end;
     end;
 
-    [IntegrationEvent(true, false)]
+    [IntegrationEvent(false, false)]
     /// <summary>
     /// OnbeforInsertWhtHeader.
     /// </summary>

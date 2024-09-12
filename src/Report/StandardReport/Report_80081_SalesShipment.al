@@ -826,17 +826,17 @@ report 80081 "YVS Sales - Shipment"
         exit(PadStr('', 2, ' '));
     end;
 
-    [IntegrationEvent(true, false)]
+    [IntegrationEvent(false, false)]
     local procedure OnAfterInitReport()
     begin
     end;
 
-    [IntegrationEvent(true, false)]
+    [IntegrationEvent(false, false)]
     local procedure OnAfterPostDataItem(var SalesShipmentHeader: Record "Sales Shipment Header")
     begin
     end;
 
-    [IntegrationEvent(true, false)]
+    [IntegrationEvent(false, false)]
     local procedure OnAfterOnPreReport(var SalesShipmentHeader: Record "Sales Shipment Header")
     begin
     end;

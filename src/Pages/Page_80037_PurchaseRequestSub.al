@@ -1154,7 +1154,7 @@ page 80037 "YVS Purchase Request Sub."
             Rec.Type := Rec.GetDefaultLineType();
     end;
 
-    [IntegrationEvent(TRUE, false)]
+    [IntegrationEvent(false, false)]
     local procedure OnAfterNoOnAfterValidate(var PurchaseLine: Record "Purchase Line"; var xPurchaseLine: Record "Purchase Line")
     begin
     end;
@@ -1202,22 +1202,22 @@ page 80037 "YVS Purchase Request Sub."
     begin
     end;
 
-    [IntegrationEvent(true, false)]
+    [IntegrationEvent(false, false)]
     local procedure OnBeforeSetOpenPage()
     begin
     end;
 
-    [IntegrationEvent(true, false)]
+    [IntegrationEvent(false, false)]
     local procedure OnAfterSetDimensionsVisibility()
     begin
     end;
 
-    [IntegrationEvent(true, false)]
+    [IntegrationEvent(false, false)]
     local procedure OnBeforeDeltaUpdateTotals(var PurchaseLine: Record "Purchase Line"; xPurchaseLine: Record "Purchase Line")
     begin
     end;
 
-    [IntegrationEvent(true, false)]
+    [IntegrationEvent(false, false)]
     local procedure OnBeforeDeleteReservationEntries(var PurchaseLine: Record "Purchase Line");
     begin
     end;

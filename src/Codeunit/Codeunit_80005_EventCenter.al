@@ -1391,7 +1391,7 @@ codeunit 80005 "YVS EventFunction"
     /// <param name="WHTHeader">Record "YVS WHT Header".</param>
     /// <param name="GenLine">Record "Gen. Journal Line".</param>
     /// <param name="WHTLine">VAR Record "YVS WHT Line".</param>
-    [IntegrationEvent(true, false)]
+    [IntegrationEvent(false, false)]
     procedure OnbeforInsertWHTLine(WhtApplyLine: Record "YVS WHT Applied Entry"; WHTHeader: Record "YVS WHT Header"; GenLine: Record "Gen. Journal Line"; var WHTLine: Record "YVS WHT Line")
     begin
 
@@ -1403,7 +1403,7 @@ codeunit 80005 "YVS EventFunction"
     /// <param name="WhtApplyLine">Record "YVS WHT Applied Entry".</param>
     /// <param name="WHTHeader">VAR Record "YVS WHT Header".</param>
     /// <param name="GenLine">Record "Gen. Journal Line".</param>
-    [IntegrationEvent(true, false)]
+    [IntegrationEvent(false, false)]
     procedure OnbeforModifyWHTHeader(WhtApplyLine: Record "YVS WHT Applied Entry"; var WHTHeader: Record "YVS WHT Header"; GenLine: Record "Gen. Journal Line")
     begin
 
@@ -1414,7 +1414,7 @@ codeunit 80005 "YVS EventFunction"
     /// </summary>
     /// <param name="WHTHeader">Record "YVS WHT Header".</param>
     /// <param name="GenLine">VAR Record "Gen. Journal Line".</param>
-    [IntegrationEvent(true, false)]
+    [IntegrationEvent(false, false)]
     procedure OnbeformodifyCreateWHTCertificate(WHTHeader: Record "YVS WHT Header"; var GenLine: Record "Gen. Journal Line")
     begin
 

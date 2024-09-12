@@ -290,7 +290,7 @@ table 80007 "YVS WHT Line"
     /// </summary>
     /// <param name="WHTHeader">Record "YVS WHT Header".</param>
     /// <param name="WhtLine">VAR Record "YVS WHT Line".</param>
-    [IntegrationEvent(true, false)]
+    [IntegrationEvent(false, false)]
     procedure OnafterTransferFomHeader(WHTHeader: Record "YVS WHT Header"; var WhtLine: Record "YVS WHT Line")
     begin
 

@@ -619,12 +619,12 @@ report 80041 "YVS Purchase Receipt"
         ReferenceText := FormatDocument.SetText(PurchRcptHeader."Your Reference" <> '', PurchRcptHeader.FieldCaption("Your Reference"));
     end;
 
-    [IntegrationEvent(TRUE, false)]
+    [IntegrationEvent(false, false)]
     local procedure OnAfterInitReport()
     begin
     end;
 
-    [IntegrationEvent(TRUE, false)]
+    [IntegrationEvent(false, false)]
     local procedure OnAfterPostDataItem(var PurchRcptHeader: Record "Purch. Rcpt. Header")
     begin
     end;
