@@ -67,6 +67,12 @@ page 80009 "YVS WHT Certificate Subform"
             WHTPostingGroup.init();
 
         WHTPostingName := WHTPostingGroup.Description;
+        AfterShowDescription(WHTPostingName, WHTPostingGroup);
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure AfterShowDescription(var pWHTDescription: Text; pWHTPostingGroup: Record "YVS WHT Product Posting Group")
+    begin
     end;
 
     var
