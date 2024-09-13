@@ -18,6 +18,7 @@ report 80008 "YVS WHT Certificate"
                 DigitCount: Integer;
                 WHTEntry: Record "YVS WHT Line";
                 WHTBus: Record "YVS WHT Business Posting Group";
+                WHTDescription: text[100];
             begin
                 WHTBus.GET("WHT Business Posting Group");
 
@@ -75,6 +76,8 @@ report 80008 "YVS WHT Certificate"
                         WHTSumAmt += WHTEntry."WHT Amount";
                         WHTSetup.GET("WHT Business Posting Group", WHTEntry."WHT Product Posting Group");
                         WHTProductPostingGroup.GET(WHTEntry."WHT Product Posting Group");
+                        WHTDescription := WHTProductPostingGroup.Description;
+                        AfterGetWHTProdDescription(WHTDescription, WHTProductPostingGroup);
                         IF WHTProductPostingGroup."Sequence" = 0 THEN BEGIN
                             WHTLineDate[1] := "WHT Date";
                             WHTLineBase[1] := WHTEntry."WHT Base";
@@ -140,33 +143,33 @@ report 80008 "YVS WHT Certificate"
                                                                             WHTLineDate[49] := "WHT Date";
                                                                             WHTLineBase[49] := WHTEntry."WHT Base";
                                                                             WHTLineAmt[49] := WHTEntry."WHT Amount";
-                                                                            WHT4Description := WHTProductPostingGroup."Description";
+                                                                            WHT4Description := WHTDescription;
                                                                         END ELSE
                                                                             IF WHTProductPostingGroup."Sequence" = 13 THEN BEGIN
                                                                                 IF WHTLineBase[51] = 0 THEN BEGIN
                                                                                     WHTLineDate[51] := "WHT Date";
                                                                                     WHTLineBase[51] := WHTEntry."WHT Base";
                                                                                     WHTLineAmt[51] := WHTEntry."WHT Amount";
-                                                                                    WHT5Description := WHTProductPostingGroup."Description";
+                                                                                    WHT5Description := WHTDescription;
                                                                                 END ELSE
                                                                                     IF WHTLineBase[52] = 0 THEN BEGIN
                                                                                         WHTLineDate[52] := "WHT Date";
                                                                                         WHTLineBase[52] := WHTEntry."WHT Base";
                                                                                         WHTLineAmt[52] := WHTEntry."WHT Amount";
-                                                                                        WHT52Description := WHTProductPostingGroup."Description";
+                                                                                        WHT52Description := WHTDescription;
                                                                                     END ELSE
                                                                                         IF WHTLineBase[53] = 0 THEN BEGIN
                                                                                             WHTLineDate[53] := "WHT Date";
                                                                                             WHTLineBase[53] := WHTEntry."WHT Base";
                                                                                             WHTLineAmt[53] := WHTEntry."WHT Amount";
-                                                                                            WHT53Description := WHTProductPostingGroup."Description";
+                                                                                            WHT53Description := WHTDescription;
                                                                                         END;
                                                                             END ELSE
                                                                                 IF WHTProductPostingGroup."Sequence" = 14 THEN BEGIN
                                                                                     WHTLineDate[6] := "WHT Date";
                                                                                     WHTLineBase[6] := WHTEntry."WHT Base";
                                                                                     WHTLineAmt[6] := WHTEntry."WHT Amount";
-                                                                                    WHT6Description := WHTProductPostingGroup."Description";
+                                                                                    WHT6Description := WHTDescription;
                                                                                 END;
                     UNTIL WHTEntry.NEXT() = 0;
 
@@ -304,6 +307,11 @@ report 80008 "YVS WHT Certificate"
         }
 
     }
+    [IntegrationEvent(false, false)]
+    local procedure AfterGetWHTProdDescription(var pWHTDescription: Text[100]; pWHTPostingGroup: Record "YVS WHT Product Posting Group")
+    begin
+    end;
+
     var
         WHTSetup: Record "YVS WHT Posting Setup";
         WHTRegID: array[13] of Code[10];

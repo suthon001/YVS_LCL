@@ -64,6 +64,7 @@ report 80044 "YVS WHT53 Report"
                     CurrInt: Integer;
                     WHTSetup: Record "YVS WHT Product Posting Group";
                     SumValue: Boolean;
+                    WHTDescription: text[100];
                 begin
 
                     //TPP.SSI 2022/03/29++
@@ -108,26 +109,27 @@ report 80044 "YVS WHT53 Report"
                     WHTEntry.SETFILTER("VAT Amount", '<>%1', 0);
                     IF WHTEntry.FindSet() THEN
                         REPEAT
+                            if not WHTSetup.GET(WHTEntry."WHT Product Posting Group") then
+                                WHTSetup.Init();
+                            WHTDescription := WHTSetup.Description;
+                            AfterGetWHTProdDescription(WHTDescription, WHTSetup);
                             IF CurrInt = 1 THEN BEGIN
                                 WHTBase[1] := WHTEntry."Base Amount";
                                 WHTAmount[1] := WHTEntry."VAT Amount";
                                 WhtPer[1] := WHTEntry."WHT %";
-                                IF WHTSetup.GET(WHTEntry."WHT Product Posting Group") THEN
-                                    WHTDesc[1] := WHTSetup.Description;
+                                WHTDesc[1] := WHTDescription;
                             END ELSE
                                 IF CurrInt = 2 THEN BEGIN
                                     WHTBase[2] := WHTEntry."Base Amount";
                                     WHTAmount[2] := WHTEntry."VAT Amount";
                                     WhtPer[2] := WHTEntry."WHT %";
-                                    IF WHTSetup.GET(WHTEntry."WHT Product Posting Group") THEN
-                                        WHTDesc[2] := WHTSetup.Description;
+                                    WHTDesc[2] := WHTDescription;
                                 END ELSE
                                     IF CurrInt = 3 THEN BEGIN
                                         WHTBase[3] := WHTEntry."Base Amount";
                                         WHTAmount[3] := WHTEntry."VAT Amount";
                                         WhtPer[3] := WHTEntry."WHT %";
-                                        IF WHTSetup.GET(WHTEntry."WHT Product Posting Group") THEN
-                                            WHTDesc[3] := WHTSetup.Description;
+                                        WHTDesc[3] := WHTDescription;
                                     END;
                             IF SumValue THEN BEGIN
                                 BaseAmtPerPage += WHTEntry."Base Amount";
@@ -199,6 +201,11 @@ report 80044 "YVS WHT53 Report"
             end;
         }
     }
+    [IntegrationEvent(false, false)]
+    local procedure AfterGetWHTProdDescription(var pWHTDescription: Text[100]; pWHTPostingGroup: Record "YVS WHT Product Posting Group")
+    begin
+    end;
+
     var
         TaxReportLineFind: Record "YVS Tax & WHT Line";
         LocalFunction: Codeunit "YVS Function Center";

@@ -152,7 +152,7 @@ report 80013 "YVS WHT PND 03"
 
             trigger OnAfterGetRecord()
             var
-                var_WHTNo: Code[20];
+
                 var_WHTRegisNo: Code[20];
             begin
                 CalcFields("Total Base Amount", "Total VAT Amount");
@@ -161,7 +161,9 @@ report 80013 "YVS WHT PND 03"
                 var_WHTTotalAmount := var_WHTAmount;
                 YesrPS := "Year No." + 543;
 
-                Rec_WHTBusinessPostingGroup.GET('WHT03');
+                Rec_WHTBusinessPostingGroup.reset();
+                Rec_WHTBusinessPostingGroup.SetRange("WHT Type", Rec_WHTBusinessPostingGroup."WHT Type"::PND3);
+                if Rec_WHTBusinessPostingGroup.FindFirst() then;
                 //###### SubString VAT ID #####
                 VAT_ID[1] := COPYSTR(Rec_WHTBusinessPostingGroup."VAT Registration No.", 1, 1);
                 VAT_ID[2] := COPYSTR(Rec_WHTBusinessPostingGroup."VAT Registration No.", 2, 1);
@@ -212,7 +214,6 @@ report 80013 "YVS WHT PND 03"
                             ELSE
                                 var_CountVend := var_CountVend + 1;
 
-                        var_WHTNo := TaxReportLine."WHT Document No.";
                         var_WHTRegisNo := TaxReportLine."WHT Registration No.";
 
                     UNTIL TaxReportLine.NEXT() = 0;
@@ -250,12 +251,14 @@ report 80013 "YVS WHT PND 03"
                         Caption = 'นำส่งภาษีตาม';
                         ApplicationArea = all;
                         ToolTip = 'Specifies the value of the นำส่งภาษีตาม field.';
+                        OptionCaption = '3 เตรส,65 จัตวา,69 ทวิ';
                     }
                     field(Send_Option; Send_Option)
                     {
                         Caption = 'ประเภทการยื่น';
                         ApplicationArea = all;
                         ToolTip = 'Specifies the value of the ประเภทการยื่น field.';
+                        OptionCaption = 'ยื่นปกติ,ยื่นเพิ่มเติม';
                     }
                     field(Additional_No; Additional_No)
                     {

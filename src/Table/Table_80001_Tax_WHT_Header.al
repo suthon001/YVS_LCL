@@ -269,6 +269,7 @@ table 80001 "YVS Tax & WHT Header"
         ltFileNameLbl: Label '%1_%2%3', Locked = true;
         BranchCode: Code[5];
         BranchData: array[13] of text;
+        WHTDescription: text[100];
     begin
 
         LineNo := 0;
@@ -318,7 +319,8 @@ table 80001 "YVS Tax & WHT Header"
 
                     IF NOT WHTProductPortingGroup.Get(TaxReportLine."WHT Product Posting Group") then
                         WHTProductPortingGroup.init();
-
+                    WHTDescription := WHTProductPortingGroup.Description;
+                    AfterGetWHTProdDescription(WHTDescription, WHTProductPortingGroup);
                     if ltLineCheckRec = 1 then begin
                         if (WHTBusinessPostingGroup."WHT Certificate Option" = WHTBusinessPostingGroup."WHT Certificate Option"::"ภ.ง.ด.3") then
                             TempTaxt := FORMAT(LineNo) + '|' + FORMAT(DelChr(TaxReportLine."VAT Registration No.", '=', '-')) + '|' +
@@ -326,7 +328,7 @@ table 80001 "YVS Tax & WHT Header"
                                         FORMAT(BranchData[4]) + '|' + FORMAT(BranchData[5]) + '|' + FORMAT(BranchData[6]) + '|' + FORMAT(BranchData[7]) + '|' +
                                         FORMAT(BranchData[8]) + '|' + FORMAT(BranchData[9]) + '|' + FORMAT(BranchData[10]) + '|' + FORMAT(BranchData[11]) + '|' +
                                         FORMAT(BranchData[12]) + '|' + FORMAT(BranchData[13]) + '|' +
-                                        FORMAT(TaxReportLine."Posting Date", 0, '<Day,2>/<Month,2>/<Year4>') + '|' + FORMAT(WHTProductPortingGroup."Description") + '|' +
+                                        FORMAT(TaxReportLine."Posting Date", 0, '<Day,2>/<Month,2>/<Year4>') + '|' + FORMAT(WHTDescription) + '|' +
                                         DELCHR(FunctionCenter."ConverseDecimalToText"(TaxReportLine."WHT %"), '=', ',') + '|' + DELCHR(FunctionCenter."ConverseDecimalToText"(TaxReportLine."Base Amount"), '=', ',')
                                         + '|' + DELCHR(FunctionCenter."ConverseDecimalToText"(TaxReportLine."VAT Amount"), '=', ',') + '|' + FORMAT(1)
                         else
@@ -336,11 +338,11 @@ table 80001 "YVS Tax & WHT Header"
                                       FORMAT(BranchData[4]) + '|' + FORMAT(BranchData[5]) + '|' + FORMAT(BranchData[6]) + '|' + FORMAT(BranchData[7]) + '|' +
                                       FORMAT(BranchData[8]) + '|' + FORMAT(BranchData[9]) + '|' + FORMAT(BranchData[10]) + '|' + FORMAT(BranchData[11]) + '|' +
                                       FORMAT(BranchData[12]) + '|' + FORMAT(BranchData[13]) + '|' +
-                                      FORMAT(TaxReportLine."Posting Date", 0, '<Day,2>/<Month,2>/<Year4>') + '|' + FORMAT(WHTProductPortingGroup."Description") + '|' +
+                                      FORMAT(TaxReportLine."Posting Date", 0, '<Day,2>/<Month,2>/<Year4>') + '|' + FORMAT(WHTDescription) + '|' +
                                       DELCHR(FunctionCenter."ConverseDecimalToText"(TaxReportLine."WHT %"), '=', ',') + '|' + DELCHR(FunctionCenter."ConverseDecimalToText"(TaxReportLine."Base Amount"), '=', ',')
                                       + '|' + DELCHR(FunctionCenter."ConverseDecimalToText"(TaxReportLine."VAT Amount"), '=', ',') + '|' + FORMAT(1);
                     end else
-                        TempTaxt := TempTaxt + '|' + FORMAT(TaxReportLine."WHT Date", 0, '<Day,2>/<Month,2>/<Year4>') + '|' + FORMAT(WHTProductPortingGroup."Description") + '|' +
+                        TempTaxt := TempTaxt + '|' + FORMAT(TaxReportLine."WHT Date", 0, '<Day,2>/<Month,2>/<Year4>') + '|' + FORMAT(WHTDescription) + '|' +
                                                               DELCHR(FunctionCenter."ConverseDecimalToText"(TaxReportLine."WHT %"), '=', ',') + '|' + DELCHR(FORMAT(TaxReportLine."Base Amount", 0, '<Precision,2:2><Standard Format,0>'), '=', ',')
                                                               + '|' + DELCHR(FORMAT(TaxReportLine."VAT Amount", 0, '<Precision,2:2><Standard Format,0>'), '=', ',') + '|' + FORMAT(1);
 
@@ -355,6 +357,11 @@ table 80001 "YVS Tax & WHT Header"
         end;
         TempBlob.CreateInStream(Instrm, TextEncoding::UTF8);
         DownloadFromStream(Instrm, 'Export', '', '*.txt|(*.txt)', FileName);
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure AfterGetWHTProdDescription(var pWHTDescription: Text[100]; pWHTPostingGroup: Record "YVS WHT Product Posting Group")
+    begin
     end;
 
     var
