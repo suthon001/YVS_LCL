@@ -77,7 +77,7 @@ report 80008 "YVS WHT Certificate"
                         WHTSetup.GET("WHT Business Posting Group", WHTEntry."WHT Product Posting Group");
                         WHTProductPostingGroup.GET(WHTEntry."WHT Product Posting Group");
                         WHTDescription := WHTProductPostingGroup.Description;
-                        AfterGetWHTProdDescription(WHTDescription, WHTProductPostingGroup);
+                        AfterGetWHTProdDescriptionWHTCer(WHTDescription, WHTProductPostingGroup, "WHT Header", WHTEntry);
                         IF WHTProductPostingGroup."Sequence" = 0 THEN BEGIN
                             WHTLineDate[1] := "WHT Date";
                             WHTLineBase[1] := WHTEntry."WHT Base";
@@ -308,7 +308,7 @@ report 80008 "YVS WHT Certificate"
 
     }
     [IntegrationEvent(false, false)]
-    local procedure AfterGetWHTProdDescription(var pWHTDescription: Text[100]; pWHTPostingGroup: Record "YVS WHT Product Posting Group")
+    local procedure AfterGetWHTProdDescriptionWHTCer(var pWHTDescription: Text[100]; pWHTPostingGroup: Record "YVS WHT Product Posting Group"; pWhtHeader: Record "YVS WHT Header"; pWhtLine: Record "YVS WHT Line")
     begin
     end;
 

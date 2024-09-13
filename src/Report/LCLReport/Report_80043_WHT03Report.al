@@ -112,7 +112,7 @@ report 80043 "YVS WHT03 Report"
                             if not WHTSetup.GET(WHTEntry."WHT Product Posting Group") then
                                 WHTSetup.Init();
                             WHTDescription := WHTSetup.Description;
-                            AfterGetWHTProdDescription(WHTDescription, WHTSetup);
+                            AfterGetWHTProdDescriptionWHT03(WHTDescription, WHTSetup, "Tax Report Header");
                             IF CurrInt = 1 THEN BEGIN
                                 WHTBase[1] := WHTEntry."Base Amount";
                                 WHTAmount[1] := WHTEntry."VAT Amount";
@@ -201,7 +201,7 @@ report 80043 "YVS WHT03 Report"
         }
     }
     [IntegrationEvent(false, false)]
-    local procedure AfterGetWHTProdDescription(var pWHTDescription: Text[100]; pWHTPostingGroup: Record "YVS WHT Product Posting Group")
+    local procedure AfterGetWHTProdDescriptionWHT03(var pWHTDescription: Text[100]; pWHTPostingGroup: Record "YVS WHT Product Posting Group"; pWHTHeader: Record "YVS Tax & WHT Header")
     begin
     end;
 
