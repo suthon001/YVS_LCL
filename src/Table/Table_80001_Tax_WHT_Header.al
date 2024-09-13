@@ -320,7 +320,7 @@ table 80001 "YVS Tax & WHT Header"
                     IF NOT WHTProductPortingGroup.Get(TaxReportLine."WHT Product Posting Group") then
                         WHTProductPortingGroup.init();
                     WHTDescription := WHTProductPortingGroup.Description;
-                    AfterGetWHTProdDescription(WHTDescription, WHTProductPortingGroup);
+                    AfterGetWHTProdDescription(WHTDescription, WHTProductPortingGroup, TaxReportHeader);
                     if ltLineCheckRec = 1 then begin
                         if (WHTBusinessPostingGroup."WHT Certificate Option" = WHTBusinessPostingGroup."WHT Certificate Option"::"ภ.ง.ด.3") then
                             TempTaxt := FORMAT(LineNo) + '|' + FORMAT(DelChr(TaxReportLine."VAT Registration No.", '=', '-')) + '|' +
@@ -360,7 +360,7 @@ table 80001 "YVS Tax & WHT Header"
     end;
 
     [IntegrationEvent(false, false)]
-    local procedure AfterGetWHTProdDescription(var pWHTDescription: Text[100]; pWHTPostingGroup: Record "YVS WHT Product Posting Group")
+    local procedure AfterGetWHTProdDescription(var pWHTDescription: Text[100]; pWHTPostingGroup: Record "YVS WHT Product Posting Group"; pTaxWHTHeader: Record "YVS Tax & WHT Header")
     begin
     end;
 

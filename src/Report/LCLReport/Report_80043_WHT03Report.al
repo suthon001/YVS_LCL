@@ -201,7 +201,7 @@ report 80043 "YVS WHT03 Report"
         }
     }
     [IntegrationEvent(false, false)]
-    local procedure AfterGetWHTProdDescriptionWHT03(var pWHTDescription: Text[100]; pWHTPostingGroup: Record "YVS WHT Product Posting Group"; pWHTHeader: Record "YVS Tax & WHT Header")
+    local procedure AfterGetWHTProdDescriptionWHT03(var pWHTDescription: Text[100]; pWHTPostingGroup: Record "YVS WHT Product Posting Group"; pTaxWHTHeader: Record "YVS Tax & WHT Header")
     begin
     end;
 

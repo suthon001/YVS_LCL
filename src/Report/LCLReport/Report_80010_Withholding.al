@@ -156,7 +156,7 @@ report 80010 "YVS Withholding"
                     LineNo += 1;
                     WHTProductPostingGroup.GET("WHT Product Posting Group");
                     WHTProduct := WHTProductPostingGroup."Description";
-
+                    AfterGetWHTProdDescriptionWithholdingWHTProduct(WHTProduct, WHTProductPostingGroup, "Tax Report Header");
                     CLEAR(WHTPercent);
                     CLEAR(TaxType);
                     CLEAR(BaseAmount);
@@ -167,6 +167,7 @@ report 80010 "YVS Withholding"
                     if not WHTProductPostingGroup.GET("WHT Product Posting Group") then
                         WHTProductPostingGroup.init();
                     TaxType[1] := WHTProductPostingGroup."Description";
+                    AfterGetWHTProdDescriptionWithholdingTaxType(TaxType, WHTProductPostingGroup, "Tax Report Header");
                     BaseAmount[1] := "Base Amount";
                     VATAmount[1] := "VAT Amount";
 
@@ -182,6 +183,7 @@ report 80010 "YVS Withholding"
                         if not WHTProductPostingGroup.GET(TaxReportLineFind."WHT Product Posting Group") then
                             WHTProductPostingGroup.init();
                         TaxType[2] := WHTProductPostingGroup."Description";
+                        AfterGetWHTProdDescriptionWithholdingTaxType2(TaxType, WHTProductPostingGroup, "Tax Report Header");
                         BaseAmount[2] := TaxReportLineFind."Base Amount";
                         VATAmount[2] := TaxReportLineFind."VAT Amount";
                     end;
@@ -270,6 +272,21 @@ report 80010 "YVS Withholding"
         WHTBus := TempWHT;
         WHTDate := Tempdate;
 
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure AfterGetWHTProdDescriptionWithholdingWHTProduct(var pWHTDescription: Text[100]; pWHTPostingGroup: Record "YVS WHT Product Posting Group"; pTaxWHTHeader: Record "YVS Tax & WHT Header")
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure AfterGetWHTProdDescriptionWithholdingTaxType(var pWHTDescription: array[2] of Text[100]; pWHTPostingGroup: Record "YVS WHT Product Posting Group"; pTaxWHTHeader: Record "YVS Tax & WHT Header")
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure AfterGetWHTProdDescriptionWithholdingTaxType2(var pWHTDescription: array[2] of Text[100]; pWHTPostingGroup: Record "YVS WHT Product Posting Group"; pTaxWHTHeader: Record "YVS Tax & WHT Header")
+    begin
     end;
 
     var
