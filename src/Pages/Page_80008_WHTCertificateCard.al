@@ -298,11 +298,13 @@ page 80008 "YVS WHT Certificate"
         SumAmt: Decimal;
     begin
         IF Rec."WHT Certificate No." = '' THEN BEGIN
-            IF CONFIRM('WHT Certificate No. does not exist. Do you want to discard') THEN
+            IF CONFIRM('WHT Certificate No. does not exist. Do you want to discard') THEN begin
+                rec.Delete(true);
                 EXIT(TRUE);
+            end;
         END ELSE BEGIN
             Rec.TESTfield("WHT Business Posting Group");
-            IF NOT GenJnlLine.GET(Rec."Gen. Journal Template Code", Rec."Gen. Journal Batch Code", Rec."Gen. Journal Line No.") THEN BEGIN
+            if Rec."Gen. Journal Line No." = 0 then BEGIN
                 GenJnlLine.RESET();
                 GenJnlLine.SetCurrentKey("Journal Template Name", "Journal Batch Name", "Line NO.");
                 GenJnlLine.SETRANGE("Journal Template Name", Rec."Gen. Journal Template Code");
@@ -361,23 +363,24 @@ page 80008 "YVS WHT Certificate"
                 Rec."Gen. Journal Line No." := CurrLine;
                 Rec."Gen. Journal Document No." := GenJnlLine."Document No.";
                 Rec.MODIFY();
-            END ELSE BEGIN
-                SumAmt := 0;
-                WHTEntry.RESET();
-                WHTEntry.SETRANGE("WHT No.", Rec."WHT No.");
-                IF WHTEntry.FindFirst() THEN begin
+            END ELSE
+                IF GenJnlLine.GET(Rec."Gen. Journal Template Code", Rec."Gen. Journal Batch Code", Rec."Gen. Journal Line No.") THEN BEGIN
+                    SumAmt := 0;
+                    WHTEntry.RESET();
+                    WHTEntry.SETRANGE("WHT No.", Rec."WHT No.");
+                    IF WHTEntry.FindFirst() THEN begin
 
-                    WHTEntry.CalcSums("WHT Amount");
-                    SumAmt := WHTEntry."WHT Amount";
+                        WHTEntry.CalcSums("WHT Amount");
+                        SumAmt := WHTEntry."WHT Amount";
 
-                end;
-                GenJnlLine.validate(Amount, -SumAmt);
-                GenJnlLine.MODIFY();
-                IF Rec."Gen. Journal Line No." = 0 THEN
-                    Rec."Gen. Journal Line No." := GenJnlLine."Line No.";
-                Rec."Gen. Journal Document No." := GenJnlLine."Document No.";
-                Rec.MODIFY();
-            END;
+                    end;
+                    GenJnlLine.validate(Amount, -SumAmt);
+                    GenJnlLine.MODIFY();
+                    IF Rec."Gen. Journal Line No." = 0 THEN
+                        Rec."Gen. Journal Line No." := GenJnlLine."Line No.";
+                    Rec."Gen. Journal Document No." := GenJnlLine."Document No.";
+                    Rec.MODIFY();
+                END;
         END;
 
     end;

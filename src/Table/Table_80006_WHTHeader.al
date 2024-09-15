@@ -625,9 +625,10 @@ table 80006 "YVS WHT Header"
         WHTLine.RESET();
         WHTLine.SETRANGE("WHT No.", "WHT No.");
         IF WHTLine.FindFirst() THEN
-            WHTLine.DELETEALL(TRUE);
-        if ltGenJournalLine.GET(rec."Gen. Journal Template Code", rec."Gen. Journal Batch Code", rec."Gen. Journal Line No.") then
-            ltGenJournalLine.Delete(true);
+            WHTLine.DELETEALL();
+        if rec."Gen. Journal Line No." <> 0 then
+            if ltGenJournalLine.GET(rec."Gen. Journal Template Code", rec."Gen. Journal Batch Code", rec."Gen. Journal Line No.") then
+                ltGenJournalLine.Delete(true);
     end;
 
     local procedure TrasnferToWHTLine()
