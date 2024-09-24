@@ -51,7 +51,7 @@ report 80043 "YVS WHT03 Report"
                 column(WHTDesc1; WHTDesc[1]) { }
                 column(WHTDesc2; WHTDesc[2]) { }
                 column(WHTDesc3; WHTDesc[3]) { }
-                column(WHTOption; format("Tax Report Header"."Vat Option")) { }
+                column(WHTOption; WHTOption) { }
                 column(ShowLineNo; LineNo) { }
                 column(BaseAmtPerPage; BaseAmtPerPage) { }
                 column(TaxAmtPerPage; TaxAmtPerPage) { }
@@ -139,6 +139,17 @@ report 80043 "YVS WHT03 Report"
                             END;
                             CurrInt += 1;
                         UNTIL WHTEntry.NEXT() = 0;
+
+                    if "WHT Option" = "WHT Option"::" " then
+                        WHTOption := ' ';
+                    if "WHT Option" = "WHT Option"::"(1) หักภาษี ณ ที่จ่าย" then
+                        WHTOption := '1';
+                    if "WHT Option" = "WHT Option"::"(2) ออกภาษีให้ตลอดไป" then
+                        WHTOption := '2';
+                    if "WHT Option" = "WHT Option"::"(3) ออกภาษีให้ครั้งเดียว" then
+                        WHTOption := '3';
+                    if "WHT Option" = "WHT Option"::"(4) อื่นๆ" then
+                        WHTOption := '4';
                 end;
 
             }
@@ -232,5 +243,6 @@ report 80043 "YVS WHT03 Report"
         RowsPerPage: Integer;
         PageNo: Integer;
         WHTBranch: Code[5];
+        WHTOption: text[5];
 
 }

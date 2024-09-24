@@ -159,6 +159,7 @@ report 80035 "YVS Payment Voucher (Post)"
                 column(VendorBankAccountName; VendorBankAccountName) { }
                 column(Bank_Amount__LCY_; ABS("Amount (LCY)")) { }
                 column(Bank_Account_No_; "Account No.") { }
+                column(Payment_Method_Code; "Payment Method Code") { }
 
                 trigger OnPreDataItem()
                 begin

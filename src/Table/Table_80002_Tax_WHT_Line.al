@@ -276,6 +276,13 @@ table 80002 "YVS Tax & WHT Line"
             Caption = 'เลขที่';
             DataClassification = CustomerContent;
         }
+        field(1037; "WHT Option"; Enum "YVS WHT Option")
+        {
+            Caption = 'WHT Option';
+            DataClassification = CustomerContent;
+
+        }
+
 
     }
 
@@ -587,7 +594,7 @@ table 80002 "YVS Tax & WHT Line"
                         TaxReportLineFind."No." := WHTHeader."WHT of No.";
                         TaxReportLineFind."City" := WHTHeader."WHT City";
                         TaxReportLineFind."Post Code" := WHTHeader."WHT Post Code";
-
+                        TaxReportLineFind."WHT Option" := WHTHeader."WHT Option";
                         if (NOT TaxReportLineFind."Head Office") AND (TaxReportLineFind."VAT Branch Code" = '') then
                             TaxReportLineFind."Head Office" := true;
 
