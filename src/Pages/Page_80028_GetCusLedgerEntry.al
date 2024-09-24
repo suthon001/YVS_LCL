@@ -147,6 +147,7 @@ page 80028 "YVS Get Cus. Ledger Entry"
                 end;
                 BillRcptLine.CalAmtExcludeVat();
                 TotalReceipt := TotalReceipt + BillRcptLine.Amount;
+                YVSBeforModifyBillingLine(BillRcptLine, CUstLedger);
                 BillRcptLine.Modify();
             UNTIL CUstLedger.NEXT() = 0;
         if DocumentType = DocumentType::"Sales Receipt" then
@@ -246,6 +247,12 @@ page 80028 "YVS Get Cus. Ledger Entry"
     local procedure YVSOnAfterGetRecord(pBillingHeader: Record "YVS Billing Receipt Header"; var pAmount: Decimal; pCustLedgerTemp: Record "Cust. Ledger Entry" temporary)
     begin
     end;
+
+    [IntegrationEvent(false, false)]
+    local procedure YVSBeforModifyBillingLine(var pBillRcptLine: Record "YVS Billing Receipt Line"; pCustLedgerTemp: Record "Cust. Ledger Entry" temporary)
+    begin
+    end;
+
 
     var
         DocumentNo: code[20];

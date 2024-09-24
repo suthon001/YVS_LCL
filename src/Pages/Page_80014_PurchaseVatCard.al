@@ -243,6 +243,8 @@ page 80014 "YVS Purchase Vat Card"
 
         TotaBaseAmt: Decimal;
         TotalVatAmt: Decimal;
+
+    protected var
         VatBusFilter, VatProdFilter : Code[250];
         DateFilter: Text;
 
