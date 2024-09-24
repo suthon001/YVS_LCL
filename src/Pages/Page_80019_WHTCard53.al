@@ -256,6 +256,8 @@ page 80019 "YVS WHT53 Card"
 
         TotaBaseAmt: Decimal;
         TotalVatAmt: Decimal;
+
+    protected var
         DateFilter: Text;
 
 

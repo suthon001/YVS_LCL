@@ -237,15 +237,17 @@ page 80011 "YVS Sales Vat Card"
 
     end;
 
-
-
-
     var
 
         TotaBaseAmt: Decimal;
         TotalVatAmt: Decimal;
+
+    protected var
         VatBusFilter, VatProdFilter : Code[250];
         DateFilter: Text;
+
+
+
 
 
 

@@ -268,6 +268,8 @@ page 80017 "YVS WHT Card"
 
         TotaBaseAmt: Decimal;
         TotalVatAmt: Decimal;
+
+    protected var
         WHTBusFilter: Code[250];
         DateFilter: Text[250];
 

@@ -263,7 +263,9 @@ table 80012 "YVS Billing Receipt Line"
     /// </summary>
     procedure CalAmtExcludeVat()
     begin
-        "Amount Exclude Vat" := Round(Amount / (1 + (1 / 100) * "VAT %" / 100), 0.01);
+        "Amount Exclude Vat" := ABS(Amount) - Round((ABS(Amount) * "VAT %") / (100 + "Vat %"), 0.01);
+        if rec."Source Document Type" = rec."Source Document Type"::"Credit Memo" then
+            rec."Amount Exclude Vat" := -ABS("Amount Exclude Vat");
     end;
 
     /// <summary> 
