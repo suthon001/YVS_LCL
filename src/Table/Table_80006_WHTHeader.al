@@ -600,7 +600,7 @@ table 80006 "YVS WHT Header"
         WHTBus.GET("WHT Business Posting Group");
         WHTBus.TESTFIELD("WHT Certificate No. Series");
         IF NoSeriesMgt.LookupRelatedNoSeries(WHTBus."WHT Certificate No. Series", "No. Series", NewSeries) THEN
-            "WHT Certificate No." := NoSeriesMgt.GetNextNo(NewSeries, Today, TRUE);
+            "WHT Certificate No." := NoSeriesMgt.GetNextNo(NewSeries, WorkDate(), TRUE);
 
     end;
 

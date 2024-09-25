@@ -125,7 +125,7 @@ report 80011 "YVS Sales Vat"
                 IF VATBusPostingGroup.GET(VatBus) THEN begin
                     Comtext[1] := VATBusPostingGroup."YVS Company Name (Thai)" + ' ' + VATBusPostingGroup."YVS Company Name 2 (Thai)";
                     Comtext[2] := VATBusPostingGroup."YVS Company Address (Thai)";
-                    Comtext[3] := VATBusPostingGroup."YVS Company Address 2 (Thai)";
+                    Comtext[3] := VATBusPostingGroup."YVS Company Address 2 (Thai)" + ' ' + VATBusPostingGroup."YVS City (Thai)" + ' ' + VATBusPostingGroup."YVS Post code";
                     Comtext[4] := VATBusPostingGroup."YVS VAT Registration No.";
                     IF VATBusPostingGroup."YVS Head Office" THEN BEGIN
 
@@ -139,7 +139,7 @@ report 80011 "YVS Sales Vat"
                 end else begin
                     Comtext[1] := CompanyInformation.Name + ' ' + CompanyInformation."Name 2";
                     Comtext[2] := CompanyInformation.Address;
-                    Comtext[3] := CompanyInformation."Address 2";
+                    Comtext[3] := CompanyInformation."Address 2" + ' ' + CompanyInformation.City + ' ' + CompanyInformation."Post Code";
                     Comtext[4] := CompanyInformation."VAT Registration No.";
                     IF CompanyInformation."YVS Head Office" THEN BEGIN
 
