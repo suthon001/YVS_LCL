@@ -132,7 +132,7 @@ report 80012 "YVS Purchase Vat Report"
                         VATBusinessPostingGroup.init();
                     Comtext[1] := VATBusinessPostingGroup."YVS Company Name (Thai)" + ' ' + VATBusinessPostingGroup."YVS Company Name 2 (Thai)";
                     Comtext[2] := VATBusinessPostingGroup."YVS Company Address (Thai)";
-                    Comtext[3] := VATBusinessPostingGroup."YVS Company Address 2 (Thai)";
+                    Comtext[3] := VATBusinessPostingGroup."YVS Company Address 2 (Thai)" + ' ' + VATBusinessPostingGroup."YVS City (Thai)";
                     Comtext[4] := VATBusinessPostingGroup."YVS VAT Registration No.";
                     IF VATBusinessPostingGroup."YVS Head Office" then BEGIN
                         var_BrandNo := '';
@@ -149,7 +149,7 @@ report 80012 "YVS Purchase Vat Report"
                 end else begin
                     Comtext[1] := CompanyInformation.Name + ' ' + CompanyInformation."Name 2";
                     Comtext[2] := CompanyInformation.Address;
-                    Comtext[3] := CompanyInformation."Address 2";
+                    Comtext[3] := CompanyInformation."Address 2" + ' ' + CompanyInformation.City + ' ' + CompanyInformation."Post Code";
                     Comtext[4] := CompanyInformation."VAT Registration No.";
                     if CompanyInformation."YVS Head Office" then begin
                         var_BrandName := 'สำนักงานใหญ่';
