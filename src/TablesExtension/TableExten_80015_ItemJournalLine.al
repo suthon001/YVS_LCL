@@ -105,6 +105,7 @@ tableextension 80015 "YVS ExtenItem Journal Line" extends "Item Journal Line"
         IF NoSeriesMgt.LookupRelatedNoSeries(ItemJournalBatch."YVS Document No. Series", OldItemJournalLine."YVS Document No. Series",
             ItemJournalLine."YVS Document No. Series") THEN BEGIN
             ItemJournalLine."Document No." := NoSeriesMgt.GetNextNo(ItemJournalLine."YVS Document No. Series");
+            BeforInsertDocumentAssignEdit(ItemJournalLine);
             Rec := ItemJournalLine;
             EXIT(TRUE);
         END;
@@ -125,6 +126,11 @@ tableextension 80015 "YVS ExtenItem Journal Line" extends "Item Journal Line"
         if ItemJournalLine.FindLast() then
             exit(ItemJournalLine."Line No." + 10000);
         exit(10000);
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure BeforInsertDocumentAssignEdit(var pItemJournalLine: Record "Item Journal Line")
+    begin
     end;
 
 }
