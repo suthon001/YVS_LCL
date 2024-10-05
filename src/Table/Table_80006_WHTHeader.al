@@ -18,6 +18,14 @@ table 80006 "YVS WHT Header"
             Caption = 'WHT Business Posting Group';
             DataClassification = CustomerContent;
             TableRelation = "YVS WHT Business Posting Group";
+            trigger OnValidate()
+            var
+                whtBusPostingGroup: Record "YVS WHT Business Posting Group";
+            begin
+                if NOT whtBusPostingGroup.GET(rec."WHT Business Posting Group") then
+                    whtBusPostingGroup.init();
+                rec."WHT Type" := whtBusPostingGroup."WHT Type";
+            end;
 
         }
         field(3; "WHT Certificate No."; Code[20])

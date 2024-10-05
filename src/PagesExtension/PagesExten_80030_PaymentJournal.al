@@ -297,6 +297,7 @@ pageextension 80030 "YVS Payment Journal" extends "Payment Journal"
                         if NOT whtBusPostingGroup.GET(Vendor."YVS WHT Business Posting Group") then
                             whtBusPostingGroup.init();
                         WHTHeader."WHT Business Posting Group" := Vendor."YVS WHT Business Posting Group";
+                        WHTHeader."WHT Type" := whtBusPostingGroup."WHT Type";
                         WHTHeader."WHT Source Type" := WHTHeader."WHT Source Type"::Vendor;
                         WHTHeader.validate("WHT Source No.", Vendor."No.");
                     END;
@@ -305,6 +306,8 @@ pageextension 80030 "YVS Payment Journal" extends "Payment Journal"
                         IF Customer.GET(GenJnlLine."Account No.") THEN BEGIN
                             if NOT whtBusPostingGroup.GET(Customer."YVS WHT Business Posting Group") then
                                 whtBusPostingGroup.init();
+                            WHTHeader."WHT Business Posting Group" := Customer."YVS WHT Business Posting Group";
+                            WHTHeader."WHT Type" := whtBusPostingGroup."WHT Type";
                             WHTHeader."WHT Source Type" := WHTHeader."WHT Source Type"::Customer;
                             WHTHeader."WHT Source No." := Customer."No.";
                             WHTHeader.validate("WHT Source No.", Customer."No.");

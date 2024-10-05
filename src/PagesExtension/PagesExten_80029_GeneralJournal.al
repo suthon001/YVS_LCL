@@ -229,6 +229,7 @@ pageextension 80029 "YVS General Journal" extends "General Journal"
         WHTHeader: Record "YVS WHT Header";
         NosMgt: Codeunit "No. Series";
         GenJnlLine: Record "Gen. Journal Line";
+        whtBusPostingGroup: Record "YVS WHT Business Posting Group";
         Vendor: Record Vendor;
         Customer: Record Customer;
         WHTDocNo: Code[30];
@@ -266,14 +267,20 @@ pageextension 80029 "YVS General Journal" extends "General Journal"
                 WHTHeader."WHT Date" := rec."Document Date";
                 IF GenJnlLine."Account Type" = GenJnlLine."Account Type"::Vendor THEN BEGIN
                     IF Vendor.GET(GenJnlLine."Account No.") THEN BEGIN
-
+                        if NOT whtBusPostingGroup.GET(Vendor."YVS WHT Business Posting Group") then
+                            whtBusPostingGroup.init();
                         WHTHeader."WHT Business Posting Group" := Vendor."YVS WHT Business Posting Group";
+                        WHTHeader."WHT Type" := whtBusPostingGroup."WHT Type";
                         WHTHeader."WHT Source Type" := WHTHeader."WHT Source Type"::Vendor;
                         WHTHeader.validate("WHT Source No.", Vendor."No.");
                     END;
                 END ELSE
                     IF GenJnlLine."Account Type" = GenJnlLine."Account Type"::Customer THEN
                         IF Customer.GET(GenJnlLine."Account No.") THEN BEGIN
+                            if NOT whtBusPostingGroup.GET(Customer."YVS WHT Business Posting Group") then
+                                whtBusPostingGroup.init();
+                            WHTHeader."WHT Business Posting Group" := Customer."YVS WHT Business Posting Group";
+                            WHTHeader."WHT Type" := whtBusPostingGroup."WHT Type";
                             WHTHeader."WHT Source Type" := WHTHeader."WHT Source Type"::Customer;
                             WHTHeader.validate("WHT Source No.", Customer."No.");
                         END;
