@@ -346,6 +346,7 @@ page 80008 "YVS WHT Certificate"
                 GenJnlLine."Document Type" := GenJnlLine2."Document Type";
                 GenJnlLine."Document No." := GenJnlLine2."Document No.";
                 GenJnlLine."External Document No." := Rec."WHT Certificate No.";
+                GenJnlLine."Source Code" := GenJnlLine2."Source Code";
                 GenJnlLine."YVS WHT Document No." := Rec."WHT No.";
                 GenJnlLine."YVS Require Screen Detail" := GenJnlLine."YVS Require Screen Detail"::WHT;
                 GenJnlLine."YVS Create By" := COPYSTR(UserId(), 1, 50);
