@@ -91,7 +91,8 @@ table 80006 "YVS WHT Header"
                         "WHT City" := Vendor.City;
                         "WHT Post Code" := Vendor."Post Code";
                         "WHT Title Name" := Vendor."YVS WHT Title Name";
-
+                        "WHT Street" := Vendor."YVS WHT Street";
+                        "WHT Floor" := Vendor."YVS WHT Floor";
                         "WHT Building" := Vendor."YVS WHT Building";
                         "WHT District" := Vendor."YVS WHT District";
                         "WHT Sub-district" := Vendor."YVS WHT Sub-district";
