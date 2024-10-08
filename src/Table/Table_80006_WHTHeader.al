@@ -82,29 +82,10 @@ table 80006 "YVS WHT Header"
                             "WHT Address 2" := VendCustomerBranch."Address 2";
                             "VAT Registration No." := VendCustomerBranch."VAT Registration No.";
                         end;
-                        "Head Office" := Vendor."YVS Head Office";
-                        "VAT Branch Code" := Vendor."YVS VAT Branch Code";
-                        "WHT Business Posting Group" := Vendor."YVS WHT Business Posting Group";
                         if NOT whtBusPostingGroup.GET(Vendor."YVS WHT Business Posting Group") then
                             whtBusPostingGroup.init();
                         "WHT Type" := whtBusPostingGroup."WHT Type";
-                        "WHT City" := Vendor.City;
-                        "WHT Post Code" := Vendor."Post Code";
-                        "WHT Title Name" := Vendor."YVS WHT Title Name";
-                        "WHT Street" := Vendor."YVS WHT Street";
-                        "WHT Floor" := Vendor."YVS WHT Floor";
-                        "WHT Building" := Vendor."YVS WHT Building";
-                        "WHT District" := Vendor."YVS WHT District";
-                        "WHT Sub-district" := Vendor."YVS WHT Sub-district";
-                        "WHT Province" := Vendor."YVS WHT Province";
-                        "WHT Alley/Lane" := Vendor."YVS WHT Alley/Lane";
-                        "WHT of No." := Vendor."YVS WHT No.";
-                        "WHT House No." := Vendor."YVS WHT House No.";
-                        "Wht Post Code" := Vendor."Post Code";
-                        if Vendor."YVS WHT Post Code" <> '' then
-                            "Wht Post Code" := Vendor."YVS WHT Post Code";
-                        if Vendor."YVS WHT Province" <> '' then
-                            "WHT City" := Vendor."YVS WHT Province";
+                        UpdateVendorAddress(Vendor);
                         OnAfterinitWHTHeaderVend(rec, Vendor);
                         UpdateAddress();
                     END;
@@ -566,25 +547,50 @@ table 80006 "YVS WHT Header"
     procedure UpdateAddressByBranch()
     var
         VendorCustomerBranch: Record "YVS Customer & Vendor Branch";
+        vendor: Record Vendor;
     begin
         if not VendorCustomerBranch.GET(rec."WHT Source Type", rec."WHT Source No.", rec."Head Office", rec."VAT Branch Code") then
             VendorCustomerBranch.Init();
-        "WHT Name" := VendorCustomerBranch."Name";
-        "VAT Registration No." := VendorCustomerBranch."Vat Registration No.";
-        "WHT Address" := VendorCustomerBranch.Address;
-        "WHT Address 2" := VendorCustomerBranch."Address 2";
-        "WHT Building" := VendorCustomerBranch."Building";
-        "WHT Alley/Lane" := VendorCustomerBranch."Alley/Lane";
-        "WHT District" := VendorCustomerBranch."District";
-        "WHT Floor" := VendorCustomerBranch."Floor";
-        "WHT of No." := VendorCustomerBranch."No.";
-        "WHT House No." := VendorCustomerBranch."House No.";
-        "WHT Street" := VendorCustomerBranch."Street";
-        "WHT Title Name" := VendorCustomerBranch."Title Name";
-        "WHT Village No." := VendorCustomerBranch."Village No.";
-        "WHT City" := VendorCustomerBranch."Province";
-        "WHT Province" := VendorCustomerBranch."Province";
-        "WHT Post Code" := VendorCustomerBranch."post Code";
+        vendor.GET(rec."WHT Source No.");
+        if not "Head Office" then begin
+            "WHT Name" := VendorCustomerBranch."Name";
+            "VAT Registration No." := VendorCustomerBranch."Vat Registration No.";
+            "WHT Address" := VendorCustomerBranch.Address;
+            "WHT Address 2" := VendorCustomerBranch."Address 2";
+            "WHT Building" := VendorCustomerBranch."Building";
+            "WHT Alley/Lane" := VendorCustomerBranch."Alley/Lane";
+            "WHT District" := VendorCustomerBranch."District";
+            "WHT Floor" := VendorCustomerBranch."Floor";
+            "WHT of No." := VendorCustomerBranch."No.";
+            "WHT House No." := VendorCustomerBranch."House No.";
+            "WHT Street" := VendorCustomerBranch."Street";
+            "WHT Title Name" := VendorCustomerBranch."Title Name";
+            "WHT Village No." := VendorCustomerBranch."Village No.";
+            "WHT City" := VendorCustomerBranch."Province";
+            "WHT Province" := VendorCustomerBranch."Province";
+            "WHT Post Code" := VendorCustomerBranch."post Code";
+        end
+        else begin
+            if Vendor."YVS WHT Name" <> '' then
+                "WHT Name" := Vendor."YVS WHT Name"
+            else
+                if VendorCustomerBranch.Name <> '' then
+                    "WHT Name" := VendorCustomerBranch.Name
+                else begin
+                    "WHT Name" := Vendor.Name;
+                    "WHT Name 2" := Vendor."Name 2";
+                end;
+            if VendorCustomerBranch.Address = '' then begin
+                "WHT Address" := Vendor.Address;
+                "WHT Address 2" := COPYSTR(Vendor."Address 2" + ' ' + Vendor.City + ' ' + Vendor."Post Code", 1, 100);
+                "VAT Registration No." := Vendor."VAT Registration No.";
+            end else begin
+                "WHT Address" := VendorCustomerBranch.Address;
+                "WHT Address 2" := VendorCustomerBranch."Address 2";
+                "VAT Registration No." := VendorCustomerBranch."VAT Registration No.";
+            end;
+            UpdateVendorAddress(vendor);
+        end;
         OnCopyAddressbyBranch(rec, VendorCustomerBranch);
     end;
 
@@ -655,6 +661,29 @@ table 80006 "YVS WHT Header"
 
     end;
 
+    local procedure UpdateVendorAddress(vendor: Record Vendor)
+    begin
+        "Head Office" := Vendor."YVS Head Office";
+        "VAT Branch Code" := Vendor."YVS VAT Branch Code";
+        "WHT Business Posting Group" := Vendor."YVS WHT Business Posting Group";
+        "WHT City" := Vendor.City;
+        "WHT Post Code" := Vendor."Post Code";
+        "WHT Title Name" := Vendor."YVS WHT Title Name";
+        "WHT Street" := Vendor."YVS WHT Street";
+        "WHT Floor" := Vendor."YVS WHT Floor";
+        "WHT Building" := Vendor."YVS WHT Building";
+        "WHT District" := Vendor."YVS WHT District";
+        "WHT Sub-district" := Vendor."YVS WHT Sub-district";
+        "WHT Province" := Vendor."YVS WHT Province";
+        "WHT Alley/Lane" := Vendor."YVS WHT Alley/Lane";
+        "WHT of No." := Vendor."YVS WHT No.";
+        "WHT House No." := Vendor."YVS WHT House No.";
+        "Wht Post Code" := Vendor."Post Code";
+        if Vendor."YVS WHT Post Code" <> '' then
+            "Wht Post Code" := Vendor."YVS WHT Post Code";
+        if Vendor."YVS WHT Province" <> '' then
+            "WHT City" := Vendor."YVS WHT Province";
+    end;
     /// <summary>
     /// OnAfterinitWHTHeaderVend.
     /// </summary>
