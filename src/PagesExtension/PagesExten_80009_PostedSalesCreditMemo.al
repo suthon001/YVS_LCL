@@ -49,6 +49,13 @@ pageextension 80009 "YVS Posted Sales Credit Memo" extends "Posted Sales Credit 
                 ToolTip = 'Specifies the value of the Ref. Tax Invoice Amount field.';
                 Visible = CheckDisableLCL;
             }
+            field("YVS Reason Code"; rec."Reason Code")
+            {
+                ApplicationArea = all;
+                Caption = 'Reason Code';
+                ToolTip = 'Specifies the value of the Reason Code field.';
+                Visible = CheckDisableLCL;
+            }
         }
         moveafter("External Document No."; "Salesperson Code", "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code")
 

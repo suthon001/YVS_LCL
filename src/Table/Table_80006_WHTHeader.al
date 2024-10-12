@@ -185,7 +185,7 @@ table 80006 "YVS WHT Header"
             DataClassification = CustomerContent;
             TableRelation = IF ("WHT Source Type" = CONST(Vendor)) "YVS Customer & Vendor Branch"."VAT Branch Code" WHERE("Source Type" = FILTER(Vendor), "Source No." = FIELD("WHT Source No.")) ELSE
             IF ("WHT Source Type" = CONST(Customer)) "YVS Customer & Vendor Branch"."VAT Branch Code" WHERE("Source Type" = FILTER(Customer), "Source No." = FIELD("WHT Source No."));
-            ValidateTableRelation = true;
+            ValidateTableRelation = false;
             trigger OnValidate()
             begin
                 if "VAT Branch Code" <> '' then begin
@@ -274,6 +274,7 @@ table 80006 "YVS WHT Header"
             DataClassification = CustomerContent;
             trigger OnValidate()
             begin
+                UpdateAddress();
                 TrasnferToWHTLine();
             end;
 
@@ -549,47 +550,48 @@ table 80006 "YVS WHT Header"
         VendorCustomerBranch: Record "YVS Customer & Vendor Branch";
         vendor: Record Vendor;
     begin
-        if not VendorCustomerBranch.GET(rec."WHT Source Type", rec."WHT Source No.", rec."Head Office", rec."VAT Branch Code") then
-            VendorCustomerBranch.Init();
-        vendor.GET(rec."WHT Source No.");
-        if not "Head Office" then begin
-            "WHT Name" := VendorCustomerBranch."Name";
-            "VAT Registration No." := VendorCustomerBranch."Vat Registration No.";
-            "WHT Address" := VendorCustomerBranch.Address;
-            "WHT Address 2" := VendorCustomerBranch."Address 2";
-            "WHT Building" := VendorCustomerBranch."Building";
-            "WHT Alley/Lane" := VendorCustomerBranch."Alley/Lane";
-            "WHT District" := VendorCustomerBranch."District";
-            "WHT Floor" := VendorCustomerBranch."Floor";
-            "WHT of No." := VendorCustomerBranch."No.";
-            "WHT House No." := VendorCustomerBranch."House No.";
-            "WHT Street" := VendorCustomerBranch."Street";
-            "WHT Title Name" := VendorCustomerBranch."Title Name";
-            "WHT Village No." := VendorCustomerBranch."Village No.";
-            "WHT City" := VendorCustomerBranch."Province";
-            "WHT Province" := VendorCustomerBranch."Province";
-            "WHT Post Code" := VendorCustomerBranch."post Code";
-        end
-        else begin
-            if Vendor."YVS WHT Name" <> '' then
-                "WHT Name" := Vendor."YVS WHT Name"
-            else
-                if VendorCustomerBranch.Name <> '' then
-                    "WHT Name" := VendorCustomerBranch.Name
-                else begin
-                    "WHT Name" := Vendor.Name;
-                    "WHT Name 2" := Vendor."Name 2";
-                end;
-            if VendorCustomerBranch.Address = '' then begin
-                "WHT Address" := Vendor.Address;
-                "WHT Address 2" := COPYSTR(Vendor."Address 2" + ' ' + Vendor.City + ' ' + Vendor."Post Code", 1, 100);
-                "VAT Registration No." := Vendor."VAT Registration No.";
-            end else begin
+        if vendor.GET(rec."WHT Source No.") then begin
+            if not VendorCustomerBranch.GET(rec."WHT Source Type", rec."WHT Source No.", rec."Head Office", rec."VAT Branch Code") then
+                VendorCustomerBranch.Init();
+            if not "Head Office" then begin
+                "WHT Name" := VendorCustomerBranch."Name";
+                "VAT Registration No." := VendorCustomerBranch."Vat Registration No.";
                 "WHT Address" := VendorCustomerBranch.Address;
                 "WHT Address 2" := VendorCustomerBranch."Address 2";
-                "VAT Registration No." := VendorCustomerBranch."VAT Registration No.";
+                "WHT Building" := VendorCustomerBranch."Building";
+                "WHT Alley/Lane" := VendorCustomerBranch."Alley/Lane";
+                "WHT District" := VendorCustomerBranch."District";
+                "WHT Floor" := VendorCustomerBranch."Floor";
+                "WHT of No." := VendorCustomerBranch."No.";
+                "WHT House No." := VendorCustomerBranch."House No.";
+                "WHT Street" := VendorCustomerBranch."Street";
+                "WHT Title Name" := VendorCustomerBranch."Title Name";
+                "WHT Village No." := VendorCustomerBranch."Village No.";
+                "WHT City" := VendorCustomerBranch."Province";
+                "WHT Province" := VendorCustomerBranch."Province";
+                "WHT Post Code" := VendorCustomerBranch."post Code";
+            end
+            else begin
+                if Vendor."YVS WHT Name" <> '' then
+                    "WHT Name" := Vendor."YVS WHT Name"
+                else
+                    if VendorCustomerBranch.Name <> '' then
+                        "WHT Name" := VendorCustomerBranch.Name
+                    else begin
+                        "WHT Name" := Vendor.Name;
+                        "WHT Name 2" := Vendor."Name 2";
+                    end;
+                if VendorCustomerBranch.Address = '' then begin
+                    "WHT Address" := Vendor.Address;
+                    "WHT Address 2" := COPYSTR(Vendor."Address 2" + ' ' + Vendor.City + ' ' + Vendor."Post Code", 1, 100);
+                    "VAT Registration No." := Vendor."VAT Registration No.";
+                end else begin
+                    "WHT Address" := VendorCustomerBranch.Address;
+                    "WHT Address 2" := VendorCustomerBranch."Address 2";
+                    "VAT Registration No." := VendorCustomerBranch."VAT Registration No.";
+                end;
+                UpdateVendorAddress(vendor);
             end;
-            UpdateVendorAddress(vendor);
         end;
         OnCopyAddressbyBranch(rec, VendorCustomerBranch);
     end;

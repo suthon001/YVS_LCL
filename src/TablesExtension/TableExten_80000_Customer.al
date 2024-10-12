@@ -137,51 +137,20 @@ tableextension 80000 "YVS ExtenCustomer" extends Customer
     begin
         if not FuncenterYVS.CheckDisableLCL() then
             exit;
-        CLEAR(tempHeadOffice);
+        if not NoUpdate then begin
+            CLEAR(tempHeadOffice);
 
-        if FieldsBranch then
-            tempHeadOffice := WHTResult = '00000';
+            if FieldsBranch then
+                tempHeadOffice := WHTResult = '00000';
 
-        if (xRec."No." <> '') AND (xRec."No." <> "No.") then begin
-            if xrec."No." <> '' then begin
-                VendorCustBranch.reset();
-                VendorCustBranch.SetRange("Source Type", VendorCustBranch."Source Type"::Customer);
-                VendorCustBranch.SetRange("Source No.", xrec."No.");
-                VendorCustBranch.DeleteAll();
-            end;
-
-            VendorCustBranch.init();
-            VendorCustBranch."Source Type" := VendorCustBranch."Source Type"::Customer;
-            VendorCustBranch."Source No." := "No.";
-            VendorCustBranch."Head Office" := TRUE;
-
-            VendorCustBranch.insert();
-            VenCust.Get(VendorCustBranch.RecordId);
-            MyFieldRef := VenCust.Field(FiledsNo);
-            if FiledsNo = 3 then
-                MyFieldRef.validate(tempHeadOffice)
-            else
-                MyFieldRef.validate(WHTResult);
-            VenCust.Modify();
-        end else begin
-            VendorCustBranch.reset();
-            VendorCustBranch.SetRange("Source Type", VendorCustBranch."Source Type"::Customer);
-            VendorCustBranch.SetRange("Source No.", "No.");
-            VendorCustBranch.SetRange("Head Office", TRUE);
-            if VendorCustBranch.FindFirst() then begin
-                VenCust.Get(VendorCustBranch.RecordId);
-                if FiledsNo in [16, 17, 23] then begin
-                    MyFieldRef := VenCust.Field(23);
-                    MyFieldRef.validate(StrSubstNo('%1', rec."Address 2" + ' ' + rec.City + ' ' + rec."Post Code").TrimEnd());
-                end else begin
-                    MyFieldRef := VenCust.Field(FiledsNo);
-                    if FiledsNo = 3 then
-                        MyFieldRef.validate(tempHeadOffice)
-                    else
-                        MyFieldRef.validate(WHTResult);
+            if (xRec."No." <> '') AND (xRec."No." <> "No.") then begin
+                if xrec."No." <> '' then begin
+                    VendorCustBranch.reset();
+                    VendorCustBranch.SetRange("Source Type", VendorCustBranch."Source Type"::Customer);
+                    VendorCustBranch.SetRange("Source No.", xrec."No.");
+                    VendorCustBranch.DeleteAll();
                 end;
-                VenCust.Modify();
-            end else begin
+
                 VendorCustBranch.init();
                 VendorCustBranch."Source Type" := VendorCustBranch."Source Type"::Customer;
                 VendorCustBranch."Source No." := "No.";
@@ -189,19 +158,52 @@ tableextension 80000 "YVS ExtenCustomer" extends Customer
 
                 VendorCustBranch.insert();
                 VenCust.Get(VendorCustBranch.RecordId);
-                if FiledsNo in [16, 17, 23] then begin
-                    MyFieldRef := VenCust.Field(23);
-                    MyFieldRef.validate(StrSubstNo('%1', rec."Address 2" + ' ' + rec.City + ' ' + rec."Post Code").TrimEnd());
-                end else begin
-                    MyFieldRef := VenCust.Field(FiledsNo);
-                    if FiledsNo = 3 then
-                        MyFieldRef.validate(tempHeadOffice)
-                    else
-                        MyFieldRef.validate(WHTResult);
-                end;
+                MyFieldRef := VenCust.Field(FiledsNo);
+                if FiledsNo = 3 then
+                    MyFieldRef.validate(tempHeadOffice)
+                else
+                    MyFieldRef.validate(WHTResult);
                 VenCust.Modify();
-            end;
-        END;
+            end else begin
+                VendorCustBranch.reset();
+                VendorCustBranch.SetRange("Source Type", VendorCustBranch."Source Type"::Customer);
+                VendorCustBranch.SetRange("Source No.", "No.");
+                VendorCustBranch.SetRange("Head Office", TRUE);
+                if VendorCustBranch.FindFirst() then begin
+                    VenCust.Get(VendorCustBranch.RecordId);
+                    if FiledsNo in [16, 17, 23] then begin
+                        MyFieldRef := VenCust.Field(23);
+                        MyFieldRef.validate(StrSubstNo('%1', rec."Address 2" + ' ' + rec.City + ' ' + rec."Post Code").TrimEnd());
+                    end else begin
+                        MyFieldRef := VenCust.Field(FiledsNo);
+                        if FiledsNo = 3 then
+                            MyFieldRef.validate(tempHeadOffice)
+                        else
+                            MyFieldRef.validate(WHTResult);
+                    end;
+                    VenCust.Modify();
+                end else begin
+                    VendorCustBranch.init();
+                    VendorCustBranch."Source Type" := VendorCustBranch."Source Type"::Customer;
+                    VendorCustBranch."Source No." := "No.";
+                    VendorCustBranch."Head Office" := TRUE;
+
+                    VendorCustBranch.insert();
+                    VenCust.Get(VendorCustBranch.RecordId);
+                    if FiledsNo in [16, 17, 23] then begin
+                        MyFieldRef := VenCust.Field(23);
+                        MyFieldRef.validate(StrSubstNo('%1', rec."Address 2" + ' ' + rec.City + ' ' + rec."Post Code").TrimEnd());
+                    end else begin
+                        MyFieldRef := VenCust.Field(FiledsNo);
+                        if FiledsNo = 3 then
+                            MyFieldRef.validate(tempHeadOffice)
+                        else
+                            MyFieldRef.validate(WHTResult);
+                    end;
+                    VenCust.Modify();
+                end;
+            END;
+        end;
     end;
 
     trigger OnInsert()
@@ -222,5 +224,15 @@ tableextension 80000 "YVS ExtenCustomer" extends Customer
         VendorCustBranch.DeleteAll();
     end;
 
+    /// <summary>
+    /// NoUpdateVatCustomerBranch.
+    /// </summary>
+    /// <param name="pUpdate">Boolean.</param>
+    procedure NoUpdateVatCustomerBranch(pUpdate: Boolean)
+    begin
+        NoUpdate := pUpdate;
+    end;
 
+    var
+        NoUpdate: Boolean;
 }

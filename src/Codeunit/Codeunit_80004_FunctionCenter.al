@@ -797,7 +797,8 @@ codeunit 80004 "YVS Function Center"
         if (PurchHeader."YVS VAT Branch Code" <> '') AND (NOT PurchHeader."YVS Head Office") then begin
             if not VandorBranch.GET(VandorBranch."Source Type"::Vendor, PurchHeader."Buy-from Vendor No.", PurchHeader."YVS Head Office", PurchHeader."YVS VAT Branch Code") then
                 VandorBranch.Init();
-            Text[10] := VandorBranch."VAT Registration No.";
+            if VandorBranch."VAT Registration No." <> '' then
+                Text[10] := VandorBranch."VAT Registration No.";
         end;
         if PurchHeader."Currency Code" = '' then begin
             if PurchHeader."YVS Head Office" then
@@ -1317,7 +1318,8 @@ codeunit 80004 "YVS Function Center"
         if (SalesHeader."YVS VAT Branch Code" <> '') AND (NOT SalesHeader."YVS Head Office") then begin
             if not CustBranch.GET(CustBranch."Source Type"::customer, SalesHeader."Sell-to Customer No.", SalesHeader."YVS Head Office", SalesHeader."YVS VAT Branch Code") then
                 CustBranch.Init();
-            Text[10] := CustBranch."VAT Registration No.";
+            if CustBranch."VAT Registration No." <> '' then
+                Text[10] := CustBranch."VAT Registration No.";
         end;
         if SalesHeader."Currency Code" = '' then begin
 
@@ -2317,7 +2319,8 @@ codeunit 80004 "YVS Function Center"
                     if (PurchCrMemoHeader."YVS VAT Branch Code" <> '') AND (NOT PurchCrMemoHeader."YVS Head Office") then begin
                         if not VendBranch.GET(VendBranch."Source Type"::Vendor, PurchCrMemoHeader."Buy-from Vendor No.", PurchCrMemoHeader."YVS Head Office", PurchCrMemoHeader."YVS VAT Branch Code") then
                             VendBranch.Init();
-                        Text[10] := VendBranch."VAT Registration No.";
+                        if VendBranch."VAT Registration No." <> '' then
+                            Text[10] := VendBranch."VAT Registration No.";
                     end;
                     if PurchCrMemoHeader."Currency Code" = '' then begin
                         if PurchCrMemoHeader."YVS Head Office" then
@@ -2705,7 +2708,8 @@ codeunit 80004 "YVS Function Center"
                     if (SalesCrMemoHeader."YVS VAT Branch Code" <> '') AND (NOT SalesCrMemoHeader."YVS Head Office") then begin
                         if not CustBranch.GET(CustBranch."Source Type"::customer, SalesCrMemoHeader."Sell-to Customer No.", SalesCrMemoHeader."YVS Head Office", SalesCrMemoHeader."YVS VAT Branch Code") then
                             CustBranch.Init();
-                        Text[10] := CustBranch."VAT Registration No.";
+                        if CustBranch."VAT Registration No." <> '' then
+                            Text[10] := CustBranch."VAT Registration No.";
                     end;
                     if SalesCrMemoHeader."Currency Code" = '' then begin
                         if SalesCrMemoHeader."YVS Head Office" then

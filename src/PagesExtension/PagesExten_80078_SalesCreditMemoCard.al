@@ -51,6 +51,13 @@ pageextension 80078 "YVS Sales Credit Memo Card" extends "Sales Credit Memo"
                 ToolTip = 'Specifies the value of the Ref. Tax Invoice Amount field.';
                 Visible = CheckDisableLCL;
             }
+            field("YVS Reason Code"; rec."Reason Code")
+            {
+                ApplicationArea = all;
+                Caption = 'Reason Code';
+                ToolTip = 'Specifies the value of the Reason Code field.';
+                Visible = CheckDisableLCL;
+            }
 
         }
     }

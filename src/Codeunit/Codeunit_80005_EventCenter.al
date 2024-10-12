@@ -641,8 +641,8 @@ codeunit 80005 "YVS EventFunction"
     begin
         if CheckDisableLCL() then
             exit;
+        CLEAR(ListInvoice);
         if GenJournalLine."Document No." <> '' then begin
-
             VendLdgEntry.reset();
             VendLdgEntry.SetRange("Vendor No.", GenJournalLine."Account No.");
             VendLdgEntry.SetRange("Applies-to ID", GenJournalLine."Document No.");
@@ -672,61 +672,68 @@ codeunit 80005 "YVS EventFunction"
         ltWHTAppliedEntry: Record "YVS WHT Applied Entry";
         ltWHTEntry: Record "YVS WHT Line";
         ltLineNo: Integer;
-        innerlist: code[20];
-    begin
+        InvoiceNo: code[20];
+        IsCreateHeader, HaveRecord : Boolean;
 
+    begin
+        IsCreateHeader := false;
+        HaveRecord := false;
         if CheckDisableLCL() then
             exit;
-        foreach innerlist in ListInvoice do begin
+        GeneralSetup.GET();
+        GeneralSetup.TESTFIELD("YVS WHT Document Nos.");
+        foreach InvoiceNo in ListInvoice do begin
             ltWHTAppliedEntry.reset();
-            ltWHTAppliedEntry.SetRange("Document No.", ListInvoice.Get(ListInvoice.IndexOf(innerlist)));
-            if ltWHTAppliedEntry.FindFirst() then begin
-                GeneralSetup.GET();
-                GeneralSetup.TESTFIELD("YVS WHT Document Nos.");
+            ltWHTAppliedEntry.SetRange("Document No.", InvoiceNo);
+            if ltWHTAppliedEntry.FindFirst() then
                 IF Rec."YVS WHT Document No." = '' THEN BEGIN
-                    WHTHeader.reset();
-                    WHTHeader.setrange("Gen. Journal Template Code", Rec."Journal Template Name");
-                    WHTHeader.setrange("Gen. Journal Batch Code", Rec."Journal Batch Name");
-                    WHTHeader.setrange("Gen. Journal Document No.", Rec."Document No.");
-                    if WHTHeader.FindFirst() then begin
-                        if ltGenJournalLine.GET(WHTHeader."Gen. Journal Template Code", WHTHeader."Gen. Journal Batch Code", WHTHeader."Gen. Journal Line No.") then
-                            ltGenJournalLine.Delete(true);
-                        WHTHeader.DeleteAll();
+                    if not IsCreateHeader then begin
+                        WHTHeader.reset();
+                        WHTHeader.setrange("Gen. Journal Template Code", Rec."Journal Template Name");
+                        WHTHeader.setrange("Gen. Journal Batch Code", Rec."Journal Batch Name");
+                        WHTHeader.setrange("Gen. Journal Document No.", Rec."Document No.");
+                        if WHTHeader.FindFirst() then begin
+                            if ltGenJournalLine.GET(WHTHeader."Gen. Journal Template Code", WHTHeader."Gen. Journal Batch Code", WHTHeader."Gen. Journal Line No.") then
+                                ltGenJournalLine.Delete(true);
+                            WHTHeader.DeleteAll();
+                        end;
+
+                        Vendor.GET(rec."Account No.");
+                        WHTBusiness.GET(ltWHTAppliedEntry."WHT Bus. Posting Group");
+                        WHTBusiness.TestField("WHT Certificate No. Series");
+                        WHTBusiness.TESTfield("WHT Account No.");
+
+
+                        WHTHeader.INIT();
+                        WHTHeader."WHT No." := NosMgt.GetNextNo(GeneralSetup."YVS WHT Document Nos.", Rec."Posting Date", TRUE);
+                        WHTHeader."No. Series" := GeneralSetup."YVS WHT Document Nos.";
+                        WHTHeader."Gen. Journal Template Code" := Rec."Journal Template Name";
+                        WHTHeader."Gen. Journal Batch Code" := Rec."Journal Batch Name";
+                        WHTHeader."Gen. Journal Document No." := Rec."Document No.";
+                        WHTHeader."WHT Date" := Rec."Document Date";
+                        WHTHeader."WHT Source Type" := WHTHeader."WHT Source Type"::Vendor;
+                        WHTHeader.validate("WHT Source No.", Vendor."No.");
+                        WHTHeader.INSERT();
+
+                        WHTHeader."WHT Type" := WHTBusiness."WHT Type";
+                        WHTheader."WHT Certificate No." := NosMgt.GetNextNo(WHTBusiness."WHT Certificate No. Series", WorkDate(), true);
+                        WHTHeader."WHT Option" := ltWHTAppliedEntry."WHT Option";
+                        if ltWHTAppliedEntry."WHT Bus. Posting Group" <> '' then
+                            WHTHeader."WHT Business Posting Group" := ltWHTAppliedEntry."WHT Bus. Posting Group";
+                        OnbeforModifyWHTHeader(ltWHTAppliedEntry, WHTHeader, rec);
+                        WHTHeader.Modify();
+
+
+                        ltWHTEntry.reset();
+                        ltWHTEntry.SetRange("WHT No.", WHTHeader."WHT No.");
+                        ltWHTEntry.DeleteAll();
+                        IsCreateHeader := true;
+                        HaveRecord := true;
                     end;
 
-                    Vendor.GET(rec."Account No.");
-                    WHTBusiness.GET(ltWHTAppliedEntry."WHT Bus. Posting Group");
-                    WHTBusiness.TestField("WHT Certificate No. Series");
-                    WHTBusiness.TESTfield("WHT Account No.");
-
-
-                    WHTHeader.INIT();
-                    WHTHeader."WHT No." := NosMgt.GetNextNo(GeneralSetup."YVS WHT Document Nos.", Rec."Posting Date", TRUE);
-                    WHTHeader."No. Series" := GeneralSetup."YVS WHT Document Nos.";
-                    WHTHeader."Gen. Journal Template Code" := Rec."Journal Template Name";
-                    WHTHeader."Gen. Journal Batch Code" := Rec."Journal Batch Name";
-                    WHTHeader."Gen. Journal Document No." := Rec."Document No.";
-                    WHTHeader."WHT Date" := Rec."Document Date";
-                    WHTHeader."WHT Source Type" := WHTHeader."WHT Source Type"::Vendor;
-                    WHTHeader.validate("WHT Source No.", Vendor."No.");
-                    WHTHeader.INSERT();
-
-                    WHTHeader."WHT Type" := WHTBusiness."WHT Type";
-                    WHTheader."WHT Certificate No." := NosMgt.GetNextNo(WHTBusiness."WHT Certificate No. Series", WorkDate(), true);
-                    WHTHeader."WHT Option" := ltWHTAppliedEntry."WHT Option";
-                    if ltWHTAppliedEntry."WHT Bus. Posting Group" <> '' then
-                        WHTHeader."WHT Business Posting Group" := ltWHTAppliedEntry."WHT Bus. Posting Group";
-                    OnbeforModifyWHTHeader(ltWHTAppliedEntry, WHTHeader, rec);
-                    WHTHeader.Modify();
-
-
-                    ltWHTEntry.reset();
-                    ltWHTEntry.SetRange("WHT No.", WHTHeader."WHT No.");
-                    ltWHTEntry.DeleteAll();
-
                     ltWHTAppliedEntry.reset();
-                    ltWHTAppliedEntry.SetRange("Document No.", ListInvoice.Get(ListInvoice.IndexOf(innerlist)));
-                    if ltWHTAppliedEntry.FindSet() then begin
+                    ltWHTAppliedEntry.SetRange("Document No.", InvoiceNo);
+                    if ltWHTAppliedEntry.FindSet() then
                         repeat
                             ltWHTEntry.reset();
                             ltWHTEntry.SetRange("WHT No.", WHTHeader."WHT No.");
@@ -741,24 +748,33 @@ codeunit 80005 "YVS EventFunction"
                                 ltWHTEntry."WHT Date" := WHTHeader."WHT Date";
                                 ltWHTEntry.validate("WHT Business Posting Group", ltWHTAppliedEntry."WHT Bus. Posting Group");
                                 ltWHTEntry.validate("WHT Product Posting Group", ltWHTAppliedEntry."WHT Prod. Posting Group");
-                                ltWHTEntry."WHT Base" := ltWHTAppliedEntry."WHT Base";
                                 ltWHTEntry."WHT %" := ltWHTAppliedEntry."WHT %";
-                                ltWHTEntry."WHT Amount" := ltWHTAppliedEntry."WHT Amount";
+                                if ltWHTAppliedEntry."WHT Document Type" = ltWHTAppliedEntry."WHT Document Type"::"Credit Memo" then begin
+                                    ltWHTEntry."WHT Base" := -ltWHTAppliedEntry."WHT Base";
+                                    ltWHTEntry."WHT Amount" := -ltWHTAppliedEntry."WHT Amount";
+                                end else begin
+                                    ltWHTEntry."WHT Base" := ltWHTAppliedEntry."WHT Base";
+                                    ltWHTEntry."WHT Amount" := ltWHTAppliedEntry."WHT Amount";
+                                end;
                                 ltWHTEntry."WHT Name" := ltWHTAppliedEntry."WHT Name";
                                 ltWHTEntry."WHT Post Code" := ltWHTAppliedEntry."WHT Post Code";
                                 OnbeforInsertWHTLine(ltWHTAppliedEntry, WHTHeader, rec, ltWHTEntry);
                                 ltWHTEntry.Insert();
                             end else begin
-                                ltWHTEntry."WHT Amount" := ltWHTEntry."WHT Amount" + ltWHTAppliedEntry."WHT Amount";
-                                ltWHTEntry."WHT Base" := ltWHTEntry."WHT Base" + ltWHTAppliedEntry."WHT Base";
+                                if ltWHTAppliedEntry."WHT Document Type" = ltWHTAppliedEntry."WHT Document Type"::"Credit Memo" then begin
+                                    ltWHTEntry."WHT Amount" := ltWHTEntry."WHT Amount" - ltWHTAppliedEntry."WHT Amount";
+                                    ltWHTEntry."WHT Base" := ltWHTEntry."WHT Base" - ltWHTAppliedEntry."WHT Base";
+                                end else begin
+                                    ltWHTEntry."WHT Amount" := ltWHTEntry."WHT Amount" + ltWHTAppliedEntry."WHT Amount";
+                                    ltWHTEntry."WHT Base" := ltWHTEntry."WHT Base" + ltWHTAppliedEntry."WHT Base";
+                                end;
                                 ltWHTEntry.Modify();
                             end;
                         until ltWHTAppliedEntry.Next() = 0;
-                        CreateWHTCertificate(WHTHeader, rec);
-                    end;
                 end;
-            end;
         end;
+        if HaveRecord then
+            CreateWHTCertificate(WHTHeader, rec);
     end;
 
 
