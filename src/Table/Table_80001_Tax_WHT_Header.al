@@ -281,6 +281,7 @@ table 80001 "YVS Tax & WHT Header"
         CLEAR(ltGrouppingWHTLine);
         ltGrouppingWHTLine.SetRange(TaxType, TaxReportHeader."Tax Type");
         ltGrouppingWHTLine.SetRange(DocumentNo, TaxReportHeader."Document No.");
+        ltGrouppingWHTLine.SetRange(Send_to_Report, true);
         ltGrouppingWHTLine.Open();
         while ltGrouppingWHTLine.Read() do begin
             Clear(TempTaxt);
@@ -290,6 +291,7 @@ table 80001 "YVS Tax & WHT Header"
             TaxReportLine.SetRange("Tax Type", TaxReportHeader."Tax Type");
             TaxReportLine.SetRange("Document No.", TaxReportHeader."Document No.");
             TaxReportLine.SetRange("WHT Certificate No.", ltGrouppingWHTLine.WHTCertificateNo);
+            TaxReportLine.SetRange("Send to Report", ltGrouppingWHTLine.Send_to_Report);
             if TaxReportLine.FindSet() then begin
                 repeat
                     ltLineCheckRec := ltLineCheckRec + 1;

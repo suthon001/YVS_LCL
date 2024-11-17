@@ -194,6 +194,7 @@ report 80043 "YVS WHT03 Report"
                     TaxReportLineFind.SetCurrentKey("Tax Type", "Document No.", "Entry No.");
                     TaxReportLineFind.SETFILTER("Tax Type", '%1', "Tax Type");
                     TaxReportLineFind.SETFILTER("Document No.", '%1', "Document No.");
+                    TaxReportLineFind.SetRange("Send to Report", true);
                     if TaxReportLineFind.FindSet() then
                         repeat
                             "WHT Transaction".reset();

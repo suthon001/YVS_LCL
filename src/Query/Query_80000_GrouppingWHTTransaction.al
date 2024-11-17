@@ -10,10 +10,14 @@ query 80000 "YVS Groupping WHT Transaction"
     {
         dataitem(NCTTaxWHTLine; "YVS Tax & WHT Line")
         {
+
             column(TaxType; "Tax Type")
             {
             }
             column(DocumentNo; "Document No.")
+            {
+            }
+            column(Send_to_Report; "Send to Report")
             {
             }
             column(WHTCertificateNo; "WHT Certificate No.")

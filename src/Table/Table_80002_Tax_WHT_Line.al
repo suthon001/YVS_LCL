@@ -555,6 +555,7 @@ table 80002 "YVS Tax & WHT Line"
                 if WHTLine.FindFirst() then
                     repeat
                         TaxReportLineFind.INIT();
+                        TaxReportLineFind."Send to Report" := true;
                         TaxReportLineFind."Tax Type" := "Tax Type";
                         TaxReportLineFind."Document No." := "Document No.";
                         TaxReportLineFind."Entry No." := GetLastLineNo();

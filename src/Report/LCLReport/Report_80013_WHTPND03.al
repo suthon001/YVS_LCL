@@ -155,10 +155,20 @@ report 80013 "YVS WHT PND 03"
 
                 var_WHTRegisNo: Code[20];
             begin
-                CalcFields("Total Base Amount", "Total VAT Amount");
-                var_Amount := "Total Base Amount";
-                var_WHTAmount := "Total VAT Amount";
-                var_WHTTotalAmount := var_WHTAmount;
+
+                var_Amount := 0;
+                var_WHTAmount := 0;
+                var_WHTTotalAmount := 0;
+                TaxReportLine.RESET();
+                TaxReportLine.SETFILTER("Tax Type", '%1', "Tax Type");
+                TaxReportLine.SETFILTER("Document No.", '%1', "Document No.");
+                TaxReportLine.SetRange("Send to Report", true);
+                if TaxReportLine.FindFirst() then begin
+                    TaxReportLine.CalcSums("Base Amount", "VAT Amount");
+                    var_Amount := TaxReportLine."Base Amount";
+                    var_WHTAmount := TaxReportLine."VAT Amount";
+                    var_WHTTotalAmount := var_WHTAmount;
+                end;
                 YesrPS := "Year No." + 543;
 
                 Rec_WHTBusinessPostingGroup.reset();
@@ -202,6 +212,7 @@ report 80013 "YVS WHT PND 03"
                 TaxReportLine.SETCURRENTKEY("WHT Registration No.");
                 TaxReportLine.SETFILTER("Tax Type", '%1', "Tax Type");
                 TaxReportLine.SETFILTER("Document No.", '%1', "Document No.");
+                TaxReportLine.SetRange("Send to Report", true);
                 if DateFilter <> '' then
                     TaxReportLine.SETFILTER("Posting Date", DateFilter);
                 IF TaxReportLine.FindFirst() THEN

@@ -14,6 +14,11 @@ page 80023 "YVS WHT Subpage"
         {
             repeater(General)
             {
+                field("Send to Report"; rec."Send to Report")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Send to Report field.';
+                }
 
                 field("Entry No."; Rec."Entry No.")
                 {
