@@ -57,7 +57,7 @@ pageextension 80009 "YVS Posted Sales Credit Memo" extends "Posted Sales Credit 
                 Visible = CheckDisableLCL;
             }
         }
-        moveafter("External Document No."; "Salesperson Code", "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code")
+        //  moveafter("External Document No."; "Salesperson Code", "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code")
 
     }
     actions

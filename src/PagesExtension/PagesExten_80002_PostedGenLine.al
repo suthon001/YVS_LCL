@@ -12,6 +12,7 @@ pageextension 80002 "YVS ExtenPostPostedGenLine" extends "Posted General Journal
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the External Document No. field.';
+                Visible = CheckDisableLCL;
             }
             field("Require Screen Detail"; Rec."YVS Require Screen Detail")
             {

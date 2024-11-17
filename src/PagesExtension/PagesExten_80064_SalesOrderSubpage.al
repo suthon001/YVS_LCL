@@ -12,7 +12,7 @@ pageextension 80064 "YVS Sales Order Subpage" extends "Sales Order Subform"
         ShortcutDimCode3, ShortcutDimCode4, ShortcutDimCode5, ShortcutDimCode6, ShortcutDimCode7, ShortcutDimCode8)
         modify("Description 2")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
         moveafter(Description; "Description 2")
 
@@ -28,39 +28,39 @@ pageextension 80064 "YVS Sales Order Subpage" extends "Sales Order Subform"
         }
         modify("Tax Group Code")
         {
-            Visible = false;
+            Visible = not CheckDisableLCL;
         }
         modify("Tax Area Code")
         {
-            Visible = false;
+            Visible = not CheckDisableLCL;
         }
         modify("Qty. to Assemble to Order")
         {
-            Visible = false;
+            Visible = not CheckDisableLCL;
         }
         modify("Qty. to Assign")
         {
-            Visible = false;
+            Visible = not CheckDisableLCL;
         }
         modify("Qty. Assigned")
         {
-            Visible = false;
+            Visible = not CheckDisableLCL;
         }
         modify("Gen. Bus. Posting Group")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
         modify("VAT Bus. Posting Group")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
         modify("Gen. Prod. Posting Group")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
         modify("VAT Prod. Posting Group")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
         moveafter("Location Code"; "Gen. Bus. Posting Group", "Gen. Prod. Posting Group", "VAT Bus. Posting Group", "VAT Prod. Posting Group")
         addafter("VAT Prod. Posting Group")

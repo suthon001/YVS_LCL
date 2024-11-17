@@ -9,7 +9,7 @@ pageextension 80018 "YVS Sales Quotes Subpage" extends "Sales Quote Subform"
         {
             Visible = CheckDisableLCL;
         }
-        moveafter(Description; "Description 2", "Location Code")
+        // moveafter(Description; "Description 2", "Location Code")
 
         modify("Tax Group Code")
         {
@@ -58,9 +58,9 @@ pageextension 80018 "YVS Sales Quotes Subpage" extends "Sales Quote Subform"
         {
             Visible = CheckDisableLCL;
         }
-        moveafter("Location Code"; "Gen. Bus. Posting Group", "Gen. Prod. Posting Group", "VAT Bus. Posting Group", "VAT Prod. Posting Group")
-        moveafter(Quantity; "Unit of Measure Code", "Unit Price", "Line Discount %", "Line Discount Amount", "Line Amount", "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code",
-        ShortcutDimCode3, ShortcutDimCode4, ShortcutDimCode5, ShortcutDimCode6, ShortcutDimCode7, ShortcutDimCode8)
+        // moveafter("Location Code"; "Gen. Bus. Posting Group", "Gen. Prod. Posting Group", "VAT Bus. Posting Group", "VAT Prod. Posting Group")
+        // moveafter(Quantity; "Unit of Measure Code", "Unit Price", "Line Discount %", "Line Discount Amount", "Line Amount", "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code",
+        // ShortcutDimCode3, ShortcutDimCode4, ShortcutDimCode5, ShortcutDimCode6, ShortcutDimCode7, ShortcutDimCode8)
 
 
     }

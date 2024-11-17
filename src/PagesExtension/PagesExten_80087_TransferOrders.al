@@ -11,12 +11,22 @@ pageextension 80087 "NUD Transfer Orders" extends "Transfer Orders"
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the Completely Shipped field.';
+                Visible = CheckDisableLCL;
             }
             field("Completely Received"; rec."Completely Received")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the Completely Received field.';
+                Visible = CheckDisableLCL;
             }
         }
     }
+    trigger OnOpenPage()
+    begin
+        CheckDisableLCL := FuncenterYVS.CheckDisableLCL();
+    end;
+
+    var
+        CheckDisableLCL: Boolean;
+        FuncenterYVS: Codeunit "YVS Function Center";
 }

@@ -55,30 +55,30 @@ pageextension 80030 "YVS Payment Journal" extends "Payment Journal"
 
         modify("Gen. Bus. Posting Group")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
         modify("Gen. Prod. Posting Group")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
         modify("Gen. Posting Type")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
         modify("VAT Bus. Posting Group")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
         modify("VAT Prod. Posting Group")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
-        movebefore(Amount; "Currency Code")
+        //movebefore(Amount; "Currency Code")
         modify("Document Date")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
-        moveafter("Posting Date"; "Document Date")
+        // moveafter("Posting Date"; "Document Date")
     }
 
 

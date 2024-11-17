@@ -7,28 +7,28 @@ pageextension 80073 "YVS Purchase Invoice Subpage" extends "Purch. Invoice Subfo
     {
         modify("Description 2")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
-        moveafter(Description; "Description 2")
+        // moveafter(Description; "Description 2")
 
 
         modify("Gen. Bus. Posting Group")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
         modify("VAT Bus. Posting Group")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
         modify("Gen. Prod. Posting Group")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
         modify("VAT Prod. Posting Group")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
-        moveafter("Location Code"; "Gen. Bus. Posting Group", "Gen. Prod. Posting Group", "VAT Bus. Posting Group", "VAT Prod. Posting Group")
+        // moveafter("Location Code"; "Gen. Bus. Posting Group", "Gen. Prod. Posting Group", "VAT Bus. Posting Group", "VAT Prod. Posting Group")
         addafter("VAT Prod. Posting Group")
         {
             field("WHT Business Posting Group"; Rec."YVS WHT Business Posting Group")
@@ -107,15 +107,7 @@ pageextension 80073 "YVS Purchase Invoice Subpage" extends "Purch. Invoice Subfo
         {
             Visible = not CheckDisableLCL;
         }
-        // modify(Quantity)
-        // {
-        //     trigger OnAfterValidate()
-        //     var
-        //         YVSEnventCenter: Codeunit "YVS EventFunction";
-        //     begin
-        //         YVSEnventCenter.CheckRemainingPurchaseInvoice(Rec);
-        //     end;
-        // }
+
 
     }
     trigger OnDeleteRecord(): Boolean

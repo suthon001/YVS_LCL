@@ -7,34 +7,34 @@ pageextension 80079 "YVS Sales Credit Memo Subpage" extends "Sales Cr. Memo Subf
     {
         modify("Description 2")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
-        moveafter(Description; "Description 2")
+        //   moveafter(Description; "Description 2")
 
 
         modify("Return Reason Code")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
 
-        moveafter("Description 2"; "Location Code")
+        //    moveafter("Description 2"; "Location Code")
         modify("Gen. Bus. Posting Group")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
         modify("VAT Bus. Posting Group")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
         modify("Gen. Prod. Posting Group")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
         modify("VAT Prod. Posting Group")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
-        moveafter("Location Code"; "Gen. Bus. Posting Group", "Gen. Prod. Posting Group", "VAT Bus. Posting Group", "VAT Prod. Posting Group")
+        //   moveafter("Location Code"; "Gen. Bus. Posting Group", "Gen. Prod. Posting Group", "VAT Bus. Posting Group", "VAT Prod. Posting Group")
         addafter("VAT Prod. Posting Group")
         {
             field("WHT Business Posting Group"; Rec."YVS WHT Business Posting Group")

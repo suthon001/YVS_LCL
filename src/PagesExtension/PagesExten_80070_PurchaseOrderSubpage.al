@@ -22,7 +22,7 @@ pageextension 80070 "YVS Purchase Order Subpage" extends "Purchase Order Subform
         }
         modify("Description 2")
         {
-            Visible = true;
+            Visible = not CheckDisableLCL;
         }
         moveafter(Description; "Description 2")
 
@@ -30,34 +30,35 @@ pageextension 80070 "YVS Purchase Order Subpage" extends "Purchase Order Subform
 
         modify("Tax Group Code")
         {
-            Visible = false;
+            Visible = not CheckDisableLCL;
         }
         modify("Tax Area Code")
         {
-            Visible = false;
+            Visible = not CheckDisableLCL;
         }
         modify("Over-Receipt Code")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
         modify("Over-Receipt Quantity")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
         modify("Line Discount Amount")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
         modify(Type)
         {
             Importance = Standard;
             ApplicationArea = all;
+            Visible = CheckDisableLCL;
         }
         modify(FilteredTypeField)
         {
-            Visible = false;
+            Visible = not CheckDisableLCL;
         }
-        moveafter(Quantity; "Over-Receipt Code", "Over-Receipt Quantity")
+        //  moveafter(Quantity; "Over-Receipt Code", "Over-Receipt Quantity")
 
         modify("Qty. to Assign") { Visible = false; }
         modify("Qty. Assigned") { Visible = false; }
@@ -72,8 +73,8 @@ pageextension 80070 "YVS Purchase Order Subpage" extends "Purchase Order Subform
         modify("Gen. Bus. Posting Group") { Visible = true; }
         modify("Gen. Prod. Posting Group") { Visible = true; }
 
-        movefirst(Control1; Type, "No.", Description, "Description 2", "Location Code", "Bin Code", "Gen. Bus. Posting Group", "Gen. Prod. Posting Group", "VAT Bus. Posting Group", "VAT Prod. Posting Group", Quantity, "Unit of Measure Code", "Direct Unit Cost", "Line Discount %", "Line Discount Amount", "Line Amount",
-        "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code", ShortcutDimCode3, ShortcutDimCode4, ShortcutDimCode5, ShortcutDimCode6, ShortcutDimCode7, ShortcutDimCode8, "Qty. to Receive", "Quantity Received", "Qty. to Invoice", "Quantity Invoiced")
+        // movefirst(Control1; Type, "No.", Description, "Description 2", "Location Code", "Bin Code", "Gen. Bus. Posting Group", "Gen. Prod. Posting Group", "VAT Bus. Posting Group", "VAT Prod. Posting Group", Quantity, "Unit of Measure Code", "Direct Unit Cost", "Line Discount %", "Line Discount Amount", "Line Amount",
+        // "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code", ShortcutDimCode3, ShortcutDimCode4, ShortcutDimCode5, ShortcutDimCode6, ShortcutDimCode7, ShortcutDimCode8, "Qty. to Receive", "Quantity Received", "Qty. to Invoice", "Quantity Invoiced")
         addafter("Qty. to Receive")
         {
             field("YVS Qty. to Cancel"; rec."YVS Qty. to Cancel")

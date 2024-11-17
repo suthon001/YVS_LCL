@@ -11,7 +11,16 @@ pageextension 80088 "YVS BankAccountLists" extends "Bank Account List"
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies a number of the bank branch.';
+                Visible = CheckDisableLCL;
             }
         }
     }
+    trigger OnOpenPage()
+    begin
+        CheckDisableLCL := FuncenterYVS.CheckDisableLCL();
+    end;
+
+    var
+        CheckDisableLCL: Boolean;
+        FuncenterYVS: Codeunit "YVS Function Center";
 }

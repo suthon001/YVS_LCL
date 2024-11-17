@@ -7,7 +7,7 @@ pageextension 80068 "YVS Purchase Order Lists" extends "Purchase Order List"
     {
         modify("Vendor Authorization No.")
         {
-            Visible = false;
+            Visible = not CheckDisableLCL;
         }
         addlast(Control1)
         {
@@ -35,15 +35,16 @@ pageextension 80068 "YVS Purchase Order Lists" extends "Purchase Order List"
         }
         modify(Status)
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
-        moveafter("No."; Status)
+        // moveafter("No."; Status)
         addafter(Status)
         {
             field("Completely Received"; rec."Completely Received")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the Completely Received field.';
+                Visible = CheckDisableLCL;
             }
         }
     }

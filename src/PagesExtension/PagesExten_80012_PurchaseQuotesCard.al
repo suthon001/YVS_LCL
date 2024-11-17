@@ -70,11 +70,12 @@ pageextension 80012 "YVS Purchase Quote Card" extends "Purchase Quote"
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the number of the vendor that you received the invoice from.';
+                Visible = CheckDisableLCL;
             }
         }
-        moveafter("Purchaser Code"; "Currency Code")
-        moveafter("Currency Code"; "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code")
-        moveafter("YVS Make PO No. Series"; "Expected Receipt Date", "Location Code")
+        // moveafter("Purchaser Code"; "Currency Code")
+        // moveafter("Currency Code"; "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code")
+        // moveafter("YVS Make PO No. Series"; "Expected Receipt Date", "Location Code")
 
     }
     actions

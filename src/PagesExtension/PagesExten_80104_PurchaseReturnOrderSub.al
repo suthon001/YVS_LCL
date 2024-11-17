@@ -7,8 +7,16 @@ pageextension 80104 "YVS Purchase Return Order Sub." extends "Purchase Return Or
     {
         modify("Bin Code")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
-        moveafter("Location Code"; "Bin Code")
+        // moveafter("Location Code"; "Bin Code")
     }
+    trigger OnOpenPage()
+    begin
+        CheckDisableLCL := FuncenterYVS.CheckDisableLCL();
+    end;
+
+    var
+        CheckDisableLCL: Boolean;
+        FuncenterYVS: Codeunit "YVS Function Center";
 }

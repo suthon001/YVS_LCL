@@ -39,19 +39,19 @@ pageextension 80042 "YVS PostedPurchCreditMemoCard" extends "Posted Purchase Cre
         }
         modify(Cancelled)
         {
-            Visible = false;
+            Visible = not CheckDisableLCL;
         }
         modify("No. Printed")
         {
-            Visible = false;
+            Visible = not CheckDisableLCL;
         }
         modify(Corrective)
         {
-            Visible = false;
+            Visible = not CheckDisableLCL;
         }
         modify("Order Address Code")
         {
-            Visible = false;
+            Visible = not CheckDisableLCL;
         }
         addafter("No.")
         {

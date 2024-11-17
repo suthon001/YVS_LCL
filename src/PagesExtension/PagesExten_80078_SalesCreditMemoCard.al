@@ -24,19 +24,19 @@ pageextension 80078 "YVS Sales Credit Memo Card" extends "Sales Credit Memo"
         }
         modify("VAT Registration No.")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
-        moveafter("VAT Branch Code"; "VAT Registration No.")
+        //  moveafter("VAT Branch Code"; "VAT Registration No.")
         modify("No.")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
         modify("Sell-to Customer No.")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
             Importance = Promoted;
         }
-        moveafter("External Document No."; "Salesperson Code", "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code")
+        // moveafter("External Document No."; "Salesperson Code", "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code")
         addafter("Applies-to ID")
         {
             field("YVS Ref. Tax Invoice Date"; rec."YVS Ref. Tax Invoice Date")

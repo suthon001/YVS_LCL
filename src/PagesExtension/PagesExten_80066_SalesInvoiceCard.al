@@ -41,26 +41,26 @@ pageextension 80066 "YVS Sales Invoice Card" extends "Sales Invoice"
         }
         modify("Posting Description")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
         modify("VAT Registration No.")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
-        moveafter("VAT Branch Code"; "VAT Registration No.", "Posting Description")
+        // moveafter("VAT Branch Code"; "VAT Registration No.", "Posting Description")
         modify("No.")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
             Importance = Promoted;
 
         }
         modify("Posting Date")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
         modify("Campaign No.")
         {
-            Visible = false;
+            Visible = not CheckDisableLCL;
         }
         modify("Sell-to Customer No.")
         {
@@ -68,11 +68,11 @@ pageextension 80066 "YVS Sales Invoice Card" extends "Sales Invoice"
         }
         modify(Control60)
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
         modify(Control85)
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
 
 

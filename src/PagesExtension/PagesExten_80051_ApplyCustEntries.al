@@ -7,9 +7,17 @@ pageextension 80051 "YVS ApplyCustEntries" extends "Apply Customer Entries"
     {
         modify("External Document No.")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
-        moveafter("Document No."; "External Document No.")
+        //  moveafter("Document No."; "External Document No.")
 
     }
+    trigger OnOpenPage()
+    begin
+        CheckDisableLCL := FuncenterYVS.CheckDisableLCL();
+    end;
+
+    var
+        CheckDisableLCL: Boolean;
+        FuncenterYVS: Codeunit "YVS Function Center";
 }

@@ -21,9 +21,11 @@ pageextension 80027 "YVS CustomerStaticFacbox" extends "Customer Statistics Fact
 
     trigger OnAfterGetRecord()
     begin
-        AvalibleCreditAmt := 0;
-        IF Rec."Credit Limit (LCY)" <> 0 then
-            AvalibleCreditAmt := Rec."Credit Limit (LCY)" - Rec.GetTotalAmountLCY();
+        if CheckDisableLCL then begin
+            AvalibleCreditAmt := 0;
+            IF Rec."Credit Limit (LCY)" <> 0 then
+                AvalibleCreditAmt := Rec."Credit Limit (LCY)" - Rec.GetTotalAmountLCY();
+        end;
     end;
 
     trigger OnOpenPage()

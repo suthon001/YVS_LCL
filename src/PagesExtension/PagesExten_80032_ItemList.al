@@ -8,49 +8,57 @@ pageextension 80032 "YVS itemLists" extends "Item List"
     {
         modify("Item Tracking Code")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
         modify(Type)
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
         modify("Costing Method")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
         modify("VAT Prod. Posting Group")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
         modify("Gen. Prod. Posting Group")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
         modify("Default Deferral Template Code")
         {
-            Visible = false;
+            Visible = not CheckDisableLCL;
         }
         modify("Cost is Adjusted")
         {
-            Visible = false;
+            Visible = not CheckDisableLCL;
         }
         modify("Substitutes Exist")
         {
-            Visible = false;
+            Visible = not CheckDisableLCL;
         }
         modify("Sales Unit of Measure")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
         modify("Purch. Unit of Measure")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
-        moveafter("No."; Description, "Base Unit of Measure", "Unit Cost", Type, "Item Tracking Code", "Inventory Posting Group", "Gen. Prod. Posting Group", "VAT Prod. Posting Group"
-        , "Costing Method", "Assembly BOM", "Replenishment System", "Production BOM No.", "Routing No.", "Unit Price", "Sales Unit of Measure", "Purch. Unit of Measure", "Vendor No.", "Search Description")
+        // moveafter("No."; Description, "Base Unit of Measure", "Unit Cost", Type, "Item Tracking Code", "Inventory Posting Group", "Gen. Prod. Posting Group", "VAT Prod. Posting Group"
+        //  , "Costing Method", "Assembly BOM", "Replenishment System", "Production BOM No.", "Routing No.", "Unit Price", "Sales Unit of Measure", "Purch. Unit of Measure", "Vendor No.", "Search Description")
 
 
 
 
     }
+    trigger OnOpenPage()
+    begin
+        CheckDisableLCL := FuncenterYVS.CheckDisableLCL();
+    end;
+
+    var
+        CheckDisableLCL: Boolean;
+        FuncenterYVS: Codeunit "YVS Function Center";
 }

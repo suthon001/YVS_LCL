@@ -13,11 +13,13 @@ pageextension 80001 "YVS ExtenVendor Card" extends "Vendor Card"
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the Global Dimension 1 Code field.';
+                Visible = CheckDisableLCL;
             }
             field("Global Dimension 2 Code"; rec."Global Dimension 2 Code")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the Global Dimension 2 Code field.';
+                Visible = CheckDisableLCL;
             }
             field("WHT Business Posting Group"; rec."YVS WHT Business Posting Group")
             {

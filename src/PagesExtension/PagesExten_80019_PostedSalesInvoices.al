@@ -7,9 +7,9 @@ pageextension 80019 "YVS Posted Sales Invoices" extends "Posted Sales Invoices"
     {
         modify("Order No.")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
-        moveafter("Location Code"; "Order No.")
+        //  moveafter("Location Code"; "Order No.")
     }
     actions
     {

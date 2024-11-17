@@ -8,41 +8,41 @@ pageextension 80041 "YVS ExtenPostPurchCreditLists" extends "Posted Purchase Cre
 
         modify("No. Printed")
         {
-            Visible = false;
+            Visible = not CheckDisableLCL;
         }
         modify(Cancelled)
         {
-            Visible = false;
+            Visible = not CheckDisableLCL;
         }
         modify(Paid)
         {
-            Visible = false;
+            Visible = not CheckDisableLCL;
         }
 
         modify(Corrective)
         {
-            Visible = false;
+            Visible = not CheckDisableLCL;
         }
         modify("Posting Date")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
         modify("Document Date")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
         modify("Pay-to Vendor No.")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
         modify("Pay-to Name")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
 
 
-        moveafter("No."; "Posting Date", "Document Date", "Due Date", "Buy-from Vendor No.", "Pay-to Vendor No.", "Buy-from Vendor Name", "Pay-to Name",
-        "Currency Code", "Location Code", Amount, "Amount Including VAT", "Remaining Amount")
+        //   moveafter("No."; "Posting Date", "Document Date", "Due Date", "Buy-from Vendor No.", "Pay-to Vendor No.", "Buy-from Vendor Name", "Pay-to Name",
+        //  "Currency Code", "Location Code", Amount, "Amount Including VAT", "Remaining Amount")
 
     }
     actions

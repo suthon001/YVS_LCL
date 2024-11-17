@@ -40,6 +40,7 @@ pageextension 80011 "YVS Purchase Quotes Lists" extends "Purchase Quotes"
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies value of the field.';
+                Visible = CheckDisableLCL;
 
             }
         }

@@ -40,19 +40,19 @@ pageextension 80040 "YVS PostedInvoiceCard" extends "Posted Purchase Invoice"
 
         modify(Corrective)
         {
-            Visible = false;
+            Visible = not CheckDisableLCL;
         }
         modify(Cancelled)
         {
-            Visible = false;
+            Visible = not CheckDisableLCL;
         }
         modify("No. Printed")
         {
-            Visible = false;
+            Visible = not CheckDisableLCL;
         }
         modify("Order Address Code")
         {
-            Visible = false;
+            Visible = not CheckDisableLCL;
         }
         addafter("No.")
         {
@@ -60,6 +60,7 @@ pageextension 80040 "YVS PostedInvoiceCard" extends "Posted Purchase Invoice"
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the identifier of the vendor that you bought the items from.';
+                Visible = CheckDisableLCL;
             }
         }
         addafter("Due Date")

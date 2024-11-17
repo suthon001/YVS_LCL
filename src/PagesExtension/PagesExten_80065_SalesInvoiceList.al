@@ -31,9 +31,9 @@ pageextension 80065 "YVS Sales Invoice Lists" extends "Sales Invoice List"
         }
         modify(Status)
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
-        moveafter("No."; Status)
+        // moveafter("No."; Status)
     }
     actions
     {

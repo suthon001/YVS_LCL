@@ -13,6 +13,7 @@ pageextension 80013 "YVS Purchase Quotes Subpage" extends "Purchase Quote Subfor
         {
             Importance = Standard;
             ApplicationArea = all;
+            Visible = CheckDisableLCL;
         }
         modify(FilteredTypeField)
         {
@@ -26,9 +27,9 @@ pageextension 80013 "YVS Purchase Quotes Subpage" extends "Purchase Quote Subfor
         modify("VAT Prod. Posting Group") { Visible = NOT CheckDisableLCL; }
         modify("Gen. Bus. Posting Group") { Visible = NOT CheckDisableLCL; }
         modify("Gen. Prod. Posting Group") { Visible = NOT CheckDisableLCL; }
-        moveafter(Description; "Description 2")
-        movefirst(Control1; Type, "No.", Description, "Description 2", "Location Code", "Gen. Bus. Posting Group", "Gen. Prod. Posting Group", "VAT Bus. Posting Group", "VAT Prod. Posting Group", Quantity, "Unit of Measure Code", "Direct Unit Cost", "Line Discount %", "Line Discount Amount", "Line Amount",
-        "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code", ShortcutDimCode3, ShortcutDimCode4, ShortcutDimCode5, ShortcutDimCode6, ShortcutDimCode7, ShortcutDimCode8)
+        //  moveafter(Description; "Description 2")
+        // movefirst(Control1; Type, "No.", Description, "Description 2", "Location Code", "Gen. Bus. Posting Group", "Gen. Prod. Posting Group", "VAT Bus. Posting Group", "VAT Prod. Posting Group", Quantity, "Unit of Measure Code", "Direct Unit Cost", "Line Discount %", "Line Discount Amount", "Line Amount",
+        // "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code", ShortcutDimCode3, ShortcutDimCode4, ShortcutDimCode5, ShortcutDimCode6, ShortcutDimCode7, ShortcutDimCode8)
         addafter(Quantity)
         {
             field("YVS Qty. to Cancel"; rec."YVS Qty. to Cancel")
@@ -40,10 +41,11 @@ pageextension 80013 "YVS Purchase Quotes Subpage" extends "Purchase Quote Subfor
         }
         addafter("Location Code")
         {
-            field("Bin Code"; "Bin Code")
+            field("Bin Code"; rec."Bin Code")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the Bin Code field.';
+                Visible = CheckDisableLCL;
             }
         }
 

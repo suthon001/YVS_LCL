@@ -23,22 +23,23 @@ pageextension 80063 "YVS Sales Order Card" extends "Sales Order"
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies value of the field.';
+                Visible = CheckDisableLCL;
             }
 
         }
         modify("VAT Registration No.")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
             Editable = true;
         }
-        moveafter("VAT Branch Code"; "VAT Registration No.")
+        //  moveafter("VAT Branch Code"; "VAT Registration No.")
         modify("No.")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
         modify("Sell-to Customer No.")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
             ApplicationArea = all;
             Importance = Promoted;
 
@@ -47,7 +48,7 @@ pageextension 80063 "YVS Sales Order Card" extends "Sales Order"
 
         modify("Salesperson Code")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
             Importance = Standard;
         }
         modify(Status)
@@ -56,7 +57,7 @@ pageextension 80063 "YVS Sales Order Card" extends "Sales Order"
         }
         modify("Work Description")
         {
-            Visible = false;
+            Visible = not CheckDisableLCL;
         }
         modify("Shipment Date")
         {
@@ -64,11 +65,11 @@ pageextension 80063 "YVS Sales Order Card" extends "Sales Order"
         }
 
 
-        moveafter("Due Date"; "Shipment Date")
-        moveafter("External Document No."; "Salesperson Code", "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code")
+        //  moveafter("Due Date"; "Shipment Date")
+        //   moveafter("External Document No."; "Salesperson Code", "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code")
         modify(Control123)
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
 
     }

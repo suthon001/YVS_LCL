@@ -8,46 +8,46 @@ pageextension 80039 "YVS PostedInvoiceList" extends "Posted Purchase Invoices"
 
         modify("No. Printed")
         {
-            Visible = false;
+            Visible = not CheckDisableLCL;
         }
         modify(Cancelled)
         {
-            Visible = false;
+            Visible = not CheckDisableLCL;
         }
         modify(Closed)
         {
-            Visible = false;
+            Visible = not CheckDisableLCL;
         }
         modify("Pay-to Vendor No.")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
         modify("Pay-to Name")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
         modify(Corrective)
         {
-            Visible = false;
+            Visible = not CheckDisableLCL;
         }
         modify("Posting Date")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
         modify("Document Date")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
         modify("Payment Method Code")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
         modify("Payment Terms Code")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
-        moveafter("No."; "Posting Date", "Document Date", "Due Date", "Vendor Invoice No.", "Buy-from Vendor No.", "Pay-to Vendor No.", "Buy-from Vendor Name", "Pay-to Name",
-        "Currency Code", "Location Code", "Payment Method Code", "Payment Terms Code", Amount, "Amount Including VAT", "Remaining Amount")
+        // moveafter("No."; "Posting Date", "Document Date", "Due Date", "Vendor Invoice No.", "Buy-from Vendor No.", "Pay-to Vendor No.", "Buy-from Vendor Name", "Pay-to Name",
+        //  "Currency Code", "Location Code", "Payment Method Code", "Payment Terms Code", Amount, "Amount Including VAT", "Remaining Amount")
         addafter("Remaining Amount")
         {
             field("Head Office"; Rec."YVS Head Office")

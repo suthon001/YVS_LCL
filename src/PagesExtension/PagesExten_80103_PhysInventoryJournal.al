@@ -13,6 +13,7 @@ pageextension 80103 "YVS Phys. Inventory Journal" extends "Phys. Inventory Journ
                 Caption = '&Print';
                 Ellipsis = true;
                 Image = Print;
+                Visible = CheckDisableLCL;
                 ToolTip = 'Prepare to print the document. A report request window for the document opens where you can specify what to include on the print-out.';
 
                 trigger OnAction()
@@ -33,7 +34,15 @@ pageextension 80103 "YVS Phys. Inventory Journal" extends "Phys. Inventory Journ
         }
         modify(Print)
         {
-            Visible = false;
+            Visible = not CheckDisableLCL;
         }
     }
+    trigger OnOpenPage()
+    begin
+        CheckDisableLCL := FuncenterYVS.CheckDisableLCL();
+    end;
+
+    var
+        CheckDisableLCL: Boolean;
+        FuncenterYVS: Codeunit "YVS Function Center";
 }

@@ -7,7 +7,15 @@ pageextension 80052 "YVS CustLedgEntry" extends "Customer Ledger Entries"
     {
         modify("External Document No.")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
     }
+    trigger OnOpenPage()
+    begin
+        CheckDisableLCL := FuncenterYVS.CheckDisableLCL();
+    end;
+
+    var
+        CheckDisableLCL: Boolean;
+        FuncenterYVS: Codeunit "YVS Function Center";
 }

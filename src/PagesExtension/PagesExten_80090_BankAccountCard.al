@@ -7,8 +7,16 @@ pageextension 80090 "YVS BankAccountCard" extends "Bank Account Card"
     {
         modify("Bank Branch No.")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
         movebefore("Bank Account No."; "Bank Branch No.")
     }
+    trigger OnOpenPage()
+    begin
+        CheckDisableLCL := FuncenterYVS.CheckDisableLCL();
+    end;
+
+    var
+        CheckDisableLCL: Boolean;
+        FuncenterYVS: Codeunit "YVS Function Center";
 }

@@ -8,36 +8,36 @@ pageextension 80016 "YVS Sales Quotes Lists" extends "Sales Quotes"
 
         modify("Bill-to Customer No.")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
         modify("Requested Delivery Date")
         {
-            Visible = false;
+            Visible = not CheckDisableLCL;
         }
         modify("Location Code")
         {
-            Visible = false;
+            Visible = not CheckDisableLCL;
         }
         modify("Assigned User ID")
         {
-            Visible = false;
+            Visible = not CheckDisableLCL;
         }
         modify(Status)
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
         modify("Sell-to Contact")
         {
-            Visible = false;
+            Visible = not CheckDisableLCL;
         }
 
-        moveafter("No."; Status, "Sell-to Customer No.", "Bill-to Customer No.", "Sell-to Customer Name", "External Document No.", "Posting Date", "Document Date", "Due Date",
-        "Quote Valid Until Date", Amount)
+        // moveafter("No."; Status, "Sell-to Customer No.", "Bill-to Customer No.", "Sell-to Customer Name", "External Document No.", "Posting Date", "Document Date", "Due Date",
+        //  "Quote Valid Until Date", Amount)
         modify("Your Reference")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
-        moveafter("Quote Valid Until Date"; "Your Reference")
+        // moveafter("Quote Valid Until Date"; "Your Reference")
 
         addafter(Amount)
         {

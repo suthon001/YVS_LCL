@@ -7,7 +7,7 @@ pageextension 80086 "YVS Depreciation Books Subform" extends "FA Depreciation Bo
     {
         modify("Straight-Line %")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
         addafter("No. of Depreciation Years")
         {

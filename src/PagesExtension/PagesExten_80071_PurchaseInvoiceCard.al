@@ -45,25 +45,26 @@ pageextension 80071 "YVS Purchase Invoice Card" extends "Purchase Invoice"
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the number of the vendor that you received the invoice from.';
+                Visible = CheckDisableLCL;
             }
         }
         modify("No.")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
-        moveafter("Purchaser Code"; "Currency Code")
+        // moveafter("Purchaser Code"; "Currency Code")
         modify("Buy-from Vendor No.")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
             Importance = Promoted;
         }
         modify("Responsibility Center")
         {
-            Visible = false;
+            Visible = not CheckDisableLCL;
         }
         modify("Campaign No.")
         {
-            Visible = false;
+            Visible = not CheckDisableLCL;
         }
         modify(Status)
         {
@@ -79,19 +80,19 @@ pageextension 80071 "YVS Purchase Invoice Card" extends "Purchase Invoice"
         }
         modify("Posting Description")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
-        moveafter("Currency Code"; "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code")
-        moveafter("Gen. Bus. Posting Group"; "VAT Bus. Posting Group")
-        moveafter("Buy-from Contact"; "Posting Description")
-        moveafter("Vendor Invoice No."; "Payment Terms Code", "Payment Method Code")
+        // moveafter("Currency Code"; "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code")
+        // moveafter("Gen. Bus. Posting Group"; "VAT Bus. Posting Group")
+        // moveafter("Buy-from Contact"; "Posting Description")
+        // moveafter("Vendor Invoice No."; "Payment Terms Code", "Payment Method Code")
         modify(Control93)
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
         modify(Control103)
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
         addafter("Posting Description")
         {

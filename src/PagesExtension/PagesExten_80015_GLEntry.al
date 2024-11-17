@@ -35,7 +35,7 @@ pageextension 80015 "YVS GLEntry" extends "General Ledger Entries"
         {
             Visible = NOT CheckDisableLCL;
         }
-        moveafter("Journal Description"; "Gen. Bus. Posting Group", "Gen. Prod. Posting Group", "VAT Bus. Posting Group", "VAT Prod. Posting Group")
+        //  moveafter("Journal Description"; "Gen. Bus. Posting Group", "Gen. Prod. Posting Group", "VAT Bus. Posting Group", "VAT Prod. Posting Group")
     }
     trigger OnOpenPage()
     begin

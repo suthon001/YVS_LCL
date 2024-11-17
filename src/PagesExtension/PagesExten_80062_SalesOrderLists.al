@@ -8,54 +8,54 @@ pageextension 80062 "YVS Sales Order Lists" extends "Sales Order List"
     {
         modify("Bill-to Customer No.")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
         modify("Salesperson Code")
         {
-            Visible = false;
+            Visible = not CheckDisableLCL;
         }
         modify("Ship-to Name")
         {
-            Visible = false;
+            Visible = not CheckDisableLCL;
         }
         modify("Sell-to Customer Name")
         {
-            Visible = false;
+            Visible = not CheckDisableLCL;
         }
         modify("Location Code")
         {
-            Visible = false;
+            Visible = not CheckDisableLCL;
         }
         modify("Posting Date")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
         modify("Completely Shipped")
         {
-            Visible = false;
+            Visible = not CheckDisableLCL;
         }
         modify("Quote No.")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
         modify("Assigned User ID")
         {
-            Visible = false;
+            Visible = not CheckDisableLCL;
         }
         modify("Amt. Ship. Not Inv. (LCY)")
         {
-            Visible = false;
+            Visible = not CheckDisableLCL;
         }
         modify("Amt. Ship. Not Inv. (LCY) Base")
         {
-            Visible = false;
+            Visible = not CheckDisableLCL;
         }
         modify("Your Reference")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
-        moveafter("No."; Status, "Posting Date", "Sell-to Customer No.", "Bill-to Customer No.",
-        "Sell-to Customer Name", "External Document No.", "Document Date", "Due Date", "Quote No.", "Your Reference", Amount, "Amount Including VAT")
+        //  moveafter("No."; Status, "Posting Date", "Sell-to Customer No.", "Bill-to Customer No.",
+        //   "Sell-to Customer Name", "External Document No.", "Document Date", "Due Date", "Quote No.", "Your Reference", Amount, "Amount Including VAT")
 
 
         addafter("Amount Including VAT")

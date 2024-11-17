@@ -6,7 +6,7 @@ pageextension 80028 "YVS ExtenCustomerLists" extends "Customer List"
 
     layout
     {
-        moveafter("Payments (LCY)"; "Credit Limit (LCY)")
+        // moveafter("Payments (LCY)"; "Credit Limit (LCY)")
         addafter("Credit Limit (LCY)")
         {
             field(AvalibleCreditAmt; AvalibleCreditAmt)
@@ -20,22 +20,22 @@ pageextension 80028 "YVS ExtenCustomerLists" extends "Customer List"
         }
         modify("Credit Limit (LCY)")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
         modify("Payments (LCY)")
         {
-            Visible = false;
+            Visible = not CheckDisableLCL;
         }
         modify(Contact)
         {
-            Visible = false;
+            Visible = not CheckDisableLCL;
         }
         modify("Name 2")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
-        moveafter("No."; Name, "Name 2", "Customer Posting Group", "Gen. Bus. Posting Group", "VAT Bus. Posting Group", "Phone No.", "Payment Terms Code", "Location Code", "Responsibility Center",
-         "Credit Limit (LCY)", "Balance (LCY)", "Balance Due (LCY)", "Sales (LCY)")
+        // moveafter("No."; Name, "Name 2", "Customer Posting Group", "Gen. Bus. Posting Group", "VAT Bus. Posting Group", "Phone No.", "Payment Terms Code", "Location Code", "Responsibility Center",
+        // "Credit Limit (LCY)", "Balance (LCY)", "Balance Due (LCY)", "Sales (LCY)")
 
         addafter("Name 2")
         {
@@ -44,11 +44,14 @@ pageextension 80028 "YVS ExtenCustomerLists" extends "Customer List"
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the street and number.';
+                Visible = CheckDisableLCL;
+
             }
             field("Address 2"; Rec."Address 2")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies additional address information.';
+                Visible = CheckDisableLCL;
             }
 
 
@@ -60,6 +63,7 @@ pageextension 80028 "YVS ExtenCustomerLists" extends "Customer List"
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the customer''s fax number.';
+                Visible = CheckDisableLCL;
             }
         }
         addafter("Payment Terms Code")
@@ -68,6 +72,7 @@ pageextension 80028 "YVS ExtenCustomerLists" extends "Customer List"
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies which shipment method to use when you ship items to the customer.';
+                Visible = CheckDisableLCL;
             }
         }
         addlast(Control1)
@@ -76,6 +81,7 @@ pageextension 80028 "YVS ExtenCustomerLists" extends "Customer List"
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the customer''s VAT registration number for customers in EU countries/regions.';
+                Visible = CheckDisableLCL;
             }
             field("VAT Branch Code"; rec."YVS VAT Branch Code")
             {
@@ -94,9 +100,11 @@ pageextension 80028 "YVS ExtenCustomerLists" extends "Customer List"
 
     trigger OnAfterGetRecord()
     begin
-        AvalibleCreditAmt := 0;
-        IF Rec."Credit Limit (LCY)" <> 0 then
-            AvalibleCreditAmt := Rec."Credit Limit (LCY)" - Rec.GetTotalAmountLCY();
+        if CheckDisableLCL then begin
+            AvalibleCreditAmt := 0;
+            IF Rec."Credit Limit (LCY)" <> 0 then
+                AvalibleCreditAmt := Rec."Credit Limit (LCY)" - Rec.GetTotalAmountLCY();
+        end;
     end;
 
     trigger OnOpenPage()

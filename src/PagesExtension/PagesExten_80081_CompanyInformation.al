@@ -48,7 +48,7 @@ pageextension 80081 "YVS Company Information" extends "Company Information"
         }
         modify(CountyGroup)
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
         addlast(General)
         {

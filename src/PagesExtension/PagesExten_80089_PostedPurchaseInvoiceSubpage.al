@@ -8,9 +8,9 @@ pageextension 80089 "YVS Posted Purch. Invoice Sub" extends "Posted Purch. Invoi
 
         modify("Description 2")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
-        moveafter(Description; "Description 2")
+        //  moveafter(Description; "Description 2")
 
         addafter("Description 2")
         {
@@ -22,21 +22,21 @@ pageextension 80089 "YVS Posted Purch. Invoice Sub" extends "Posted Purch. Invoi
         }
         modify("Gen. Bus. Posting Group")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
         modify("VAT Bus. Posting Group")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
         modify("Gen. Prod. Posting Group")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
         modify("VAT Prod. Posting Group")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
-        moveafter("Location Code"; "Gen. Bus. Posting Group", "Gen. Prod. Posting Group", "VAT Bus. Posting Group", "VAT Prod. Posting Group")
+        //  moveafter("Location Code"; "Gen. Bus. Posting Group", "Gen. Prod. Posting Group", "VAT Bus. Posting Group", "VAT Prod. Posting Group")
         addafter("VAT Prod. Posting Group")
         {
             field("WHT Business Posting Group"; Rec."YVS WHT Business Posting Group")

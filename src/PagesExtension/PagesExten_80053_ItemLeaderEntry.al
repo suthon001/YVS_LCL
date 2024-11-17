@@ -31,16 +31,16 @@ pageextension 80053 "YVS ItemLedgerEntry" extends "Item Ledger Entries"
         }
         modify("Cost Amount (Expected)")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
         modify("Sales Amount (Expected)")
         {
-            Visible = true;
+            Visible = CheckDisableLCL;
         }
         moveafter("Sales Amount (Actual)"; "Sales Amount (Expected)")
         moveafter("Cost Amount (Actual)"; "Cost Amount (Expected)")
-        modify("Lot No.") { Visible = true; }
-        modify("Serial No.") { Visible = true; }
+        modify("Lot No.") { Visible = CheckDisableLCL; }
+        modify("Serial No.") { Visible = CheckDisableLCL; }
         moveafter("Lot No."; "Serial No.")
 
     }

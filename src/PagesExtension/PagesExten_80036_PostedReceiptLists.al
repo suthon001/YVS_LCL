@@ -22,7 +22,7 @@ pageextension 80036 "YVS PostedReceiptList" extends "Posted Purchase Receipts"
         {
             Visible = not CheckDisableLCL;
         }
-        moveafter("no."; "Posting Date", "Document Date", "Buy-from Vendor No.", "Pay-to Vendor No.", "Buy-from Vendor Name", "Pay-to Name")
+        //  moveafter("no."; "Posting Date", "Document Date", "Buy-from Vendor No.", "Pay-to Vendor No.", "Buy-from Vendor Name", "Pay-to Name")
         addafter("Document Date")
         {
             field("Expected Receipt Date"; Rec."Expected Receipt Date")
