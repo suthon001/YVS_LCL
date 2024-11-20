@@ -151,9 +151,7 @@ report 80013 "YVS WHT PND 03"
             }
 
             trigger OnAfterGetRecord()
-            var
 
-                var_WHTRegisNo: Code[20];
             begin
 
                 var_Amount := 0;
@@ -208,26 +206,66 @@ report 80013 "YVS WHT PND 03"
 
                 //     UNTIL TaxReportLine.NEXT() = 0;
 
+                // TaxReportLine.RESET();
+                // TaxReportLine.SETCURRENTKEY("WHT Registration No.");
+                // TaxReportLine.SETFILTER("Tax Type", '%1', "Tax Type");
+                // TaxReportLine.SETFILTER("Document No.", '%1', "Document No.");
+                // TaxReportLine.SetRange("Send to Report", true);
+                // if DateFilter <> '' then
+                //     TaxReportLine.SETFILTER("Posting Date", DateFilter);
+                // IF TaxReportLine.FindFirst() THEN
+                //     REPEAT
+                //         IF (var_WHTRegisNo = '') THEN
+                //             var_CountVend := var_CountVend + 1
+                //         ELSE
+                //             IF (var_WHTRegisNo = TaxReportLine."WHT Registration No.") THEN
+                //                 var_CountVend := var_CountVend
+                //             ELSE
+                //                 var_CountVend := var_CountVend + 1;
+
+                //         var_WHTRegisNo := TaxReportLine."WHT Registration No.";
+
+                //     UNTIL TaxReportLine.NEXT() = 0;
+                RowsPerPage := 5;
+                PageNo := 1;
                 TaxReportLine.RESET();
-                TaxReportLine.SETCURRENTKEY("WHT Registration No.");
+                TaxReportLine.SetCurrentKey("Tax Type", "Document No.", "Entry No.");
                 TaxReportLine.SETFILTER("Tax Type", '%1', "Tax Type");
                 TaxReportLine.SETFILTER("Document No.", '%1', "Document No.");
                 TaxReportLine.SetRange("Send to Report", true);
-                if DateFilter <> '' then
-                    TaxReportLine.SETFILTER("Posting Date", DateFilter);
-                IF TaxReportLine.FindFirst() THEN
-                    REPEAT
-                        IF (var_WHTRegisNo = '') THEN
-                            var_CountVend := var_CountVend + 1
+                if TaxReportLine.FindSet() then
+                    repeat
+                        TaxReportLineTemp.reset();
+                        TaxReportLineTemp.SetRange("Tax Type", TaxReportLine."Tax Type");
+                        TaxReportLineTemp.SetRange("Document No.", TaxReportLine."Document No.");
+                        TaxReportLineTemp.SetFilter("WHT Document No.", TaxReportLine."WHT Document No.");
+                        if not TaxReportLineTemp.FindFirst() then begin
+                            TaxReportLineTemp.Init();
+                            TaxReportLineTemp.TransferFields(TaxReportLine);
+                            TaxReportLineTemp.insert();
+                        end;
+                    until TaxReportLine.Next() = 0;
+
+
+                TaxReportLineTemp.reset();
+                TaxReportLineTemp.SetCurrentKey("Tax Type", "Document No.", "Entry No.");
+                if TaxReportLineTemp.FindSet() then
+                    repeat
+                        IF CurrDocNo = '' THEN BEGIN
+                            CurrDocNo := TaxReportLineTemp."WHT Certificate No.";
+                            var_CountVend += 1;
+                        END
                         ELSE
-                            IF (var_WHTRegisNo = TaxReportLine."WHT Registration No.") THEN
-                                var_CountVend := var_CountVend
-                            ELSE
-                                var_CountVend := var_CountVend + 1;
+                            IF CurrDocNo <> TaxReportLineTemp."WHT Certificate No." THEN BEGIN
+                                IF (var_CountVend > 0) AND (CurrDocNo <> '') AND (var_CountVend MOD RowsPerPage = 0) THEN
+                                    PageNo += 1;
 
-                        var_WHTRegisNo := TaxReportLine."WHT Registration No.";
+                                CurrDocNo := TaxReportLineTemp."WHT Certificate No.";
+                                var_CountVend += 1;
 
-                    UNTIL TaxReportLine.NEXT() = 0;
+                            END;
+
+                    until TaxReportLineTemp.Next() = 0;
 
                 //##### Option Type ######
                 IF Send_Option = Send_Option::"ยื่นปกติ" THEN
@@ -317,6 +355,7 @@ report 80013 "YVS WHT PND 03"
         var_WHTAmount: Decimal;
         var_WHTTotalAmount: Decimal;
         TaxReportLine: Record "YVS Tax & WHT Line";
+        TaxReportLineTemp: Record "YVS Tax & WHT Line" temporary;
         Send_Type: Option "3 เตรส","65 จัตวา","69 ทวิ";
         Send_Option: Option "ยื่นปกติ","ยื่นเพิ่มเติม";
         Additional_No: Integer;
@@ -325,5 +364,7 @@ report 80013 "YVS WHT PND 03"
         var_CountVend: Integer;
         var_CompnayName: Text[100];
         DateFilter: Text[100];
+        CurrDocNo: Code[20];
+        PageNo, RowsPerPage : Integer;
 }
 
