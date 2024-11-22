@@ -30,11 +30,7 @@ pageextension 80077 "YVS Sales Creidt Lists" extends "Sales Credit Memos"
                 Visible = CheckDisableLCL;
             }
         }
-        modify(Status)
-        {
-            Visible = CheckDisableLCL;
-        }
-        moveafter("No."; Status)
+
     }
     actions
     {

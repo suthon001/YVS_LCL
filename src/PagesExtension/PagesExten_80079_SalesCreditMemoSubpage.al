@@ -5,35 +5,7 @@ pageextension 80079 "YVS Sales Credit Memo Subpage" extends "Sales Cr. Memo Subf
 {
     layout
     {
-        modify("Description 2")
-        {
-            Visible = CheckDisableLCL;
-        }
-        //   moveafter(Description; "Description 2")
 
-
-        modify("Return Reason Code")
-        {
-            Visible = CheckDisableLCL;
-        }
-
-        //    moveafter("Description 2"; "Location Code")
-        modify("Gen. Bus. Posting Group")
-        {
-            Visible = CheckDisableLCL;
-        }
-        modify("VAT Bus. Posting Group")
-        {
-            Visible = CheckDisableLCL;
-        }
-        modify("Gen. Prod. Posting Group")
-        {
-            Visible = CheckDisableLCL;
-        }
-        modify("VAT Prod. Posting Group")
-        {
-            Visible = CheckDisableLCL;
-        }
         //   moveafter("Location Code"; "Gen. Bus. Posting Group", "Gen. Prod. Posting Group", "VAT Bus. Posting Group", "VAT Prod. Posting Group")
         addafter("VAT Prod. Posting Group")
         {
@@ -50,14 +22,7 @@ pageextension 80079 "YVS Sales Credit Memo Subpage" extends "Sales Cr. Memo Subf
                 Visible = CheckDisableLCL;
             }
         }
-        modify("Tax Group Code")
-        {
-            Visible = not CheckDisableLCL;
-        }
-        modify("Tax Area Code")
-        {
-            Visible = not CheckDisableLCL;
-        }
+
     }
     trigger OnOpenPage()
     begin

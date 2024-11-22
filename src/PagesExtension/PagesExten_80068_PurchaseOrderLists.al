@@ -5,10 +5,7 @@ pageextension 80068 "YVS Purchase Order Lists" extends "Purchase Order List"
 {
     layout
     {
-        modify("Vendor Authorization No.")
-        {
-            Visible = not CheckDisableLCL;
-        }
+
         addlast(Control1)
         {
             field("Head Office"; Rec."YVS Head Office")
@@ -33,10 +30,7 @@ pageextension 80068 "YVS Purchase Order Lists" extends "Purchase Order List"
                 Visible = CheckDisableLCL;
             }
         }
-        modify(Status)
-        {
-            Visible = CheckDisableLCL;
-        }
+
         // moveafter("No."; Status)
         addafter(Status)
         {

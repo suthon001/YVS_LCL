@@ -4,12 +4,5 @@
 /// </summary>
 pageextension 80098 "YVS Item Tracking Lines" extends "Item Tracking Lines"
 {
-    layout
-    {
-        modify("Expiration Date")
-        {
-            Visible = true;
-            Editable = true;
-        }
-    }
+
 }

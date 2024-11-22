@@ -18,22 +18,22 @@ pageextension 80028 "YVS ExtenCustomerLists" extends "Customer List"
                 Visible = CheckDisableLCL;
             }
         }
-        modify("Credit Limit (LCY)")
-        {
-            Visible = CheckDisableLCL;
-        }
-        modify("Payments (LCY)")
-        {
-            Visible = not CheckDisableLCL;
-        }
-        modify(Contact)
-        {
-            Visible = not CheckDisableLCL;
-        }
-        modify("Name 2")
-        {
-            Visible = CheckDisableLCL;
-        }
+        // modify("Credit Limit (LCY)")
+        // {
+        //     Visible = true;
+        // }
+        // modify("Payments (LCY)")
+        // {
+        //     Visible = false;
+        // }
+        // modify(Contact)
+        // {
+        //     Visible = false;
+        // }
+        // modify("Name 2")
+        // {
+        //     Visible = true;
+        // }
         // moveafter("No."; Name, "Name 2", "Customer Posting Group", "Gen. Bus. Posting Group", "VAT Bus. Posting Group", "Phone No.", "Payment Terms Code", "Location Code", "Responsibility Center",
         // "Credit Limit (LCY)", "Balance (LCY)", "Balance Due (LCY)", "Sales (LCY)")
 

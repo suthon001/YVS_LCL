@@ -38,22 +38,6 @@ pageextension 80040 "YVS PostedInvoiceCard" extends "Posted Purchase Invoice"
             }
         }
 
-        modify(Corrective)
-        {
-            Visible = not CheckDisableLCL;
-        }
-        modify(Cancelled)
-        {
-            Visible = not CheckDisableLCL;
-        }
-        modify("No. Printed")
-        {
-            Visible = not CheckDisableLCL;
-        }
-        modify("Order Address Code")
-        {
-            Visible = not CheckDisableLCL;
-        }
         addafter("No.")
         {
             field("Buy-from Vendor No."; Rec."Buy-from Vendor No.")

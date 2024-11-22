@@ -37,27 +37,7 @@ pageextension 80075 "YVS Purchase Credit Memo Card" extends "Purchase Credit Mem
                 Visible = CheckDisableLCL;
             }
         }
-        modify("No.")
-        {
-            Visible = CheckDisableLCL;
-        }
-        modify("Buy-from Vendor No.")
-        {
-            Visible = CheckDisableLCL;
-            Importance = Promoted;
-        }
-        modify("Vendor Authorization No.")
-        {
-            Visible = not CheckDisableLCL;
-        }
-        modify("Campaign No.")
-        {
-            Visible = not CheckDisableLCL;
-        }
-        modify("Expected Receipt Date")
-        {
-            Visible = not CheckDisableLCL;
-        }
+
         //   moveafter("Vendor Cr. Memo No."; "Purchaser Code", "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code")
         //   movebefore("Vendor Cr. Memo No."; "Posting Description")
 

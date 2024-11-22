@@ -44,26 +44,10 @@ pageextension 80012 "YVS Purchase Quote Card" extends "Purchase Quote"
                 ApplicationArea = all;
                 ToolTip = 'Specifies value of the field.';
                 Caption = 'Completely';
+                Visible = CheckDisableLCL;
             }
         }
-        modify("No.")
-        {
-            Visible = NOT CheckDisableLCL;
-            Importance = Promoted;
-        }
-        modify("Buy-from Vendor No.")
-        {
-            Visible = NOT CheckDisableLCL;
-            Importance = Standard;
-        }
-        modify("Expected Receipt Date")
-        {
-            Visible = NOT CheckDisableLCL;
-        }
-        modify("Location Code")
-        {
-            Visible = NOT CheckDisableLCL;
-        }
+
         addbefore("Pay-to Name")
         {
             field("Pay-to Vendor No."; rec."Pay-to Vendor No.")

@@ -48,52 +48,12 @@ pageextension 80071 "YVS Purchase Invoice Card" extends "Purchase Invoice"
                 Visible = CheckDisableLCL;
             }
         }
-        modify("No.")
-        {
-            Visible = CheckDisableLCL;
-        }
-        // moveafter("Purchaser Code"; "Currency Code")
-        modify("Buy-from Vendor No.")
-        {
-            Visible = CheckDisableLCL;
-            Importance = Promoted;
-        }
-        modify("Responsibility Center")
-        {
-            Visible = not CheckDisableLCL;
-        }
-        modify("Campaign No.")
-        {
-            Visible = not CheckDisableLCL;
-        }
-        modify(Status)
-        {
-            Importance = Standard;
-        }
-        modify("Posting Date")
-        {
-            Importance = Standard;
-        }
-        modify("Document Date")
-        {
-            Importance = Standard;
-        }
-        modify("Posting Description")
-        {
-            Visible = CheckDisableLCL;
-        }
+
         // moveafter("Currency Code"; "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code")
         // moveafter("Gen. Bus. Posting Group"; "VAT Bus. Posting Group")
         // moveafter("Buy-from Contact"; "Posting Description")
         // moveafter("Vendor Invoice No."; "Payment Terms Code", "Payment Method Code")
-        modify(Control93)
-        {
-            Visible = CheckDisableLCL;
-        }
-        modify(Control103)
-        {
-            Visible = CheckDisableLCL;
-        }
+
         addafter("Posting Description")
         {
             field("YVS Purchase Order No."; rec."YVS Purchase Order No.")

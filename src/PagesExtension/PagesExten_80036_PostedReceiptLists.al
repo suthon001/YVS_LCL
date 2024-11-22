@@ -6,22 +6,22 @@ pageextension 80036 "YVS PostedReceiptList" extends "Posted Purchase Receipts"
 
     layout
     {
-        modify("Pay-to Name")
-        {
-            Visible = not CheckDisableLCL;
-        }
-        modify("Pay-to Vendor No.")
-        {
-            Visible = not CheckDisableLCL;
-        }
-        modify("No. Printed")
-        {
-            Visible = not CheckDisableLCL;
-        }
-        modify("Location Code")
-        {
-            Visible = not CheckDisableLCL;
-        }
+        // modify("Pay-to Name")
+        // {
+        //     Visible = false;
+        // }
+        // modify("Pay-to Vendor No.")
+        // {
+        //     Visible = false;
+        // }
+        // modify("No. Printed")
+        // {
+        //     Visible = false;
+        // }
+        // modify("Location Code")
+        // {
+        //     Visible = false;
+        // }
         //  moveafter("no."; "Posting Date", "Document Date", "Buy-from Vendor No.", "Pay-to Vendor No.", "Buy-from Vendor Name", "Pay-to Name")
         addafter("Document Date")
         {

@@ -20,58 +20,7 @@ pageextension 80070 "YVS Purchase Order Subpage" extends "Purchase Order Subform
                 Visible = CheckDisableLCL;
             }
         }
-        modify("Description 2")
-        {
-            Visible = not CheckDisableLCL;
-        }
-        moveafter(Description; "Description 2")
 
-
-
-        modify("Tax Group Code")
-        {
-            Visible = not CheckDisableLCL;
-        }
-        modify("Tax Area Code")
-        {
-            Visible = not CheckDisableLCL;
-        }
-        modify("Over-Receipt Code")
-        {
-            Visible = CheckDisableLCL;
-        }
-        modify("Over-Receipt Quantity")
-        {
-            Visible = CheckDisableLCL;
-        }
-        modify("Line Discount Amount")
-        {
-            Visible = CheckDisableLCL;
-        }
-        modify(Type)
-        {
-            Importance = Standard;
-            ApplicationArea = all;
-            Visible = CheckDisableLCL;
-        }
-        modify(FilteredTypeField)
-        {
-            Visible = not CheckDisableLCL;
-        }
-        //  moveafter(Quantity; "Over-Receipt Code", "Over-Receipt Quantity")
-
-        modify("Qty. to Assign") { Visible = false; }
-        modify("Qty. Assigned") { Visible = false; }
-        modify("Promised Receipt Date") { Visible = false; }
-        modify("Item Charge Qty. to Handle") { Visible = false; }
-        modify("Planned Receipt Date") { Visible = false; }
-        modify("Expected Receipt Date") { Visible = false; }
-        modify("Bin Code") { Visible = true; }
-        modify("Item Reference No.") { Visible = false; }
-        modify("VAT Bus. Posting Group") { Visible = true; }
-        modify("VAT Prod. Posting Group") { Visible = true; }
-        modify("Gen. Bus. Posting Group") { Visible = true; }
-        modify("Gen. Prod. Posting Group") { Visible = true; }
 
         // movefirst(Control1; Type, "No.", Description, "Description 2", "Location Code", "Bin Code", "Gen. Bus. Posting Group", "Gen. Prod. Posting Group", "VAT Bus. Posting Group", "VAT Prod. Posting Group", Quantity, "Unit of Measure Code", "Direct Unit Cost", "Line Discount %", "Line Discount Amount", "Line Amount",
         // "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code", ShortcutDimCode3, ShortcutDimCode4, ShortcutDimCode5, ShortcutDimCode6, ShortcutDimCode7, ShortcutDimCode8, "Qty. to Receive", "Quantity Received", "Qty. to Invoice", "Quantity Invoiced")

@@ -5,28 +5,7 @@ pageextension 80067 "YVS Sales Invoice Subpage" extends "Sales Invoice Subform"
 {
     layout
     {
-        modify("Description 2")
-        {
-            Visible = CheckDisableLCL;
-        }
-        //  moveafter(Description; "Description 2")
 
-        modify("Gen. Bus. Posting Group")
-        {
-            Visible = CheckDisableLCL;
-        }
-        modify("VAT Bus. Posting Group")
-        {
-            Visible = CheckDisableLCL;
-        }
-        modify("Gen. Prod. Posting Group")
-        {
-            Visible = CheckDisableLCL;
-        }
-        modify("VAT Prod. Posting Group")
-        {
-            Visible = CheckDisableLCL;
-        }
         //  moveafter("Location Code"; "Gen. Bus. Posting Group", "Gen. Prod. Posting Group", "VAT Bus. Posting Group", "VAT Prod. Posting Group")
         addafter("VAT Prod. Posting Group")
         {
@@ -42,20 +21,6 @@ pageextension 80067 "YVS Sales Invoice Subpage" extends "Sales Invoice Subform"
                 ToolTip = 'Specifies value of the field.';
                 Visible = CheckDisableLCL;
             }
-        }
-        modify("Depr. until FA Posting Date")
-        {
-            Visible = CheckDisableLCL;
-        }
-        //  moveafter(Quantity; "Depr. until FA Posting Date")
-
-        modify("Tax Group Code")
-        {
-            Visible = not CheckDisableLCL;
-        }
-        modify("Tax Area Code")
-        {
-            Visible = not CheckDisableLCL;
         }
 
         // moveafter("VAT Bus. Posting Group"; "VAT Prod. Posting Group")

@@ -6,54 +6,7 @@ pageextension 80062 "YVS Sales Order Lists" extends "Sales Order List"
 
     layout
     {
-        modify("Bill-to Customer No.")
-        {
-            Visible = CheckDisableLCL;
-        }
-        modify("Salesperson Code")
-        {
-            Visible = not CheckDisableLCL;
-        }
-        modify("Ship-to Name")
-        {
-            Visible = not CheckDisableLCL;
-        }
-        modify("Sell-to Customer Name")
-        {
-            Visible = not CheckDisableLCL;
-        }
-        modify("Location Code")
-        {
-            Visible = not CheckDisableLCL;
-        }
-        modify("Posting Date")
-        {
-            Visible = CheckDisableLCL;
-        }
-        modify("Completely Shipped")
-        {
-            Visible = not CheckDisableLCL;
-        }
-        modify("Quote No.")
-        {
-            Visible = CheckDisableLCL;
-        }
-        modify("Assigned User ID")
-        {
-            Visible = not CheckDisableLCL;
-        }
-        modify("Amt. Ship. Not Inv. (LCY)")
-        {
-            Visible = not CheckDisableLCL;
-        }
-        modify("Amt. Ship. Not Inv. (LCY) Base")
-        {
-            Visible = not CheckDisableLCL;
-        }
-        modify("Your Reference")
-        {
-            Visible = CheckDisableLCL;
-        }
+
         //  moveafter("No."; Status, "Posting Date", "Sell-to Customer No.", "Bill-to Customer No.",
         //   "Sell-to Customer Name", "External Document No.", "Document Date", "Due Date", "Quote No.", "Your Reference", Amount, "Amount Including VAT")
 

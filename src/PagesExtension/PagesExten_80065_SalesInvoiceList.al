@@ -29,10 +29,7 @@ pageextension 80065 "YVS Sales Invoice Lists" extends "Sales Invoice List"
                 ToolTip = 'Specifies the customer''s VAT registration number for customers.';
             }
         }
-        modify(Status)
-        {
-            Visible = CheckDisableLCL;
-        }
+
         // moveafter("No."; Status)
     }
     actions

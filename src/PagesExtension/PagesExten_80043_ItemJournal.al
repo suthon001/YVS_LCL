@@ -23,19 +23,19 @@ pageextension 80043 "YVS Item Journal" extends "Item Journal"
                 end;
             }
         }
-        modify("Gen. Bus. Posting Group")
-        {
-            Visible = CheckDisableLCL;
-        }
-        modify("Gen. Prod. Posting Group")
-        {
-            Visible = CheckDisableLCL;
-        }
-        moveafter("Unit of Measure Code"; "Gen. Bus. Posting Group", "Gen. Prod. Posting Group")
-        modify("Lot No.")
-        {
-            Visible = CheckDisableLCL;
-        }
+        // modify("Gen. Bus. Posting Group")
+        // {
+        //     Visible = true;
+        // }
+        // modify("Gen. Prod. Posting Group")
+        // {
+        //     Visible = true;
+        // }
+        // moveafter("Unit of Measure Code"; "Gen. Bus. Posting Group", "Gen. Prod. Posting Group")
+        // modify("Lot No.")
+        // {
+        //     Visible = true;
+        // }
 
     }
     actions

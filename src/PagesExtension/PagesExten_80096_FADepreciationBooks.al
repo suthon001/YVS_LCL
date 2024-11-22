@@ -14,10 +14,7 @@ pageextension 80096 "YVS FA Depreciation Books" extends "FA Depreciation Books"
                 Visible = CheckDisableLCL;
             }
         }
-        modify("No. of Depreciation Years")
-        {
-            Visible = NOT CheckDisableLCL;
-        }
+
     }
     trigger OnOpenPage()
     begin

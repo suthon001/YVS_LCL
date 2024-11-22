@@ -5,30 +5,7 @@ pageextension 80072 "YVS Purchase Invoice Lists" extends "Purchase Invoices"
 {
     layout
     {
-        modify(Status)
-        {
-            Visible = CheckDisableLCL;
-        }
-        modify("Vendor Invoice No.")
-        {
-            Visible = not CheckDisableLCL;
-        }
-        modify("Pay-to Name")
-        {
-            Visible = CheckDisableLCL;
-        }
-        modify("Pay-to Vendor No.")
-        {
-            Visible = CheckDisableLCL;
-        }
-        modify("Posting Date")
-        {
-            Visible = CheckDisableLCL;
-        }
-        modify("Document Date")
-        {
-            Visible = CheckDisableLCL;
-        }
+
         // moveafter("No."; Status, "Posting Date", "Document Date", "Buy-from Vendor No.", "Pay-to Vendor No.", "Buy-from Vendor Name", "Pay-to Name",
         //  Amount, "Location Code", "Purchaser Code", "Assigned User ID")
         addafter("Pay-to Name")

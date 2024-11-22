@@ -6,11 +6,7 @@ pageextension 80089 "YVS Posted Purch. Invoice Sub" extends "Posted Purch. Invoi
     layout
     {
 
-        modify("Description 2")
-        {
-            Visible = CheckDisableLCL;
-        }
-        //  moveafter(Description; "Description 2")
+
 
         addafter("Description 2")
         {
@@ -18,24 +14,10 @@ pageextension 80089 "YVS Posted Purch. Invoice Sub" extends "Posted Purch. Invoi
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies value of the field.';
+                Visible = CheckDisableLCL;
             }
         }
-        modify("Gen. Bus. Posting Group")
-        {
-            Visible = CheckDisableLCL;
-        }
-        modify("VAT Bus. Posting Group")
-        {
-            Visible = CheckDisableLCL;
-        }
-        modify("Gen. Prod. Posting Group")
-        {
-            Visible = CheckDisableLCL;
-        }
-        modify("VAT Prod. Posting Group")
-        {
-            Visible = CheckDisableLCL;
-        }
+
         //  moveafter("Location Code"; "Gen. Bus. Posting Group", "Gen. Prod. Posting Group", "VAT Bus. Posting Group", "VAT Prod. Posting Group")
         addafter("VAT Prod. Posting Group")
         {
@@ -104,14 +86,7 @@ pageextension 80089 "YVS Posted Purch. Invoice Sub" extends "Posted Purch. Invoi
             }
         }
 
-        modify("Tax Area Code")
-        {
-            Visible = not CheckDisableLCL;
-        }
-        modify("Tax Group Code")
-        {
-            Visible = not CheckDisableLCL;
-        }
+
     }
     trigger OnOpenPage()
     begin

@@ -49,27 +49,7 @@ pageextension 80017 "YVS Sales Quote Card" extends "Sales Quote"
                 end;
             }
         }
-        modify("No.")
-        {
-            Visible = CheckDisableLCL;
-        }
-        modify("Sell-to Customer No.")
-        {
-            Importance = Standard;
-        }
 
-        modify(Status)
-        {
-            Importance = Promoted;
-        }
-        modify("Document Date")
-        {
-            Importance = Standard;
-        }
-        modify("Requested Delivery Date")
-        {
-            Visible = not CheckDisableLCL;
-        }
 
         //moveafter("External Document No."; "Salesperson Code", "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code")
         //moveafter("Make Order No. Series"; "VAT Bus. Posting Group")
@@ -110,18 +90,12 @@ pageextension 80017 "YVS Sales Quote Card" extends "Sales Quote"
                 Visible = CheckDisableLCL;
             }
         }
-        modify(Control105)
-        {
-            Visible = not CheckDisableLCL;
-        }
+
 
     }
     actions
     {
-        modify(Print)
-        {
-            Visible = false;
-        }
+
         addlast(Reporting)
         {
 

@@ -7,46 +7,6 @@ pageextension 80074 "YVS Purchase Credit MemosLists" extends "Purchase Credit Me
     layout
     {
 
-        modify(Status)
-        {
-            Visible = CheckDisableLCL;
-        }
-        modify("Posting Date")
-        {
-            Visible = CheckDisableLCL;
-        }
-        modify("Vendor Authorization No.")
-        {
-            Visible = not CheckDisableLCL;
-        }
-        modify("Vendor Cr. Memo No.")
-        {
-            Visible = not CheckDisableLCL;
-        }
-        modify("Assigned User ID")
-        {
-            Visible = not CheckDisableLCL;
-        }
-        modify("Location Code")
-        {
-            Visible = not CheckDisableLCL;
-        }
-        modify("Currency Code")
-        {
-            Visible = CheckDisableLCL;
-        }
-        modify("Pay-to Vendor No.")
-        {
-            Visible = CheckDisableLCL;
-        }
-        modify("Pay-to Name")
-        {
-            Visible = CheckDisableLCL;
-        }
-        modify("Document Date")
-        {
-            Visible = CheckDisableLCL;
-        }
         // moveafter("No."; Status, "Posting Date", "Document Date", "Buy-from Vendor No.", "Buy-from Vendor Name", "Pay-to Vendor No.", "Pay-to Name",
         //   Amount, "Due Date", "Currency Code")
         addafter("Pay-to Name")

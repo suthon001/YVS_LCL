@@ -44,11 +44,6 @@ pageextension 80011 "YVS Purchase Quotes Lists" extends "Purchase Quotes"
 
             }
         }
-        modify(Status)
-        {
-            Visible = NOT CheckDisableLCL;
-        }
-        moveafter("No."; Status)
         addafter(Status)
         {
             field("Completely Received"; rec."Completely Received")
@@ -56,6 +51,7 @@ pageextension 80011 "YVS Purchase Quotes Lists" extends "Purchase Quotes"
                 ApplicationArea = all;
                 ToolTip = 'Specifies value of the field.';
                 Caption = 'Completely';
+                Visible = CheckDisableLCL;
             }
         }
     }

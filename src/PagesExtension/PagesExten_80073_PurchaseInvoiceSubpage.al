@@ -5,29 +5,7 @@ pageextension 80073 "YVS Purchase Invoice Subpage" extends "Purch. Invoice Subfo
 {
     layout
     {
-        modify("Description 2")
-        {
-            Visible = CheckDisableLCL;
-        }
-        // moveafter(Description; "Description 2")
 
-
-        modify("Gen. Bus. Posting Group")
-        {
-            Visible = CheckDisableLCL;
-        }
-        modify("VAT Bus. Posting Group")
-        {
-            Visible = CheckDisableLCL;
-        }
-        modify("Gen. Prod. Posting Group")
-        {
-            Visible = CheckDisableLCL;
-        }
-        modify("VAT Prod. Posting Group")
-        {
-            Visible = CheckDisableLCL;
-        }
         // moveafter("Location Code"; "Gen. Bus. Posting Group", "Gen. Prod. Posting Group", "VAT Bus. Posting Group", "VAT Prod. Posting Group")
         addafter("VAT Prod. Posting Group")
         {
@@ -99,14 +77,7 @@ pageextension 80073 "YVS Purchase Invoice Subpage" extends "Purch. Invoice Subfo
         }
 
 
-        modify("Tax Area Code")
-        {
-            Visible = not CheckDisableLCL;
-        }
-        modify("Tax Group Code")
-        {
-            Visible = not CheckDisableLCL;
-        }
+
 
 
     }

@@ -5,33 +5,7 @@ pageextension 80076 "YVS Purch. Credit Memo Subpage" extends "Purch. Cr. Memo Su
 {
     layout
     {
-        modify("Description 2")
-        {
-            Visible = CheckDisableLCL;
-        }
-        moveafter(Description; "Description 2")
 
-        modify("VAT Prod. Posting Group")
-        {
-            Visible = CheckDisableLCL;
-        }
-
-        modify("Tax Group Code")
-        {
-            Visible = not CheckDisableLCL;
-        }
-        modify("Tax Area Code")
-        {
-            Visible = not CheckDisableLCL;
-        }
-        modify("Qty. Assigned")
-        {
-            Visible = not CheckDisableLCL;
-        }
-        modify("Qty. to Assign")
-        {
-            Visible = not CheckDisableLCL;
-        }
 
         addafter("VAT Prod. Posting Group")
         {

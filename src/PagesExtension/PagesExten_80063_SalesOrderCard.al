@@ -27,50 +27,7 @@ pageextension 80063 "YVS Sales Order Card" extends "Sales Order"
             }
 
         }
-        modify("VAT Registration No.")
-        {
-            Visible = CheckDisableLCL;
-            Editable = true;
-        }
-        //  moveafter("VAT Branch Code"; "VAT Registration No.")
-        modify("No.")
-        {
-            Visible = CheckDisableLCL;
-        }
-        modify("Sell-to Customer No.")
-        {
-            Visible = CheckDisableLCL;
-            ApplicationArea = all;
-            Importance = Promoted;
 
-        }
-
-
-        modify("Salesperson Code")
-        {
-            Visible = CheckDisableLCL;
-            Importance = Standard;
-        }
-        modify(Status)
-        {
-            Importance = Promoted;
-        }
-        modify("Work Description")
-        {
-            Visible = not CheckDisableLCL;
-        }
-        modify("Shipment Date")
-        {
-            Importance = Standard;
-        }
-
-
-        //  moveafter("Due Date"; "Shipment Date")
-        //   moveafter("External Document No."; "Salesperson Code", "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code")
-        modify(Control123)
-        {
-            Visible = CheckDisableLCL;
-        }
 
     }
     actions

@@ -6,37 +6,11 @@ pageextension 80016 "YVS Sales Quotes Lists" extends "Sales Quotes"
     layout
     {
 
-        modify("Bill-to Customer No.")
-        {
-            Visible = CheckDisableLCL;
-        }
-        modify("Requested Delivery Date")
-        {
-            Visible = not CheckDisableLCL;
-        }
-        modify("Location Code")
-        {
-            Visible = not CheckDisableLCL;
-        }
-        modify("Assigned User ID")
-        {
-            Visible = not CheckDisableLCL;
-        }
-        modify(Status)
-        {
-            Visible = CheckDisableLCL;
-        }
-        modify("Sell-to Contact")
-        {
-            Visible = not CheckDisableLCL;
-        }
+
 
         // moveafter("No."; Status, "Sell-to Customer No.", "Bill-to Customer No.", "Sell-to Customer Name", "External Document No.", "Posting Date", "Document Date", "Due Date",
         //  "Quote Valid Until Date", Amount)
-        modify("Your Reference")
-        {
-            Visible = CheckDisableLCL;
-        }
+
         // moveafter("Quote Valid Until Date"; "Your Reference")
 
         addafter(Amount)
@@ -87,10 +61,7 @@ pageextension 80016 "YVS Sales Quotes Lists" extends "Sales Quotes"
     }
     actions
     {
-        modify(Print)
-        {
-            Visible = false;
-        }
+
         addlast(Reporting)
         {
 

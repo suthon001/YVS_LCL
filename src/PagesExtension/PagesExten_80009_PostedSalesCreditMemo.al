@@ -20,15 +20,9 @@ pageextension 80009 "YVS Posted Sales Credit Memo" extends "Posted Sales Credit 
                 Visible = CheckDisableLCL;
             }
         }
-        modify("VAT Registration No.")
-        {
-            Visible = NOT CheckDisableLCL;
-        }
+
         moveafter("VAT Branch Code"; "VAT Registration No.")
-        modify("No.")
-        {
-            Visible = NOT CheckDisableLCL;
-        }
+
         addafter("Applies-to Doc. No.")
         {
             field("YVS Applies-to ID"; rec."YVS Applies-to ID")

@@ -11,6 +11,7 @@ pageextension 80014 "YVS VatEntry" extends "VAT Entries"
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the External Document No. field.';
+                Visible = CheckDisableLCL;
             }
             field("Tax Invoice Base"; Rec."YVS Tax Invoice Base")
             {
@@ -91,11 +92,7 @@ pageextension 80014 "YVS VatEntry" extends "VAT Entries"
             }
 
         }
-        modify("VAT Registration No.")
-        {
-            Visible = NOT CheckDisableLCL;
-        }
-        moveafter("VAT Branch Code"; "VAT Registration No.")
+
     }
     trigger OnOpenPage()
     begin

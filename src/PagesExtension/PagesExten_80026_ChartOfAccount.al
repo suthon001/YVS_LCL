@@ -14,10 +14,7 @@ pageextension 80026 "YVS ChartOfAccount" extends "Chart of Accounts"
                 Visible = CheckDisableLCL;
             }
         }
-        modify("Direct Posting")
-        {
-            Visible = CheckDisableLCL;
-        }
+
         // moveafter(Name; "Direct Posting")
         addafter("Direct Posting")
         {

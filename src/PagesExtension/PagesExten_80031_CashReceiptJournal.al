@@ -54,33 +54,33 @@ pageextension 80031 "YVS Receipt Journal" extends "Cash Receipt Journal"
         }
 
 
-        modify("Gen. Bus. Posting Group")
-        {
-            Visible = CheckDisableLCL;
-        }
-        modify("Gen. Prod. Posting Group")
-        {
-            Visible = CheckDisableLCL;
-        }
-        modify("Gen. Posting Type")
-        {
-            Visible = CheckDisableLCL;
-        }
-        modify("VAT Bus. Posting Group")
-        {
-            Visible = true;
-        }
-        modify("VAT Prod. Posting Group")
-        {
-            Visible = CheckDisableLCL;
-        }
-
+        // modify("Gen. Bus. Posting Group")
+        // {
+        //     Visible = true;
+        // }
+        // modify("Gen. Prod. Posting Group")
+        // {
+        //     Visible = true;
+        // }
+        // modify("Gen. Posting Type")
+        // {
+        //     Visible = true;
+        // }
+        // modify("VAT Bus. Posting Group")
+        // {
+        //     Visible = true;
+        // }
+        // modify("VAT Prod. Posting Group")
+        // {
+        //     Visible = true;
+        // }
+        // modify("Document Date")
+        // {
+        //     Visible = true;
+        // }
         //  movebefore(Amount; "Currency Code")
         //  moveafter(Description; Amount)
-        modify("Document Date")
-        {
-            Visible = CheckDisableLCL;
-        }
+
         //  moveafter("Posting Date"; "Document Date")
     }
     actions

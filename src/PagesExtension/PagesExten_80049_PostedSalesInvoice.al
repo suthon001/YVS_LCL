@@ -40,21 +40,6 @@ pageextension 80049 "YVS Posted Sales Invoice" extends "Posted Sales Invoice"
 
         }
 
-        modify("VAT Registration No.")
-        {
-            Visible = CheckDisableLCL;
-        }
-        // moveafter("VAT Branch Code"; "VAT Registration No.")
-        modify("No.")
-        {
-            Visible = CheckDisableLCL;
-            Importance = Promoted;
-
-        }
-        modify("Posting Date")
-        {
-            Visible = CheckDisableLCL;
-        }
 
 
     }

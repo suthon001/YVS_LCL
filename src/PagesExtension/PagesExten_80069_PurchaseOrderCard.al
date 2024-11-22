@@ -6,36 +6,7 @@ pageextension 80069 "YVS Purchase Order Card" extends "Purchase Order"
 
     layout
     {
-        modify("Payment Discount %")
-        {
-            Visible = not CheckDisableLCL;
-            Editable = Rec.Status = Rec.Status::Open;
-        }
-        modify("Pmt. Discount Date")
-        {
-            Visible = not CheckDisableLCL;
-            Editable = Rec.Status = Rec.Status::Open;
-        }
-        modify("Promised Receipt Date")
-        {
-            Visible = not CheckDisableLCL;
-            Editable = Rec.Status = Rec.Status::Open;
-        }
-        modify("VAT Reporting Date")
-        {
-            Visible = not CheckDisableLCL;
-            Editable = Rec.Status = Rec.Status::Open;
-        }
-        modify("Responsibility Center")
-        {
-            Visible = not CheckDisableLCL;
-            Editable = Rec.Status = Rec.Status::Open;
-        }
-        modify("Order Address Code")
-        {
-            Visible = not CheckDisableLCL;
-            Editable = Rec.Status = Rec.Status::Open;
-        }
+
         addbefore(Status)
         {
             field("Head Office"; Rec."YVS Head Office")
@@ -63,25 +34,7 @@ pageextension 80069 "YVS Purchase Order Card" extends "Purchase Order"
                 Visible = CheckDisableLCL;
             }
         }
-        modify("No.")
-        {
-            Visible = CheckDisableLCL;
-            Editable = Rec.Status = Rec.Status::Open;
-        }
-        modify("Buy-from Vendor No.")
-        {
-            Visible = CheckDisableLCL;
-            Importance = Standard;
-            Editable = Rec.Status = Rec.Status::Open;
-        }
-        modify("Buy-from Vendor Name")
-        {
-            Editable = Rec.Status = Rec.Status::Open;
-        }
-        modify("Currency Code")
-        {
-            Editable = Rec.Status = Rec.Status::Open;
-        }
+
 
         addlast(General)
         {
@@ -107,32 +60,7 @@ pageextension 80069 "YVS Purchase Order Card" extends "Purchase Order"
             }
         }
         //  moveafter("Posting DateVYS"; "Vendor Invoice No.", "Vendor Shipment No.", "Document Date")
-        modify("Invoice Details")
-        {
-            Editable = Rec.Status = Rec.Status::Open;
-        }
-        modify("Shipping and Payment")
-        {
-            Editable = Rec.Status = Rec.Status::Open;
-        }
-        modify("Foreign Trade")
-        {
-            Editable = Rec.Status = Rec.Status::Open;
-        }
-        modify(Prepayment)
-        {
-            Editable = Rec.Status = Rec.Status::Open;
-        }
-        modify("Expected Receipt Date")
-        {
-            Visible = CheckDisableLCL;
-            Editable = Rec.Status = Rec.Status::Open;
-        }
-        modify("Location Code")
-        {
-            Visible = CheckDisableLCL;
-            Editable = Rec.Status = Rec.Status::Open;
-        }
+
         addbefore("Pay-to Name")
         {
             field("Pay-to Vendor No."; rec."Pay-to Vendor No.")
@@ -141,41 +69,7 @@ pageextension 80069 "YVS Purchase Order Card" extends "Purchase Order"
                 ToolTip = 'Specifies the number of the vendor that you received the invoice from.';
             }
         }
-        modify("Buy-from")
-        {
-            Editable = Rec.Status = Rec.Status::Open;
-        }
 
-        modify("Assigned User ID")
-        {
-            Editable = Rec.Status = Rec.Status::Open;
-        }
-        modify("Order Date")
-        {
-            Editable = Rec.Status = Rec.Status::Open;
-            Importance = Standard;
-        }
-        modify("Purchaser Code") { Editable = Rec.Status = Rec.Status::Open; }
-        modify("Your Reference")
-        {
-            Editable = Rec.Status = Rec.Status::Open;
-        }
-
-        modify("Due Date") { Editable = Rec.Status = Rec.Status::Open; Importance = Standard; }
-        modify("Document Date") { Editable = Rec.Status = Rec.Status::Open; Importance = Standard; }
-        modify("Posting Date") { Editable = Rec.Status = Rec.Status::Open; Importance = Standard; }
-        modify("Buy-from Contact") { Editable = Rec.Status = Rec.Status::Open; }
-        modify("Buy-from Contact No.") { Editable = Rec.Status = Rec.Status::Open; }
-        modify("Shortcut Dimension 1 Code") { Editable = Rec.Status = Rec.Status::Open; }
-        modify("Shortcut Dimension 2 Code") { Editable = Rec.Status = Rec.Status::Open; }
-        // moveafter("Purchaser Code"; "Currency Code")
-        // moveafter("Currency Code"; "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code")
-        // movebefore(Status; "Expected Receipt Date", "Location Code")
-        // moveafter("Posting Date"; "Order Date", "Due Date")
-        modify(Control122)
-        {
-            Visible = CheckDisableLCL;
-        }
 
 
     }
