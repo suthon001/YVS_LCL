@@ -20,18 +20,18 @@ pageextension 80050 "YVS VatPostingSetup" extends "VAT Posting Setup Card"
                 Visible = CheckDisableLCL;
             }
         }
-        modify("Unrealized VAT Type")
-        {
-            Visible = CheckDisableLCL;
-        }
-        modify("Sales VAT Unreal. Account")
-        {
-            Visible = CheckDisableLCL;
-        }
-        modify("Purch. VAT Unreal. Account")
-        {
-            Visible = CheckDisableLCL;
-        }
+        // modify("Unrealized VAT Type")
+        // {
+        //     Visible = CheckDisableLCL;
+        // }
+        // modify("Sales VAT Unreal. Account")
+        // {
+        //     Visible = CheckDisableLCL;
+        // }
+        // modify("Purch. VAT Unreal. Account")
+        // {
+        //     Visible = CheckDisableLCL;
+        // }
     }
     trigger OnOpenPage()
     begin

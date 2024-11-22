@@ -29,19 +29,7 @@ pageextension 80053 "YVS ItemLedgerEntry" extends "Item Ledger Entries"
                 Visible = CheckDisableLCL;
             }
         }
-        modify("Cost Amount (Expected)")
-        {
-            Visible = CheckDisableLCL;
-        }
-        modify("Sales Amount (Expected)")
-        {
-            Visible = CheckDisableLCL;
-        }
-        moveafter("Sales Amount (Actual)"; "Sales Amount (Expected)")
-        moveafter("Cost Amount (Actual)"; "Cost Amount (Expected)")
-        modify("Lot No.") { Visible = CheckDisableLCL; }
-        modify("Serial No.") { Visible = CheckDisableLCL; }
-        moveafter("Lot No."; "Serial No.")
+
 
     }
     trigger OnOpenPage()

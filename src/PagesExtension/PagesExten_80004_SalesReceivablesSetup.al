@@ -37,21 +37,25 @@ pageextension 80004 "YVS ExtenSales & ReceSetup" extends "Sales & Receivables Se
                 {
                     ApplicationArea = all;
                     ToolTip = 'Specifies the value of the Default Prepaid WHT Acc. field.';
+                    Visible = CheckDisableLCL;
                 }
                 field("YVS Default Bank Fee Acc."; rec."YVS Default Bank Fee Acc.")
                 {
                     ApplicationArea = all;
                     ToolTip = 'Specifies the value of the Default Bank Fee Acc. field.';
+                    Visible = CheckDisableLCL;
                 }
                 field("YVS Default Diff Amount Acc."; rec."YVS Default Diff Amount Acc.")
                 {
                     ApplicationArea = all;
                     ToolTip = 'Specifies the value of the Default Diff Amount Acc. field.';
+                    Visible = CheckDisableLCL;
                 }
                 field("YVS Default Cash Rec. Template"; rec."YVS Default Cash Rec. Template")
                 {
                     ApplicationArea = all;
                     ToolTip = 'Specifies the value of the Default Cash Rec. Template field.';
+                    Visible = CheckDisableLCL;
                 }
             }
         }

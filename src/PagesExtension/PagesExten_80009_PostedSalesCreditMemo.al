@@ -21,7 +21,7 @@ pageextension 80009 "YVS Posted Sales Credit Memo" extends "Posted Sales Credit 
             }
         }
 
-        moveafter("VAT Branch Code"; "VAT Registration No.")
+
 
         addafter("Applies-to Doc. No.")
         {

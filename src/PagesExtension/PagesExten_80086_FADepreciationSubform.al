@@ -5,10 +5,7 @@ pageextension 80086 "YVS Depreciation Books Subform" extends "FA Depreciation Bo
 {
     layout
     {
-        modify("Straight-Line %")
-        {
-            Visible = CheckDisableLCL;
-        }
+
         addafter("No. of Depreciation Years")
         {
             field("YVS No. of Years"; Rec."YVS No. of Years")
@@ -19,10 +16,7 @@ pageextension 80086 "YVS Depreciation Books Subform" extends "FA Depreciation Bo
                 Visible = CheckDisableLCL;
             }
         }
-        modify("No. of Depreciation Years")
-        {
-            Visible = not CheckDisableLCL;
-        }
+
         addafter("YVS No. of Years")
         {
             field("YVS Acquisition Cost"; Rec."Acquisition Cost")

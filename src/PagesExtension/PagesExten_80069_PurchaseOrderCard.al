@@ -41,21 +41,25 @@ pageextension 80069 "YVS Purchase Order Card" extends "Purchase Order"
             group(ForReciving)
             {
                 Caption = 'For Receiving';
+                Visible = CheckDisableLCL;
                 field("Posting DateVYS"; rec."Posting Date")
                 {
                     ApplicationArea = all;
                     Caption = 'Posting Date';
                     ToolTip = 'Specifies the date when the posting of the purchase document will be recorded.';
+                    Visible = CheckDisableLCL;
                 }
                 field("Receiving No. Series"; rec."Receiving No. Series")
                 {
                     ApplicationArea = all;
                     ToolTip = 'Specifies the value of the Receiving No. Series field.';
+                    Visible = CheckDisableLCL;
                 }
                 field("Receiving No."; rec."Receiving No.")
                 {
                     ApplicationArea = all;
                     ToolTip = 'Specifies the value of the Receiving No. field.';
+                    Visible = CheckDisableLCL;
                 }
             }
         }
@@ -67,6 +71,7 @@ pageextension 80069 "YVS Purchase Order Card" extends "Purchase Order"
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the number of the vendor that you received the invoice from.';
+                Visible = CheckDisableLCL;
             }
         }
 
