@@ -50,19 +50,19 @@ pageextension 80039 "YVS PostedInvoiceList" extends "Posted Purchase Invoices"
         //  "Currency Code", "Location Code", "Payment Method Code", "Payment Terms Code", Amount, "Amount Including VAT", "Remaining Amount")
         addafter("Remaining Amount")
         {
-            field("Head Office"; Rec."YVS Head Office")
+            field("YVS Head Office"; Rec."YVS Head Office")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the Head Office field.';
                 Visible = CheckDisableLCL;
             }
-            field("VAT Branch Code"; Rec."YVS VAT Branch Code")
+            field("YVS VAT Branch Code"; Rec."YVS VAT Branch Code")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the VAT Branch Code field.';
                 Visible = CheckDisableLCL;
             }
-            field("VAT Registration No."; Rec."VAT Registration No.")
+            field("YVS VAT Registration No."; Rec."VAT Registration No.")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the VAT Registration No. field.';

@@ -14,34 +14,31 @@ pageextension 80038 "YVS PostedReceiptLines" extends "Posted Purchase Rcpt. Subf
         addafter("Description 2")
         {
 
-            field("Gen. Bus. Posting Group"; Rec."Gen. Bus. Posting Group")
+            field("YVS Gen. Bus. Posting Group"; Rec."Gen. Bus. Posting Group")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the Gen. Bus. Posting Group field.';
                 Visible = CheckDisableLCL;
             }
-
-        }
-        addafter("Gen. Bus. Posting Group")
-        {
-            field("Gen. Prod. Posting Group"; rec."Gen. Prod. Posting Group")
+            field("YVS Gen. Prod. Posting Group"; rec."Gen. Prod. Posting Group")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the Gen. Prod. Posting Group field.';
                 Visible = CheckDisableLCL;
             }
-            field("VAT Bus. Posting Group"; rec."VAT Bus. Posting Group")
+            field("YVS VAT Bus. Posting Group"; rec."VAT Bus. Posting Group")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the VAT Bus. Posting Group field.';
                 Visible = CheckDisableLCL;
             }
-            field("VAT Prod. Posting Group"; rec."VAT Prod. Posting Group")
+            field("YVS VAT Prod. Posting Group"; rec."VAT Prod. Posting Group")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the VAT Prod. Posting Group field.';
                 Visible = CheckDisableLCL;
             }
+
         }
 
 

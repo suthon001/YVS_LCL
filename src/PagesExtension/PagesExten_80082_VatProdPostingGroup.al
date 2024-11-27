@@ -7,7 +7,7 @@ pageextension 80082 "YVS Product Posting Groups" extends "VAT Product Posting Gr
     {
         addafter(Description)
         {
-            field("Direct VAT"; Rec."YVS Direct VAT")
+            field("YVS Direct VAT"; Rec."YVS Direct VAT")
             {
                 ApplicationArea = all;
                 Caption = 'Direct VAT';

@@ -8,21 +8,21 @@ pageextension 80068 "YVS Purchase Order Lists" extends "Purchase Order List"
 
         addlast(Control1)
         {
-            field("Head Office"; Rec."YVS Head Office")
+            field("YVS Head Office"; Rec."YVS Head Office")
             {
                 ApplicationArea = all;
                 Caption = 'Head Office';
                 ToolTip = 'Specifies the value of the Head Office field.';
                 Visible = CheckDisableLCL;
             }
-            field("VAT Branch Code"; Rec."YVS VAT Branch Code")
+            field("YVS VAT Branch Code"; Rec."YVS VAT Branch Code")
             {
                 ApplicationArea = all;
                 Caption = 'VAT Branch Code';
                 ToolTip = 'Specifies the value of the VAT Branch Code field.';
                 Visible = CheckDisableLCL;
             }
-            field("VAT Registration No."; Rec."VAT Registration No.")
+            field("YVS VAT Registration No."; Rec."VAT Registration No.")
             {
                 ApplicationArea = all;
                 Caption = 'VAT Registration No.';
@@ -34,11 +34,12 @@ pageextension 80068 "YVS Purchase Order Lists" extends "Purchase Order List"
         // moveafter("No."; Status)
         addafter(Status)
         {
-            field("Completely Received"; rec."Completely Received")
+            field("YVS Completely Received"; rec."Completely Received")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the Completely Received field.';
                 Visible = CheckDisableLCL;
+                Caption = 'Completely Received';
             }
         }
     }

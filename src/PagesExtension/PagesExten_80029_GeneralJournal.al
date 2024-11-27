@@ -25,7 +25,7 @@ pageextension 80029 "YVS General Journal" extends "General Journal"
         }
         addafter("VAT Amount")
         {
-            field("Require Screen Detail"; Rec."YVS Require Screen Detail")
+            field("YVS Require Screen Detail"; Rec."YVS Require Screen Detail")
             {
                 ApplicationArea = all;
                 Caption = 'Require Screen Detail';
@@ -52,7 +52,7 @@ pageextension 80029 "YVS General Journal" extends "General Journal"
         // }
         addafter(Description)
         {
-            field("Journal Description"; Rec."YVS Journal Description")
+            field("YVS Journal Description"; Rec."YVS Journal Description")
             {
                 ApplicationArea = All;
                 Caption = 'Journal Description';

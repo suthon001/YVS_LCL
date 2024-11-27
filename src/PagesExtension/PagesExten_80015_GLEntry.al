@@ -7,7 +7,7 @@ pageextension 80015 "YVS GLEntry" extends "General Ledger Entries"
     {
         addafter(Description)
         {
-            field("Journal Description"; Rec."YVS Journal Description")
+            field("YVS Journal Description"; Rec."YVS Journal Description")
             {
                 ApplicationArea = All;
                 ToolTip = 'Specifies value of the field.';

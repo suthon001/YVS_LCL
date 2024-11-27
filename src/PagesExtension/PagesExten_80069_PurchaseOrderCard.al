@@ -9,7 +9,7 @@ pageextension 80069 "YVS Purchase Order Card" extends "Purchase Order"
 
         addbefore(Status)
         {
-            field("Head Office"; Rec."YVS Head Office")
+            field("YVS Head Office"; Rec."YVS Head Office")
             {
                 ApplicationArea = all;
                 Caption = 'Head Office';
@@ -17,7 +17,7 @@ pageextension 80069 "YVS Purchase Order Card" extends "Purchase Order"
                 Editable = Rec.Status = Rec.Status::Open;
                 Visible = CheckDisableLCL;
             }
-            field("VAT Branch Code"; Rec."YVS VAT Branch Code")
+            field("YVS VAT Branch Code"; Rec."YVS VAT Branch Code")
             {
                 ApplicationArea = all;
                 Caption = 'VAT Branch Code';
@@ -25,7 +25,7 @@ pageextension 80069 "YVS Purchase Order Card" extends "Purchase Order"
                 Editable = Rec.Status = Rec.Status::Open;
                 Visible = CheckDisableLCL;
             }
-            field("VAT Registration No."; Rec."VAT Registration No.")
+            field("YVS VAT Registration No."; Rec."VAT Registration No.")
             {
                 ApplicationArea = all;
                 Caption = 'VAT Registration No.';
@@ -42,20 +42,20 @@ pageextension 80069 "YVS Purchase Order Card" extends "Purchase Order"
             {
                 Caption = 'For Receiving';
                 Visible = CheckDisableLCL;
-                field("Posting DateVYS"; rec."Posting Date")
+                field("YVS Posting DateVYS"; rec."Posting Date")
                 {
                     ApplicationArea = all;
                     Caption = 'Posting Date';
                     ToolTip = 'Specifies the date when the posting of the purchase document will be recorded.';
                     Visible = CheckDisableLCL;
                 }
-                field("Receiving No. Series"; rec."Receiving No. Series")
+                field("YVS Receiving No. Series"; rec."Receiving No. Series")
                 {
                     ApplicationArea = all;
                     ToolTip = 'Specifies the value of the Receiving No. Series field.';
                     Visible = CheckDisableLCL;
                 }
-                field("Receiving No."; rec."Receiving No.")
+                field("YVS Receiving No."; rec."Receiving No.")
                 {
                     ApplicationArea = all;
                     ToolTip = 'Specifies the value of the Receiving No. field.';
@@ -67,7 +67,7 @@ pageextension 80069 "YVS Purchase Order Card" extends "Purchase Order"
 
         addbefore("Pay-to Name")
         {
-            field("Pay-to Vendor No."; rec."Pay-to Vendor No.")
+            field("YVS Pay-to Vendor No."; rec."Pay-to Vendor No.")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the number of the vendor that you received the invoice from.';

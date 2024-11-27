@@ -20,7 +20,7 @@ pageextension 80013 "YVS Purchase Quotes Subpage" extends "Purchase Quote Subfor
         }
         addafter("Location Code")
         {
-            field("Bin Code"; rec."Bin Code")
+            field("YVS Bin Code"; rec."Bin Code")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the Bin Code field.';

@@ -9,13 +9,13 @@ pageextension 80079 "YVS Sales Credit Memo Subpage" extends "Sales Cr. Memo Subf
         //   moveafter("Location Code"; "Gen. Bus. Posting Group", "Gen. Prod. Posting Group", "VAT Bus. Posting Group", "VAT Prod. Posting Group")
         addafter("VAT Prod. Posting Group")
         {
-            field("WHT Business Posting Group"; Rec."YVS WHT Business Posting Group")
+            field("YVS WHT Business Posting Group"; Rec."YVS WHT Business Posting Group")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies value of the field.';
                 Visible = CheckDisableLCL;
             }
-            field("WHT Product Posting Group"; rec."YVS WHT Product Posting Group")
+            field("YVS WHT Product Posting Group"; rec."YVS WHT Product Posting Group")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies value of the field.';

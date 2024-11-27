@@ -7,7 +7,7 @@ pageextension 80061 "YVS FALocation" extends "FA Locations"
     {
         addlast(Control1)
         {
-            field("Location Detail"; rec."YVS Location Detail")
+            field("YVS Location Detail"; rec."YVS Location Detail")
             {
                 ApplicationArea = All;
                 ToolTip = 'Specifies the value of the Location Detail field.';

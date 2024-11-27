@@ -7,21 +7,21 @@ pageextension 80065 "YVS Sales Invoice Lists" extends "Sales Invoice List"
     {
         addbefore(Status)
         {
-            field("Head Office"; Rec."YVS Head Office")
+            field("YVS Head Office"; Rec."YVS Head Office")
             {
                 ApplicationArea = all;
                 Caption = 'Head Office';
                 ToolTip = 'Specifies value of the field.';
                 Visible = CheckDisableLCL;
             }
-            field("VAT Branch Code"; Rec."YVS VAT Branch Code")
+            field("YVS VAT Branch Code"; Rec."YVS VAT Branch Code")
             {
                 ApplicationArea = all;
                 Caption = 'VAT Branch Code';
                 ToolTip = 'Specifies value of the field.';
                 Visible = CheckDisableLCL;
             }
-            field("VAT Registration No."; Rec."VAT Registration No.")
+            field("YVS VAT Registration No."; Rec."VAT Registration No.")
             {
                 ApplicationArea = all;
                 Caption = 'VAT Registration No.';

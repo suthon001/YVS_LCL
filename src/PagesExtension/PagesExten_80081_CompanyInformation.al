@@ -7,14 +7,14 @@ pageextension 80081 "YVS Company Information" extends "Company Information"
     {
         addbefore("VAT Registration No.")
         {
-            field("Head Office"; Rec."YVS Head Office")
+            field("YVS Head Office"; Rec."YVS Head Office")
             {
                 ApplicationArea = all;
                 Caption = 'Head Office';
                 ToolTip = 'Specifies the value of the Head Office field.';
                 Visible = CheckDisableLCL;
             }
-            field("VAT Branch Code"; Rec."YVS VAT Branch Code")
+            field("YVS VAT Branch Code"; Rec."YVS VAT Branch Code")
             {
                 ApplicationArea = all;
                 Caption = 'VAT Branch Code';
@@ -24,21 +24,21 @@ pageextension 80081 "YVS Company Information" extends "Company Information"
         }
         addafter(Name)
         {
-            field("Name (Eng)"; Rec."YVS Name (Eng)")
+            field("YVS Name (Eng)"; Rec."YVS Name (Eng)")
             {
                 ApplicationArea = all;
                 Caption = 'Name (Eng)';
                 Visible = CheckDisableLCL;
                 ToolTip = 'Specifies the value of the Name (Eng) field.';
             }
-            field("Address (Eng)"; Rec."YVS Address (Eng)")
+            field("YVS Address (Eng)"; Rec."YVS Address (Eng)")
             {
                 ApplicationArea = all;
                 Caption = 'Address (Eng)';
                 ToolTip = 'Specifies the value of the Address (Eng) field.';
                 Visible = CheckDisableLCL;
             }
-            field("Address 2 (Eng)"; Rec."YVS Address 2 (Eng)")
+            field("YVS Address 2 (Eng)"; Rec."YVS Address 2 (Eng)")
             {
                 ApplicationArea = all;
                 Caption = 'Address 2 (Eng)';

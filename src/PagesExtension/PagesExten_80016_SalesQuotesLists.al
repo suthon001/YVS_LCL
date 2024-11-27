@@ -15,32 +15,32 @@ pageextension 80016 "YVS Sales Quotes Lists" extends "Sales Quotes"
 
         addafter(Amount)
         {
-            field("Amount Including VAT"; Rec."Amount Including VAT")
+            field("YVS Amount Including VAT"; Rec."Amount Including VAT")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies value of the field.';
                 Visible = CheckDisableLCL;
             }
-            field("Head Office"; Rec."YVS Head Office")
+            field("YVS Head Office"; Rec."YVS Head Office")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies value of the field.';
                 Visible = CheckDisableLCL;
             }
-            field("VAT Branch Code"; Rec."YVS VAT Branch Code")
+            field("YVS VAT Branch Code"; Rec."YVS VAT Branch Code")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies value of the field.';
                 Visible = CheckDisableLCL;
             }
-            field("VAT Registration No."; Rec."VAT Registration No.")
+            field("YVS VAT Registration No."; Rec."VAT Registration No.")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies value of the field.';
                 Visible = CheckDisableLCL;
 
             }
-            field("Sales Order No."; rec."YVS Sales Order No.")
+            field("YVS Sales Order No."; rec."YVS Sales Order No.")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies value of the field.';
@@ -49,7 +49,7 @@ pageextension 80016 "YVS Sales Quotes Lists" extends "Sales Quotes"
         }
         addafter(Status)
         {
-            field("Completely Shipped"; rec."Completely Shipped")
+            field("YVS Completely Shipped"; rec."Completely Shipped")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies value of the field.';

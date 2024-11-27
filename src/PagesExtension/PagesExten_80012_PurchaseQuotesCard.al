@@ -8,26 +8,26 @@ pageextension 80012 "YVS Purchase Quote Card" extends "Purchase Quote"
         addbefore(Status)
         {
 
-            field("Head Office"; Rec."YVS Head Office")
+            field("YVS Head Office"; Rec."YVS Head Office")
             {
                 ApplicationArea = all;
                 Visible = CheckDisableLCL;
                 ToolTip = 'Specifies the value of the Head Office field.';
             }
-            field("VAT Branch Code"; Rec."YVS VAT Branch Code")
+            field("YVS VAT Branch Code"; Rec."YVS VAT Branch Code")
             {
                 ApplicationArea = all;
                 Visible = CheckDisableLCL;
                 ToolTip = 'Specifies the value of the VAT Branch Code field.';
             }
-            field("VAT Registration No."; Rec."VAT Registration No.")
+            field("YVS VAT Registration No."; Rec."VAT Registration No.")
             {
                 ApplicationArea = all;
                 Visible = CheckDisableLCL;
                 Caption = 'VAT Registration No.';
                 ToolTip = 'Specifies the value of the VAT Registration No. field.';
             }
-            field("Purchase Order No."; rec."YVS Purchase Order No.")
+            field("YVS Purchase Order No."; rec."YVS Purchase Order No.")
             {
                 ApplicationArea = all;
                 Visible = CheckDisableLCL;
@@ -39,7 +39,7 @@ pageextension 80012 "YVS Purchase Quote Card" extends "Purchase Quote"
                 Visible = CheckDisableLCL;
                 ToolTip = 'Specifies the value of the YVS Make PO No. Series field.';
             }
-            field("Completely Received"; rec."Completely Received")
+            field("YVS Completely Received"; rec."Completely Received")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies value of the field.';
@@ -50,7 +50,7 @@ pageextension 80012 "YVS Purchase Quote Card" extends "Purchase Quote"
 
         addbefore("Pay-to Name")
         {
-            field("Pay-to Vendor No."; rec."Pay-to Vendor No.")
+            field("YVS Pay-to Vendor No."; rec."Pay-to Vendor No.")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the number of the vendor that you received the invoice from.';

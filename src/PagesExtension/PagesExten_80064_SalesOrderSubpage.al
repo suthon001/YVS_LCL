@@ -15,7 +15,7 @@ pageextension 80064 "YVS Sales Order Subpage" extends "Sales Order Subform"
         addafter("Quantity Invoiced")
         {
 
-            field("Outstanding Quantity"; Rec."Outstanding Quantity")
+            field("YVS Outstanding Quantity"; Rec."Outstanding Quantity")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies value of the field.';
@@ -25,13 +25,13 @@ pageextension 80064 "YVS Sales Order Subpage" extends "Sales Order Subform"
 
         addafter("VAT Prod. Posting Group")
         {
-            field("WHT Business Posting Group"; Rec."YVS WHT Business Posting Group")
+            field("YVS WHT Business Posting Group"; Rec."YVS WHT Business Posting Group")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies value of the field.';
                 Visible = CheckDisableLCL;
             }
-            field("WHT Product Posting Group"; rec."YVS WHT Product Posting Group")
+            field("YVS WHT Product Posting Group"; rec."YVS WHT Product Posting Group")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies value of the field.';

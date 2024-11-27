@@ -9,48 +9,39 @@ pageextension 80001 "YVS ExtenVendor Card" extends "Vendor Card"
         addlast(General)
         {
 
-            field("Global Dimension 1 Code"; rec."Global Dimension 1 Code")
+            field("YVS Global Dimension 1 Code"; rec."Global Dimension 1 Code")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the Global Dimension 1 Code field.';
                 Visible = CheckDisableLCL;
             }
-            field("Global Dimension 2 Code"; rec."Global Dimension 2 Code")
+            field("YVS Global Dimension 2 Code"; rec."Global Dimension 2 Code")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the Global Dimension 2 Code field.';
                 Visible = CheckDisableLCL;
             }
-            field("WHT Business Posting Group"; rec."YVS WHT Business Posting Group")
+            field("YVS WHT Business Posting Group"; rec."YVS WHT Business Posting Group")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the WHT Business Posting Group field.';
                 Visible = CheckDisableLCL;
                 ShowMandatory = true;
             }
-            field("Head Office"; rec."YVS Head Office")
+            field("YVS Head Office"; rec."YVS Head Office")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the Head Office field.';
                 Visible = CheckDisableLCL;
             }
-            field("VAT Branch Code"; rec."YVS VAT Branch Code")
+            field("YVS VAT Branch Code"; rec."YVS VAT Branch Code")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the VAT Branch Code field.';
                 Visible = CheckDisableLCL;
             }
         }
-        moveafter("VAT Branch Code"; "VAT Registration No.")
-        modify("Currency Code")
-        {
-            Visible = true;
-        }
-        modify("No.")
-        {
-            Visible = true;
-            Importance = Promoted;
-        }
+
         addafter(General)
         {
             group(WHTInfor)
@@ -137,10 +128,7 @@ pageextension 80001 "YVS ExtenVendor Card" extends "Vendor Card"
                 ToolTip = 'Specifies the value of the No. 2 field.';
             }
         }
-        modify(Control199)
-        {
-            Visible = NOT CheckDisableLCL;
-        }
+
     }
     trigger OnOpenPage()
     begin

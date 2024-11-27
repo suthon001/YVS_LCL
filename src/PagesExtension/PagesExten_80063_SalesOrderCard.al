@@ -7,19 +7,19 @@ pageextension 80063 "YVS Sales Order Card" extends "Sales Order"
     {
         addbefore(Status)
         {
-            field("Head Office"; Rec."YVS Head Office")
+            field("YVS Head Office"; Rec."YVS Head Office")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies value of the field.';
                 Visible = CheckDisableLCL;
             }
-            field("VAT Branch Code"; Rec."YVS VAT Branch Code")
+            field("YVS VAT Branch Code"; Rec."YVS VAT Branch Code")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies value of the field.';
                 Visible = CheckDisableLCL;
             }
-            field("Shipping No. Series"; Rec."Shipping No. Series")
+            field("YVS Shipping No. Series"; Rec."Shipping No. Series")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies value of the field.';

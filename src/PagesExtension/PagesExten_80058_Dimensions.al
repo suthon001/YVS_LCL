@@ -7,7 +7,7 @@ pageextension 80058 "YVS Dimensions" extends Dimensions
     {
         addafter(Description)
         {
-            field("Thai Description"; rec."Thai Description")
+            field("YVS Thai Description"; rec."Thai Description")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the Thai Description field.';

@@ -25,7 +25,7 @@ pageextension 80025 "YVS PurchaseJournal" extends "Purchase Journal"
         }
         addafter(Description)
         {
-            field("Journal Description"; Rec."YVS Journal Description")
+            field("YVS Journal Description"; Rec."YVS Journal Description")
             {
                 ApplicationArea = All;
                 ToolTip = 'Specifies the value of the Journal Description field.';

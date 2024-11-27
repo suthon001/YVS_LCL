@@ -26,7 +26,7 @@ pageextension 80030 "YVS Payment Journal" extends "Payment Journal"
         }
         addafter("VAT Amount")
         {
-            field("Require Screen Detail"; Rec."YVS Require Screen Detail")
+            field("YVS Require Screen Detail"; Rec."YVS Require Screen Detail")
             {
                 ApplicationArea = all;
                 Caption = 'Require Screen Detail';
@@ -37,14 +37,14 @@ pageextension 80030 "YVS Payment Journal" extends "Payment Journal"
         addafter(Description)
         {
 
-            field("Pay Name"; Rec."YVS Pay Name")
+            field("YVS Pay Name"; Rec."YVS Pay Name")
             {
                 ApplicationArea = all;
                 Caption = 'Pay Name';
                 ToolTip = 'Specifies the value of the Pay Name field.';
                 Visible = CheckDisableLCL;
             }
-            field("Journal Description"; Rec."YVS Journal Description")
+            field("YVS Journal Description"; Rec."YVS Journal Description")
             {
                 ApplicationArea = all;
                 Caption = 'Journal Description';

@@ -9,13 +9,13 @@ pageextension 80000 "YVS ExtenCustomer Card" extends "Customer Card"
         addlast(General)
         {
 
-            field("Global Dimension 1 Code"; rec."Global Dimension 1 Code")
+            field("YVS Global Dimension 1 Code"; rec."Global Dimension 1 Code")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the Global Dimension 1 Code field.';
                 Visible = CheckDisableLCL;
             }
-            field("Global Dimension 2 Code"; rec."Global Dimension 2 Code")
+            field("YVS Global Dimension 2 Code"; rec."Global Dimension 2 Code")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the Global Dimension 2 Code field.';
@@ -28,20 +28,19 @@ pageextension 80000 "YVS ExtenCustomer Card" extends "Customer Card"
                 ShowMandatory = true;
                 Visible = CheckDisableLCL;
             }
-            field("Head Office"; rec."YVS Head Office")
+            field("YVS Head Office"; rec."YVS Head Office")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the Head Office field.';
                 Visible = CheckDisableLCL;
             }
-            field("VAT Branch Code"; rec."YVS VAT Branch Code")
+            field("YVS VAT Branch Code"; rec."YVS VAT Branch Code")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the VAT Branch Code field.';
                 Visible = CheckDisableLCL;
             }
         }
-        moveafter("VAT Branch Code"; "VAT Registration No.")
         addafter("No.")
         {
             field("YVS No. 2"; rec."YVS No. 2")

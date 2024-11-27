@@ -7,13 +7,13 @@ pageextension 80070 "YVS Purchase Order Subpage" extends "Purchase Order Subform
     {
         addfirst(Control1)
         {
-            field("Ref. PQ No."; rec."YVS Ref. PQ No.")
+            field("YVS Ref. PQ No."; rec."YVS Ref. PQ No.")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the Ref. PR No. field.';
                 Visible = CheckDisableLCL;
             }
-            field("Ref. PQ Line No."; rec."YVS Ref. PQ Line No.")
+            field("YVS Ref. PQ Line No."; rec."YVS Ref. PQ Line No.")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the Ref. PR Line No. field.';

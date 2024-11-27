@@ -18,36 +18,19 @@ pageextension 80028 "YVS ExtenCustomerLists" extends "Customer List"
                 Visible = CheckDisableLCL;
             }
         }
-        // modify("Credit Limit (LCY)")
-        // {
-        //     Visible = true;
-        // }
-        // modify("Payments (LCY)")
-        // {
-        //     Visible = false;
-        // }
-        // modify(Contact)
-        // {
-        //     Visible = false;
-        // }
-        // modify("Name 2")
-        // {
-        //     Visible = true;
-        // }
-        // moveafter("No."; Name, "Name 2", "Customer Posting Group", "Gen. Bus. Posting Group", "VAT Bus. Posting Group", "Phone No.", "Payment Terms Code", "Location Code", "Responsibility Center",
-        // "Credit Limit (LCY)", "Balance (LCY)", "Balance Due (LCY)", "Sales (LCY)")
+
 
         addafter("Name 2")
         {
 
-            field(Address; Rec.Address)
+            field("YVS Address"; Rec.Address)
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the street and number.';
                 Visible = CheckDisableLCL;
 
             }
-            field("Address 2"; Rec."Address 2")
+            field("YVS Address 2"; Rec."Address 2")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies additional address information.';
@@ -59,7 +42,7 @@ pageextension 80028 "YVS ExtenCustomerLists" extends "Customer List"
 
         addafter("Phone No.")
         {
-            field("Fax No."; Rec."Fax No.")
+            field("YVS Fax No."; Rec."Fax No.")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the customer''s fax number.';
@@ -68,7 +51,7 @@ pageextension 80028 "YVS ExtenCustomerLists" extends "Customer List"
         }
         addafter("Payment Terms Code")
         {
-            field("Shipment Method Code"; Rec."Shipment Method Code")
+            field("YVS Shipment Method Code"; Rec."Shipment Method Code")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies which shipment method to use when you ship items to the customer.';
@@ -77,19 +60,19 @@ pageextension 80028 "YVS ExtenCustomerLists" extends "Customer List"
         }
         addlast(Control1)
         {
-            field("VAT Registration No."; rec."VAT Registration No.")
+            field("YVS VAT Registration No."; rec."VAT Registration No.")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the customer''s VAT registration number for customers in EU countries/regions.';
                 Visible = CheckDisableLCL;
             }
-            field("VAT Branch Code"; rec."YVS VAT Branch Code")
+            field("YVS VAT Branch Code"; rec."YVS VAT Branch Code")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the VAT Branch Code field.';
                 Visible = CheckDisableLCL;
             }
-            field("Head Office"; rec."YVS Head Office")
+            field("YVS Head Office"; rec."YVS Head Office")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the Head Office field.';

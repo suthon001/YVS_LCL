@@ -7,7 +7,7 @@ pageextension 80040 "YVS PostedInvoiceCard" extends "Posted Purchase Invoice"
     {
         addlast(General)
         {
-            field("Gen. Bus. Posting Group"; Rec."Gen. Bus. Posting Group")
+            field("YVS Gen. Bus. Posting Group"; Rec."Gen. Bus. Posting Group")
             {
                 ApplicationArea = all;
                 Caption = 'Gen. Bus. Posting Group';
@@ -15,21 +15,21 @@ pageextension 80040 "YVS PostedInvoiceCard" extends "Posted Purchase Invoice"
                 Visible = CheckDisableLCL;
             }
 
-            field("Head Office"; Rec."YVS Head Office")
+            field("YVS Head Office"; Rec."YVS Head Office")
             {
                 ApplicationArea = all;
                 Caption = 'Head Office';
                 ToolTip = 'Specifies the value of the Head Office field.';
                 Visible = CheckDisableLCL;
             }
-            field("VAT Branch Code"; Rec."YVS VAT Branch Code")
+            field("YVS VAT Branch Code"; Rec."YVS VAT Branch Code")
             {
                 ApplicationArea = all;
                 Caption = 'VAT Branch Code';
                 ToolTip = 'Specifies the value of the VAT Branch Code field.';
                 Visible = CheckDisableLCL;
             }
-            field("VAT Registration No."; Rec."VAT Registration No.")
+            field("YVS VAT Registration No."; Rec."VAT Registration No.")
             {
                 ApplicationArea = all;
                 Caption = 'VAT Registration No.';
@@ -40,7 +40,7 @@ pageextension 80040 "YVS PostedInvoiceCard" extends "Posted Purchase Invoice"
 
         addafter("No.")
         {
-            field("Buy-from Vendor No."; Rec."Buy-from Vendor No.")
+            field("YVS Buy-from Vendor No."; Rec."Buy-from Vendor No.")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the identifier of the vendor that you bought the items from.';

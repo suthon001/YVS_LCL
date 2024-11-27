@@ -7,14 +7,14 @@ pageextension 80053 "YVS ItemLedgerEntry" extends "Item Ledger Entries"
     {
         addafter(Description)
         {
-            field("Vendor/Customer Name"; Rec."YVS Vendor/Customer Name")
+            field("YVS Vendor/Customer Name"; Rec."YVS Vendor/Customer Name")
             {
                 ApplicationArea = all;
                 Editable = false;
                 ToolTip = 'Specifies the value of the Vendor/Customer Name field.';
                 Visible = CheckDisableLCL;
             }
-            field("External Document No."; rec."External Document No.")
+            field("YVS External Document No."; rec."External Document No.")
             {
                 ApplicationArea = all;
                 Editable = false;

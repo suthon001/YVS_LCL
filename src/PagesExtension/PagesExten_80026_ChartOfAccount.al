@@ -7,7 +7,7 @@ pageextension 80026 "YVS ChartOfAccount" extends "Chart of Accounts"
     {
         addafter(Name)
         {
-            field("Search Name"; rec."Search Name")
+            field("YVS Search Name"; rec."Search Name")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies an alternate name that you can use to search for the record in question when you cannot remember the value in the Name field.';
@@ -18,7 +18,7 @@ pageextension 80026 "YVS ChartOfAccount" extends "Chart of Accounts"
         // moveafter(Name; "Direct Posting")
         addafter("Direct Posting")
         {
-            field(Blocked; rec.Blocked)
+            field("YVS Blocked"; rec.Blocked)
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies that the related record is blocked from being posted in transactions, for example a customer that is declared insolvent or an item that is placed in quarantine.';

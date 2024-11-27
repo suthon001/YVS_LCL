@@ -8,7 +8,7 @@ pageextension 80071 "YVS Purchase Invoice Card" extends "Purchase Invoice"
     {
         addbefore(Status)
         {
-            field("Gen. Bus. Posting Group"; Rec."Gen. Bus. Posting Group")
+            field("YVS Gen. Bus. Posting Group"; Rec."Gen. Bus. Posting Group")
             {
                 ApplicationArea = all;
                 Caption = 'Gen. Bus. Posting Group';
@@ -16,21 +16,21 @@ pageextension 80071 "YVS Purchase Invoice Card" extends "Purchase Invoice"
                 Visible = CheckDisableLCL;
             }
 
-            field("Head Office"; Rec."YVS Head Office")
+            field("YVS Head Office"; Rec."YVS Head Office")
             {
                 ApplicationArea = all;
                 Caption = 'Head Office';
                 ToolTip = 'Specifies the value of the Head Office field.';
                 Visible = CheckDisableLCL;
             }
-            field("VAT Branch Code"; Rec."YVS VAT Branch Code")
+            field("YVS VAT Branch Code"; Rec."YVS VAT Branch Code")
             {
                 ApplicationArea = all;
                 Caption = 'VAT Branch Code';
                 ToolTip = 'Specifies the value of the VAT Branch Code field.';
                 Visible = CheckDisableLCL;
             }
-            field("VAT Registration No."; Rec."VAT Registration No.")
+            field("YVS VAT Registration No."; Rec."VAT Registration No.")
             {
                 ApplicationArea = all;
                 Caption = 'VAT Registration No.';
@@ -41,7 +41,7 @@ pageextension 80071 "YVS Purchase Invoice Card" extends "Purchase Invoice"
         }
         addbefore("Pay-to Name")
         {
-            field("Pay-to Vendor No."; rec."Pay-to Vendor No.")
+            field("YVS Pay-to Vendor No."; rec."Pay-to Vendor No.")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the number of the vendor that you received the invoice from.';

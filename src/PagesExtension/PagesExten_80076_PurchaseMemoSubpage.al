@@ -9,7 +9,7 @@ pageextension 80076 "YVS Purch. Credit Memo Subpage" extends "Purch. Cr. Memo Su
 
         addafter("VAT Prod. Posting Group")
         {
-            field("WHT Product Posting Group"; Rec."YVS WHT Product Posting Group")
+            field("YVS WHT Product Posting Group"; Rec."YVS WHT Product Posting Group")
             {
                 ApplicationArea = All;
                 Caption = 'WHT Product Posting Group';

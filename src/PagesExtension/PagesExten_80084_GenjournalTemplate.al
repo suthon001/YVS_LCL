@@ -7,7 +7,7 @@ pageextension 80084 "YVS GenjournalTemplate" extends "General Journal Templates"
     {
         addafter(Description)
         {
-            field("Description Thai"; rec."YVS Description Thai")
+            field("YVS Description Thai"; rec."YVS Description Thai")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the Description Thai field.';

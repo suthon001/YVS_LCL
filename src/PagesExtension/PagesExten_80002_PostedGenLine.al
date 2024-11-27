@@ -8,13 +8,13 @@ pageextension 80002 "YVS ExtenPostPostedGenLine" extends "Posted General Journal
     {
         addafter(Description)
         {
-            field("External Document No."; rec."External Document No.")
+            field("YVS External Document No."; rec."External Document No.")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the External Document No. field.';
                 Visible = CheckDisableLCL;
             }
-            field("Require Screen Detail"; Rec."YVS Require Screen Detail")
+            field("YVS Require Screen Detail"; Rec."YVS Require Screen Detail")
             {
                 ApplicationArea = all;
                 Caption = 'Require Screen Detail';

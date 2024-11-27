@@ -26,7 +26,7 @@ pageextension 80031 "YVS Receipt Journal" extends "Cash Receipt Journal"
         }
         addafter("VAT Amount")
         {
-            field("Require Screen Detail"; Rec."YVS Require Screen Detail")
+            field("YVS Require Screen Detail"; Rec."YVS Require Screen Detail")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the Require Screen Detail field.';
@@ -36,7 +36,7 @@ pageextension 80031 "YVS Receipt Journal" extends "Cash Receipt Journal"
         }
         addafter(Description)
         {
-            field("Journal Description"; Rec."YVS Journal Description")
+            field("YVS Journal Description"; Rec."YVS Journal Description")
             {
                 ApplicationArea = all;
                 Caption = 'Journal Description';
@@ -44,7 +44,7 @@ pageextension 80031 "YVS Receipt Journal" extends "Cash Receipt Journal"
                 Visible = CheckDisableLCL;
             }
 
-            field("Pay Name"; Rec."YVS Pay Name")
+            field("YVS Pay Name"; Rec."YVS Pay Name")
             {
                 ApplicationArea = all;
                 Caption = 'Pay Name';

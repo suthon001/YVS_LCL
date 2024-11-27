@@ -12,7 +12,7 @@ pageextension 80074 "YVS Purchase Credit MemosLists" extends "Purchase Credit Me
         addafter("Pay-to Name")
         {
 
-            field("Posting Description"; Rec."Posting Description")
+            field("YVS Posting Description"; Rec."Posting Description")
             {
                 ApplicationArea = all;
                 Caption = 'Posting Description"';
@@ -24,7 +24,7 @@ pageextension 80074 "YVS Purchase Credit MemosLists" extends "Purchase Credit Me
 
         addafter(Amount)
         {
-            field("Amount Including VAT"; Rec."Amount Including VAT")
+            field("YVS Amount Including VAT"; Rec."Amount Including VAT")
             {
                 ApplicationArea = all;
                 Caption = 'Amount Including VAT';
@@ -34,21 +34,21 @@ pageextension 80074 "YVS Purchase Credit MemosLists" extends "Purchase Credit Me
         }
         addafter("Currency Code")
         {
-            field("Head Office"; Rec."YVS Head Office")
+            field("YVS Head Office"; Rec."YVS Head Office")
             {
                 ApplicationArea = all;
                 Caption = 'Head Office';
                 ToolTip = 'Specifies the value of the Head Office field.';
                 Visible = CheckDisableLCL;
             }
-            field("VAT Branch Code"; Rec."YVS VAT Branch Code")
+            field("YVS VAT Branch Code"; Rec."YVS VAT Branch Code")
             {
                 ApplicationArea = all;
                 Caption = 'VAT Branch Code';
                 ToolTip = 'Specifies the value of the VAT Branch Code field.';
                 Visible = CheckDisableLCL;
             }
-            field("VAT Registration No."; Rec."VAT Registration No.")
+            field("YVS VAT Registration No."; Rec."VAT Registration No.")
             {
                 ApplicationArea = all;
                 Caption = 'VAT Registration No.';

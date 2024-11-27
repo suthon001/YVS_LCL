@@ -8,26 +8,26 @@ pageextension 80011 "YVS Purchase Quotes Lists" extends "Purchase Quotes"
     {
         addlast(Control1)
         {
-            field("Head Office"; Rec."YVS Head Office")
+            field("YVS Head Office"; Rec."YVS Head Office")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the Head Office field.';
                 Visible = CheckDisableLCL;
             }
-            field("VAT Branch Code"; Rec."YVS VAT Branch Code")
+            field("YVS VAT Branch Code"; Rec."YVS VAT Branch Code")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the VAT Branch Code field.';
                 Visible = CheckDisableLCL;
             }
-            field("VAT Registration No."; Rec."VAT Registration No.")
+            field("YVS VAT Registration No."; Rec."VAT Registration No.")
             {
                 ApplicationArea = all;
                 Caption = 'VAT Registration No.';
                 ToolTip = 'Specifies the value of the VAT Registration No. field.';
                 Visible = CheckDisableLCL;
             }
-            field("Purchase Order No."; rec."YVS Purchase Order No.")
+            field("YVS Purchase Order No."; rec."YVS Purchase Order No.")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the Purchase Order No. field.';
@@ -36,7 +36,7 @@ pageextension 80011 "YVS Purchase Quotes Lists" extends "Purchase Quotes"
         }
         addafter("Buy-from Vendor Name")
         {
-            field("Expected Receipt Date"; rec."Expected Receipt Date")
+            field("YVS Expected Receipt Date"; rec."Expected Receipt Date")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies value of the field.';

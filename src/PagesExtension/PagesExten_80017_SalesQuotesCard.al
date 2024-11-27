@@ -55,7 +55,7 @@ pageextension 80017 "YVS Sales Quote Card" extends "Sales Quote"
         //moveafter("Make Order No. Series"; "VAT Bus. Posting Group")
         addbefore("VAT Bus. Posting Group")
         {
-            field("Gen. Bus. Posting Group"; Rec."Gen. Bus. Posting Group")
+            field("YVS Gen. Bus. Posting Group"; Rec."Gen. Bus. Posting Group")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the value of the Gen. Bus. Posting Group field.';
@@ -64,7 +64,7 @@ pageextension 80017 "YVS Sales Quote Card" extends "Sales Quote"
         }
         addbefore("Document Date")
         {
-            field("Posting Date"; Rec."Posting Date")
+            field("YVS Posting Date"; Rec."Posting Date")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the date when the sales document was posted.';
@@ -73,7 +73,7 @@ pageextension 80017 "YVS Sales Quote Card" extends "Sales Quote"
         }
         addafter("Sell-to City")
         {
-            field("Sell-to Phone No."; Rec."Sell-to Phone No.")
+            field("YVS Sell-to Phone No."; Rec."Sell-to Phone No.")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies the telephone number of the contact person that the sales document will be sent to.';
@@ -82,7 +82,7 @@ pageextension 80017 "YVS Sales Quote Card" extends "Sales Quote"
         }
         addafter(Status)
         {
-            field("Completely Shipped"; rec."Completely Shipped")
+            field("YVS Completely Shipped"; rec."Completely Shipped")
             {
                 ApplicationArea = all;
                 ToolTip = 'Specifies value of the field.';
