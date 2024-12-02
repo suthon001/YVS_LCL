@@ -2744,7 +2744,7 @@ codeunit 80004 "YVS Function Center"
     var
         Pos: Integer;
     begin
-        Name := Var_Name;
+        Name := CopyStr(Var_Name, 1, 50);
         Pos := STRPOS(Name, '\');
         WHILE Pos > 0 DO BEGIN
             Name := COPYSTR(Name, Pos + 1);
